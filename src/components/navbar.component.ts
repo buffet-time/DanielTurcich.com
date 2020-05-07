@@ -19,4 +19,26 @@ export class Navbar extends Vue {
 	public closeNav() {
 		document.getElementById('mySidenav')!.style.width = '0'
 	}
+
+	public github() {
+		window.open('https://github.com/buffet-time')
+	}
+
+	public linkedin() {
+		window.open('https://www.linkedin.com/in/danielturcich/')
+	}
+
+	public resume() {
+		window.open(
+			'https://drive.google.com/file/d/1UhcfJUs0U3AAuHyZTZbi6bXxEL_QFZR0/view'
+		)
+	}
+
+	public bandcamp() {
+		window.open('https://buffet-time.bandcamp.com/')
+	}
+
+	public soundcloud() {
+		window.open('https://soundcloud.com/buffet_time')
+	}
 }

@@ -93,7 +93,7 @@ a {
 	left: 0;
 	background-color: #424242;
 	overflow-x: hidden;
-	transition: 0.2s;
+	transition: 0.25s;
 	padding-top: 60px;
 	margin-bottom: 4px;
 }
@@ -104,7 +104,7 @@ a {
 	font-size: 25px;
 	color: #818181;
 	display: block;
-	transition: 0.2s;
+	transition: 0.25s;
 }
 
 .sidenav a:hover {
@@ -141,6 +141,7 @@ a {
 
 .sidenav-card {
 	margin: 0;
+	cursor: pointer;
 }
 
 .sidenav-card-body {
