@@ -7,7 +7,7 @@ Vue.use(Router)
 
 const routes = [
 	{
-		path: '/',
+		path: '',
 		name: 'Home',
 		component: Home
 	},
@@ -18,4 +18,4 @@ const routes = [
 	}
 ]
 
-export default new Router({ routes })
+export default new Router({ routes, mode: 'history' })
