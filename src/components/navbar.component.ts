@@ -12,12 +12,18 @@ import Template from './navbar.component.html'
 	}
 })
 export class Navbar extends Vue {
+	public showOverlay: boolean = false
+
 	public openNav() {
 		document.getElementById('mySidenav')!.style.width = '230px'
+		setTimeout(() => {
+			this.showOverlay = true
+		}, 200)
 	}
 
 	public closeNav() {
 		document.getElementById('mySidenav')!.style.width = '0'
+		this.showOverlay = false
 	}
 
 	public github() {

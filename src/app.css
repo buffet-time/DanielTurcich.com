@@ -169,6 +169,16 @@ a {
 	text-align: center;
 }
 
+.sidenav-overlay {
+	position: fixed;
+	width: calc(100% - 230px);
+	height: 100%;
+	margin-left: 230px;
+	background-color: #111;
+	opacity: 20%;
+	z-index: 1;
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
