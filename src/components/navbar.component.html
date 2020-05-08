@@ -12,7 +12,7 @@
 			Daniel Turcich
 		</b-navbar-brand>
 
-		<div id="mySidenav" class="sidenav">
+		<div id="sidenav" class="sidenav">
 			<div class="sidenav-top">
 				<div class="sidenav-top-text">Websites</div>
 
@@ -64,5 +64,5 @@
 			</b-card>
 		</div>
 	</b-navbar>
-	<div v-if="showOverlay" @click="closeNav()" class="sidenav-overlay"></div>
+	<div id="overlay" @click="closeNav()" class="sidenav-overlay"></div>
 </div>

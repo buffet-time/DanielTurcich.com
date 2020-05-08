@@ -13,17 +13,26 @@ import Template from './navbar.component.html'
 })
 export class Navbar extends Vue {
 	public showOverlay: boolean = false
+	private sidenavElement: any
+	private overlayElement: any
+
+	public mounted() {
+		this.sidenavElement = document.getElementById('sidenav')
+		this.overlayElement = document.getElementById('overlay')
+	}
 
 	public openNav() {
-		document.getElementById('mySidenav')!.style.width = '230px'
-		setTimeout(() => {
-			this.showOverlay = true
-		}, 200)
+		this.sidenavElement.style.width = '230px'
+		this.overlayElement.style.opacity = '15%'
+		this.overlayElement.style.width = 'calc(100% - 230px)'
+		this.overlayElement.style.marginLeft = '230px'
 	}
 
 	public closeNav() {
-		document.getElementById('mySidenav')!.style.width = '0'
-		this.showOverlay = false
+		this.sidenavElement.style.width = '0'
+		this.overlayElement.style.opacity = '0'
+		this.overlayElement.style.width = '100%'
+		this.overlayElement.style.marginLeft = '0'
 	}
 
 	public github() {
