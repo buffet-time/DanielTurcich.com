@@ -37,7 +37,7 @@ export class Acronym extends Vue {
 
 	public getWordsFromProvidedAcronym(acronym: string): string[] {
 		const wordsFromAcronym: string[] = []
-		const acronymArray: string[] = acronym.split('')
+		const acronymArray: string[] = acronym.toLowerCase().split('')
 
 		acronymArray.forEach(letter => {
 			const wordsArray = this.getWordsStartingWith(letter)
