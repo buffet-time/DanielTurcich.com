@@ -22,6 +22,7 @@ export class Navbar extends Vue {
 	}
 
 	public openNav() {
+		this.overlayElement.style.zIndex = '1'
 		this.sidenavElement.style.width = '230px'
 		this.overlayElement.style.opacity = '15%'
 		this.overlayElement.style.width = 'calc(100% - 230px)'
@@ -33,6 +34,7 @@ export class Navbar extends Vue {
 		this.overlayElement.style.opacity = '0'
 		this.overlayElement.style.width = '100%'
 		this.overlayElement.style.marginLeft = '0'
+		this.overlayElement.style.zIndex = '-1'
 	}
 
 	public github() {

@@ -179,6 +179,21 @@ a {
 	transition: 0.25s;
 }
 
+.acronym-input {
+	position: relative;
+	float: left;
+	width: 25%;
+	margin-left: 36px;
+}
+
+.acronym-button {
+	position: relative;
+}
+
+.acronym-text-div {
+	margin-top: 16px;
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
