@@ -179,11 +179,35 @@ a {
 	transition: 0.25s;
 }
 
+.acronym-input {
+	position: relative;
+	display: inline-block;
+	width: 250px;
+}
+
+.acronym-button {
+	position: relative;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.acronym-text-div {
+	margin-top: 16px;
+	text-transform: capitalize;
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
 	}
 	.sidenav a {
 		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.acronym-button {
+		margin: 16px auto;
+		display: block;
 	}
 }

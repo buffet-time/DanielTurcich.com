@@ -1,5 +1,16 @@
-<div class="about">
+<div>
 	<d-navbar></d-navbar>
-	<h1>Acronym page</h1>
-	WiP
+	<h1>Acronym Generator</h1>
+	<b-form-input
+		class="acronym-input"
+		v-model="acronymInput"
+		@keyup.enter="acronymButtonPressed"
+		placeholder="Type a word here"
+	>
+	</b-form-input>
+	<b-button class="acronym-button" @click="acronymButtonPressed"
+		>Generate</b-button
+	>
+	<br />
+	<div id="acronymTextDiv" class="acronym-text-div"></div>
 </div>
