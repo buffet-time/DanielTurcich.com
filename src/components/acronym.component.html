@@ -1,5 +1,19 @@
 <div class="about">
 	<d-navbar></d-navbar>
 	<h1>Acronym page</h1>
-	WiP
+	<b-form-input
+		class="acronym-input"
+		v-model="acronymInput"
+		placeholder="Type a word"
+	>
+	</b-form-input>
+	<b-button
+		class="acronym-button"
+		@enter="acronymButtonPressed"
+		onEnter="acronymButtonPressed"
+		@click="acronymButtonPressed"
+		>Blah?</b-button
+	>
+
+	<div id="acronymTextDiv" class="acronym-text-div"></div>
 </div>
