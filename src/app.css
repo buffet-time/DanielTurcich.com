@@ -196,6 +196,28 @@ a {
 	text-transform: capitalize;
 }
 
+.password-length-input {
+	position: relative;
+	display: inline-block;
+	width: 220px;
+	text-align: center;
+}
+
+.password-generator-options {
+	margin-bottom: 16px;
+}
+
+.password-text-div {
+	position: relative;
+	display: inline-block;
+}
+
+.password-copy-button {
+	position: relative;
+	display: inline-block;
+	margin-left: 5px;
+}
+
 @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
