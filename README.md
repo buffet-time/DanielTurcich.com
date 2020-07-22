@@ -1,24 +1,4 @@
-# vue-typescript-template
-### A template Vue 2 project with TypeScript, no .vue files (seperated html, ts, and css), auto formatting in vs code, linting, and more
+# DanielTurcich.com
+My personal website, simple site with links to my resume and more. Also will periodically create small little webapps that are accesible via direct linking. All routes are listed [here](https://github.com/buffet-time/DanielTurcich.com/blob/master/src/router.ts)
 
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Acronym Generator dictionary was taken from: https://github.com/RazorSh4rk/random-word-api
