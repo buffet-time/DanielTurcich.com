@@ -14,11 +14,11 @@ import Template from './password.component.html'
 	}
 })
 export class Password extends Vue {
-	public passwordLength?: number
-	public excludeLowercase?: boolean
-	public excludeUppercase?: boolean
-	public excludeNumbers?: boolean
-	public excludeSymbols?: boolean
+	public passwordLength: number = 16
+	public excludeLowercase: boolean = false
+	public excludeUppercase: boolean = false
+	public excludeNumbers: boolean = false
+	public excludeSymbols: boolean = false
 	/* tslint:disable */
 	// prettier-ignore
 	private lowercaseLetters: string[] = [
@@ -47,10 +47,6 @@ export class Password extends Vue {
 	public generatePassword() {
 		this.passwordCharacters = ['']
 		this.password = ''
-
-		if (!this.passwordLength) {
-			return
-		}
 
 		if (!this.excludeLowercase) {
 			this.passwordCharacters = this.passwordCharacters.concat(

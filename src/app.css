@@ -196,11 +196,10 @@ a {
 	text-transform: capitalize;
 }
 
-.password-length-input {
+.password-length-range {
 	position: relative;
 	display: inline-block;
-	width: 220px;
-	text-align: center;
+	width: 300px;
 }
 
 .password-generator-options {
