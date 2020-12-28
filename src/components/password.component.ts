@@ -19,7 +19,7 @@ export class Password extends Vue {
 	public excludeUppercase: boolean = false
 	public excludeNumbers: boolean = false
 	public excludeSymbols: boolean = false
-	/* tslint:disable */
+	/* eslint-disable */
 	// prettier-ignore
 	private lowercaseLetters: string[] = [
         'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
@@ -40,7 +40,7 @@ export class Password extends Vue {
         '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', 
         ']', '^', '_', '`', '{', '|', '}', '~'
     ]
-	/* tslint:enable */
+	/* eslint-enable */
 	private passwordCharacters: string[] = ['']
 	private password: string = ''
 

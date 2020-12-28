@@ -1,3 +1,3 @@
-/* tslint:disable */
+/* eslint-disable */
 import '../app.css'
-/* tslint:enable */
+/* eslint-enable */

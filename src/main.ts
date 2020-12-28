@@ -10,6 +10,7 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 window.addEventListener('load', initialize)
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 function initialize() {
 	const app = new Vue({
 		router,

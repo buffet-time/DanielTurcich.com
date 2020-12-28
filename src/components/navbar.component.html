@@ -62,6 +62,30 @@
 					<div class="sidenav-card-text">Soundcloud</div>
 				</b-card-body>
 			</b-card>
+			<b-card class="sidenav-card" @click="home()">
+				<b-card-body class="sidenav-card-body">
+					<img class="sidenav-card-image" src="../assets/monero.png" />
+					<div class="sidenav-card-text">Home</div>
+				</b-card-body>
+			</b-card>
+			<b-card class="sidenav-card" @click="password()">
+				<b-card-body class="sidenav-card-body">
+					<img class="sidenav-card-image" src="../assets/monero.png" />
+					<div class="sidenav-card-text">Password Generator</div>
+				</b-card-body>
+			</b-card>
+			<b-card class="sidenav-card" @click="acronym()">
+				<b-card-body class="sidenav-card-body">
+					<img class="sidenav-card-image" src="../assets/monero.png" />
+					<div class="sidenav-card-text">Acronym Generator</div>
+				</b-card-body>
+			</b-card>
+			<b-card class="sidenav-card" @click="discord()">
+				<b-card-body class="sidenav-card-body">
+					<img class="sidenav-card-image" src="../assets/monero.png" />
+					<div class="sidenav-card-text">Discord Generator</div>
+				</b-card-body>
+			</b-card>
 		</div>
 	</b-navbar>
 	<div id="overlay" @click="closeNav()" class="sidenav-overlay"></div>

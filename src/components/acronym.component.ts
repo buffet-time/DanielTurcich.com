@@ -17,6 +17,7 @@ import { Navbar } from './navbar.component'
 export class Acronym extends Vue {
 	@Model()
 	public acronymInput?: string
+	public acronymText: string = ''
 
 	private wordsArray: string[] = Words
 	private acronymTextDiv: any
@@ -25,22 +26,26 @@ export class Acronym extends Vue {
 		this.acronymTextDiv = document.getElementById('acronymTextDiv')
 	}
 
+	public copyAcronym() {
+		navigator.clipboard.writeText(this.acronymText)
+	}
+
 	public acronymButtonPressed() {
 		if (this.acronymInput) {
-			this.acronymTextDiv.innerText = this.getWordsFromProvidedAcronym(
-				this.acronymInput
-			)
+			this.acronymText = this.getWordsFromProvidedAcronym(this.acronymInput)
 				.toString()
 				.replace(/,/g, '  ')
+
+			this.acronymTextDiv.innerText = this.acronymText
 		}
 	}
 
-	public getWordsFromProvidedAcronym(acronym: string): string[] {
+	private getWordsFromProvidedAcronym(acronym: string): string[] {
 		const wordsFromAcronym: string[] = []
 		const acronymArray: string[] = acronym.toLowerCase().split('')
 
-		acronymArray.forEach(letter => {
-			const wordsArray = this.getWordsStartingWith(letter)
+		acronymArray.forEach((letter: string) => {
+			const wordsArray: string[] = this.getWordsStartingWith(letter)
 			wordsFromAcronym.push(
 				wordsArray[Math.floor(Math.random() * wordsArray.length)]
 			)
@@ -49,8 +54,8 @@ export class Acronym extends Vue {
 		return wordsFromAcronym
 	}
 
-	public getWordsStartingWith(letter: string): string[] {
-		return this.wordsArray.filter(word => {
+	private getWordsStartingWith(letter: string): string[] {
+		return this.wordsArray.filter((word: string) => {
 			if (word.startsWith(letter)) {
 				return word
 			}

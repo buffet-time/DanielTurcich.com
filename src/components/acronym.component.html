@@ -11,5 +11,13 @@
 	<b-button class="acronym-button" @click="acronymButtonPressed"
 		>Generate</b-button
 	>
-	<div id="acronymTextDiv" class="acronym-text-div"></div>
+	<div class="generated-acronym">
+		<div id="acronymTextDiv" class="acronym-text-div"></div>
+		<b-button
+			v-show="acronymText.length > 0"
+			class="acronym-copy-button"
+			@click="copyAcronym"
+			>Copy</b-button
+		>
+	</div>
 </div>

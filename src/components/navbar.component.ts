@@ -1,3 +1,4 @@
+import router from '@/router'
 import { BButton, BCard, BNavbar } from 'bootstrap-vue'
 import Vue from 'vue'
 import Component from 'vue-class-component'
@@ -57,5 +58,29 @@ export class Navbar extends Vue {
 
 	public soundcloud() {
 		window.open('https://soundcloud.com/buffet_time')
+	}
+
+	public home() {
+		router.push('/')
+		this.showOverlay = false
+		this.closeNav()
+	}
+
+	public password() {
+		router.push('password')
+		this.showOverlay = false
+		this.closeNav()
+	}
+
+	public acronym() {
+		router.push('acronym')
+		this.showOverlay = false
+		this.closeNav()
+	}
+
+	public discord() {
+		router.push('discord')
+		this.showOverlay = false
+		this.closeNav()
 	}
 }
