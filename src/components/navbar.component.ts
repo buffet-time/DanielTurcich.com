@@ -14,12 +14,17 @@ import Template from './navbar.component.html'
 })
 export class Navbar extends Vue {
 	public showOverlay: boolean = false
+	public currentRoute: string = ''
+
 	private sidenavElement: any
 	private overlayElement: any
 
 	public mounted() {
 		this.sidenavElement = document.getElementById('sidenav')
 		this.overlayElement = document.getElementById('overlay')
+		if (this.$route.name) {
+			this.currentRoute = this.$route.name
+		}
 	}
 
 	public openNav() {
@@ -62,25 +67,17 @@ export class Navbar extends Vue {
 
 	public home() {
 		router.push('/')
-		this.showOverlay = false
-		this.closeNav()
 	}
 
 	public password() {
 		router.push('password')
-		this.showOverlay = false
-		this.closeNav()
 	}
 
 	public acronym() {
 		router.push('acronym')
-		this.showOverlay = false
-		this.closeNav()
 	}
 
 	public discord() {
 		router.push('discord')
-		this.showOverlay = false
-		this.closeNav()
 	}
 }
