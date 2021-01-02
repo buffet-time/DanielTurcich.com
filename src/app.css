@@ -194,8 +194,10 @@ a {
 .acronym-text-div {
 	position: relative;
 	display: inline-block;
-	margin-top: 16px;
 	text-transform: capitalize;
+	margin: 24px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .acronym-copy-button {
@@ -219,7 +221,9 @@ a {
 .discord-text-div {
 	position: relative;
 	display: inline-block;
+	margin: 24px;
 	margin-top: 16px;
+	margin-bottom: 8px;
 }
 
 .discord-copy-button {
@@ -241,6 +245,9 @@ a {
 .password-text-div {
 	position: relative;
 	display: inline-block;
+	margin: 24px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .password-copy-button {
