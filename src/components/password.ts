@@ -1,19 +1,7 @@
-import { BButton, BFormCheckbox, BFormInput } from 'bootstrap-vue'
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Navbar } from './navbar.component'
-import Template from './password.component.html'
+import { Options, Vue } from 'vue-class-component'
 
-@Template
-@Component({
-	components: {
-		'd-navbar': Navbar,
-		'b-button': BButton,
-		'b-form-input': BFormInput,
-		'b-form-checkbox': BFormCheckbox
-	}
-})
-export class Password extends Vue {
+@Options({})
+export default class Password extends Vue {
 	public passwordLength: number = 16
 	public excludeLowercase: boolean = false
 	public excludeUppercase: boolean = false
@@ -41,34 +29,29 @@ export class Password extends Vue {
         ']', '^', '_', '`', '{', '|', '}', '~'
     ]
 	/* eslint-enable */
-	private passwordCharacters: string[] = ['']
+
 	private password: string = ''
 
 	public generatePassword() {
-		this.passwordCharacters = ['']
+		let passwordCharacters = ['']
 		this.password = ''
 
 		if (!this.excludeLowercase) {
-			this.passwordCharacters = this.passwordCharacters.concat(
-				this.lowercaseLetters
-			)
+			passwordCharacters = passwordCharacters.concat(this.lowercaseLetters)
 		}
 		if (!this.excludeUppercase) {
-			this.passwordCharacters = this.passwordCharacters.concat(
-				this.uppercaseLetters
-			)
+			passwordCharacters = passwordCharacters.concat(this.uppercaseLetters)
 		}
 		if (!this.excludeNumbers) {
-			this.passwordCharacters = this.passwordCharacters.concat(this.numbers)
+			passwordCharacters = passwordCharacters.concat(this.numbers)
 		}
 		if (!this.excludeSymbols) {
-			this.passwordCharacters = this.passwordCharacters.concat(this.symbols)
+			passwordCharacters = passwordCharacters.concat(this.symbols)
 		}
 
 		for (let i: number = 0; i < this.passwordLength; i++) {
-			this.password += this.passwordCharacters[
-				this.randomInt(0, this.passwordCharacters.length - 1)
-			]
+			this.password +=
+				passwordCharacters[this.randomInt(0, passwordCharacters.length - 1)]
 		}
 
 		document.getElementById('passwordTextDiv')!.innerText = this.password

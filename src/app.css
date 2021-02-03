@@ -242,6 +242,11 @@ a {
 	margin-bottom: 16px;
 }
 
+.password-generator-checkboxes {
+	display: inline-block;
+	text-align: left;
+}
+
 .password-text-div {
 	position: relative;
 	display: inline-block;

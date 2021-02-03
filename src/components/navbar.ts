@@ -1,20 +1,10 @@
 import router from '@/router'
-import { BButton, BCard, BNavbar } from 'bootstrap-vue'
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import Template from './navbar.component.html'
+import { Options, Vue } from 'vue-class-component'
 
-@Template
-@Component({
-	components: {
-		'b-card': BCard,
-		'b-navbar': BNavbar,
-		'b-button': BButton
-	}
-})
-export class Navbar extends Vue {
-	public showOverlay: boolean = false
-	public currentRoute: string = ''
+@Options({})
+export default class Navbar extends Vue {
+	public showOverlay = false
+	public currentRoute = ''
 
 	private sidenavElement: any
 	private overlayElement: any
@@ -22,12 +12,12 @@ export class Navbar extends Vue {
 	public mounted() {
 		this.sidenavElement = document.getElementById('sidenav')
 		this.overlayElement = document.getElementById('overlay')
-		if (this.$route.name) {
-			this.currentRoute = this.$route.name
-		}
 	}
 
 	public openNav() {
+		if (!this.currentRoute) {
+			this.currentRoute = this.$router.currentRoute.value.name!.toString()!
+		}
 		this.overlayElement.style.zIndex = '1'
 		this.sidenavElement.style.width = '230px'
 		this.overlayElement.style.opacity = '15%'
@@ -65,19 +55,23 @@ export class Navbar extends Vue {
 		window.open('https://soundcloud.com/buffet_time')
 	}
 
-	public home() {
-		router.push('/')
+	public async home() {
+		await router.push('/')
+		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
 	}
 
-	public password() {
-		router.push('password')
+	public async password() {
+		await router.push('password')
+		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
 	}
 
-	public acronym() {
-		router.push('acronym')
+	public async acronym() {
+		await router.push('acronym')
+		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
 	}
 
-	public discord() {
-		router.push('discord')
+	public async discord() {
+		await router.push('discord')
+		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
 	}
 }

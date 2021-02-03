@@ -1,23 +1,25 @@
 <div>
-	<d-navbar></d-navbar>
 	<h1>Discord Max Message Generator</h1>
-	<b-form-input
-		class="discord-input"
+	<input
+		class="discord-input form-control"
 		v-model="discordInput"
 		@keyup.enter="discordButtonPressed"
 		placeholder="Type a word here"
+	/>
+	<button
+		class="discord-button btn btn-secondary"
+		@click="discordButtonPressed"
 	>
-	</b-form-input>
-	<b-button class="discord-button" @click="discordButtonPressed"
-		>Generate</b-button
-	>
+		Generate
+	</button>
 	<div class="generated-discord">
 		<div id="discordTextDiv" class="discord-text-div"></div>
-		<b-button
+		<button
 			v-show="discordText.length > 0"
-			class="discord-copy-button"
+			class="discord-copy-button btn btn-secondary"
 			@click="copydiscord"
-			>Copy</b-button
 		>
+			Copy
+		</button>
 	</div>
 </div>

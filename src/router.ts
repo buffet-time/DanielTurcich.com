@@ -1,13 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import { Acronym } from './components/acronym.component'
-import { Home } from './components/home.component'
-import { Password } from './components/password.component'
-import { Discord } from './components/discord.component'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-Vue.use(Router)
+const Home = () => import('./components/home.vue')
+const Acronym = () => import('./components/acronym.vue')
+const Password = () => import('./components/password.vue')
+const Discord = () => import('./components/discord.vue')
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
 	{
 		path: '',
 		name: 'Home',
@@ -30,4 +28,9 @@ const routes = [
 	}
 ]
 
-export default new Router({ routes, mode: 'history' })
+const router = createRouter({
+	history: createWebHistory(process.env.BASE_URL),
+	routes
+})
+
+export default router

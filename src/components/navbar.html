@@ -1,0 +1,100 @@
+<div>
+	<div toggleable="lg" type="dark" class="navbar">
+		<div class="navbar-brand">
+			<button class="hamburger-button btn btn-secondary" @click="openNav()">
+				<svg class="hamburger-menu" viewBox="0 0 24 24">
+					<path
+						fill="currentColor"
+						d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"
+					/>
+				</svg>
+			</button>
+			Daniel Turcich
+		</div>
+
+		<div id="sidenav" class="sidenav">
+			<div class="sidenav-top">
+				<div class="sidenav-top-text">Websites</div>
+
+				<svg
+					class="sidenav-close-button"
+					@click="closeNav()"
+					viewBox="0 0 24 24"
+				>
+					<path
+						fill="currentColor"
+						d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+					/>
+				</svg>
+			</div>
+
+			<div class="sidenav-card card" @click="github()">
+				<div class="sidenav-card-body card-body">
+					<img class="sidenav-card-image" src="../assets/github.png" />
+					<div class="sidenav-card-text">Github</div>
+				</div>
+			</div>
+
+			<div class="sidenav-card card" @click="linkedin()">
+				<div class="sidenav-card-body card-body">
+					<img class="sidenav-card-image" src="../assets/linkedin.png" />
+					<div class="sidenav-card-text">LinkedIn</div>
+				</div>
+			</div>
+
+			<div class="sidenav-card card" @click="resume()">
+				<div class="sidenav-card-body card-body">
+					<img class="sidenav-card-image" src="../assets/resume.png" />
+					<div class="sidenav-card-text">Resume</div>
+				</div>
+			</div>
+
+			<div class="sidenav-card card" @click="bandcamp()">
+				<div class="sidenav-card-body card-body">
+					<img class="sidenav-card-image" src="../assets/bandcamp.png" />
+					<div class="sidenav-card-text">Bandcamp</div>
+				</div>
+			</div>
+
+			<div class="sidenav-card card" @click="soundcloud()">
+				<div class="sidenav-card-body card-body">
+					<img class="sidenav-card-image" src="../assets/soundcloud.png" />
+					<div class="sidenav-card-text">Soundcloud</div>
+				</div>
+			</div>
+			<template v-if="currentRoute !== 'Home'">
+				<div class="sidenav-card card" @click="home()">
+					<div class="sidenav-card-body card-body">
+						<img class="sidenav-card-image" src="../assets/cardano.png" />
+						<div class="sidenav-card-text">Home</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="currentRoute !== 'Password'">
+				<div class="sidenav-card card" @click="password()">
+					<div class="sidenav-card-body card-body">
+						<img class="sidenav-card-image" src="../assets/cardano.png" />
+						<div class="sidenav-card-text">Password Generator</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="currentRoute !== 'Acronym'">
+				<div class="sidenav-card card" @click="acronym()">
+					<div class="sidenav-card-body card-body">
+						<img class="sidenav-card-image" src="../assets/cardano.png" />
+						<div class="sidenav-card-text">Acronym Generator</div>
+					</div>
+				</div>
+			</template>
+			<template v-if="currentRoute !== 'Discord'">
+				<div class="sidenav-card card" @click="discord()">
+					<div class="sidenav-card-body card-body">
+						<img class="sidenav-card-image" src="../assets/cardano.png" />
+						<div class="sidenav-card-text">Discord Generator</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>
+	<div id="overlay" @click="closeNav()" class="sidenav-overlay"></div>
+</div>

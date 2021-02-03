@@ -1,23 +1,25 @@
 <div>
-	<d-navbar></d-navbar>
 	<h1>Acronym Generator</h1>
-	<b-form-input
-		class="acronym-input"
+	<input
+		class="acronym-input form-control"
 		v-model="acronymInput"
 		@keyup.enter="acronymButtonPressed"
 		placeholder="Type a word here"
+	/>
+	<button
+		class="acronym-button btn btn-secondary"
+		@click="acronymButtonPressed"
 	>
-	</b-form-input>
-	<b-button class="acronym-button" @click="acronymButtonPressed"
-		>Generate</b-button
-	>
+		Generate
+	</button>
 	<div class="generated-acronym">
 		<div id="acronymTextDiv" class="acronym-text-div"></div>
-		<b-button
+		<button
 			v-show="acronymText.length > 0"
-			class="acronym-copy-button"
+			class="acronym-copy-button btn btn-secondary"
 			@click="copyAcronym"
-			>Copy</b-button
 		>
+			Copy
+		</button>
 	</div>
 </div>
