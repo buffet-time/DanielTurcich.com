@@ -1,16 +1,16 @@
-import { Options, Vue } from 'vue-class-component'
+import { Vue } from 'vue-class-component'
 import Words from '../assets/words.json'
 
 const words: { [key: string]: string[] } = Words
 
-@Options({})
 export default class Acronym extends Vue {
-	public acronymInput: string = ''
-	public acronymText: string = ''
-	private acronymTextDiv: any
+	public acronymInput = ''
+	public acronymText = ''
+
+	private acronymTextDiv!: HTMLElement
 
 	public mounted() {
-		this.acronymTextDiv = document.getElementById('acronymTextDiv')
+		this.acronymTextDiv = document.getElementById('acronymTextDiv')!
 	}
 
 	public copyAcronym() {
@@ -28,20 +28,11 @@ export default class Acronym extends Vue {
 
 	private getWordsFromProvidedAcronym(acronym: string): string[] {
 		const acronymArray = acronym.toLowerCase().split('')
-		let lengthOfWords = 0
 		let wordsArray: string[]
-		let generatedWord = ''
 
 		return acronymArray.map((letter: string) => {
-			if (lengthOfWords > 2000) {
-				return 'F'
-			} else {
-				wordsArray = words[letter]
-				generatedWord =
-					wordsArray[Math.floor(Math.random() * wordsArray.length)]
-				lengthOfWords += generatedWord.length + 1
-				return generatedWord
-			}
+			wordsArray = words[letter]
+			return wordsArray[Math.floor(Math.random() * wordsArray.length)]
 		})
 	}
 }

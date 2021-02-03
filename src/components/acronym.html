@@ -1,5 +1,5 @@
 <div>
-	<h1>Acronym Generator</h1>
+	<h1 class="acronym-title">Acronym Generator</h1>
 	<input
 		class="acronym-input form-control"
 		v-model="acronymInput"
@@ -12,7 +12,7 @@
 	>
 		Generate
 	</button>
-	<div class="generated-acronym">
+	<div>
 		<div id="acronymTextDiv" class="acronym-text-div"></div>
 		<button
 			v-show="acronymText.length > 0"

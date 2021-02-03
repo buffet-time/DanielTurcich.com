@@ -1,7 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400';
 
 #app {
-	font-display: swap;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -13,22 +12,6 @@ body {
 	background-color: #303030;
 }
 
-.navbar {
-	background-color: #388e3c;
-	height: 60px;
-}
-
-.hamburger-menu {
-	width: 24px;
-	height: 24px;
-	cursor: pointer;
-}
-
-.hamburger-button {
-	background-color: #388e3c;
-	border-color: #388e3c;
-}
-
 .card {
 	margin: 20px;
 	color: #fff;
@@ -36,35 +19,16 @@ body {
 	background-color: #424242 !important;
 }
 
-.card-title-1 {
-	margin-left: -20px;
-}
-
 .card-body {
 	padding: 1rem;
 }
 
-.sidenav-card .card-body {
-	padding: 0;
-	height: 45px;
-	margin-top: 1px;
+.card-title-1 {
+	margin-left: -20px;
 }
 
 .card-text {
 	padding-left: 16px;
-}
-
-#nav {
-	padding: 30px;
-}
-
-#nav a {
-	font-weight: 700;
-	color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-	color: #42b983;
 }
 
 h3 {
@@ -83,198 +47,4 @@ li {
 
 a {
 	color: #42b983;
-}
-
-.sidenav {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #424242;
-	overflow-x: hidden;
-	transition: 0.25s;
-	padding-top: 60px;
-	margin-bottom: 4px;
-}
-
-.sidenav a {
-	padding: 8px 8px 8px 32px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #818181;
-	display: block;
-	transition: 0.25s;
-}
-
-.sidenav a:hover {
-	color: #f1f1f1;
-}
-
-.sidenav .sidenav-close-button {
-	position: relative;
-	float: right;
-	color: #fff;
-	width: 24px;
-	height: 24px;
-	margin-top: 18px;
-	margin-right: 16px;
-	cursor: pointer;
-}
-
-.sidenav-top-text {
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-	font-size: 20px;
-	position: relative;
-	float: left;
-	padding-top: 14px;
-	padding-left: 16px;
-}
-
-.sidenav-top {
-	position: relative;
-	margin-top: -60px;
-	height: 60px;
-	width: 230px;
-	background-color: #398e3d;
-}
-
-.sidenav-card {
-	margin: 0;
-	cursor: pointer;
-}
-
-.sidenav-card-body {
-	background-color: #616161;
-	margin-top: 0;
-	margin-left: 0;
-	padding-left: 0;
-	padding-top: 0;
-	height: 45px;
-	width: 230px;
-}
-
-.sidenav-card-image {
-	position: relative;
-	float: left;
-	padding-left: 8px;
-	padding-top: 5px;
-}
-
-.sidenav-card-text {
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-	font-size: 18px;
-	padding-top: 8px;
-	margin-left: -8px;
-	text-align: center;
-}
-
-.sidenav-overlay {
-	opacity: 0;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: #111;
-	z-index: 1;
-	transition: 0.25s;
-}
-
-.acronym-input {
-	position: relative;
-	display: inline-block;
-	width: 250px;
-}
-
-.acronym-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 20px;
-}
-
-.acronym-text-div {
-	position: relative;
-	display: inline-block;
-	text-transform: capitalize;
-	margin: 24px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-
-.acronym-copy-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 5px;
-}
-
-.discord-input {
-	position: relative;
-	display: inline-block;
-	width: 250px;
-}
-
-.discord-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 20px;
-}
-
-.discord-text-div {
-	position: relative;
-	display: inline-block;
-	margin: 24px;
-	margin-top: 16px;
-	margin-bottom: 8px;
-}
-
-.discord-copy-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 5px;
-}
-
-.password-length-range {
-	position: relative;
-	display: inline-block;
-	width: 300px;
-}
-
-.password-generator-options {
-	margin-bottom: 16px;
-}
-
-.password-generator-checkboxes {
-	display: inline-block;
-	text-align: left;
-}
-
-.password-text-div {
-	position: relative;
-	display: inline-block;
-	margin: 24px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-
-.password-copy-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 5px;
-}
-
-@media screen and (max-height: 450px) {
-	.sidenav {
-		padding-top: 15px;
-	}
-
-	.sidenav a {
-		font-size: 18px;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	.acronym-button {
-		margin: 16px auto;
-		display: block;
-	}
 }

@@ -1,36 +1,33 @@
-import { Options, Vue } from 'vue-class-component'
+import { Vue } from 'vue-class-component'
 
-@Options({})
 export default class Password extends Vue {
-	public passwordLength: number = 16
-	public excludeLowercase: boolean = false
-	public excludeUppercase: boolean = false
-	public excludeNumbers: boolean = false
-	public excludeSymbols: boolean = false
-	/* eslint-disable */
+	public passwordLength = 16
+	public excludeLowercase = false
+	public excludeUppercase = false
+	public excludeNumbers = false
+	public excludeSymbols = false
 	// prettier-ignore
-	private lowercaseLetters: string[] = [
+	private lowercaseLetters = [
         'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
         'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
 	]
 	// prettier-ignore
-	private uppercaseLetters: string[] = [
+	private uppercaseLetters = [
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     ]
 	// prettier-ignore
-	private numbers: string[] = [
+	private numbers = [
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     ]
 	// prettier-ignore
-	private symbols: string[] = [
+	private symbols = [
         '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', 
         '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', 
         ']', '^', '_', '`', '{', '|', '}', '~'
     ]
-	/* eslint-enable */
 
-	private password: string = ''
+	private password = ''
 
 	public generatePassword() {
 		let passwordCharacters = ['']
@@ -49,7 +46,7 @@ export default class Password extends Vue {
 			passwordCharacters = passwordCharacters.concat(this.symbols)
 		}
 
-		for (let i: number = 0; i < this.passwordLength; i++) {
+		for (let i = 0; i < this.passwordLength; i++) {
 			this.password +=
 				passwordCharacters[this.randomInt(0, passwordCharacters.length - 1)]
 		}

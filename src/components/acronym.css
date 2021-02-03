@@ -1,0 +1,37 @@
+.acronym-title {
+	user-select: none;
+}
+
+.acronym-input {
+	position: relative;
+	display: inline-block;
+	width: 250px;
+}
+
+.acronym-button {
+	position: relative;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.acronym-text-div {
+	position: relative;
+	display: inline-block;
+	text-transform: capitalize;
+	margin: 24px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.acronym-copy-button {
+	position: relative;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+@media screen and (max-width: 400px) {
+	.acronym-button {
+		margin: 16px auto;
+		display: block;
+	}
+}
