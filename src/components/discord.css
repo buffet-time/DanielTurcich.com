@@ -1,5 +1,6 @@
 .discord-title {
 	user-select: none;
+	margin-top: 8px;
 }
 
 .discord-input {

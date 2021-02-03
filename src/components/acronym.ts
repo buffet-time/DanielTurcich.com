@@ -6,12 +6,8 @@ const words: { [key: string]: string[] } = Words
 export default class Acronym extends Vue {
 	public acronymInput = ''
 	public acronymText = ''
-
-	private acronymTextDiv!: HTMLElement
-
-	public mounted() {
-		this.acronymTextDiv = document.getElementById('acronymTextDiv')!
-	}
+	public buttonPressedState = ''
+	public textToDisplay = ''
 
 	public copyAcronym() {
 		navigator.clipboard.writeText(this.acronymText)
@@ -19,10 +15,19 @@ export default class Acronym extends Vue {
 
 	public acronymButtonPressed() {
 		if (this.acronymInput) {
-			this.acronymText = this.getWordsFromProvidedAcronym(this.acronymInput)
-				.toString()
-				.replace(/,/g, '  ')
-			this.acronymTextDiv.innerText = this.acronymText
+			if (this.acronymInput.split(' ').length > 1) {
+				this.buttonPressedState = 'error'
+				this.textToDisplay = 'There can not be spaces in the input.'
+			} else {
+				this.acronymText = this.getWordsFromProvidedAcronym(this.acronymInput)
+					.toString()
+					.replace(/,/g, '  ')
+				this.buttonPressedState = 'good'
+				this.textToDisplay = this.acronymText
+			}
+		} else {
+			this.buttonPressedState = 'error'
+			this.textToDisplay = 'Must type a word to generate an acronym.'
 		}
 	}
 

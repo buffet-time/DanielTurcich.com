@@ -1,21 +1,23 @@
 <div>
-	<h1 class="acronym-title">Acronym Generator</h1>
+	<h1 class="acronym-title" v-once>Acronym Generator</h1>
 	<input
 		class="acronym-input form-control"
 		v-model="acronymInput"
 		@keyup.enter="acronymButtonPressed"
 		placeholder="Type a word here"
+		v-once
 	/>
 	<button
 		class="acronym-button btn btn-secondary"
 		@click="acronymButtonPressed"
+		v-once
 	>
 		Generate
 	</button>
-	<div>
-		<div id="acronymTextDiv" class="acronym-text-div"></div>
+	<div class="generated-text-div">
+		<div class="acronym-text-div">{{textToDisplay}}</div>
 		<button
-			v-show="acronymText.length > 0"
+			v-if="buttonPressedState === 'good'"
 			class="acronym-copy-button btn btn-secondary"
 			@click="copyAcronym"
 		>

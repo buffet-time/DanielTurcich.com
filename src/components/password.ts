@@ -6,6 +6,8 @@ export default class Password extends Vue {
 	public excludeUppercase = false
 	public excludeNumbers = false
 	public excludeSymbols = false
+	public textToShow = ''
+
 	// prettier-ignore
 	private lowercaseLetters = [
         'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
@@ -51,7 +53,7 @@ export default class Password extends Vue {
 				passwordCharacters[this.randomInt(0, passwordCharacters.length - 1)]
 		}
 
-		document.getElementById('passwordTextDiv')!.innerText = this.password
+		this.textToShow = this.password
 	}
 
 	public copyPassword() {
