@@ -35,21 +35,27 @@ export default class Navbar extends Vue {
 	public openLink(link: string) {
 		switch (link) {
 			case 'github':
-				window.open('https://github.com/buffet-time')
+				window.open('https://github.com/buffet-time', '_blank')
+				break
 
 			case 'linkedin':
-				window.open('https://www.linkedin.com/in/danielturcich/')
+				window.open('https://www.linkedin.com/in/danielturcich/', '_blank')
+				break
 
 			case 'resume':
 				window.open(
-					'https://drive.google.com/file/d/1UhcfJUs0U3AAuHyZTZbi6bXxEL_QFZR0/view'
+					'https://drive.google.com/file/d/1UhcfJUs0U3AAuHyZTZbi6bXxEL_QFZR0/view',
+					'_blank'
 				)
+				break
 
 			case 'bandcamp':
-				window.open('https://buffet-time.bandcamp.com/')
+				window.open('https://buffet-time.bandcamp.com/', '_blank')
+				break
 
 			case 'soundcloud':
-				window.open('https://soundcloud.com/buffet_time')
+				window.open('https://soundcloud.com/buffet_time', '_blank')
+				break
 		}
 	}
 
