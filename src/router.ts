@@ -4,6 +4,7 @@ const Home = () => import('./components/home.vue')
 const Acronym = () => import('./components/acronym.vue')
 const Password = () => import('./components/password.vue')
 const Discord = () => import('./components/discord.vue')
+const Sorting = () => import('./components/sorting.vue')
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/discord',
 		name: 'Discord',
 		component: Discord
+	},
+	{
+		path: '/sorting',
+		name: 'Sorting',
+		component: Sorting
 	}
 ]
 
