@@ -5,9 +5,10 @@ const words: { [key: string]: string[] } = Words
 
 export default class Acronym extends Vue {
 	public acronymInput = ''
-	public acronymText = ''
 	public buttonPressedState = ''
 	public textToDisplay = ''
+
+	private acronymText = ''
 
 	public copyAcronym() {
 		navigator.clipboard.writeText(this.acronymText)

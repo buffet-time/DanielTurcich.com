@@ -2,15 +2,14 @@ import router from '@/router'
 import { Vue } from 'vue-class-component'
 
 export default class Navbar extends Vue {
-	public showOverlay = false
 	public currentRoute = ''
 
 	private sidenavElement!: HTMLElement
 	private overlayElement!: HTMLElement
 
 	public mounted() {
-		this.sidenavElement = document.getElementById('sidenav')!
-		this.overlayElement = document.getElementById('overlay')!
+		this.sidenavElement = this.$refs.sidenav as HTMLElement
+		this.overlayElement = this.$refs.overlay as HTMLElement
 	}
 
 	public openNav() {
