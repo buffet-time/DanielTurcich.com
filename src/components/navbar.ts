@@ -10,25 +10,13 @@ export default class Navbar extends Vue {
 	public mounted() {
 		this.sidenavElement = this.$refs.sidenav as HTMLElement
 		this.overlayElement = this.$refs.overlay as HTMLElement
-	}
 
-	public openNav() {
-		this.overlayElement.style.zIndex = '1'
-		this.sidenavElement.style.width = '230px'
-		this.overlayElement.style.opacity = '15%'
-		this.overlayElement.style.width = 'calc(100% - 230px)'
-		this.overlayElement.style.marginLeft = '230px'
-		if (!this.currentRoute) {
-			this.currentRoute = this.$router.currentRoute.value.name!.toString()!
-		}
-	}
-
-	public closeNav() {
-		this.sidenavElement.style.width = '0'
-		this.overlayElement.style.opacity = '0'
-		this.overlayElement.style.width = '100%'
-		this.overlayElement.style.marginLeft = '0'
-		this.overlayElement.style.zIndex = '-1'
+		// close the sidenav if click outside
+		document.addEventListener('mouseup', event => {
+			if (this.overlayElement.style.zIndex === '1' && event.x > 230) {
+				this.closeNav()
+			}
+		})
 	}
 
 	public openLink(link: string) {
@@ -61,5 +49,24 @@ export default class Navbar extends Vue {
 	public async routeChange(route: string) {
 		await router.push(route)
 		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
+	}
+
+	public openNav() {
+		this.overlayElement.style.zIndex = '1'
+		this.sidenavElement.style.width = '230px'
+		this.overlayElement.style.opacity = '15%'
+		this.overlayElement.style.width = 'calc(100% - 230px)'
+		this.overlayElement.style.marginLeft = '230px'
+		if (!this.currentRoute) {
+			this.currentRoute = this.$router.currentRoute.value.name!.toString()!
+		}
+	}
+
+	private closeNav() {
+		this.sidenavElement.style.width = '0'
+		this.overlayElement.style.opacity = '0'
+		this.overlayElement.style.width = '100%'
+		this.overlayElement.style.marginLeft = '0'
+		this.overlayElement.style.zIndex = '-1'
 	}
 }

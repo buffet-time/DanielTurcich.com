@@ -19,11 +19,7 @@
 				<div class="sidenav-top" v-once>
 					<div class="sidenav-top-text">Websites</div>
 
-					<svg
-						class="sidenav-close-button"
-						@click="closeNav()"
-						viewBox="0 0 24 24"
-					>
+					<svg class="sidenav-close-button" viewBox="0 0 24 24">
 						<path
 							fill="currentColor"
 							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
@@ -135,7 +131,7 @@
 				</template>
 			</div>
 		</div>
-		<div ref="overlay" @click="closeNav()" class="sidenav-overlay" v-once></div>
+		<div ref="overlay" class="sidenav-overlay" v-once></div>
 	</div>
 </template>
 
