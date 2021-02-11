@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+// Lazy Loading for routes for less resource waste/ better performance
 const Home = () => import('./components/home.vue')
 const Acronym = () => import('./components/acronym.vue')
 const Password = () => import('./components/password.vue')
