@@ -129,6 +129,18 @@
 						</div>
 					</div>
 				</template>
+				<template v-if="currentRoute !== 'Sorting'">
+					<div class="sidenav-card card" @click="routeChange('sorting')">
+						<div class="sidenav-card-body card-body">
+							<img
+								class="sidenav-card-image"
+								src="../assets/cardano.png"
+								alt="cardano logo"
+							/>
+							<div class="sidenav-card-text">Sorting Visualizations</div>
+						</div>
+					</div>
+				</template>
 			</div>
 		</div>
 		<div ref="overlay" class="sidenav-overlay" v-once></div>
