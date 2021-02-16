@@ -17,6 +17,7 @@ export default class Navbar extends Vue {
 				this.closeNav()
 			}
 		})
+		this.closeNav()
 	}
 
 	public openLink(link: string) {
@@ -47,8 +48,14 @@ export default class Navbar extends Vue {
 	}
 
 	public async routeChange(route: string) {
+		console.log(1)
 		await router.push(route)
 		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
+	}
+
+	public disableRouteButton(route: string) {
+		console.log(2)
+		return this.currentRoute === route
 	}
 
 	public openNav() {
@@ -62,7 +69,7 @@ export default class Navbar extends Vue {
 		}
 	}
 
-	private closeNav() {
+	public closeNav() {
 		this.sidenavElement.style.width = '0'
 		this.overlayElement.style.opacity = '0'
 		this.overlayElement.style.width = '100%'

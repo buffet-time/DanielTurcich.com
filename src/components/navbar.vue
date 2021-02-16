@@ -19,7 +19,11 @@
 				<div class="sidenav-top" v-once>
 					<div class="sidenav-top-text">Websites</div>
 
-					<svg class="sidenav-close-button" viewBox="0 0 24 24">
+					<svg
+						class="sidenav-close-button"
+						viewBox="0 0 24 24"
+						@click="closeNav"
+					>
 						<path
 							fill="currentColor"
 							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
@@ -81,8 +85,12 @@
 						<div class="sidenav-card-text">Soundcloud</div>
 					</div>
 				</div>
-				<template v-if="currentRoute !== 'Home'">
-					<div class="sidenav-card card" @click="routeChange('/')">
+				<div>
+					<button
+						class="card sidenav-card btn btn-secondary route-button"
+						@click="routeChange('/')"
+						:disabled="currentRoute === 'Home'"
+					>
 						<div class="sidenav-card-body card-body">
 							<img
 								class="sidenav-card-image"
@@ -91,10 +99,14 @@
 							/>
 							<div class="sidenav-card-text">Home</div>
 						</div>
-					</div>
-				</template>
-				<template v-if="currentRoute !== 'Password'">
-					<div class="sidenav-card card" @click="routeChange('password')">
+					</button>
+				</div>
+				<div>
+					<button
+						class="card sidenav-card btn btn-secondary route-button"
+						@click="routeChange('password')"
+						:disabled="currentRoute === 'Password'"
+					>
 						<div class="sidenav-card-body card-body">
 							<img
 								class="sidenav-card-image"
@@ -103,10 +115,14 @@
 							/>
 							<div class="sidenav-card-text">Password Generator</div>
 						</div>
-					</div>
-				</template>
-				<template v-if="currentRoute !== 'Acronym'">
-					<div class="sidenav-card card" @click="routeChange('acronym')">
+					</button>
+				</div>
+				<div>
+					<button
+						class="card sidenav-card btn btn-secondary route-button"
+						@click="routeChange('acronym')"
+						:disabled="currentRoute === 'Acronym'"
+					>
 						<div class="sidenav-card-body card-body">
 							<img
 								class="sidenav-card-image"
@@ -115,10 +131,14 @@
 							/>
 							<div class="sidenav-card-text">Acronym Generator</div>
 						</div>
-					</div>
-				</template>
-				<template v-if="currentRoute !== 'Discord'">
-					<div class="sidenav-card card" @click="routeChange('discord')">
+					</button>
+				</div>
+				<div>
+					<button
+						class="card sidenav-card btn btn-secondary route-button"
+						@click="routeChange('discord')"
+						:disabled="currentRoute === 'Discord'"
+					>
 						<div class="sidenav-card-body card-body">
 							<img
 								class="sidenav-card-image"
@@ -127,10 +147,14 @@
 							/>
 							<div class="sidenav-card-text">Discord Generator</div>
 						</div>
-					</div>
-				</template>
-				<template v-if="currentRoute !== 'Sorting'">
-					<div class="sidenav-card card" @click="routeChange('sorting')">
+					</button>
+				</div>
+				<div>
+					<button
+						class="card sidenav-card btn btn-secondary route-button"
+						@click="routeChange('sorting')"
+						:disabled="currentRoute === 'Sorting'"
+					>
 						<div class="sidenav-card-body card-body">
 							<img
 								class="sidenav-card-image"
@@ -139,8 +163,8 @@
 							/>
 							<div class="sidenav-card-text">Sorting Visualizations</div>
 						</div>
-					</div>
-				</template>
+					</button>
+				</div>
 			</div>
 		</div>
 		<div ref="overlay" class="sidenav-overlay" v-once></div>
@@ -159,6 +183,29 @@
 	border-color: #388e3c;
 	margin-top: -2px;
 	margin-left: 10px;
+}
+
+.route-button {
+	padding: 0;
+}
+
+.route-button:disabled {
+	border-color: transparent !important;
+}
+
+.route-button:hover {
+	background-color: #424242 !important;
+	color: white !important;
+	border-color: transparent !important;
+}
+
+.route-button:active {
+	border-color: transparent !important;
+}
+
+.route-button:focus {
+	border-color: transparent !important;
+	box-shadow: unset !important;
 }
 
 .sidenav {

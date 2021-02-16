@@ -1,97 +1,78 @@
-import { Vue } from 'vue-class-component'
-import * as PIXI from 'pixi.js'
-import { PixiGraphicsRect } from '@/typings'
+import { Vue, Options } from 'vue-class-component'
+import { GraphicsRect } from '@/typings'
+import { default as Two } from 'two.js'
 
+@Options({
+	watch: {
+		//
+	}
+})
 export default class Sorting extends Vue {
-	public app!: PIXI.Application
-	public sortingArray!: PixiGraphicsRect[]
-	public pixiGraphics!: PIXI.Graphics
+	public sleepTime = 0
+	public numberOfRectangles = 100
+	public busy = false
+	public stopExecution = false
+	public disableStopButton = true
 
+	private two!: Two
+	private twoElement!: HTMLDivElement
+	private sortingArray: GraphicsRect[] = []
+
+	// sorting styles to add   heap sort     radix sorts    tim sort
+	// C standard in place and non in place    bogo sort     merge sort    quick sort
+
+	// The algorithms are: selection sort, insertion sort, quick sort,
+	// merge sort, heap sort, radix sort (LSD), radix sort (MSD),
+	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort, bubble sort,
+	//  cocktail shaker sort, gnome sort, bitonic sort and bogo sort (30 seconds of it).
 	public mounted() {
-		this.app = new PIXI.Application({
-			width: 1915,
-			height: 870,
-			transparent: true
+		this.twoElement = this.$refs.twojs as HTMLDivElement
+
+		const params: Two.ConstructorParams = {
+			width: this.twoElement.clientWidth,
+			height: this.twoElement.clientHeight,
+			autostart: true,
+			// type: Two.Types.webgl,
+			fullscreen: false
+		}
+		this.two = new Two(params).appendTo(this.twoElement)
+		this.two.bind('all', event => {
+			console.log(1, event)
 		})
-		const pixiRef = this.$refs.pixi as HTMLElement
-		pixiRef.appendChild(this.app.view)
-		this.pixiGraphics = new PIXI.Graphics()
-		this.app.stage.addChild(this.pixiGraphics)
-
-		this.sortingArray = this.createUnsortedArray()
+		this.twoElement.addEventListener('all', event => {
+			console.log(2, event)
+		})
+		this.createUnsortedArray()
 		this.drawAllRectangles()
-
-		this.bubbleSort()
 	}
 
-	private createUnsortedArray() {
-		const sortingArray: PixiGraphicsRect[] = [
-			{ x: 0, y: 0, width: 0, height: 0 }
-		]
+	public async stop() {
+		this.stopExecution = true
+		this.disableStopButton = false
+		await this.sleep(1000) // easy safe way to ensure all operations are done
+		this.stopExecution = false
+		this.disableStopButton = true
+		this.busy = false
+	}
 
-		sortingArray.pop()
-
-		for (let n = 0; n < 870; n++) {
-			const rect: PixiGraphicsRect = {
-				x: n + 1,
-				y: 870 - n,
-				width: 1,
-				height: n + 1
-			}
-			sortingArray.push(rect)
+	public async randomizeArray() {
+		this.busy = true
+		this.disableStopButton = true
+		while (this.two.scene.children.length > 0) {
+			this.two.scene.children.pop()
+			this.sortingArray.pop()
 		}
-
-		for (let n = 0; n < 2500; n++) {
-			const firstElementIndex = Math.floor(Math.random() * sortingArray.length)
-			let secondElementIndex = 0
-			do {
-				secondElementIndex = Math.floor(Math.random() * sortingArray.length)
-			} while (firstElementIndex === secondElementIndex)
-
-			// swap the x position of the two elements
-			sortingArray[secondElementIndex].x = [
-				sortingArray[firstElementIndex].x,
-				(sortingArray[firstElementIndex].x = sortingArray[secondElementIndex].x)
-			][0]
-
-			// swap the array positions
-			sortingArray[secondElementIndex] = [
-				sortingArray[firstElementIndex],
-				(sortingArray[firstElementIndex] = sortingArray[secondElementIndex])
-			][0]
-		}
-		return sortingArray
+		this.two.update()
+		this.createUnsortedArray()
+		await this.drawAllRectangles()
+		this.busy = false
 	}
 
-	private async drawAllRectangles() {
-		for (let n = 0; n < this.app.screen.height; n++) {
-			this.pixiGraphics.addChild(new PIXI.Graphics())
-			this.drawRectangle(n)
-		}
-		await this.sleep(0.001)
-	}
-
-	private async drawRectangles(firstIndex: number, secondIndex: number) {
-		;(this.pixiGraphics.children[firstIndex] as PIXI.Graphics).clear()
-		;(this.pixiGraphics.children[secondIndex] as PIXI.Graphics).clear()
-		this.drawRectangle(firstIndex)
-		await this.drawRectangle(secondIndex)
-	}
-
-	private async drawRectangle(index: number) {
-		const graphics = this.pixiGraphics.children[index] as PIXI.Graphics
-		graphics.beginFill(0xde3249, 1)
-		graphics.drawRect(
-			this.sortingArray[index].x,
-			this.sortingArray[index].y,
-			this.sortingArray[index].width,
-			this.sortingArray[index].height
-		)
-		graphics.endFill()
-		await this.sleep(0.001)
-	}
-
-	private async bubbleSort() {
+	// // // // // // // //
+	// Sorting methods
+	// // // // // // // //
+	public async bubbleSort() {
+		this.sortingMethodStarted()
 		const length = this.sortingArray.length
 		let swapped = false
 		let count = 0
@@ -101,6 +82,9 @@ export default class Sorting extends Vue {
 			swapped = false
 			loopLength = length - count
 			for (let i = 0; i < loopLength; i++) {
+				if (this.stopExecution) {
+					return
+				}
 				if (this.sortingArray[i].height > this.sortingArray[i + 1].height) {
 					// swap the x position of the two elements
 					this.sortingArray[i + 1].x = [
@@ -114,23 +98,21 @@ export default class Sorting extends Vue {
 						(this.sortingArray[i] = this.sortingArray[i + 1])
 					][0]
 
-					await this.drawRectangles(i + 1, i)
 					swapped = true
-				} else {
-					console.log(new Date().getTime())
-					await this.drawRectangles(i, i + 1)
-					console.log(new Date().getTime())
 				}
+				await this.redrawRectangles(i, i + 1)
 			}
 		} while (swapped)
+		this.sortingMethodEnded()
 	}
 
-	private async insertionSort() {
+	public async insertionSort() {
+		this.sortingMethodStarted()
 		const length = this.sortingArray.length
 		let j = 0
-		let current: PixiGraphicsRect
+		let current: GraphicsRect
 
-		for (let i = 0; i < length; i++) {
+		for (let i = 1; i < length; i++) {
 			current = this.sortingArray[i]
 
 			for (
@@ -138,6 +120,10 @@ export default class Sorting extends Vue {
 				j >= 0 && this.sortingArray[j].height > current.height;
 				j--
 			) {
+				if (this.stopExecution) {
+					return
+				}
+
 				// swap the x of the 2 elements then swap the array elements
 				this.sortingArray[j + 1].x = [
 					this.sortingArray[j].x,
@@ -147,6 +133,7 @@ export default class Sorting extends Vue {
 					this.sortingArray[j],
 					(this.sortingArray[j] = this.sortingArray[j + 1])
 				][0]
+				await this.redrawRectangles(j, j + 1)
 			}
 
 			// swap the x of the 2 elements then swap the array elements
@@ -159,9 +146,11 @@ export default class Sorting extends Vue {
 				(current = this.sortingArray[j + 1])
 			][0]
 		}
+		this.sortingMethodEnded()
 	}
 
-	private async selectionSort() {
+	public async selectionSort() {
+		this.sortingMethodStarted()
 		let length = this.sortingArray.length
 		let minHeight = 0
 
@@ -169,6 +158,9 @@ export default class Sorting extends Vue {
 			// Finding the smallest number in the subarray
 			minHeight = n
 			for (let x = n + 1; x < length; x++) {
+				if (this.stopExecution) {
+					return
+				}
 				if (this.sortingArray[x].height < this.sortingArray[minHeight].height) {
 					minHeight = x
 				}
@@ -183,11 +175,116 @@ export default class Sorting extends Vue {
 					this.sortingArray[n],
 					(this.sortingArray[n] = this.sortingArray[minHeight])
 				][0]
+				await this.redrawRectangles(n, minHeight)
 			}
 		}
+		this.sortingMethodEnded()
+	}
+
+	// // // // // // //
+	// Private methods
+	// // // // // // //
+	private createUnsortedArray() {
+		const divWidth = this.twoElement.clientWidth
+		const widthOfRectangle = Math.floor(divWidth / this.numberOfRectangles - 1)
+		const divHeight = this.twoElement.clientHeight
+		const heightOfRectangle = Math.floor(
+			divHeight / this.numberOfRectangles - 2
+		)
+		for (let n = 0; n < this.numberOfRectangles; n++) {
+			const rect: GraphicsRect = {
+				x: n * widthOfRectangle + widthOfRectangle,
+				y: (divHeight - n) / 2,
+				width: widthOfRectangle - 1,
+				height: n * heightOfRectangle + heightOfRectangle
+			}
+			this.sortingArray.push(rect)
+		}
+
+		const sortingLength = this.sortingArray.length
+		const sortingLengthMultiplied = sortingLength * 10
+		for (let n = 0; n < sortingLengthMultiplied; n++) {
+			const firstElementIndex = Math.floor(Math.random() * sortingLength)
+			let secondElementIndex = 0
+			do {
+				secondElementIndex = Math.floor(Math.random() * sortingLength)
+			} while (firstElementIndex === secondElementIndex)
+
+			// swap the x position of the two elements
+			this.sortingArray[secondElementIndex].x = [
+				this.sortingArray[firstElementIndex].x,
+				(this.sortingArray[firstElementIndex].x = this.sortingArray[
+					secondElementIndex
+				].x)
+			][0]
+
+			// swap the array positions
+			this.sortingArray[secondElementIndex] = [
+				this.sortingArray[firstElementIndex],
+				(this.sortingArray[firstElementIndex] = this.sortingArray[
+					secondElementIndex
+				])
+			][0]
+		}
+	}
+
+	private async drawRectangle(index: number, redraw?: boolean) {
+		let rect: Two.Rectangle
+		if (redraw) {
+			const arrayRect = this.sortingArray[index]
+			rect = this.two.makeRectangle(
+				arrayRect.x,
+				arrayRect.y,
+				arrayRect.width,
+				arrayRect.height
+			)
+			this.two.scene.children.splice(
+				index,
+				0,
+				this.two.scene.children.pop() as any
+			)
+		} else {
+			const arrayRect = this.sortingArray[index]
+			rect = this.two.makeRectangle(
+				arrayRect.x,
+				arrayRect.y,
+				arrayRect.width,
+				arrayRect.height
+			)
+		}
+		rect.fill = 'rgb(0, 255, 0)'
+		rect.opacity = 1
+		rect.noStroke()
+		await this.sleep(this.sleepTime)
+	}
+
+	private async drawAllRectangles() {
+		for (let n = 0; n < this.numberOfRectangles; n++) {
+			await this.drawRectangle(n)
+			this.two.update()
+		}
+	}
+
+	private async redrawRectangles(smallerIndex: number, largerIndex: number) {
+		;(this.two.scene.children[largerIndex] as Two.Path).remove()
+		;(this.two.scene.children[smallerIndex] as Two.Path).remove()
+
+		await this.drawRectangle(smallerIndex, true)
+		await this.drawRectangle(largerIndex, true)
+		this.two.update()
 	}
 
 	private sleep(time: number) {
 		return new Promise(s => setTimeout(s, time))
+	}
+
+	private sortingMethodStarted() {
+		this.busy = true
+		this.disableStopButton = false
+	}
+
+	private sortingMethodEnded() {
+		this.busy = false
+		this.disableStopButton = true
 	}
 }
