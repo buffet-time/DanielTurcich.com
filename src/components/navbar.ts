@@ -12,7 +12,7 @@ export default class Navbar extends Vue {
 		this.overlayElement = this.$refs.overlay as HTMLElement
 
 		// close the sidenav if click outside
-		document.addEventListener('mouseup', event => {
+		document.addEventListener('mouseup', (event) => {
 			if (this.overlayElement.style.zIndex === '1' && event.x > 230) {
 				this.closeNav()
 			}
