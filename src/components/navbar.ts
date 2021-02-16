@@ -12,11 +12,12 @@ export default class Navbar extends Vue {
 		this.overlayElement = this.$refs.overlay as HTMLElement
 
 		// close the sidenav if click outside
-		document.addEventListener('mouseup', (event) => {
+		document.addEventListener('mouseup', event => {
 			if (this.overlayElement.style.zIndex === '1' && event.x > 230) {
 				this.closeNav()
 			}
 		})
+		this.closeNav()
 	}
 
 	public openLink(link: string) {
@@ -47,8 +48,14 @@ export default class Navbar extends Vue {
 	}
 
 	public async routeChange(route: string) {
+		console.log(1)
 		await router.push(route)
 		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
+	}
+
+	public disableRouteButton(route: string) {
+		console.log(2)
+		return this.currentRoute === route
 	}
 
 	public openNav() {
