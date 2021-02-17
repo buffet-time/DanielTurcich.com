@@ -1,12 +1,7 @@
-import { Vue, Options } from 'vue-class-component'
+import { Vue } from 'vue-class-component'
 import { GraphicsRect } from '@/typings'
 import { default as Two } from 'two.js'
 
-@Options({
-	watch: {
-		//
-	}
-})
 export default class Sorting extends Vue {
 	public sleepTime = 0
 	public numberOfRectangles = 100
@@ -32,7 +27,7 @@ export default class Sorting extends Vue {
 			width: this.twoElement.clientWidth,
 			height: this.twoElement.clientHeight,
 			autostart: true,
-			// type: Two.Types.webgl,
+			type: Two.Types.webgl,
 			fullscreen: false
 		}
 		this.two = new Two(params).appendTo(this.twoElement)
@@ -186,16 +181,17 @@ export default class Sorting extends Vue {
 	// // // // // // //
 	private createUnsortedArray() {
 		const divWidth = this.twoElement.clientWidth
-		const widthOfRectangle = Math.floor(divWidth / this.numberOfRectangles - 1)
+		const widthOfRectangle = (divWidth - 15) / this.numberOfRectangles
 		const divHeight = this.twoElement.clientHeight
-		const heightOfRectangle = Math.floor(
-			divHeight / this.numberOfRectangles - 2
-		)
+		const heightOfRectangle = (divHeight - 15) / this.numberOfRectangles
+
+		const yValue = divHeight / 2
+		const widthValue = widthOfRectangle - 1
 		for (let n = 0; n < this.numberOfRectangles; n++) {
 			const rect: GraphicsRect = {
 				x: n * widthOfRectangle + widthOfRectangle,
-				y: (divHeight - n) / 2,
-				width: widthOfRectangle - 1,
+				y: yValue,
+				width: widthValue,
 				height: n * heightOfRectangle + heightOfRectangle
 			}
 			this.sortingArray.push(rect)

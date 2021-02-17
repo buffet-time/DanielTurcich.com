@@ -25,7 +25,9 @@
 				v-once
 			/>
 
-			<label for="range-2">Password Length: {{ numberOfRectangles }}</label>
+			<label for="range-2"
+				>Number of Rectangles: {{ numberOfRectangles }}</label
+			>
 			<br />
 			<input
 				class="password-length-range form-range"
@@ -79,7 +81,7 @@
 
 <style>
 .sorting-wrapper {
-	height: 100vh;
+	height: calc(100vh - 60px);
 	display: flex;
 	flex-flow: row;
 }
