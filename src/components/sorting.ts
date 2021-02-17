@@ -22,7 +22,6 @@ export default class Sorting extends Vue {
 	//  cocktail shaker sort, gnome sort, bitonic sort and bogo sort (30 seconds of it).
 	public mounted() {
 		this.twoElement = this.$refs.twojs as HTMLDivElement
-
 		const params: Two.ConstructorParams = {
 			width: this.twoElement.clientWidth,
 			height: this.twoElement.clientHeight,
@@ -31,12 +30,6 @@ export default class Sorting extends Vue {
 			fullscreen: false
 		}
 		this.two = new Two(params).appendTo(this.twoElement)
-		this.two.bind('all', event => {
-			console.log(1, event)
-		})
-		this.twoElement.addEventListener('all', event => {
-			console.log(2, event)
-		})
 		this.createUnsortedArray()
 		this.drawAllRectangles()
 	}
@@ -44,7 +37,7 @@ export default class Sorting extends Vue {
 	public async stop() {
 		this.stopExecution = true
 		this.disableStopButton = false
-		await this.sleep(1000) // easy safe way to ensure all operations are done
+		await this.sleep(500) // easy safe way to ensure all operations are done
 		this.stopExecution = false
 		this.disableStopButton = true
 		this.busy = false
@@ -63,9 +56,9 @@ export default class Sorting extends Vue {
 		this.busy = false
 	}
 
-	// // // // // // // //
+	// // // // // // //
 	// Sorting methods
-	// // // // // // // //
+	// // // // // // //
 	public async bubbleSort() {
 		this.sortingMethodStarted()
 		const length = this.sortingArray.length

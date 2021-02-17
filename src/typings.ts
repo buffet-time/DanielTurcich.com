@@ -4,3 +4,10 @@ export interface GraphicsRect {
 	width: number
 	height: number
 }
+
+export interface SidenavLink {
+	openLink: string
+	src: string
+	alt: string
+	buttonText: string
+}

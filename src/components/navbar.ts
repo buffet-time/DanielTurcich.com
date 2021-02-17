@@ -1,15 +1,50 @@
 import router from '@/router'
+import { SidenavLink } from '@/typings'
 import { Vue } from 'vue-class-component'
+import { RouteRecordNormalized } from 'vue-router'
 
 export default class Navbar extends Vue {
-	public currentRoute = ''
+	public routes: RouteRecordNormalized[] = []
+	public links: SidenavLink[] = [
+		{
+			openLink: 'github',
+			buttonText: 'Github',
+			alt: 'github logo',
+			src: 'github.png'
+		},
+		{
+			openLink: 'linkedin',
+			buttonText: 'LinkedIn',
+			alt: 'linkedin logo',
+			src: 'linkedin.png'
+		},
+		{
+			openLink: 'resume',
+			buttonText: 'Resume',
+			alt: 'pdf logo',
+			src: 'resume.png'
+		},
+		{
+			openLink: 'bandcamp',
+			buttonText: 'Bandcamp',
+			alt: 'bandcamp logo',
+			src: 'bandcamp.png'
+		},
+		{
+			openLink: 'soundcloud',
+			buttonText: 'Soundcloud',
+			alt: 'soundcloud logo',
+			src: 'soundcloud.png'
+		}
+	]
 
-	private sidenavElement!: HTMLElement
-	private overlayElement!: HTMLElement
+	private sidenavElement!: HTMLDivElement
+	private overlayElement!: HTMLDivElement
 
 	public mounted() {
-		this.sidenavElement = this.$refs.sidenav as HTMLElement
-		this.overlayElement = this.$refs.overlay as HTMLElement
+		this.routes = this.$router.getRoutes()
+		this.sidenavElement = this.$refs.sidenav as HTMLDivElement
+		this.overlayElement = this.$refs.overlay as HTMLDivElement
 
 		// close the sidenav if click outside
 		document.addEventListener('mouseup', event => {
@@ -48,32 +83,26 @@ export default class Navbar extends Vue {
 	}
 
 	public async routeChange(route: string) {
-		console.log(1)
 		await router.push(route)
-		this.currentRoute = this.$router.currentRoute.value.name!.toString()!
-	}
-
-	public disableRouteButton(route: string) {
-		console.log(2)
-		return this.currentRoute === route
 	}
 
 	public openNav() {
-		this.overlayElement.style.zIndex = '1'
 		this.sidenavElement.style.width = '230px'
-		this.overlayElement.style.opacity = '15%'
-		this.overlayElement.style.width = 'calc(100% - 230px)'
-		this.overlayElement.style.marginLeft = '230px'
-		if (!this.currentRoute) {
-			this.currentRoute = this.$router.currentRoute.value.name!.toString()!
-		}
+		Object.assign(this.overlayElement.style, {
+			opacity: '15%',
+			width: 'calc(100% - 230px)',
+			marginLeft: '230px',
+			zIndex: '1'
+		})
 	}
 
 	public closeNav() {
 		this.sidenavElement.style.width = '0'
-		this.overlayElement.style.opacity = '0'
-		this.overlayElement.style.width = '100%'
-		this.overlayElement.style.marginLeft = '0'
-		this.overlayElement.style.zIndex = '-1'
+		Object.assign(this.overlayElement.style, {
+			opacity: '0',
+			width: '100%',
+			marginLeft: '0',
+			zIndex: '-1'
+		})
 	}
 }

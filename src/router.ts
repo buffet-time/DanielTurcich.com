@@ -9,29 +9,34 @@ const Sorting = () => import('./components/sorting.vue')
 
 const routes: Array<RouteRecordRaw> = [
 	{
-		path: '',
+		path: '/',
 		name: 'Home',
-		component: Home
+		component: Home,
+		meta: { buttonName: 'Home' }
 	},
 	{
 		path: '/acronym',
 		name: 'Acronym',
-		component: Acronym
+		component: Acronym,
+		meta: { buttonName: 'Acronym Generator' }
 	},
 	{
 		path: '/password',
 		name: 'Password',
-		component: Password
+		component: Password,
+		meta: { buttonName: 'Password Generator' }
 	},
 	{
 		path: '/discord',
 		name: 'Discord',
-		component: Discord
+		component: Discord,
+		meta: { buttonName: 'Discord Generator' }
 	},
 	{
 		path: '/sorting',
 		name: 'Sorting',
-		component: Sorting
+		component: Sorting,
+		meta: { buttonName: 'Sorting Visualizations' }
 	}
 ]
 

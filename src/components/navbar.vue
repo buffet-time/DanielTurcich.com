@@ -31,140 +31,39 @@
 					</svg>
 				</div>
 
-				<div class="sidenav-card card" @click="openLink('github')" v-once>
+				<div
+					v-for="link in links"
+					:key="link"
+					class="sidenav-card card"
+					@click="openLink(link.openLink)"
+				>
 					<div class="sidenav-card-body card-body">
 						<img
 							class="sidenav-card-image"
-							src="../assets/github.png"
-							alt="github logo"
+							:src="require(`../assets/${link.src}`)"
+							:alt="link.alt"
 						/>
-						<div class="sidenav-card-text">Github</div>
+						<div class="sidenav-card-text">{{ link.buttonText }}</div>
 					</div>
 				</div>
 
-				<div class="sidenav-card card" @click="openLink('linkedin')" v-once>
+				<button
+					v-for="route in routes"
+					:key="route"
+					class="card sidenav-card btn btn-secondary route-button"
+					@click="routeChange(route.path)"
+					:disabled="$route.name === route.name"
+				>
 					<div class="sidenav-card-body card-body">
 						<img
 							class="sidenav-card-image"
-							src="../assets/linkedin.png"
-							alt="linkedin logo"
+							src="../assets/cardano.png"
+							alt="cardano logo"
+							v-once
 						/>
-						<div class="sidenav-card-text">LinkedIn</div>
+						<div class="sidenav-card-text">{{ route.meta.buttonName }}</div>
 					</div>
-				</div>
-
-				<div class="sidenav-card card" @click="openLink('resume')" v-once>
-					<div class="sidenav-card-body card-body">
-						<img
-							class="sidenav-card-image"
-							src="../assets/resume.png"
-							alt="pdf logo"
-						/>
-						<div class="sidenav-card-text">Resume</div>
-					</div>
-				</div>
-
-				<div class="sidenav-card card" @click="openLink('bandcamp')" v-once>
-					<div class="sidenav-card-body card-body">
-						<img
-							class="sidenav-card-image"
-							src="../assets/bandcamp.png"
-							alt="bandcamp logo"
-						/>
-						<div class="sidenav-card-text">Bandcamp</div>
-					</div>
-				</div>
-
-				<div class="sidenav-card card" @click="openLink('soundcloud')" v-once>
-					<div class="sidenav-card-body card-body">
-						<img
-							class="sidenav-card-image"
-							src="../assets/soundcloud.png"
-							alt="soundcloud logo"
-						/>
-						<div class="sidenav-card-text">Soundcloud</div>
-					</div>
-				</div>
-				<div>
-					<button
-						class="card sidenav-card btn btn-secondary route-button"
-						@click="routeChange('/')"
-						:disabled="currentRoute === 'Home'"
-					>
-						<div class="sidenav-card-body card-body">
-							<img
-								class="sidenav-card-image"
-								src="../assets/cardano.png"
-								alt="cardano logo"
-							/>
-							<div class="sidenav-card-text">Home</div>
-						</div>
-					</button>
-				</div>
-				<div>
-					<button
-						class="card sidenav-card btn btn-secondary route-button"
-						@click="routeChange('password')"
-						:disabled="currentRoute === 'Password'"
-					>
-						<div class="sidenav-card-body card-body">
-							<img
-								class="sidenav-card-image"
-								src="../assets/cardano.png"
-								alt="cardano logo"
-							/>
-							<div class="sidenav-card-text">Password Generator</div>
-						</div>
-					</button>
-				</div>
-				<div>
-					<button
-						class="card sidenav-card btn btn-secondary route-button"
-						@click="routeChange('acronym')"
-						:disabled="currentRoute === 'Acronym'"
-					>
-						<div class="sidenav-card-body card-body">
-							<img
-								class="sidenav-card-image"
-								src="../assets/cardano.png"
-								alt="cardano logo"
-							/>
-							<div class="sidenav-card-text">Acronym Generator</div>
-						</div>
-					</button>
-				</div>
-				<div>
-					<button
-						class="card sidenav-card btn btn-secondary route-button"
-						@click="routeChange('discord')"
-						:disabled="currentRoute === 'Discord'"
-					>
-						<div class="sidenav-card-body card-body">
-							<img
-								class="sidenav-card-image"
-								src="../assets/cardano.png"
-								alt="cardano logo"
-							/>
-							<div class="sidenav-card-text">Discord Generator</div>
-						</div>
-					</button>
-				</div>
-				<div>
-					<button
-						class="card sidenav-card btn btn-secondary route-button"
-						@click="routeChange('sorting')"
-						:disabled="currentRoute === 'Sorting'"
-					>
-						<div class="sidenav-card-body card-body">
-							<img
-								class="sidenav-card-image"
-								src="../assets/cardano.png"
-								alt="cardano logo"
-							/>
-							<div class="sidenav-card-text">Sorting Visualizations</div>
-						</div>
-					</button>
-				</div>
+				</button>
 			</div>
 		</div>
 		<div ref="overlay" class="sidenav-overlay" v-once></div>

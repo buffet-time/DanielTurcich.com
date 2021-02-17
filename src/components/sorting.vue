@@ -4,7 +4,7 @@
 	<div class="sorting-wrapper">
 		<div class="settings">
 			<button
-				class="randomize-button btn btn-secondary"
+				class="sorting-button btn btn-secondary"
 				@click="stop"
 				:disabled="disableStopButton"
 			>
@@ -41,7 +41,7 @@
 			/>
 
 			<button
-				class="randomize-button btn btn-secondary"
+				class="sorting-button btn btn-secondary"
 				@click="randomizeArray"
 				:disabled="busy"
 			>
@@ -50,7 +50,7 @@
 			<br />
 
 			<button
-				class="randomize-button btn btn-secondary"
+				class="sorting-button btn btn-secondary"
 				@click="bubbleSort"
 				:disabled="busy"
 			>
@@ -59,7 +59,7 @@
 			<br />
 
 			<button
-				class="randomize-button btn btn-secondary"
+				class="sorting-button btn btn-secondary"
 				@click="insertionSort"
 				:disabled="busy"
 			>
@@ -68,7 +68,7 @@
 			<br />
 
 			<button
-				class="randomize-button btn btn-secondary"
+				class="sorting-button btn btn-secondary"
 				@click="selectionSort"
 				:disabled="busy"
 			>
@@ -89,18 +89,18 @@
 .settings {
 	flex: 0 0 300px;
 	align-self: center;
-	/* align-items to center multiple */
 }
 
 .twojs {
 	flex: 1 1 auto;
 }
 
-.randomize-button {
+.sorting-button {
 	position: relative;
 	display: inline-block;
 	margin-left: 20px;
 	margin-bottom: 8px;
+	width: 45%;
 }
 
 .password-length-range {
