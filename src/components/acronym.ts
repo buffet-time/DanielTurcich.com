@@ -1,5 +1,5 @@
 import { Vue } from 'vue-class-component'
-import Words from '../assets/words.json'
+import Words from './acronymWords.json'
 
 const words: { [key: string]: string[] } = Words
 

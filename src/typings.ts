@@ -1,4 +1,4 @@
-export interface GraphicsRect {
+export interface PixiRect {
 	x: number
 	y: number
 	width: number

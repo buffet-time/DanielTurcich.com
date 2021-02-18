@@ -1,6 +1,6 @@
 import { Vue } from 'vue-class-component'
-import { GraphicsRect } from '@/typings'
-import { default as Two } from 'two.js'
+import { PixiRect } from '@/typings'
+import { Application, Graphics } from 'pixi.js'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
@@ -9,27 +9,24 @@ export default class Sorting extends Vue {
 	public stopExecution = false
 	public disableStopButton = true
 
-	private two!: Two
-	private twoElement!: HTMLDivElement
-	private sortingArray: GraphicsRect[] = []
+	private app!: Application
+	private canvasElement!: HTMLCanvasElement
+	private sortingArray: PixiRect[] = []
 
-	// sorting styles to add   heap sort     radix sorts    tim sort
-	// C standard in place and non in place    bogo sort     merge sort    quick sort
-
-	// The algorithms are: selection sort, insertion sort, quick sort,
-	// merge sort, heap sort, radix sort (LSD), radix sort (MSD),
-	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort, bubble sort,
-	//  cocktail shaker sort, gnome sort, bitonic sort and bogo sort (30 seconds of it).
 	public mounted() {
-		this.twoElement = this.$refs.twojs as HTMLDivElement
-		const params: Two.ConstructorParams = {
-			width: this.twoElement.clientWidth,
-			height: this.twoElement.clientHeight,
-			autostart: true,
-			type: Two.Types.webgl,
-			fullscreen: false
-		}
-		this.two = new Two(params).appendTo(this.twoElement)
+		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
+		this.app = new Application({
+			autoStart: true,
+			width: this.canvasElement.clientWidth,
+			height: this.canvasElement.clientHeight,
+			view: this.canvasElement,
+			clearBeforeRender: false,
+			powerPreference: 'high-performance',
+			sharedTicker: false,
+			sharedLoader: false,
+			resizeTo: this.canvasElement
+		})
+
 		this.createUnsortedArray()
 		this.drawAllRectangles()
 	}
@@ -46,15 +43,24 @@ export default class Sorting extends Vue {
 	public async randomizeArray() {
 		this.busy = true
 		this.disableStopButton = true
-		while (this.two.scene.children.length > 0) {
-			this.two.scene.children.pop()
+
+		while (this.sortingArray.length > 0) {
 			this.sortingArray.pop()
+			this.app.stage.children[0].destroy()
 		}
-		this.two.update()
 		this.createUnsortedArray()
+
 		await this.drawAllRectangles()
 		this.busy = false
 	}
+
+	// sorting styles to add   heap sort     radix sorts    tim sort
+	// C standard in place and non in place    bogo sort     merge sort    quick sort
+
+	// The algorithms are: selection sort, insertion sort, quick sort,
+	// merge sort, heap sort, radix sort (LSD), radix sort (MSD),
+	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort, bubble sort,
+	//  cocktail shaker sort, gnome sort, bitonic sort and bogo sort (30 seconds of it).
 
 	// // // // // // //
 	// Sorting methods
@@ -98,7 +104,7 @@ export default class Sorting extends Vue {
 		this.sortingMethodStarted()
 		const length = this.sortingArray.length
 		let j = 0
-		let current: GraphicsRect
+		let current: PixiRect
 
 		for (let i = 1; i < length; i++) {
 			current = this.sortingArray[i]
@@ -172,24 +178,88 @@ export default class Sorting extends Vue {
 	// // // // // // //
 	// Private methods
 	// // // // // // //
-	private createUnsortedArray() {
-		const divWidth = this.twoElement.clientWidth
-		const widthOfRectangle = (divWidth - 15) / this.numberOfRectangles
-		const divHeight = this.twoElement.clientHeight
-		const heightOfRectangle = (divHeight - 15) / this.numberOfRectangles
+	private sleep(time: number) {
+		return new Promise(s => setTimeout(s, time))
+	}
 
-		const yValue = divHeight / 2
+	private sortingMethodStarted() {
+		this.busy = true
+		this.disableStopButton = false
+	}
+
+	private sortingMethodEnded() {
+		this.busy = false
+		this.disableStopButton = true
+	}
+
+	private async drawAllRectangles() {
+		for (let n = 0; n < this.numberOfRectangles; n++) {
+			await this.drawRectangle(n)
+		}
+	}
+
+	private async redrawRectangles(smallerIndex: number, largerIndex: number) {
+		this.app.stage.swapChildren(
+			(this.app.stage.children[largerIndex] as Graphics).clear(),
+			(this.app.stage.children[smallerIndex] as Graphics).clear()
+		)
+		this.sleep(this.sleepTime)
+
+		this.redrawRectangle(smallerIndex)
+		await this.redrawRectangle(largerIndex)
+	}
+
+	private async drawRectangle(index: number) {
+		const graphics = new Graphics()
+		const arrayRect = this.sortingArray[index]
+
+		graphics.beginFill(0x00ff00)
+		graphics.drawRect(
+			arrayRect.x,
+			arrayRect.y,
+			arrayRect.width,
+			arrayRect.height
+		)
+		graphics.endFill()
+		this.app.stage.addChild(graphics)
+
+		await this.sleep(this.sleepTime)
+	}
+
+	private async redrawRectangle(index: number) {
+		const graphics = this.app.stage.children[index] as Graphics
+		const arrayRect = this.sortingArray[index]
+
+		graphics.beginFill(0x00ff00)
+		graphics.drawRect(
+			arrayRect.x,
+			arrayRect.y,
+			arrayRect.width,
+			arrayRect.height
+		)
+		graphics.endFill()
+
+		await this.sleep(this.sleepTime)
+	}
+
+	private createUnsortedArray() {
+		const divWidth = this.canvasElement.clientWidth
+		const widthOfRectangle = (divWidth - 20) / this.numberOfRectangles
+		const divHeight = this.canvasElement.clientHeight - 11
+		const heightOfRectangle = divHeight / this.numberOfRectangles
+
 		const widthValue = widthOfRectangle - 1
 		for (let n = 0; n < this.numberOfRectangles; n++) {
-			const rect: GraphicsRect = {
+			const rect: PixiRect = {
 				x: n * widthOfRectangle + widthOfRectangle,
-				y: yValue,
+				y: divHeight - n * heightOfRectangle,
 				width: widthValue,
 				height: n * heightOfRectangle + heightOfRectangle
 			}
 			this.sortingArray.push(rect)
 		}
 
+		// randomize sorting array
 		const sortingLength = this.sortingArray.length
 		const sortingLengthMultiplied = sortingLength * 10
 		for (let n = 0; n < sortingLengthMultiplied; n++) {
@@ -215,65 +285,5 @@ export default class Sorting extends Vue {
 				])
 			][0]
 		}
-	}
-
-	private async drawRectangle(index: number, redraw?: boolean) {
-		let rect: Two.Rectangle
-		if (redraw) {
-			const arrayRect = this.sortingArray[index]
-			rect = this.two.makeRectangle(
-				arrayRect.x,
-				arrayRect.y,
-				arrayRect.width,
-				arrayRect.height
-			)
-			this.two.scene.children.splice(
-				index,
-				0,
-				this.two.scene.children.pop() as any
-			)
-		} else {
-			const arrayRect = this.sortingArray[index]
-			rect = this.two.makeRectangle(
-				arrayRect.x,
-				arrayRect.y,
-				arrayRect.width,
-				arrayRect.height
-			)
-		}
-		rect.fill = 'rgb(0, 255, 0)'
-		rect.opacity = 1
-		rect.noStroke()
-		await this.sleep(this.sleepTime)
-	}
-
-	private async drawAllRectangles() {
-		for (let n = 0; n < this.numberOfRectangles; n++) {
-			await this.drawRectangle(n)
-			this.two.update()
-		}
-	}
-
-	private async redrawRectangles(smallerIndex: number, largerIndex: number) {
-		;(this.two.scene.children[largerIndex] as Two.Path).remove()
-		;(this.two.scene.children[smallerIndex] as Two.Path).remove()
-
-		await this.drawRectangle(smallerIndex, true)
-		await this.drawRectangle(largerIndex, true)
-		this.two.update()
-	}
-
-	private sleep(time: number) {
-		return new Promise(s => setTimeout(s, time))
-	}
-
-	private sortingMethodStarted() {
-		this.busy = true
-		this.disableStopButton = false
-	}
-
-	private sortingMethodEnded() {
-		this.busy = false
-		this.disableStopButton = true
 	}
 }

@@ -75,7 +75,7 @@
 				Selection Sort
 			</button>
 		</div>
-		<div ref="twojs" class="twojs" v-once></div>
+		<canvas ref="pixi" class="pixi-canvas" v-once></canvas>
 	</div>
 </template>
 
@@ -91,7 +91,7 @@
 	align-self: center;
 }
 
-.twojs {
+.pixi-canvas {
 	flex: 1 1 auto;
 }
 
