@@ -8,10 +8,12 @@ export default class Sorting extends Vue {
 	public busy = false
 	public stopExecution = false
 	public disableStopButton = true
+	// public soundOn = false
 
 	private app!: Application
 	private canvasElement!: HTMLCanvasElement
 	private sortingArray: PixiRect[] = []
+	// private audioContext!: AudioContext
 
 	public mounted() {
 		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
@@ -27,6 +29,7 @@ export default class Sorting extends Vue {
 			resizeTo: this.canvasElement
 		})
 
+		// this.audioContext = new window.AudioContext()
 		this.createUnsortedArray()
 		this.drawAllRectangles()
 	}
@@ -198,65 +201,50 @@ export default class Sorting extends Vue {
 		}
 	}
 
-	private async redrawRectangles(smallerIndex: number, largerIndex: number) {
+	private async redrawRectangles(firstIndex: number, secondIndex: number) {
 		this.app.stage.swapChildren(
-			(this.app.stage.children[largerIndex] as Graphics).clear(),
-			(this.app.stage.children[smallerIndex] as Graphics).clear()
+			(this.app.stage.children[secondIndex] as Graphics).clear(),
+			(this.app.stage.children[firstIndex] as Graphics).clear()
 		)
-		this.sleep(this.sleepTime)
 
-		this.redrawRectangle(smallerIndex)
-		await this.redrawRectangle(largerIndex)
+		await this.redrawRectangle(firstIndex)
+		await this.redrawRectangle(secondIndex)
 	}
 
 	private async drawRectangle(index: number) {
-		const graphics = new Graphics()
 		const arrayRect = this.sortingArray[index]
-
-		graphics.beginFill(0x00ff00)
-		graphics.drawRect(
-			arrayRect.x,
-			arrayRect.y,
-			arrayRect.width,
-			arrayRect.height
+		this.app.stage.addChild(
+			new Graphics()
+				.beginFill(0x00ff00)
+				.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
+				.endFill()
 		)
-		graphics.endFill()
-		this.app.stage.addChild(graphics)
-
 		await this.sleep(this.sleepTime)
 	}
 
 	private async redrawRectangle(index: number) {
-		const graphics = this.app.stage.children[index] as Graphics
 		const arrayRect = this.sortingArray[index]
-
-		graphics.beginFill(0x00ff00)
-		graphics.drawRect(
-			arrayRect.x,
-			arrayRect.y,
-			arrayRect.width,
-			arrayRect.height
-		)
-		graphics.endFill()
-
+		;(this.app.stage.children[index] as Graphics)
+			.beginFill(0x00ff00)
+			.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
+			.endFill()
 		await this.sleep(this.sleepTime)
 	}
 
 	private createUnsortedArray() {
 		const divWidth = this.canvasElement.clientWidth
-		const widthOfRectangle = (divWidth - 20) / this.numberOfRectangles
-		const divHeight = this.canvasElement.clientHeight - 11
+		const widthOfRectangle = divWidth / this.numberOfRectangles
+		const divHeight = this.canvasElement.clientHeight
 		const heightOfRectangle = divHeight / this.numberOfRectangles
-
 		const widthValue = widthOfRectangle - 1
+
 		for (let n = 0; n < this.numberOfRectangles; n++) {
-			const rect: PixiRect = {
-				x: n * widthOfRectangle + widthOfRectangle,
-				y: divHeight - n * heightOfRectangle,
+			this.sortingArray.push({
+				x: n * widthOfRectangle,
+				y: divHeight - (n + 1) * heightOfRectangle,
 				width: widthValue,
 				height: n * heightOfRectangle + heightOfRectangle
-			}
-			this.sortingArray.push(rect)
+			})
 		}
 
 		// randomize sorting array
@@ -286,4 +274,21 @@ export default class Sorting extends Vue {
 			][0]
 		}
 	}
+
+	// if (this.soundOn) {
+	// 	this.beep(1000, 0.1)
+	// }
+	// // TODO - hook up audio to sorting
+	// private async beep(frequency: number, volume: number) {
+	// 	const oscillator = this.audioContext.createOscillator()
+	// 	const gainNode = this.audioContext.createGain()
+	// 	oscillator.connect(gainNode)
+	// 	gainNode.connect(this.audioContext.destination)
+	// 	oscillator.type = 'sine'
+	// 	gainNode.gain.value = volume
+	// 	oscillator.frequency.value = frequency
+	// 	oscillator.start()
+	// 	await this.sleep(50)
+	// 	oscillator.stop()
+	// }
 }
