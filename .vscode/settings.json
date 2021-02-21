@@ -8,5 +8,6 @@
 	"prettier.semi": false,
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"eslint.validate": ["javascript", "vue"]
 }

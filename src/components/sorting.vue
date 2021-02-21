@@ -12,6 +12,15 @@
 			</button>
 			<br />
 
+			<button
+				class="sorting-button btn btn-secondary"
+				@click="randomizeArray"
+				:disabled="busy"
+			>
+				Randomize
+			</button>
+			<br />
+
 			<label for="range-1">Extra delay: {{ sleepTime }}</label>
 			<br />
 			<input
@@ -25,9 +34,9 @@
 				v-once
 			/>
 
-			<label for="range-2"
-				>Number of Rectangles: {{ numberOfRectangles }}</label
-			>
+			<label for="range-2">
+				Number of Rectangles: {{ numberOfRectangles }}
+			</label>
 			<br />
 			<input
 				class="password-length-range form-range"
@@ -41,39 +50,15 @@
 			/>
 
 			<button
+				v-for="algorithm in sorts"
+				:key="algorithm"
 				class="sorting-button btn btn-secondary"
-				@click="randomizeArray"
+				@click="executeMethod(algorithm.method)"
 				:disabled="busy"
 			>
-				Randomize
+				{{ algorithm.buttonText }}
 			</button>
 			<br />
-
-			<button
-				class="sorting-button btn btn-secondary"
-				@click="bubbleSort"
-				:disabled="busy"
-			>
-				Bubble Sort
-			</button>
-			<br />
-
-			<button
-				class="sorting-button btn btn-secondary"
-				@click="insertionSort"
-				:disabled="busy"
-			>
-				Insertion Sort
-			</button>
-			<br />
-
-			<button
-				class="sorting-button btn btn-secondary"
-				@click="selectionSort"
-				:disabled="busy"
-			>
-				Selection Sort
-			</button>
 		</div>
 		<canvas ref="pixi" class="pixi-canvas" v-once></canvas>
 	</div>

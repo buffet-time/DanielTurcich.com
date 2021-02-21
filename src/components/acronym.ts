@@ -10,11 +10,11 @@ export default class Acronym extends Vue {
 
 	private acronymText = ''
 
-	public copyAcronym() {
+	public copyAcronym(): void {
 		navigator.clipboard.writeText(this.acronymText)
 	}
 
-	public acronymButtonPressed() {
+	public acronymButtonPressed(): void {
 		if (this.acronymInput) {
 			if (this.acronymInput.split(' ').length > 1) {
 				this.buttonPressedState = 'error'

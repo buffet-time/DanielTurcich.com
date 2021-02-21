@@ -6,5 +6,6 @@
 	"trailingComma": "none",
 	"semi": false,
 	"tslint.autoFixOnSave": true,
-	"rcVerbose": true
+	"rcVerbose": true,
+	"endOfLine": "auto"
 }

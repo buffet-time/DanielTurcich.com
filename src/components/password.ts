@@ -10,28 +10,28 @@ export default class Password extends Vue {
 
 	// prettier-ignore
 	private lowercaseLetters = [
-        'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
-        'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
+		'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+		'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
 	]
 	// prettier-ignore
 	private uppercaseLetters = [
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-    ]
+	]
 	// prettier-ignore
 	private numbers = [
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    ]
+		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+	]
 	// prettier-ignore
 	private symbols = [
-        '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', 
-        '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', 
-        ']', '^', '_', '`', '{', '|', '}', '~'
-    ]
+		'!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', 
+		'-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', 
+		']', '^', '_', '`', '{', '|', '}', '~'
+	]
 
 	private password = ''
 
-	public generatePassword() {
+	public generatePassword(): void {
 		let passwordCharacters = ['']
 		this.password = ''
 
@@ -56,11 +56,11 @@ export default class Password extends Vue {
 		this.textToShow = this.password
 	}
 
-	public copyPassword() {
+	public copyPassword(): void {
 		navigator.clipboard.writeText(this.password)
 	}
 
-	private randomInt(min: number, max: number) {
+	private randomInt(min: number, max: number): number {
 		return Math.floor(Math.random() * (max - min + 1)) + min
 	}
 }

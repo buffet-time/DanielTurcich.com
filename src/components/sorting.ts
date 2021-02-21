@@ -1,21 +1,33 @@
 import { Vue } from 'vue-class-component'
-import { PixiRect } from '@/typings'
+import { PixiRect, SortingAlgorithm } from '@/typings'
 import { Application, Graphics } from 'pixi.js'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
+	// public numberOfRectangles = 10
 	public numberOfRectangles = 100
 	public busy = false
 	public stopExecution = false
 	public disableStopButton = true
 	// public soundOn = false
+	public sorts: SortingAlgorithm[] = [
+		{ buttonText: 'Bubble Sort', method: this.bubbleSort },
+		{ buttonText: 'Insertion Sort', method: this.insertionSort },
+		{ buttonText: 'Selection Sort', method: this.selectionSort },
+		{ buttonText: 'Cocktail Shaker Sort', method: this.cocktailShakerSort },
+		{ buttonText: 'Quicksort', method: this.callQuickSort },
+		{ buttonText: 'Merge Sort', method: this.callMergeSort }
+	]
 
 	private app!: Application
 	private canvasElement!: HTMLCanvasElement
 	private sortingArray: PixiRect[] = []
+	private quickSortIndex = 0
+	private pendingRecursiveCalls = 0
 	// private audioContext!: AudioContext
 
-	public mounted() {
+	public async mounted(): Promise<void> {
+		this.sortingMethodStarted()
 		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
 		this.app = new Application({
 			autoStart: true,
@@ -31,10 +43,16 @@ export default class Sorting extends Vue {
 
 		// this.audioContext = new window.AudioContext()
 		this.createUnsortedArray()
-		this.drawAllRectangles()
+		await this.drawAllRectangles()
+		this.sortingMethodEnded()
 	}
 
-	public async stop() {
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public executeMethod(method: Function): void {
+		method.call(this)
+	}
+
+	public async stop(): Promise<void> {
 		this.stopExecution = true
 		this.disableStopButton = false
 		await this.sleep(500) // easy safe way to ensure all operations are done
@@ -43,7 +61,7 @@ export default class Sorting extends Vue {
 		this.busy = false
 	}
 
-	public async randomizeArray() {
+	public async randomizeArray(): Promise<void> {
 		this.busy = true
 		this.disableStopButton = true
 
@@ -57,53 +75,40 @@ export default class Sorting extends Vue {
 		this.busy = false
 	}
 
-	// sorting styles to add   heap sort     radix sorts    tim sort
-	// C standard in place and non in place    bogo sort     merge sort    quick sort
-
-	// The algorithms are: selection sort, insertion sort, quick sort,
+	// sorting methods to add
 	// merge sort, heap sort, radix sort (LSD), radix sort (MSD),
-	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort, bubble sort,
-	//  cocktail shaker sort, gnome sort, bitonic sort and bogo sort (30 seconds of it).
+	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort
+	// gnome sort, bitonic sort, bogo sort,  tim sort
 
 	// // // // // // //
 	// Sorting methods
 	// // // // // // //
-	public async bubbleSort() {
+	private async bubbleSort() {
 		this.sortingMethodStarted()
 		const length = this.sortingArray.length
 		let swapped = false
 		let count = 0
 		let loopLength = 0
+		let n = 0
 		do {
 			count++
 			swapped = false
 			loopLength = length - count
-			for (let i = 0; i < loopLength; i++) {
+			for (n = 0; n < loopLength; n++) {
 				if (this.stopExecution) {
 					return
 				}
-				if (this.sortingArray[i].height > this.sortingArray[i + 1].height) {
-					// swap the x position of the two elements
-					this.sortingArray[i + 1].x = [
-						this.sortingArray[i].x,
-						(this.sortingArray[i].x = this.sortingArray[i + 1].x)
-					][0]
-
-					// swap the array positions
-					this.sortingArray[i + 1] = [
-						this.sortingArray[i],
-						(this.sortingArray[i] = this.sortingArray[i + 1])
-					][0]
-
+				if (this.sortingArray[n].height > this.sortingArray[n + 1].height) {
+					this.swapArrayElements(n, n + 1)
+					await this.redrawRectangles(n, n + 1)
 					swapped = true
 				}
-				await this.redrawRectangles(i, i + 1)
 			}
 		} while (swapped)
 		this.sortingMethodEnded()
 	}
 
-	public async insertionSort() {
+	private async insertionSort() {
 		this.sortingMethodStarted()
 		const length = this.sortingArray.length
 		let j = 0
@@ -121,40 +126,24 @@ export default class Sorting extends Vue {
 					return
 				}
 
-				// swap the x of the 2 elements then swap the array elements
-				this.sortingArray[j + 1].x = [
-					this.sortingArray[j].x,
-					(this.sortingArray[j].x = this.sortingArray[j + 1].x)
-				][0]
-				this.sortingArray[j + 1] = [
-					this.sortingArray[j],
-					(this.sortingArray[j] = this.sortingArray[j + 1])
-				][0]
+				this.swapArrayElements(j, j + 1)
 				await this.redrawRectangles(j, j + 1)
 			}
 
-			// swap the x of the 2 elements then swap the array elements
-			this.sortingArray[j + 1].x = [
-				current.x,
-				(current.x = this.sortingArray[j + 1].x)
-			][0]
-			this.sortingArray[j + 1] = [
-				current,
-				(current = this.sortingArray[j + 1])
-			][0]
+			this.sortingArray[j + 1] = current
 		}
 		this.sortingMethodEnded()
 	}
 
-	public async selectionSort() {
+	private async selectionSort() {
 		this.sortingMethodStarted()
-		let length = this.sortingArray.length
+		const length = this.sortingArray.length
 		let minHeight = 0
+		let x = 0
 
 		for (let n = 0; n < length; n++) {
-			// Finding the smallest number in the subarray
-			minHeight = n
-			for (let x = n + 1; x < length; x++) {
+			minHeight = n // Finding the smallest number in the array
+			for (x = n + 1; x < length; x++) {
 				if (this.stopExecution) {
 					return
 				}
@@ -163,26 +152,205 @@ export default class Sorting extends Vue {
 				}
 			}
 			if (minHeight !== n) {
-				// swap the x of the 2 elements then swap the array elements
-				this.sortingArray[minHeight].x = [
-					this.sortingArray[n].x,
-					(this.sortingArray[n].x = this.sortingArray[minHeight].x)
-				][0]
-				this.sortingArray[minHeight] = [
-					this.sortingArray[n],
-					(this.sortingArray[n] = this.sortingArray[minHeight])
-				][0]
+				this.swapArrayElements(minHeight, n)
 				await this.redrawRectangles(n, minHeight)
 			}
 		}
 		this.sortingMethodEnded()
 	}
 
+	private async cocktailShakerSort() {
+		this.sortingMethodStarted()
+		const length = this.sortingArray.length
+		let sorted = false
+		let n = 0
+
+		while (!sorted) {
+			sorted = true
+			while (n < length - 1) {
+				if (this.stopExecution) {
+					return
+				}
+				if (this.sortingArray[n].height > this.sortingArray[n + 1].height) {
+					this.swapArrayElements(n, n + 1)
+					await this.redrawRectangles(n, n + 1)
+					sorted = false
+				}
+				n++
+			}
+
+			if (sorted) {
+				break
+			}
+			sorted = true
+
+			while (n > 0) {
+				if (this.stopExecution) {
+					return
+				}
+				if (this.sortingArray[n - 1].height > this.sortingArray[n].height) {
+					this.swapArrayElements(n, n - 1)
+					await this.redrawRectangles(n, n - 1)
+					sorted = false
+				}
+				n--
+			}
+		}
+		this.sortingMethodEnded()
+	}
+
+	private callQuickSort() {
+		this.sortingMethodStarted()
+		this.pendingRecursiveCalls = 0
+		this.quickSort(0, this.sortingArray.length - 1)
+	}
+
+	private async quickSort(left: number, right: number) {
+		this.quickSortIndex = await this.quicksortPartition(left, right) //index returned from partition
+		if (this.stopExecution) {
+			return
+		}
+
+		//more elements on the left side of the pivot
+		if (left < this.quickSortIndex - 1) {
+			this.pendingRecursiveCalls++
+			this.quickSort(left, this.quickSortIndex - 1)
+		}
+		//more elements on the right side of the pivot
+		if (this.quickSortIndex < right) {
+			this.pendingRecursiveCalls++
+			this.quickSort(this.quickSortIndex, right)
+		}
+		if (this.pendingRecursiveCalls-- === 0) {
+			this.sortingMethodEnded()
+		}
+	}
+
+	private async quicksortPartition(left: number, right: number) {
+		const pivot = this.sortingArray[Math.floor((right + left) / 2)]
+		while (left <= right) {
+			if (this.stopExecution) {
+				return 0
+			}
+			// increment up until find a height to the left larger than the pivot
+			while (this.sortingArray[left].height < pivot.height) {
+				left++
+			}
+			// increment up until  find a height to the right smaller than the pivot
+			while (this.sortingArray[right].height > pivot.height) {
+				right--
+			}
+			if (left <= right) {
+				this.swapArrayElements(left, right)
+				await this.redrawRectangles(left, right)
+				left++
+				right--
+			}
+		}
+		return left
+	}
+
+	private async callMergeSort() {
+		this.sortingMethodStarted()
+		const tempArray = this.sortingArray.slice(0)
+		const mergedSortingArray = await this.mergeSort(this.sortingArray)
+		if (mergedSortingArray.length === tempArray.length) {
+			this.sortingArray = mergedSortingArray
+		}
+		this.sortingMethodEnded()
+	}
+
+	private async mergeSort(unsorted: PixiRect[]): Promise<PixiRect[]> {
+		if (this.stopExecution) {
+			return []
+		}
+		if (unsorted.length <= 1) {
+			return unsorted
+		}
+
+		const middle = Math.floor(unsorted.length / 2)
+
+		const left = unsorted.slice(0, middle)
+		const right = unsorted.slice(middle)
+
+		return this.merge(await this.mergeSort(left), await this.mergeSort(right))
+	}
+
+	private async merge(
+		left: PixiRect[],
+		right: PixiRect[]
+	): Promise<PixiRect[]> {
+		const resultPixiArray: PixiRect[] = []
+		let leftIndex = 0
+		let rightIndex = 0
+
+		while (leftIndex < left.length && rightIndex < right.length) {
+			if (left[leftIndex].height < right[rightIndex].height) {
+				resultPixiArray.push(left[leftIndex])
+				leftIndex++
+			} else {
+				resultPixiArray.push(right[rightIndex])
+				rightIndex++
+			}
+		}
+
+		// merge based on height
+		const combinedArray = resultPixiArray
+			.concat(left.slice(leftIndex))
+			.concat(right.slice(rightIndex))
+
+		// get all the x values of the current array and sort them and then set the merged contents above.
+		// TODO create a mergesort for a normal array instead of using builtin
+		const combinedXArray = combinedArray
+			.map((rect) => {
+				return rect.x
+			})
+			.sort((a, b) => a - b)
+
+		for (let n = 0; n < combinedXArray.length; n++) {
+			combinedArray[n].x = combinedXArray[n]
+		}
+
+		// gets an array of the index value of where the subarray is from the main array
+		const indexArray = []
+		const xValues = combinedArray.map((rect) => {
+			return rect.height
+		})
+
+		for (const value of xValues) {
+			indexArray.push(
+				this.sortingArray.findIndex((rect) => {
+					return (
+						rect.height ===
+						combinedArray[
+							xValues.findIndex((blah) => {
+								return blah === value
+							})
+						].height
+					)
+				})
+			)
+		}
+
+		// drawing of the rectangles
+		for (let n = 0; n < combinedArray.length; n++) {
+			;(this.app.stage.children[indexArray[n]] as Graphics).clear()
+			await this.redrawRectangle(indexArray[n])
+			if (this.stopExecution) {
+				return []
+			}
+		}
+
+		return combinedArray
+	}
+
 	// // // // // // //
 	// Private methods
 	// // // // // // //
 	private sleep(time: number) {
-		return new Promise(s => setTimeout(s, time))
+		return new Promise((s) => {
+			setTimeout(s, time)
+		})
 	}
 
 	private sortingMethodStarted() {
@@ -193,6 +361,19 @@ export default class Sorting extends Vue {
 	private sortingMethodEnded() {
 		this.busy = false
 		this.disableStopButton = true
+	}
+
+	private swapArrayElements(indexOne: number, indexTwo: number) {
+		// swap the x positions of the 2 rectangles
+		this.sortingArray[indexOne].x = [
+			this.sortingArray[indexTwo].x,
+			(this.sortingArray[indexTwo].x = this.sortingArray[indexOne].x)
+		][0]
+		// swap their position in the array
+		this.sortingArray[indexOne] = [
+			this.sortingArray[indexTwo],
+			(this.sortingArray[indexTwo] = this.sortingArray[indexOne])
+		][0]
 	}
 
 	private async drawAllRectangles() {
@@ -240,10 +421,10 @@ export default class Sorting extends Vue {
 
 		for (let n = 0; n < this.numberOfRectangles; n++) {
 			this.sortingArray.push({
-				x: n * widthOfRectangle,
-				y: divHeight - (n + 1) * heightOfRectangle,
-				width: widthValue,
-				height: n * heightOfRectangle + heightOfRectangle
+				x: Number((n * widthOfRectangle).toFixed(2)),
+				y: Number((divHeight - (n + 1) * heightOfRectangle).toFixed(2)),
+				width: Number(widthValue.toFixed(2)),
+				height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2))
 			})
 		}
 

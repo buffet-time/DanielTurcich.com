@@ -11,3 +11,8 @@ export interface SidenavLink {
 	alt: string
 	buttonText: string
 }
+
+export interface SortingAlgorithm {
+	method: () => Promise<void> | void
+	buttonText: string
+}

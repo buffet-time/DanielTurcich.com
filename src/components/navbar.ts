@@ -41,13 +41,13 @@ export default class Navbar extends Vue {
 	private sidenavElement!: HTMLDivElement
 	private overlayElement!: HTMLDivElement
 
-	public mounted() {
+	public mounted(): void {
 		this.routes = this.$router.getRoutes()
 		this.sidenavElement = this.$refs.sidenav as HTMLDivElement
 		this.overlayElement = this.$refs.overlay as HTMLDivElement
 
 		// close the sidenav if click outside
-		document.addEventListener('mouseup', event => {
+		document.addEventListener('mouseup', (event) => {
 			if (this.overlayElement.style.zIndex === '1' && event.x > 230) {
 				this.closeNav()
 			}
@@ -55,7 +55,7 @@ export default class Navbar extends Vue {
 		this.closeNav()
 	}
 
-	public openLink(link: string) {
+	public openLink(link: string): void {
 		switch (link) {
 			case 'github':
 				window.open('https://github.com/buffet-time', '_blank')
@@ -82,11 +82,11 @@ export default class Navbar extends Vue {
 		}
 	}
 
-	public async routeChange(route: string) {
+	public async routeChange(route: string): Promise<void> {
 		await router.push(route)
 	}
 
-	public openNav() {
+	public openNav(): void {
 		this.sidenavElement.style.width = '230px'
 		Object.assign(this.overlayElement.style, {
 			opacity: '15%',
@@ -96,7 +96,7 @@ export default class Navbar extends Vue {
 		})
 	}
 
-	public closeNav() {
+	public closeNav(): void {
 		this.sidenavElement.style.width = '0'
 		Object.assign(this.overlayElement.style, {
 			opacity: '0',

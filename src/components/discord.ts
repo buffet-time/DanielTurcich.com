@@ -5,7 +5,7 @@ export default class Discord extends Vue {
 	public discordText = ''
 	public textToShow = ''
 
-	public discordButtonPressed() {
+	public discordButtonPressed(): void {
 		this.discordText = ''
 		this.textToShow = ''
 		if (this.discordInput && this.discordInput.length < 2000) {
@@ -20,7 +20,7 @@ export default class Discord extends Vue {
 		}
 	}
 
-	public copydiscord() {
+	public copydiscord(): void {
 		navigator.clipboard.writeText(this.discordText)
 	}
 }
