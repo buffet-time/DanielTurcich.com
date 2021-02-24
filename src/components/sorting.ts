@@ -4,7 +4,6 @@ import { Application, Graphics } from 'pixi.js'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
-	// public numberOfRectangles = 10
 	public numberOfRectangles = 100
 	public busy = false
 	public stopExecution = false
@@ -16,7 +15,8 @@ export default class Sorting extends Vue {
 		{ buttonText: 'Selection Sort', method: this.selectionSort },
 		{ buttonText: 'Cocktail Shaker Sort', method: this.cocktailShakerSort },
 		{ buttonText: 'Quicksort', method: this.callQuickSort },
-		{ buttonText: 'Merge Sort', method: this.callMergeSort }
+		{ buttonText: 'Merge Sort', method: this.callMergeSort },
+		{ buttonText: 'Heap Sort', method: this.callHeapSort }
 	]
 
 	private app!: Application
@@ -76,7 +76,7 @@ export default class Sorting extends Vue {
 	}
 
 	// sorting methods to add
-	// merge sort, heap sort, radix sort (LSD), radix sort (MSD),
+	//  radix sort (LSD), radix sort (MSD),
 	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort
 	// gnome sort, bitonic sort, bogo sort,  tim sort
 
@@ -334,18 +334,72 @@ export default class Sorting extends Vue {
 
 		// drawing of the rectangles
 		for (let n = 0; n < combinedArray.length; n++) {
-			;(this.app.stage.children[indexArray[n]] as Graphics).clear()
-			await this.redrawRectangle(indexArray[n])
 			if (this.stopExecution) {
 				return []
 			}
+			;(this.app.stage.children[indexArray[n]] as Graphics).clear()
+			await this.redrawRectangle(indexArray[n])
 		}
 
 		return combinedArray
 	}
 
+	// TODO switch back to normal variable swittching its faster than 1 liner
+	private async callHeapSort() {
+		this.sortingMethodStarted()
+		await this.heapSort()
+		this.sortingMethodEnded()
+	}
+
+	private async heapSort() {
+		for (let n = Math.floor(this.sortingArray.length / 2 - 1); n >= 0; n--) {
+			if (this.stopExecution) {
+				return
+			}
+			await this.heapify(this.sortingArray.length, n)
+		}
+
+		for (let n = this.sortingArray.length - 1; n >= 0; n--) {
+			if (this.stopExecution) {
+				return
+			}
+			this.swapArrayElements(0, n)
+			this.redrawRectangles(0, n)
+			await this.heapify(n, 0)
+		}
+	}
+
+	private async heapify(size: number, index: number) {
+		let max = index
+		const left = 2 * index + 1
+		const right = 2 * index + 2
+
+		if (this.stopExecution) {
+			return
+		}
+
+		if (
+			left < size &&
+			this.sortingArray[left].height > this.sortingArray[max].height
+		) {
+			max = left
+		}
+		if (
+			right < size &&
+			this.sortingArray[right].height > this.sortingArray[max].height
+		) {
+			max = right
+		}
+
+		if (max != index) {
+			this.swapArrayElements(index, max)
+			await this.redrawRectangles(index, max)
+			await this.heapify(size, max)
+		}
+	}
+
 	// // // // // // //
-	// Private methods
+	// Other methods
 	// // // // // // //
 	private sleep(time: number) {
 		return new Promise((s) => {
@@ -365,15 +419,13 @@ export default class Sorting extends Vue {
 
 	private swapArrayElements(indexOne: number, indexTwo: number) {
 		// swap the x positions of the 2 rectangles
-		this.sortingArray[indexOne].x = [
-			this.sortingArray[indexTwo].x,
-			(this.sortingArray[indexTwo].x = this.sortingArray[indexOne].x)
-		][0]
-		// swap their position in the array
-		this.sortingArray[indexOne] = [
-			this.sortingArray[indexTwo],
-			(this.sortingArray[indexTwo] = this.sortingArray[indexOne])
-		][0]
+		const temp1 = this.sortingArray[indexOne].x
+		this.sortingArray[indexOne].x = this.sortingArray[indexTwo].x
+		this.sortingArray[indexTwo].x = temp1
+		// then swap their position in the array
+		const temp2 = this.sortingArray[indexOne]
+		this.sortingArray[indexOne] = this.sortingArray[indexTwo]
+		this.sortingArray[indexTwo] = temp2
 	}
 
 	private async drawAllRectangles() {
@@ -428,31 +480,16 @@ export default class Sorting extends Vue {
 			})
 		}
 
-		// randomize sorting array
-		const sortingLength = this.sortingArray.length
-		const sortingLengthMultiplied = sortingLength * 10
+		const sortingLengthMultiplied = this.numberOfRectangles * 10
+		let firstElementIndex = 0
+		let secondElementIndex = 0
 		for (let n = 0; n < sortingLengthMultiplied; n++) {
-			const firstElementIndex = Math.floor(Math.random() * sortingLength)
-			let secondElementIndex = 0
+			firstElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
 			do {
-				secondElementIndex = Math.floor(Math.random() * sortingLength)
+				secondElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
 			} while (firstElementIndex === secondElementIndex)
 
-			// swap the x position of the two elements
-			this.sortingArray[secondElementIndex].x = [
-				this.sortingArray[firstElementIndex].x,
-				(this.sortingArray[firstElementIndex].x = this.sortingArray[
-					secondElementIndex
-				].x)
-			][0]
-
-			// swap the array positions
-			this.sortingArray[secondElementIndex] = [
-				this.sortingArray[firstElementIndex],
-				(this.sortingArray[firstElementIndex] = this.sortingArray[
-					secondElementIndex
-				])
-			][0]
+			this.swapArrayElements(firstElementIndex, secondElementIndex)
 		}
 	}
 
