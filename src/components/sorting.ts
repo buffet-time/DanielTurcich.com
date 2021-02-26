@@ -4,7 +4,7 @@ import { Application, Graphics } from 'pixi.js'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
-	public numberOfRectangles = 100
+	public numberOfRectangles = 6
 	public busy = false
 	public stopExecution = false
 	public disableStopButton = true
@@ -16,7 +16,8 @@ export default class Sorting extends Vue {
 		{ buttonText: 'Cocktail Shaker Sort', method: this.cocktailShakerSort },
 		{ buttonText: 'Quicksort', method: this.callQuickSort },
 		{ buttonText: 'Merge Sort', method: this.callMergeSort },
-		{ buttonText: 'Heap Sort', method: this.callHeapSort }
+		{ buttonText: 'Heap Sort', method: this.callHeapSort },
+		{ buttonText: 'Bogo Sort', method: this.bogoSort }
 	]
 
 	private app!: Application
@@ -398,9 +399,38 @@ export default class Sorting extends Vue {
 		}
 	}
 
+	private async bogoSort() {
+		this.sortingMethodStarted()
+
+		while (!this.isSorted()) {
+			const length = this.sortingArray.length * 3
+			for (let index = 0; index < length; index++) {
+				if (this.stopExecution) {
+					return
+				}
+				const indexes = this.randomSwaps()
+
+				await this.redrawRectangles(indexes[0], indexes[1])
+			}
+		}
+
+		this.sortingMethodEnded()
+	}
+
 	// // // // // // //
 	// Other methods
 	// // // // // // //
+	private isSorted() {
+		for (let index = 0; index < this.sortingArray.length - 1; index++) {
+			if (
+				this.sortingArray[index].height > this.sortingArray[index + 1].height
+			) {
+				return false
+			}
+		}
+		return true
+	}
+
 	private sleep(time: number) {
 		return new Promise((s) => {
 			setTimeout(s, time)
@@ -481,16 +511,22 @@ export default class Sorting extends Vue {
 		}
 
 		const sortingLengthMultiplied = this.numberOfRectangles * 10
-		let firstElementIndex = 0
-		let secondElementIndex = 0
 		for (let n = 0; n < sortingLengthMultiplied; n++) {
-			firstElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
-			do {
-				secondElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
-			} while (firstElementIndex === secondElementIndex)
-
-			this.swapArrayElements(firstElementIndex, secondElementIndex)
+			this.randomSwaps()
 		}
+	}
+
+	private randomSwaps() {
+		const firstElementIndex = Math.floor(
+			Math.random() * this.numberOfRectangles
+		)
+		let secondElementIndex = 0
+		do {
+			secondElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
+		} while (firstElementIndex === secondElementIndex)
+
+		this.swapArrayElements(firstElementIndex, secondElementIndex)
+		return [firstElementIndex, secondElementIndex]
 	}
 
 	// if (this.soundOn) {
