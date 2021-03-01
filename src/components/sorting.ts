@@ -4,7 +4,7 @@ import { Application, Graphics } from 'pixi.js'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
-	public numberOfRectangles = 6
+	public numberOfRectangles = 100
 	public busy = false
 	public stopExecution = false
 	public disableStopButton = true

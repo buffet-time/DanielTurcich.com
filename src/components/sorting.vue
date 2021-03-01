@@ -4,7 +4,7 @@
 	<div class="sorting-wrapper">
 		<div class="settings">
 			<button
-				class="sorting-button btn btn-secondary"
+				class="sorting-button btn btn-secondary disable-select"
 				@click="stop"
 				:disabled="disableStopButton"
 			>
@@ -13,7 +13,7 @@
 			<br />
 
 			<button
-				class="sorting-button btn btn-secondary"
+				class="sorting-button btn btn-secondary disable-select"
 				@click="randomizeArray"
 				:disabled="busy"
 			>
@@ -24,7 +24,7 @@
 			<label for="range-1">Extra delay: {{ sleepTime }}</label>
 			<br />
 			<input
-				class="password-length-range form-range"
+				class="password-length-range form-range disable-select"
 				id="range-1"
 				v-model="sleepTime"
 				type="range"
@@ -39,7 +39,7 @@
 			</label>
 			<br />
 			<input
-				class="password-length-range form-range"
+				class="password-length-range form-range disable-select"
 				id="range-2"
 				v-model="numberOfRectangles"
 				type="range"
@@ -52,7 +52,7 @@
 			<button
 				v-for="algorithm in sorts"
 				:key="algorithm"
-				class="sorting-button btn btn-secondary"
+				class="sorting-button btn btn-secondary disable-select"
 				@click="executeMethod(algorithm.method)"
 				:disabled="busy"
 			>
@@ -60,7 +60,7 @@
 			</button>
 			<br />
 		</div>
-		<canvas ref="pixi" class="pixi-canvas" v-once></canvas>
+		<canvas ref="pixi" class="pixi-canvas disable-select" v-once></canvas>
 	</div>
 </template>
 

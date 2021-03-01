@@ -4,7 +4,7 @@
 	<div>
 		<div toggleable="lg" type="dark" class="navbar">
 			<div class="navbar-brand" v-once>
-				<button class="hamburger-button btn btn-secondary" @click="openNav()">
+				<button class="btn btn-secondary hamburger-button" @click="openNav()">
 					<svg class="hamburger-menu" viewBox="0 0 24 24">
 						<path
 							fill="currentColor"
@@ -37,7 +37,7 @@
 					class="sidenav-card card"
 					@click="openLink(link.openLink)"
 				>
-					<div class="sidenav-card-body card-body">
+					<div class="sidenav-card-body card-body disable-select">
 						<img
 							class="sidenav-card-image"
 							:src="require(`../assets/${link.src}`)"
@@ -78,32 +78,22 @@
 }
 
 .hamburger-button {
-	background-color: #388e3c;
-	border-color: #388e3c;
+	background-color: transparent !important;
+	border-color: transparent !important;
 	margin-top: -2px;
 	margin-left: 10px;
 }
 
+.hamburger-button:hover {
+	background-color: #6c757d !important;
+	border-color: #6c757d !important;
+}
+
 .route-button {
-	padding: 0;
-}
-
-.route-button:disabled {
+	padding: 0 !important;
 	border-color: transparent !important;
-}
-
-.route-button:hover {
 	background-color: #424242 !important;
 	color: white !important;
-	border-color: transparent !important;
-}
-
-.route-button:active {
-	border-color: transparent !important;
-}
-
-.route-button:focus {
-	border-color: transparent !important;
 	box-shadow: unset !important;
 }
 
