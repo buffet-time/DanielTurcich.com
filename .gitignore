@@ -1,16 +1,8 @@
-.DS_Store
 node_modules
 /dist
 
-# Log files
-yarn-debug.log*
-yarn-error.log*
-
-# Editor directories and files
-.vscode
-
 #firebase
 /.firebase
-.firebase-debug.txt
 .firebaserc
 /firebasePublic
+/.github
