@@ -17,7 +17,8 @@ export default class Sorting extends Vue {
 		{ buttonText: 'Quicksort', method: this.callQuickSort },
 		{ buttonText: 'Merge Sort', method: this.callMergeSort },
 		{ buttonText: 'Heap Sort', method: this.callHeapSort },
-		{ buttonText: 'Bogo Sort', method: this.bogoSort }
+		{ buttonText: 'Bogo Sort', method: this.bogoSort },
+		{ buttonText: 'Shell Sort', method: this.shellSort }
 	]
 
 	private app!: Application
@@ -32,6 +33,7 @@ export default class Sorting extends Vue {
 		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
 		this.app = new Application({
 			autoStart: true,
+			antialias: false,
 			width: this.canvasElement.clientWidth,
 			height: this.canvasElement.clientHeight,
 			view: this.canvasElement,
@@ -78,8 +80,8 @@ export default class Sorting extends Vue {
 
 	// sorting methods to add
 	//  radix sort (LSD), radix sort (MSD),
-	// std::sort (intro sort), std::stable_sort (adaptive merge sort), shell sort
-	// gnome sort, bitonic sort, bogo sort,  tim sort
+	// std::sort (intro sort), std::stable_sort (adaptive merge sort)
+	// gnome sort, bitonic sort,   tim sort
 
 	// // // // // // //
 	// Sorting methods
@@ -201,9 +203,11 @@ export default class Sorting extends Vue {
 	}
 
 	private callQuickSort() {
-		this.sortingMethodStarted()
-		this.pendingRecursiveCalls = 0
-		this.quickSort(0, this.sortingArray.length - 1)
+		if (!this.isSorted()) {
+			this.sortingMethodStarted()
+			this.pendingRecursiveCalls = 0
+			this.quickSort(0, this.sortingArray.length - 1)
+		}
 	}
 
 	private async quickSort(left: number, right: number) {
@@ -252,13 +256,15 @@ export default class Sorting extends Vue {
 	}
 
 	private async callMergeSort() {
-		this.sortingMethodStarted()
-		const tempArray = this.sortingArray.slice(0)
-		const mergedSortingArray = await this.mergeSort(this.sortingArray)
-		if (mergedSortingArray.length === tempArray.length) {
-			this.sortingArray = mergedSortingArray
+		if (!this.isSorted()) {
+			this.sortingMethodStarted()
+			const tempArray = this.sortingArray.slice(0)
+			const mergedSortingArray = await this.mergeSort(this.sortingArray)
+			if (mergedSortingArray.length === tempArray.length) {
+				this.sortingArray = mergedSortingArray
+			}
+			this.sortingMethodEnded()
 		}
-		this.sortingMethodEnded()
 	}
 
 	private async mergeSort(unsorted: PixiRect[]): Promise<PixiRect[]> {
@@ -345,7 +351,6 @@ export default class Sorting extends Vue {
 		return combinedArray
 	}
 
-	// TODO switch back to normal variable swittching its faster than 1 liner
 	private async callHeapSort() {
 		this.sortingMethodStarted()
 		await this.heapSort()
@@ -414,6 +419,35 @@ export default class Sorting extends Vue {
 			}
 		}
 
+		this.sortingMethodEnded()
+	}
+
+	private async shellSort() {
+		this.sortingMethodStarted()
+		let n = 0
+		let x = 0
+
+		for (
+			let gap = Math.floor(this.sortingArray.length / 2);
+			gap > 0;
+			gap = Math.floor(gap / 2)
+		) {
+			for (x = gap; x < this.sortingArray.length; x += 1) {
+				const temp = this.sortingArray[x]
+
+				for (
+					n = x;
+					n >= gap && this.sortingArray[n - gap].height > temp.height;
+					n -= gap
+				) {
+					this.swapArrayElements(n, n - gap)
+					await this.redrawRectangles(n, n - gap)
+				}
+
+				this.sortingArray[n].x = temp.x
+				this.sortingArray[n] = temp
+			}
+		}
 		this.sortingMethodEnded()
 	}
 

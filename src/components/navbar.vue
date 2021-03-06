@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<div toggleable="lg" type="dark" class="navbar">
-			<div class="navbar-brand" v-once>
+			<div v-once class="navbar-brand">
 				<button class="btn btn-secondary hamburger-button" @click="openNav()">
 					<svg class="hamburger-menu" viewBox="0 0 24 24">
 						<path
@@ -16,7 +16,7 @@
 			</div>
 
 			<div ref="sidenav" class="sidenav">
-				<div class="sidenav-top" v-once>
+				<div v-once class="sidenav-top">
 					<div class="sidenav-top-text">Websites</div>
 
 					<svg
@@ -51,30 +51,28 @@
 					v-for="route in routes"
 					:key="route"
 					class="card sidenav-card btn btn-secondary route-button"
-					@click="routeChange(route.path)"
 					:disabled="$route.name === route.name"
+					@click="routeChange(route.path)"
 				>
 					<div class="sidenav-card-body card-body">
 						<img
+							v-once
 							class="sidenav-card-image"
 							src="../assets/cardano.png"
 							alt="cardano logo"
-							v-once
 						/>
 						<div class="sidenav-card-text">{{ route.meta.buttonName }}</div>
 					</div>
 				</button>
 			</div>
 		</div>
-		<div ref="overlay" class="sidenav-overlay" v-once></div>
+		<div v-once ref="overlay" class="sidenav-overlay"></div>
 	</div>
 </template>
 
 <style>
 .hamburger-menu {
 	width: 24px;
-	height: 24px;
-	cursor: pointer;
 }
 
 .hamburger-button {
@@ -90,7 +88,6 @@
 }
 
 .route-button {
-	padding: 0 !important;
 	border-color: transparent !important;
 	background-color: #424242 !important;
 	color: white !important;
@@ -108,27 +105,10 @@
 	overflow-x: hidden;
 	transition: 0.25s;
 	padding-top: 60px;
-	margin-bottom: 4px;
-}
-
-.sidenav a {
-	padding: 8px 8px 8px 32px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #818181;
-	display: block;
-	transition: 0.25s;
-}
-
-.sidenav a:hover {
-	color: #f1f1f1;
 }
 
 .sidenav .sidenav-close-button {
-	position: relative;
 	float: right;
-	color: #fff;
-	width: 24px;
 	height: 24px;
 	margin-top: 18px;
 	margin-right: 16px;
@@ -136,9 +116,7 @@
 }
 
 .sidenav-top-text {
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
 	font-size: 20px;
-	position: relative;
 	float: left;
 	padding-top: 14px;
 	padding-left: 16px;
@@ -146,7 +124,6 @@
 }
 
 .sidenav-top {
-	position: relative;
 	margin-top: -60px;
 	height: 60px;
 	width: 230px;
@@ -154,34 +131,26 @@
 }
 
 .sidenav-card {
+	padding: 0 !important;
 	margin: 0 !important;
 	cursor: pointer;
 }
 
 .sidenav-card-body {
 	background-color: #616161;
-	margin-top: 0;
-	margin-left: 0;
-	padding-left: 0;
-	padding-top: 0;
-	height: 45px;
 	width: 230px;
 }
 
 .sidenav-card-image {
-	position: relative;
 	float: left;
 	padding-left: 8px;
 	padding-top: 5px;
 }
 
 .sidenav-card-text {
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
 	font-size: 18px;
 	padding-top: 8px;
-	margin-left: -8px;
 	text-align: center;
-	user-select: none;
 }
 
 .sidenav-overlay {
@@ -207,28 +176,5 @@
 
 .navbar-brand {
 	user-select: none;
-}
-
-#nav {
-	padding: 30px;
-}
-
-#nav a {
-	font-weight: 700;
-	color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-	color: #42b983;
-}
-
-@media screen and (max-height: 450px) {
-	.sidenav {
-		padding-top: 15px;
-	}
-
-	.sidenav a {
-		font-size: 18px;
-	}
 }
 </style>

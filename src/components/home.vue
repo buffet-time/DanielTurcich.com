@@ -16,9 +16,7 @@
 				<h5 class="card-title">Skills</h5>
 				<div class="card-text">
 					<div class="card-body">
-						<h5 class="card-title-1">
-							Technical
-						</h5>
+						<h5 class="card-title-1">Technical</h5>
 						<b>Advanced - </b> TypeScript, Vue.js, Electron, C#, HTML, Git,
 						JavaScript <br />
 
@@ -28,9 +26,7 @@
 						<b>Beginner - </b> XML, LUA, MySQL, Database Design
 					</div>
 					<div class="card-body">
-						<h5 class="card-title-1">
-							Creative
-						</h5>
+						<h5 class="card-title-1">Creative</h5>
 						Music Production, Song Writing, Basic Video Editing, Basic Photo
 						Editing
 					</div>

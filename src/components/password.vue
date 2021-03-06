@@ -2,30 +2,30 @@
 
 <template>
 	<div>
-		<h1 class="password-title" v-once>Password Generator</h1>
+		<h1 v-once class="password-title">Password Generator</h1>
 
 		<div class="password-generator-options">
 			<div>
 				<label for="range-1">Password Length: {{ passwordLength }}</label>
 				<br />
 				<input
-					class="password-length-range form-range"
+					v-once
 					id="range-1"
 					v-model="passwordLength"
+					class="password-length-range form-range"
 					type="range"
 					min="1"
 					max="128"
-					v-once
 				/>
 			</div>
 
-			<div class="password-generator-checkboxes" v-once>
+			<div v-once class="password-generator-checkboxes">
 				<div class="form-check">
 					<input
+						id="lowercase"
 						v-model="excludeLowercase"
 						class="form-check-input"
 						type="checkbox"
-						id="lowercase"
 					/>
 					<label class="form-check-label" for="lowercase">
 						Exclude Lowercase Letters
@@ -34,10 +34,10 @@
 
 				<div class="form-check">
 					<input
+						id="uppercase"
 						v-model="excludeUppercase"
 						class="form-check-input"
 						type="checkbox"
-						id="uppercase"
 					/>
 					<label class="form-check-label" for="uppercase">
 						Exclude Uppercase Letters
@@ -46,10 +46,10 @@
 
 				<div class="form-check">
 					<input
+						id="numbers"
 						v-model="excludeNumbers"
 						class="form-check-input"
 						type="checkbox"
-						id="numbers"
 					/>
 					<label class="form-check-label" for="numbers">
 						Exclude Numbers
@@ -58,10 +58,10 @@
 
 				<div class="form-check">
 					<input
+						id="symbols"
 						v-model="excludeSymbols"
 						class="form-check-input"
 						type="checkbox"
-						id="symbols"
 					/>
 					<label class="form-check-label" for="symbols">
 						Exclude Symbols
@@ -70,9 +70,9 @@
 			</div>
 			<br />
 			<button
+				v-once
 				class="password-generate-button btn btn-secondary"
 				@click="generatePassword"
-				v-once
 			>
 				Generate
 			</button>
@@ -98,8 +98,6 @@
 }
 
 .password-length-range {
-	position: relative;
-	display: inline-block;
 	width: 300px;
 }
 
@@ -113,16 +111,13 @@
 }
 
 .password-text-div {
-	position: relative;
 	display: inline-block;
-	margin: 24px;
+	margin-right: 24px;
 	margin-top: 8px;
 	margin-bottom: 8px;
 }
 
 .password-copy-button {
-	position: relative;
-	display: inline-block;
 	margin-left: 5px;
 }
 </style>

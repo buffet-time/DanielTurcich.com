@@ -5,8 +5,8 @@
 		<div class="settings">
 			<button
 				class="sorting-button btn btn-secondary disable-select"
-				@click="stop"
 				:disabled="disableStopButton"
+				@click="stop"
 			>
 				Stop Execution
 			</button>
@@ -14,8 +14,8 @@
 
 			<button
 				class="sorting-button btn btn-secondary disable-select"
-				@click="randomizeArray"
 				:disabled="busy"
+				@click="randomizeArray"
 			>
 				Randomize
 			</button>
@@ -24,14 +24,14 @@
 			<label for="range-1">Extra delay: {{ sleepTime }}</label>
 			<br />
 			<input
-				class="password-length-range form-range disable-select"
+				v-once
 				id="range-1"
 				v-model="sleepTime"
+				class="password-length-range form-range disable-select"
 				type="range"
 				min="0"
 				max="250"
 				step="5"
-				v-once
 			/>
 
 			<label for="range-2">
@@ -39,9 +39,9 @@
 			</label>
 			<br />
 			<input
-				class="password-length-range form-range disable-select"
 				id="range-2"
 				v-model="numberOfRectangles"
+				class="password-length-range form-range disable-select"
 				type="range"
 				min="10"
 				max="1000"
@@ -49,18 +49,20 @@
 				:disabled="busy"
 			/>
 
-			<button
-				v-for="algorithm in sorts"
-				:key="algorithm"
-				class="sorting-button btn btn-secondary disable-select"
-				@click="executeMethod(algorithm.method)"
-				:disabled="busy"
-			>
-				{{ algorithm.buttonText }}
-			</button>
-			<br />
+			<div>
+				<button
+					v-for="algorithm in sorts"
+					:key="algorithm"
+					class="sorting-button btn btn-secondary disable-select"
+					:disabled="busy"
+					@click="executeMethod(algorithm.method)"
+				>
+					{{ algorithm.buttonText }}
+				</button>
+				<br />
+			</div>
 		</div>
-		<canvas ref="pixi" class="pixi-canvas disable-select" v-once></canvas>
+		<canvas v-once ref="pixi" class="pixi-canvas disable-select"></canvas>
 	</div>
 </template>
 
@@ -81,10 +83,9 @@
 }
 
 .sorting-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 20px;
+	margin-right: 5px;
 	margin-bottom: 8px;
+	height: 60px;
 	width: 45%;
 }
 

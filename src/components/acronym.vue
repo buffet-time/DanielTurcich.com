@@ -2,18 +2,18 @@
 
 <template>
 	<div>
-		<h1 class="acronym-title" v-once>Acronym Generator</h1>
+		<h1 v-once class="acronym-title">Acronym Generator</h1>
 		<input
-			class="acronym-input form-control"
-			v-model="acronymInput"
-			@keyup.enter="acronymButtonPressed"
-			placeholder="Type a word here"
 			v-once
+			v-model="acronymInput"
+			class="acronym-input form-control"
+			placeholder="Type a word here"
+			@keyup.enter="acronymButtonPressed"
 		/>
 		<button
+			v-once
 			class="acronym-button btn btn-secondary"
 			@click="acronymButtonPressed"
-			v-once
 		>
 			Generate
 		</button>
@@ -21,7 +21,7 @@
 			<div class="acronym-text-div">{{ textToDisplay }}</div>
 			<button
 				v-if="buttonPressedState === 'good'"
-				class="acronym-copy-button btn btn-secondary"
+				class="btn btn-secondary"
 				@click="copyAcronym"
 			>
 				Copy
@@ -37,30 +37,20 @@
 }
 
 .acronym-input {
-	position: relative;
 	display: inline-block;
 	width: 250px;
 }
 
 .acronym-button {
-	position: relative;
-	display: inline-block;
 	margin-left: 20px;
 }
 
 .acronym-text-div {
-	position: relative;
 	display: inline-block;
 	text-transform: capitalize;
 	margin: 24px;
 	margin-top: 8px;
 	margin-bottom: 8px;
-}
-
-.acronym-copy-button {
-	position: relative;
-	display: inline-block;
-	margin-left: 5px;
 }
 
 .generated-text-div {

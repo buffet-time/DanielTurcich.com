@@ -3,6 +3,18 @@
 	<router-view />
 </template>
 
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component'
+import Navbar from './components/navbar.vue'
+
+@Options({
+	components: {
+		'd-navbar': Navbar
+	}
+})
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
 // Required
 @import 'node_modules/bootstrap/scss/functions';
@@ -96,15 +108,3 @@ a {
 	color: #42b983;
 }
 </style>
-
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import Navbar from './components/navbar.vue'
-
-@Options({
-	components: {
-		'd-navbar': Navbar
-	}
-})
-export default class App extends Vue {}
-</script>
