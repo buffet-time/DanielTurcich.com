@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<div toggleable="lg" type="dark" class="navbar">
-			<div v-once class="navbar-brand">
+			<div v-once class="disable-select">
 				<button class="btn btn-secondary hamburger-button" @click="openNav()">
 					<svg class="hamburger-menu" viewBox="0 0 24 24">
 						<path
@@ -17,7 +17,7 @@
 
 			<div ref="sidenav" class="sidenav">
 				<div v-once class="sidenav-top">
-					<div class="sidenav-top-text">Websites</div>
+					<div class="sidenav-top-text disable-select">Websites</div>
 
 					<svg
 						class="sidenav-close-button"
@@ -120,7 +120,6 @@
 	float: left;
 	padding-top: 14px;
 	padding-left: 16px;
-	user-select: none;
 }
 
 .sidenav-top {
@@ -172,9 +171,5 @@
 .navbar {
 	background-color: #388e3c;
 	height: 60px;
-}
-
-.navbar-brand {
-	user-select: none;
 }
 </style>

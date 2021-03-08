@@ -2,7 +2,9 @@
 
 <template>
 	<div>
-		<h1 v-once class="discord-title">Discord Max Message Generator</h1>
+		<h1 v-once class="discord-title disable-select">
+			Discord Max Message Generator
+		</h1>
 		<input
 			v-once
 			v-model="discordInput"
@@ -32,7 +34,6 @@
 
 <style>
 .discord-title {
-	user-select: none;
 	margin-top: 8px;
 }
 

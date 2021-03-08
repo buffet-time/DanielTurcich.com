@@ -10,7 +10,6 @@
 			>
 				Stop Execution
 			</button>
-			<br />
 
 			<button
 				class="sorting-button btn btn-secondary disable-select"
@@ -19,10 +18,8 @@
 			>
 				Randomize
 			</button>
-			<br />
 
 			<label for="range-1">Extra delay: {{ sleepTime }}</label>
-			<br />
 			<input
 				v-once
 				id="range-1"
@@ -37,7 +34,6 @@
 			<label for="range-2">
 				Number of Rectangles: {{ numberOfRectangles }}
 			</label>
-			<br />
 			<input
 				id="range-2"
 				v-model="numberOfRectangles"
@@ -49,18 +45,15 @@
 				:disabled="busy"
 			/>
 
-			<div>
-				<button
-					v-for="algorithm in sorts"
-					:key="algorithm"
-					class="sorting-button btn btn-secondary disable-select"
-					:disabled="busy"
-					@click="executeMethod(algorithm.method)"
-				>
-					{{ algorithm.buttonText }}
-				</button>
-				<br />
-			</div>
+			<button
+				v-for="algorithm in sorts"
+				:key="algorithm"
+				class="sorting-button btn btn-secondary disable-select"
+				:disabled="busy"
+				@click="executeMethod(algorithm.method)"
+			>
+				{{ algorithm.buttonText }}
+			</button>
 		</div>
 		<canvas v-once ref="pixi" class="pixi-canvas disable-select"></canvas>
 	</div>
@@ -70,7 +63,6 @@
 .sorting-wrapper {
 	height: calc(100vh - 60px);
 	display: flex;
-	flex-flow: row;
 }
 
 .settings {
@@ -83,10 +75,11 @@
 }
 
 .sorting-button {
-	margin-right: 5px;
+	margin-right: 8px;
 	margin-bottom: 8px;
-	height: 60px;
-	width: 45%;
+	height: 50px;
+	width: 43%;
+	line-height: normal;
 }
 
 .password-length-range {

@@ -56,9 +56,7 @@ export default class App extends Vue {}
 }
 
 #app {
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	font-family: Roboto;
 	text-align: center;
 	color: #fff;
 }
@@ -78,33 +76,11 @@ body {
 	user-select: none;
 }
 
-.card-body {
-	padding: 1rem;
-}
-
 .card-title-1 {
 	margin-left: -20px;
 }
 
 .card-text {
 	padding-left: 16px;
-}
-
-h3 {
-	margin: 40px 0 0;
-}
-
-ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-li {
-	display: inline-block;
-	margin: 0 10px;
-}
-
-a {
-	color: #42b983;
 }
 </style>

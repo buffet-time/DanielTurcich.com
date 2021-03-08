@@ -2,7 +2,7 @@
 
 <template>
 	<div>
-		<h1 v-once class="password-title">Password Generator</h1>
+		<h1 v-once class="password-title disable-select">Password Generator</h1>
 
 		<div class="password-generator-options">
 			<div>
@@ -93,7 +93,6 @@
 
 <style>
 .password-title {
-	user-select: none;
 	margin-top: 8px;
 }
 
@@ -119,5 +118,9 @@
 
 .password-copy-button {
 	margin-left: 5px;
+}
+
+.password-generate-button {
+	margin-top: 8px;
 }
 </style>

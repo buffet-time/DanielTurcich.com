@@ -2,7 +2,7 @@
 
 <template>
 	<div>
-		<h1 v-once class="acronym-title">Acronym Generator</h1>
+		<h1 v-once class="acronym-title disable-select">Acronym Generator</h1>
 		<input
 			v-once
 			v-model="acronymInput"
@@ -32,7 +32,6 @@
 
 <style>
 .acronym-title {
-	user-select: none;
 	margin-top: 8px;
 }
 
