@@ -37,6 +37,15 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Sorting',
 		component: Sorting,
 		meta: { buttonName: 'Sorting Visualizations' }
+	},
+	{
+		path: '/resume',
+		name: 'Resume',
+		redirect: () => {
+			window.location.href =
+				'https://drive.google.com/file/d/1k6w7S5bl4Gj2q3An2rjv771jwU3J5snM/view'
+			return 'redirecting'
+		}
 	}
 ]
 

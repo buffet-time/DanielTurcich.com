@@ -42,7 +42,9 @@ export default class Navbar extends Vue {
 	private overlayElement!: HTMLDivElement
 
 	public mounted(): void {
-		this.routes = this.$router.getRoutes()
+		this.routes = this.$router.getRoutes().filter((route) => {
+			return route.meta.buttonName !== undefined
+		})
 		this.sidenavElement = this.$refs.sidenav as HTMLDivElement
 		this.overlayElement = this.$refs.overlay as HTMLDivElement
 
@@ -67,7 +69,7 @@ export default class Navbar extends Vue {
 
 			case 'resume':
 				window.open(
-					'https://drive.google.com/file/d/1UhcfJUs0U3AAuHyZTZbi6bXxEL_QFZR0/view',
+					'https://drive.google.com/file/d/1k6w7S5bl4Gj2q3An2rjv771jwU3J5snM/view',
 					'_blank'
 				)
 				break
