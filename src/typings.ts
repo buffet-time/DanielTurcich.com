@@ -3,6 +3,7 @@ export interface PixiRect {
 	y: number
 	width: number
 	height: number
+	frequency: number
 }
 
 export interface SidenavLink {

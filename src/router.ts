@@ -46,6 +46,15 @@ const routes: Array<RouteRecordRaw> = [
 				'https://drive.google.com/file/d/1k6w7S5bl4Gj2q3An2rjv771jwU3J5snM/view'
 			return 'redirecting'
 		}
+	},
+	{
+		path: '/recc',
+		name: 'Recc',
+		redirect: () => {
+			window.location.href =
+				'https://docs.google.com/spreadsheets/d/1Ru91tRwbJSL7aAruHrhRORBRB2Y1-XGcyWFPtnwW6O4/edit?usp=sharing'
+			return 'redirecting'
+		}
 	}
 ]
 

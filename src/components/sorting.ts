@@ -8,7 +8,7 @@ export default class Sorting extends Vue {
 	public busy = false
 	public stopExecution = false
 	public disableStopButton = true
-	// public soundOn = false
+	public volume = 0.025
 	public sorts: SortingAlgorithm[] = [
 		{ buttonText: 'Bubble Sort', method: this.bubbleSort },
 		{ buttonText: 'Insertion Sort', method: this.insertionSort },
@@ -26,7 +26,7 @@ export default class Sorting extends Vue {
 	private sortingArray: PixiRect[] = []
 	private quickSortIndex = 0
 	private pendingRecursiveCalls = 0
-	// private audioContext!: AudioContext
+	private audioContext!: AudioContext
 
 	public async mounted(): Promise<void> {
 		this.sortingMethodStarted()
@@ -44,7 +44,7 @@ export default class Sorting extends Vue {
 			resizeTo: this.canvasElement
 		})
 
-		// this.audioContext = new window.AudioContext()
+		this.audioContext = new window.AudioContext()
 		this.createUnsortedArray()
 		await this.drawAllRectangles()
 		this.sortingMethodEnded()
@@ -440,6 +440,9 @@ export default class Sorting extends Vue {
 					n >= gap && this.sortingArray[n - gap].height > temp.height;
 					n -= gap
 				) {
+					if (this.stopExecution) {
+						return
+					}
 					this.swapArrayElements(n, n - gap)
 					await this.redrawRectangles(n, n - gap)
 				}
@@ -521,6 +524,7 @@ export default class Sorting extends Vue {
 
 	private async redrawRectangle(index: number) {
 		const arrayRect = this.sortingArray[index]
+		this.beep(arrayRect.frequency)
 		;(this.app.stage.children[index] as Graphics)
 			.beginFill(0x00ff00)
 			.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
@@ -534,13 +538,17 @@ export default class Sorting extends Vue {
 		const divHeight = this.canvasElement.clientHeight
 		const heightOfRectangle = divHeight / this.numberOfRectangles
 		const widthValue = widthOfRectangle - 1
+		const lowFrequencyBound = 100
+		const highFrequencyBound = 10000
+		const frequencyIncrease = highFrequencyBound / this.numberOfRectangles
 
 		for (let n = 0; n < this.numberOfRectangles; n++) {
 			this.sortingArray.push({
 				x: Number((n * widthOfRectangle).toFixed(2)),
 				y: Number((divHeight - (n + 1) * heightOfRectangle).toFixed(2)),
 				width: Number(widthValue.toFixed(2)),
-				height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2))
+				height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2)),
+				frequency: frequencyIncrease * n + lowFrequencyBound
 			})
 		}
 
@@ -563,20 +571,18 @@ export default class Sorting extends Vue {
 		return [firstElementIndex, secondElementIndex]
 	}
 
-	// if (this.soundOn) {
-	// 	this.beep(1000, 0.1)
-	// }
-	// // TODO - hook up audio to sorting
-	// private async beep(frequency: number, volume: number) {
-	// 	const oscillator = this.audioContext.createOscillator()
-	// 	const gainNode = this.audioContext.createGain()
-	// 	oscillator.connect(gainNode)
-	// 	gainNode.connect(this.audioContext.destination)
-	// 	oscillator.type = 'sine'
-	// 	gainNode.gain.value = volume
-	// 	oscillator.frequency.value = frequency
-	// 	oscillator.start()
-	// 	await this.sleep(50)
-	// 	oscillator.stop()
-	// }
+	private async beep(frequency: number) {
+		if (this.volume > 0) {
+			const oscillator = this.audioContext.createOscillator()
+			const gainNode = this.audioContext.createGain()
+			oscillator.connect(gainNode)
+			gainNode.connect(this.audioContext.destination)
+			gainNode.gain.value = this.volume
+			oscillator.type = 'sine'
+			oscillator.frequency.value = frequency
+			oscillator.start()
+			await this.sleep(50)
+			oscillator.stop()
+		}
+	}
 }

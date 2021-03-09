@@ -19,10 +19,22 @@
 				Randomize
 			</button>
 
-			<label for="range-1">Extra delay: {{ sleepTime }}</label>
+			<label for="range-1">Volume: {{ volume }}</label>
 			<input
 				v-once
 				id="range-1"
+				v-model="volume"
+				class="password-length-range form-range disable-select"
+				type="range"
+				min="0"
+				max="1"
+				step="0.005"
+			/>
+
+			<label for="range-2">Extra delay: {{ sleepTime }}</label>
+			<input
+				v-once
+				id="range-2"
 				v-model="sleepTime"
 				class="password-length-range form-range disable-select"
 				type="range"
@@ -31,11 +43,11 @@
 				step="5"
 			/>
 
-			<label for="range-2">
+			<label for="range-3">
 				Number of Rectangles: {{ numberOfRectangles }}
 			</label>
 			<input
-				id="range-2"
+				id="range-3"
 				v-model="numberOfRectangles"
 				class="password-length-range form-range disable-select"
 				type="range"
