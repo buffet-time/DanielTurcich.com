@@ -5,9 +5,11 @@ import { Application, Graphics } from 'pixi.js'
 export default class Sorting extends Vue {
 	public sleepTime = 0
 	public numberOfRectangles = 100
-	public busy = false
+	public disableSortButtons = false
 	public stopExecution = false
 	public disableStopButton = true
+	public disableRandomizeButton = false
+	public disableRectangleSlider = false
 	public volume = 0.025
 	public sorts: SortingAlgorithm[] = [
 		{ buttonText: 'Bubble Sort', method: this.bubbleSort },
@@ -29,6 +31,15 @@ export default class Sorting extends Vue {
 	private audioContext!: AudioContext
 
 	public async mounted(): Promise<void> {
+		this.$watch(
+			() => {
+				return this.numberOfRectangles
+			},
+			() => {
+				this.disableSortButtons = true
+			}
+		)
+
 		this.sortingMethodStarted()
 		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
 		this.app = new Application({
@@ -57,16 +68,13 @@ export default class Sorting extends Vue {
 
 	public async stop(): Promise<void> {
 		this.stopExecution = true
-		this.disableStopButton = false
 		await this.sleep(500) // easy safe way to ensure all operations are done
 		this.stopExecution = false
-		this.disableStopButton = true
-		this.busy = false
+		this.sortingMethodEnded()
 	}
 
 	public async randomizeArray(): Promise<void> {
-		this.busy = true
-		this.disableStopButton = true
+		this.sortingMethodStarted()
 
 		while (this.sortingArray.length > 0) {
 			this.sortingArray.pop()
@@ -75,7 +83,7 @@ export default class Sorting extends Vue {
 		this.createUnsortedArray()
 
 		await this.drawAllRectangles()
-		this.busy = false
+		this.sortingMethodEnded()
 	}
 
 	// sorting methods to add
@@ -475,12 +483,16 @@ export default class Sorting extends Vue {
 	}
 
 	private sortingMethodStarted() {
-		this.busy = true
+		this.disableRectangleSlider = true
+		this.disableRandomizeButton = true
+		this.disableSortButtons = true
 		this.disableStopButton = false
 	}
 
 	private sortingMethodEnded() {
-		this.busy = false
+		this.disableRectangleSlider = false
+		this.disableRandomizeButton = false
+		this.disableSortButtons = false
 		this.disableStopButton = true
 	}
 

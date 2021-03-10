@@ -13,7 +13,7 @@
 
 			<button
 				class="sorting-button btn btn-secondary disable-select"
-				:disabled="busy"
+				:disabled="disableRandomizeButton"
 				@click="randomizeArray"
 			>
 				Randomize
@@ -27,11 +27,11 @@
 				class="password-length-range form-range disable-select"
 				type="range"
 				min="0"
-				max="1"
-				step="0.005"
+				max="0.2"
+				step="0.0001"
 			/>
 
-			<label for="range-2">Extra delay: {{ sleepTime }}</label>
+			<label for="range-2">Delay: {{ sleepTime }}ms</label>
 			<input
 				v-once
 				id="range-2"
@@ -43,9 +43,7 @@
 				step="5"
 			/>
 
-			<label for="range-3">
-				Number of Rectangles: {{ numberOfRectangles }}
-			</label>
+			<label for="range-3"> {{ numberOfRectangles }} Rectangles </label>
 			<input
 				id="range-3"
 				v-model="numberOfRectangles"
@@ -54,14 +52,14 @@
 				min="10"
 				max="1000"
 				step="5"
-				:disabled="busy"
+				:disabled="disableRectangleSlider"
 			/>
 
 			<button
 				v-for="algorithm in sorts"
 				:key="algorithm"
 				class="sorting-button btn btn-secondary disable-select"
-				:disabled="busy"
+				:disabled="disableSortButtons"
 				@click="executeMethod(algorithm.method)"
 			>
 				{{ algorithm.buttonText }}
