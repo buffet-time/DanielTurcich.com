@@ -6,7 +6,10 @@ const Acronym = () => import('./components/acronym.vue')
 const Password = () => import('./components/password.vue')
 const Discord = () => import('./components/discord.vue')
 const Sorting = () => import('./components/sorting.vue')
+// const Performance = () => import('./components/performance.vue')
 
+// TODO catch routes that dont exist and redirect to home
+// TODO  JS/ HTML/ CSS editor?
 const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
@@ -56,6 +59,12 @@ const routes: Array<RouteRecordRaw> = [
 			return 'redirecting'
 		}
 	}
+	//{
+	//path: '/performance',
+	//name: 'Performance',
+	//component: Performance,
+	//meta: { buttonName: 'JS Perf Comparison' }
+	//}
 ]
 
 const router = createRouter({

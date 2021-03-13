@@ -21,6 +21,7 @@ export default class Sorting extends Vue {
 		{ buttonText: 'Heap Sort', method: this.callHeapSort },
 		{ buttonText: 'Bogo Sort', method: this.bogoSort },
 		{ buttonText: 'Shell Sort', method: this.shellSort }
+		// { buttonText: 'Bitonic Sort', method: this.bitonicsort }
 	]
 
 	private app!: Application
@@ -461,6 +462,32 @@ export default class Sorting extends Vue {
 		}
 		this.sortingMethodEnded()
 	}
+
+	//private async bitonicsort() {
+	//	for (let i = 0; i < 10; i++) {
+	//		for (let j = 0; j <= i; j++) {
+	//			await this.kernel(i, j)
+	//		}
+	//	}
+	//}
+
+	//private async kernel(p: number, q: number) {
+	//	const d = 1 << (p - q)
+	//
+	//		for (let i = 0; i < this.sortingArray.length; i++) {
+	//			const up = ((i >> p) & 2) === 0
+	//			if (
+	//				(i & d) == 0 &&
+	//				this.sortingArray[i].height > this.sortingArray[i | d].height === up
+	//			) {
+	//				this.swapArrayElements(i, i | d)
+	//				await this.redrawRectangles(i, i | d)
+	//				// const tmp = x[i]
+	//				// x[i] = x[i | d]
+	//				// x[i | d] = tmp
+	//			}
+	//		}
+	//	}
 
 	// // // // // // //
 	// Other methods
