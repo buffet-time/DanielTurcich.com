@@ -29,7 +29,7 @@ export default class App extends Vue {}
 @import 'node_modules/bootstrap/scss/card';
 @import 'node_modules/bootstrap/scss/buttons';
 @import 'node_modules/bootstrap/scss/forms';
-// @import 'node_modules/bootstrap/scss/grid';
+@import 'node_modules/bootstrap/scss/grid';
 
 // latin
 @font-face {

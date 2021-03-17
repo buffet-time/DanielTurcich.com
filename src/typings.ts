@@ -17,3 +17,12 @@ export interface SortingAlgorithm {
 	method: () => Promise<void> | void
 	buttonText: string
 }
+
+export enum Release {
+	artist,
+	name,
+	score,
+	type,
+	year,
+	genre
+}

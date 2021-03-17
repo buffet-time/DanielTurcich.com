@@ -1,34 +1,32 @@
 <script lang="ts" src="./discord.ts"></script>
 
 <template>
+	<h1 v-once class="discord-title disable-select">
+		Discord Max Message Generator
+	</h1>
+	<input
+		v-once
+		v-model="discordInput"
+		class="discord-input form-control"
+		placeholder="Type a word here"
+		@keyup.enter="discordButtonPressed"
+	/>
+	<button
+		v-once
+		class="discord-button btn btn-secondary"
+		@click="discordButtonPressed"
+	>
+		Generate
+	</button>
 	<div>
-		<h1 v-once class="discord-title disable-select">
-			Discord Max Message Generator
-		</h1>
-		<input
-			v-once
-			v-model="discordInput"
-			class="discord-input form-control"
-			placeholder="Type a word here"
-			@keyup.enter="discordButtonPressed"
-		/>
+		<div class="discord-text-div">{{ reviewsText }}</div>
 		<button
-			v-once
-			class="discord-button btn btn-secondary"
-			@click="discordButtonPressed"
+			v-show="discordText.length > 0"
+			class="btn btn-secondary"
+			@click="copydiscord"
 		>
-			Generate
+			Copy
 		</button>
-		<div>
-			<div class="discord-text-div">{{ textToShow }}</div>
-			<button
-				v-show="discordText.length > 0"
-				class="btn btn-secondary"
-				@click="copydiscord"
-			>
-				Copy
-			</button>
-		</div>
 	</div>
 </template>
 

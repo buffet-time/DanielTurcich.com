@@ -1,73 +1,67 @@
 <script lang="ts" src="./navbar.ts"></script>
 
 <template>
-	<div>
-		<div toggleable="lg" type="dark" class="navbar">
-			<div v-once class="disable-select">
-				<button class="btn btn-secondary hamburger-button" @click="openNav()">
-					<svg class="hamburger-menu" viewBox="0 0 24 24">
-						<path
-							fill="currentColor"
-							d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"
-						/>
-					</svg>
-				</button>
-				Daniel Turcich
-			</div>
-
-			<div ref="sidenav" class="sidenav">
-				<div v-once class="sidenav-top">
-					<div class="sidenav-top-text disable-select">Websites</div>
-
-					<svg
-						class="sidenav-close-button"
-						viewBox="0 0 24 24"
-						@click="closeNav"
-					>
-						<path
-							fill="currentColor"
-							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-						/>
-					</svg>
-				</div>
-
-				<div
-					v-for="link in links"
-					:key="link"
-					class="sidenav-card card"
-					@click="openLink(link.openLink)"
-				>
-					<div class="sidenav-card-body card-body disable-select">
-						<img
-							class="sidenav-card-image"
-							:src="require(`../assets/${link.src}`)"
-							:alt="link.alt"
-						/>
-						<div class="sidenav-card-text">{{ link.buttonText }}</div>
-					</div>
-				</div>
-
-				<button
-					v-for="route in routes"
-					:key="route"
-					class="card sidenav-card btn btn-secondary route-button"
-					:disabled="$route.name === route.name"
-					@click="routeChange(route.path)"
-				>
-					<div class="sidenav-card-body card-body">
-						<img
-							v-once
-							class="sidenav-card-image"
-							src="../assets/cardano.png"
-							alt="cardano logo"
-						/>
-						<div class="sidenav-card-text">{{ route.meta.buttonName }}</div>
-					</div>
-				</button>
-			</div>
+	<div toggleable="lg" type="dark" class="navbar">
+		<div v-once class="disable-select">
+			<button class="btn btn-secondary hamburger-button" @click="openNav()">
+				<svg class="hamburger-menu" viewBox="0 0 24 24">
+					<path
+						fill="currentColor"
+						d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"
+					/>
+				</svg>
+			</button>
+			Daniel Turcich
 		</div>
-		<div v-once ref="overlay" class="sidenav-overlay"></div>
+
+		<div ref="sidenav" class="sidenav">
+			<div v-once class="sidenav-top">
+				<div class="sidenav-top-text disable-select">Websites</div>
+
+				<svg class="sidenav-close-button" viewBox="0 0 24 24" @click="closeNav">
+					<path
+						fill="currentColor"
+						d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+					/>
+				</svg>
+			</div>
+
+			<div
+				v-for="link in links"
+				:key="link"
+				class="sidenav-card card"
+				@click="openLink(link.openLink)"
+			>
+				<div class="sidenav-card-body card-body disable-select">
+					<img
+						class="sidenav-card-image"
+						:src="require(`../assets/${link.src}`)"
+						:alt="link.alt"
+					/>
+					<div class="sidenav-card-text">{{ link.buttonText }}</div>
+				</div>
+			</div>
+
+			<button
+				v-for="route in routes"
+				:key="route"
+				class="card sidenav-card btn btn-secondary route-button"
+				:disabled="$route.name === route.name"
+				@click="routeChange(route.path)"
+			>
+				<div class="sidenav-card-body card-body">
+					<img
+						v-once
+						class="sidenav-card-image"
+						src="../assets/cardano.png"
+						alt="cardano logo"
+					/>
+					<div class="sidenav-card-text">{{ route.meta.buttonName }}</div>
+				</div>
+			</button>
+		</div>
 	</div>
+	<div v-once ref="overlay" class="sidenav-overlay"></div>
 </template>
 
 <style>

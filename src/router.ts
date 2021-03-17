@@ -7,6 +7,7 @@ const Password = () => import('./components/password.vue')
 const Discord = () => import('./components/discord.vue')
 const Sorting = () => import('./components/sorting.vue')
 // const Performance = () => import('./components/performance.vue')
+const Music = () => import('./components/music.vue')
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
@@ -58,13 +59,19 @@ const routes: Array<RouteRecordRaw> = [
 				'https://docs.google.com/spreadsheets/d/1Ru91tRwbJSL7aAruHrhRORBRB2Y1-XGcyWFPtnwW6O4/edit?usp=sharing'
 			return 'redirecting'
 		}
+	},
+	// {
+	// 	path: '/performance',
+	// 	name: 'Performance',
+	// 	component: Performance,
+	// 	meta: { buttonName: 'JS Perf Comparison' }
+	// },
+	{
+		path: '/music',
+		name: 'Music',
+		component: Music,
+		meta: { buttonName: 'Music Page' }
 	}
-	//{
-	//path: '/performance',
-	//name: 'Performance',
-	//component: Performance,
-	//meta: { buttonName: 'JS Perf Comparison' }
-	//}
 ]
 
 const router = createRouter({

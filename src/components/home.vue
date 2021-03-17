@@ -14,17 +14,21 @@ export default class Home extends Vue {}
 					width="300"
 					class="picture"
 					src="../assets/me.png"
-					alt="cardano logo"
+					alt="Picture of myself"
 				/>
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
 					<h5 class="card-title">Bio</h5>
 					<p class="card-text">
-						I'm Daniel James Turcich I currently work as a Software Engineer at
+						Hello, I'm Daniel Turcich and I'm a Software Engineer who currently
+						works at Bank of America in Pennington, New Jersey.
+
+						<!-- I'm Daniel James Turcich I currently work as a Software Engineer at
 						Bank of America. I graduated with a Bachelors of Science in Computer
-						Science from Montclair State University in May 2018.
+						Science from Montclair State University in May 2018. -->
 					</p>
+					<p class="card-text">blah</p>
 				</div>
 			</div>
 		</div>

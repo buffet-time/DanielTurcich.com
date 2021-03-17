@@ -25,7 +25,7 @@ array.forEach((element) => {
 	public stopButton = true
 
 	public mounted(): void {
-		// console.log('blah ')
+		//
 	}
 
 	public getFuncs(): void {

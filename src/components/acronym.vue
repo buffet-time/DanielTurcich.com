@@ -1,32 +1,30 @@
 <script lang="ts" src="./acronym.ts"></script>
 
 <template>
-	<div>
-		<h1 v-once class="acronym-title disable-select">Acronym Generator</h1>
-		<input
-			v-once
-			v-model="acronymInput"
-			class="acronym-input form-control"
-			placeholder="Type a word here"
-			@keyup.enter="acronymButtonPressed"
-		/>
+	<h1 v-once class="acronym-title disable-select">Acronym Generator</h1>
+	<input
+		v-once
+		v-model="acronymInput"
+		class="acronym-input form-control"
+		placeholder="Type a word here"
+		@keyup.enter="acronymButtonPressed"
+	/>
+	<button
+		v-once
+		class="acronym-button btn btn-secondary"
+		@click="acronymButtonPressed"
+	>
+		Generate
+	</button>
+	<div class="generated-text-div">
+		<div class="acronym-text-div">{{ textToDisplay }}</div>
 		<button
-			v-once
-			class="acronym-button btn btn-secondary"
-			@click="acronymButtonPressed"
+			v-if="buttonPressedState === 'good'"
+			class="btn btn-secondary"
+			@click="copyAcronym"
 		>
-			Generate
+			Copy
 		</button>
-		<div class="generated-text-div">
-			<div class="acronym-text-div">{{ textToDisplay }}</div>
-			<button
-				v-if="buttonPressedState === 'good'"
-				class="btn btn-secondary"
-				@click="copyAcronym"
-			>
-				Copy
-			</button>
-		</div>
 	</div>
 </template>
 
