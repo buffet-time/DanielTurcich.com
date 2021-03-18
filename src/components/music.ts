@@ -43,9 +43,12 @@ export default class Home extends Vue {
 		const id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M'
 		const range2021 = 'Main!A2:F'
 
-		const arrayBefore = await this.getArray(idBefore, rangeBefore)
-		const array2020 = await this.getArray(id2020, range2020)
-		const array2021 = await this.getArray(id2021, range2021)
+		const [arrayBefore, array2020, array2021] = await Promise.all([
+			this.getArray(idBefore, rangeBefore),
+			this.getArray(id2020, range2020),
+			this.getArray(id2021, range2021)
+		])
+
 		this.releasesArray = arrayBefore.concat(array2020.concat(array2021))
 	}
 
@@ -102,7 +105,7 @@ export default class Home extends Vue {
 
 			httpRequest.open(
 				'GET',
-				`https://localhost:5001/Sheets/${id}/${range}`,
+				`https://api.danielturcich.com/Sheets/${id}/${range}`,
 				true
 			)
 

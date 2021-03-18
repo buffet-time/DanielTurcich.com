@@ -23,12 +23,11 @@ export default class Home extends Vue {}
 					<p class="card-text">
 						Hello, I'm Daniel Turcich and I'm a Software Engineer who currently
 						works at Bank of America in Pennington, New Jersey.
-
-						<!-- I'm Daniel James Turcich I currently work as a Software Engineer at
-						Bank of America. I graduated with a Bachelors of Science in Computer
-						Science from Montclair State University in May 2018. -->
 					</p>
-					<p class="card-text">blah</p>
+					<p class="card-text">
+						I received a Bachelos of Science in Computer Science from Montclair
+						State University in May 2018
+					</p>
 				</div>
 			</div>
 		</div>
@@ -43,9 +42,9 @@ export default class Home extends Vue {}
 						<div class="card-body card-left">
 							<h5 class="card-title-1">Technical</h5>
 							<b>Frontend - </b> TypeScript/ JavaScript, Vue.js, Electron,
-							Angular, HTML, CSS <br />
+							Angular, HTML, CSS, React <br />
 
-							<b>Middle/ Backend - </b> C#, SQL Server, MySQL<br />
+							<b>Middle/ Backend - </b> Node, C#, SQL Server, MySQL<br />
 
 							<b>Other - </b> Git, Python, Java, LUA, Android, XML
 						</div>
