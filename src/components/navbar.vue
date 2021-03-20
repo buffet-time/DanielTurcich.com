@@ -25,7 +25,6 @@
 					/>
 				</svg>
 			</div>
-
 			<div
 				v-for="link in links"
 				:key="link"
@@ -117,6 +116,8 @@
 }
 
 .sidenav-top {
+	/* position: fixed; */
+	z-index: 1;
 	margin-top: -60px;
 	height: 60px;
 	width: 230px;

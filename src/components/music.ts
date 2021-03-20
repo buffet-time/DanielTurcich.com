@@ -3,19 +3,52 @@ import { Release } from '@/typings'
 import { Vue } from 'vue-class-component'
 
 export default class Home extends Vue {
-	public releasesArray?: string[][]
+	public releasesArray: string[][] = []
 	public searchInput = ''
 	public reviewsText = ''
+	public intializing = true
+	public showCopyButton = false
 
-	public async mounted(): Promise<void> {
+	public async created(): Promise<void> {
 		await this.initializeSheets()
+		this.intializing = false
+		function isNum(value: string): boolean {
+			return !isNaN(Number(value))
+		}
+		let scoreCount = 0,
+			questionMarkScoreCount = 0,
+			yearCount = 0,
+			tempScore = 0,
+			tempYear = 0
+
+		this.releasesArray.forEach((current) => {
+			if (isNum(current[Release.year])) {
+				tempYear += Number(current[Release.year])
+				yearCount++
+			}
+			if (isNum(current[Release.score])) {
+				tempScore += Number(current[Release.score])
+				scoreCount++
+			} else if (current[Release.score] == '?') {
+				questionMarkScoreCount++
+			}
+		})
+
+		const averageScore = (tempScore / scoreCount).toFixed(2)
+		const averageYear = (tempYear / yearCount).toFixed(2)
+		const numberOfReleasesReviewed = scoreCount + questionMarkScoreCount
+
+		console.log(
+			`${averageScore}\n${averageYear}\n${numberOfReleasesReviewed}\n`
+		)
 	}
 
 	public copyReviews(): void {
 		navigator.clipboard.writeText(this.reviewsText)
 	}
 
-	public getReviewsButtonPressed(): void {
+	public searchButtonPressed(): void {
+		this.searchInput = this.searchInput.trim().toLowerCase()
 		const column = Number((this.$refs.searchType as HTMLSelectElement).value)
 		let equals = false
 
@@ -30,18 +63,25 @@ export default class Home extends Vue {
 				equals = true
 				break
 		}
-		this.reviewsText = this.arrayToFormattedOutput(
+		const results = this.arrayToFormattedOutput(
 			this.getRelasesFromSearch(column, equals)
 		)
+		if (results.length > 0) {
+			this.showCopyButton = true
+			this.reviewsText = results
+		} else {
+			this.showCopyButton = false
+			this.reviewsText = 'No results for your search.'
+		}
 	}
 
 	private async initializeSheets() {
-		const idBefore = '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk'
-		const rangeBefore = 'Main!A2:F'
-		const id2020 = '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w'
-		const range2020 = 'Main!A2:C'
-		const id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M'
-		const range2021 = 'Main!A2:F'
+		const idBefore = '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
+			rangeBefore = 'Main!A2:F',
+			id2020 = '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
+			range2020 = 'Main!A2:F',
+			id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
+			range2021 = 'Main!A2:F'
 
 		const [arrayBefore, array2020, array2021] = await Promise.all([
 			this.getArray(idBefore, rangeBefore),
@@ -49,12 +89,12 @@ export default class Home extends Vue {
 			this.getArray(id2021, range2021)
 		])
 
-		this.releasesArray = arrayBefore.concat(array2020.concat(array2021))
+		this.releasesArray = arrayBefore.concat(array2020, array2021)
 	}
 
 	private getRelasesFromSearch(index: Release, equals: boolean): string[][] {
 		if (equals) {
-			return this.releasesArray!.filter((release) => {
+			return this.releasesArray.filter((release) => {
 				if (release[index]) {
 					return release[index].trim().toLowerCase() === this.searchInput
 				} else {
@@ -62,7 +102,7 @@ export default class Home extends Vue {
 				}
 			})
 		} else {
-			return this.releasesArray!.filter((release) => {
+			return this.releasesArray.filter((release) => {
 				if (release[index]) {
 					return release[index].trim().toLowerCase().includes(this.searchInput)
 				} else {
@@ -75,11 +115,7 @@ export default class Home extends Vue {
 	private arrayToFormattedOutput(array: string[][]): string {
 		return array
 			.map((release) => {
-				if (release.length === 3) {
-					return ` ${release[Release.artist].trim()} - ${release[
-						Release.name
-					].trim()}: ${release[Release.score].trim()}`
-				} else if (release.length === 6) {
+				if (release.length > 0) {
 					return ` ${release[Release.artist].trim()} - ${release[
 						Release.name
 					].trim()}: ${release[Release.score].trim()}`
@@ -91,25 +127,10 @@ export default class Home extends Vue {
 	}
 
 	private async getArray(id: string, range: string): Promise<string[][]> {
-		return new Promise((resolve) => {
-			const httpRequest = new XMLHttpRequest()
-
-			httpRequest.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-					const sheetResult: string[][] = JSON.parse(
-						'[' + httpRequest.response + ']'
-					)[0]
-					resolve(sheetResult)
-				}
-			}
-
-			httpRequest.open(
-				'GET',
-				`https://api.danielturcich.com/Sheets/${id}/${range}`,
-				true
-			)
-
-			httpRequest.send()
-		})
+		const response = await fetch(
+			`https://api.danielturcich.com/Sheets/${id}/${range}`
+		)
+		const data: string[][] = await response.json()
+		return data
 	}
 }

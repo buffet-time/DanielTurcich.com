@@ -26,3 +26,12 @@ export enum Release {
 	year,
 	genre
 }
+
+export type ReleaseType =
+	| 'Album'
+	| 'Live Album'
+	| 'Soundtrack'
+	| 'Remix Album'
+	| 'Compilation'
+	| 'EP'
+	| 'Demo Album'

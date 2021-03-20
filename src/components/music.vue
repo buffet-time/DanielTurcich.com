@@ -17,12 +17,12 @@
 			v-model="searchInput"
 			class="music-input form-control"
 			placeholder="Search input"
-			@keyup.enter="getReviewsButtonPressed"
+			@keyup.enter="searchButtonPressed"
 		/>
 		<button
-			:disabled="searchInput.length < 1"
+			:disabled="intializing || searchInput.length < 1"
 			class="music-button btn btn-secondary"
-			@click="getReviewsButtonPressed"
+			@click="searchButtonPressed"
 		>
 			Search
 		</button>
@@ -30,7 +30,7 @@
 
 	<div class="music-text-div">{{ reviewsText }}</div>
 	<button
-		v-show="reviewsText.length > 0"
+		v-show="showCopyButton"
 		class="btn btn-secondary"
 		@click="copyReviews"
 	>
