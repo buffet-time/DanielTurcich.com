@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Release } from '@/typings'
 import { Vue } from 'vue-class-component'
+import 'bootstrap/js/dist/tab'
 
 export default class Home extends Vue {
 	public releasesArray: string[][] = []
@@ -8,6 +9,9 @@ export default class Home extends Vue {
 	public reviewsText = ''
 	public intializing = true
 	public showCopyButton = false
+	public numberOfReleases = 'Loading...'
+	public averageYear = 'Loading...'
+	public averageScore = 'Loading...'
 
 	public async created(): Promise<void> {
 		await this.initializeSheets()
@@ -34,13 +38,9 @@ export default class Home extends Vue {
 			}
 		})
 
-		const averageScore = (tempScore / scoreCount).toFixed(2)
-		const averageYear = (tempYear / yearCount).toFixed(2)
-		const numberOfReleasesReviewed = scoreCount + questionMarkScoreCount
-
-		console.log(
-			`${averageScore}\n${averageYear}\n${numberOfReleasesReviewed}\n`
-		)
+		this.averageScore = (tempScore / scoreCount).toFixed(2)
+		this.averageYear = (tempYear / yearCount).toFixed(2)
+		this.numberOfReleases = (scoreCount + questionMarkScoreCount).toString()
 	}
 
 	public copyReviews(): void {

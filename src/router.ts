@@ -18,6 +18,26 @@ const routes: Array<RouteRecordRaw> = [
 		component: Home,
 		meta: { buttonName: 'Home' }
 	},
+
+	{
+		path: '/music',
+		name: 'Music',
+		component: Music,
+		meta: { buttonName: 'Music Page' }
+	},
+
+	{
+		path: '/sorting',
+		name: 'Sorting',
+		component: Sorting,
+		meta: { buttonName: 'Sorting Visualizations' }
+	},
+	// {
+	// 	path: '/performance',
+	// 	name: 'Performance',
+	// 	component: Performance,
+	// 	meta: { buttonName: 'JS Perf Comparison' }
+	// },
 	{
 		path: '/acronym',
 		name: 'Acronym',
@@ -37,12 +57,6 @@ const routes: Array<RouteRecordRaw> = [
 		meta: { buttonName: 'Discord Generator' }
 	},
 	{
-		path: '/sorting',
-		name: 'Sorting',
-		component: Sorting,
-		meta: { buttonName: 'Sorting Visualizations' }
-	},
-	{
 		path: '/resume',
 		name: 'Resume',
 		redirect: () => {
@@ -59,18 +73,6 @@ const routes: Array<RouteRecordRaw> = [
 				'https://docs.google.com/spreadsheets/d/1Ru91tRwbJSL7aAruHrhRORBRB2Y1-XGcyWFPtnwW6O4/edit?usp=sharing'
 			return 'redirecting'
 		}
-	},
-	// {
-	// 	path: '/performance',
-	// 	name: 'Performance',
-	// 	component: Performance,
-	// 	meta: { buttonName: 'JS Perf Comparison' }
-	// },
-	{
-		path: '/music',
-		name: 'Music',
-		component: Music,
-		meta: { buttonName: 'Music Page' }
 	}
 ]
 

@@ -20,8 +20,6 @@ export default class App extends Vue {}
 @import 'node_modules/bootstrap/scss/functions';
 @import 'node_modules/bootstrap/scss/variables';
 @import 'node_modules/bootstrap/scss/mixins';
-
-// optional other
 @import 'node_modules/bootstrap/scss/reboot';
 
 // optional components
@@ -30,6 +28,8 @@ export default class App extends Vue {}
 @import 'node_modules/bootstrap/scss/buttons';
 @import 'node_modules/bootstrap/scss/forms';
 @import 'node_modules/bootstrap/scss/grid';
+@import 'node_modules/bootstrap/scss/tables';
+@import 'node_modules/bootstrap/scss/nav';
 
 // latin
 @font-face {
