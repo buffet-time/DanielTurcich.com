@@ -30,6 +30,7 @@ export default class App extends Vue {}
 @import 'node_modules/bootstrap/scss/grid';
 @import 'node_modules/bootstrap/scss/tables';
 @import 'node_modules/bootstrap/scss/nav';
+@import 'node_modules/bootstrap/scss/list-group';
 
 // latin
 @font-face {

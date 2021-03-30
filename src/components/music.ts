@@ -25,7 +25,7 @@ export default class Home extends Vue {
 			tempScore = 0,
 			tempYear = 0
 
-		this.releasesArray.forEach((current) => {
+		this.releasesArray.reverse().forEach((current) => {
 			if (isNum(current[Release.year])) {
 				tempYear += Number(current[Release.year])
 				yearCount++
@@ -89,7 +89,9 @@ export default class Home extends Vue {
 			this.getArray(id2021, range2021)
 		])
 
-		this.releasesArray = arrayBefore.concat(array2020, array2021)
+		this.releasesArray = arrayBefore
+			.concat(array2020, array2021)
+			.filter((current) => current.length > 5) // makes sure to not include any not fully written reviews
 	}
 
 	private getRelasesFromSearch(index: Release, equals: boolean): string[][] {

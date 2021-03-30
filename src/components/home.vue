@@ -1,8 +1,4 @@
-<script lang="ts">
-import { Vue } from 'vue-class-component'
-
-export default class Home extends Vue {}
-</script>
+<script lang="ts" src="./home.ts"></script>
 
 <template>
 	<div v-once bg-variant="secondary" class="card">
@@ -71,12 +67,30 @@ export default class Home extends Vue {}
 			</div>
 		</div>
 	</div>
+
+	<div v-once class="card links-card">
+		<h5 class="card-title">Articles I'm featured in</h5>
+		<ul class="list-group">
+			<a
+				v-for="link in links"
+				:key="link"
+				class="list-group-item list-group-item-action list-group-item-dark"
+				:href="link.url"
+			>
+				{{ link.text }}
+			</a>
+		</ul>
+	</div>
 </template>
 
-<style>
+<style lang="scss">
 .card {
 	margin: 32px;
 	margin-bottom: 0px;
+}
+.links-card {
+	padding: 16px;
+	margin-bottom: 16px;
 }
 .card-left {
 	margin-top: 32px;
