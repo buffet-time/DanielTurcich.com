@@ -17,12 +17,13 @@
 				<div class="card-body">
 					<h5 class="card-title">Bio</h5>
 					<p class="card-text">
-						Hello, I'm Daniel Turcich and I'm a Software Engineer who currently
-						works at Bank of America in Pennington, New Jersey.
+						Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
+						currently works at Bank of America in Pennington, New Jersey. I
+						mostly do Frontend development and really enjoy TypeScript, Vue, and
+						Electron.
 					</p>
 					<p class="card-text">
-						I received a Bachelos of Science in Computer Science from Montclair
-						State University in May 2018
+						I'm 25, a Vegetarian, and listen to an insane amount of music.
 					</p>
 				</div>
 			</div>
@@ -70,12 +71,13 @@
 
 	<div v-once class="card links-card">
 		<h5 class="card-title">Articles I'm featured in</h5>
-		<ul class="list-group">
+		<ul class="list-group list-group-horizontal">
 			<a
 				v-for="link in links"
 				:key="link"
-				class="list-group-item list-group-item-action list-group-item-dark"
+				class="list-group-item list-group-item-action"
 				:href="link.url"
+				target="_blank"
 			>
 				{{ link.text }}
 			</a>
@@ -83,7 +85,19 @@
 	</div>
 </template>
 
-<style lang="scss">
+<style>
+.list-group {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	border-top: transparent !important;
+}
+.list-group-item {
+	background-color: #616161;
+	color: white;
+	width: 180px;
+	text-align: center;
+}
 .card {
 	margin: 32px;
 	margin-bottom: 0px;
