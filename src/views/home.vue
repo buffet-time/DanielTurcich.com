@@ -95,7 +95,8 @@
 .list-group-item {
 	background-color: #616161;
 	color: white;
-	width: 180px;
+	width: 20%;
+	min-width: 180px;
 	text-align: center;
 }
 .card {

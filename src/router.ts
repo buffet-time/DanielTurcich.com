@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 // Lazy Loading for routes for less resource waste/ better performance
-const Home = () => import('./components/home.vue')
-const Acronym = () => import('./components/acronym.vue')
-const Password = () => import('./components/password.vue')
-const Discord = () => import('./components/discord.vue')
-const Sorting = () => import('./components/sorting.vue')
+const Home = () => import('./views/home.vue')
+const Acronym = () => import('./views/acronym.vue')
+const Password = () => import('./views/password.vue')
+const Discord = () => import('./views/discord.vue')
+const Sorting = () => import('./views/sorting.vue')
 // const Performance = () => import('./components/performance.vue')
-const Music = () => import('./components/music.vue')
+const Music = () => import('./views/music.vue')
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?

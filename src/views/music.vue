@@ -95,6 +95,9 @@
 					>
 						Search
 					</button>
+					<!-- 
+						add exact match checkbox			
+					-->
 				</div>
 
 				<div class="music-text-div">{{ reviewsText }}</div>
