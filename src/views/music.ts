@@ -11,7 +11,7 @@ import MusicRelease from '../components/musicRelease.vue'
 })
 export default class Home extends Vue {
 	public releasesArray: string[][] = []
-	public releaseToShow: string[][] = []
+	public releasesToShow: string[][] = []
 	public searchInput = ''
 	public reviewsText = ''
 	public intializing = true
@@ -76,12 +76,12 @@ export default class Home extends Vue {
 				equals = true
 				break
 		}
-		this.releaseToShow = this.getRelasesFromSearch(column, equals)
+		this.releasesToShow = this.getRelasesFromSearch(column, equals)
 
-		if (this.releaseToShow.length > 0) {
-			this.reviewsText = this.arrayToFormattedOutput(this.releaseToShow)
+		if (this.releasesToShow.length > 0) {
 			this.showReleasesDiv = true
 			this.showCopyButton = true
+			this.reviewsText = this.arrayToFormattedOutput(this.releasesToShow)
 		} else {
 			this.showNoResults = true
 			this.showCopyButton = false
@@ -94,7 +94,7 @@ export default class Home extends Vue {
 			id2020 = '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
 			range2020 = 'Main!A2:F',
 			id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
-			range2021 = 'Main!A2:F'
+			range2021 = 'Main!A2:G'
 
 		const [arrayBefore, array2020, array2021] = await Promise.all([
 			this.getArray(idBefore, rangeBefore),

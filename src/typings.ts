@@ -24,7 +24,8 @@ export enum Release {
 	score,
 	type,
 	year,
-	genre
+	genre,
+	comments
 }
 
 export type ReleaseType =

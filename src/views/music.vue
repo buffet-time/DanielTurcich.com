@@ -101,10 +101,11 @@
 				</div>
 
 				<div v-if="showReleasesDiv" class="music-text-div">
-					<ul class="list-group list-group-horizontal">
+					<ul ref="releases" class="list-group list-group-horizontal">
 						<music-release
-							v-for="release in releaseToShow"
-							:key="release"
+							v-for="(release, index) in releasesToShow"
+							:key="index"
+							:index="index"
 							:release="release"
 						></music-release>
 					</ul>
@@ -124,7 +125,6 @@
 
 <style>
 .list-group {
-	width: 100%;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;

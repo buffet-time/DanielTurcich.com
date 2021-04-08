@@ -4,13 +4,18 @@ export default class Home extends Vue {
 	public links = [
 		{
 			url:
-				'https://kotaku.com/half-life-alyx-speedrunner-isnt-afraid-to-get-his-knee-1844825797',
-			text: 'Kotaku'
+				'https://www.pcgamer.com/watch-a-man-run-jump-and-crawl-for-a-half-life-alyx-speedrun',
+			text: 'PC Gamer'
 		},
 		{
 			url:
-				'https://www.pcgamer.com/watch-a-man-run-jump-and-crawl-for-a-half-life-alyx-speedrun',
-			text: 'PC Gamer'
+				'https://www.speedrun.com/news/653-2021-4-1-speedrunning-in-virtual-reality',
+			text: 'Speedrun.com'
+		},
+		{
+			url:
+				'https://kotaku.com/half-life-alyx-speedrunner-isnt-afraid-to-get-his-knee-1844825797',
+			text: 'Kotaku'
 		},
 		{
 			url:
