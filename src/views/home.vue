@@ -88,7 +88,6 @@
 <style>
 .list-group {
 	width: 100%;
-	display: flex;
 	flex-wrap: wrap;
 	border-top: transparent !important;
 }

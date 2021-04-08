@@ -5,6 +5,8 @@ export default class Discord extends Vue {
 	public discordText = ''
 	public reviewsText = ''
 
+	// handle no spaces printing properly
+
 	public discordButtonPressed(): void {
 		this.discordText = ''
 		this.reviewsText = ''

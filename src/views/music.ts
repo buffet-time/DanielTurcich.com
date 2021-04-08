@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Release } from '@/typings'
-import { Vue } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
+import MusicRelease from '../components/musicRelease.vue'
 
+@Options({
+	components: {
+		'music-release': MusicRelease
+	}
+})
 export default class Home extends Vue {
 	public releasesArray: string[][] = []
+	public releaseToShow: string[][] = []
 	public searchInput = ''
 	public reviewsText = ''
 	public intializing = true
 	public showCopyButton = false
+	public showReleasesDiv = false
+	public showNoResults = false
 	public numberOfReleases = 'Loading...'
 	public averageYear = 'Loading...'
 	public averageScore = 'Loading...'
@@ -25,7 +34,8 @@ export default class Home extends Vue {
 			tempScore = 0,
 			tempYear = 0
 
-		this.releasesArray.reverse().forEach((current) => {
+		const reversedArray = this.releasesArray.reverse()
+		reversedArray.forEach((current) => {
 			if (isNum(current[Release.year])) {
 				tempYear += Number(current[Release.year])
 				yearCount++
@@ -37,6 +47,7 @@ export default class Home extends Vue {
 				questionMarkScoreCount++
 			}
 		})
+		this.releasesArray.reverse()
 
 		this.averageScore = (tempScore / scoreCount).toFixed(2)
 		this.averageYear = (tempYear / yearCount).toFixed(2)
@@ -48,6 +59,8 @@ export default class Home extends Vue {
 	}
 
 	public searchButtonPressed(): void {
+		this.showReleasesDiv = false
+		this.showNoResults = false
 		this.searchInput = this.searchInput.trim().toLowerCase()
 		const column = Number((this.$refs.searchType as HTMLSelectElement).value)
 		let equals = false
@@ -63,15 +76,15 @@ export default class Home extends Vue {
 				equals = true
 				break
 		}
-		const results = this.arrayToFormattedOutput(
-			this.getRelasesFromSearch(column, equals)
-		)
-		if (results.length > 0) {
+		this.releaseToShow = this.getRelasesFromSearch(column, equals)
+
+		if (this.releaseToShow.length > 0) {
+			this.reviewsText = this.arrayToFormattedOutput(this.releaseToShow)
+			this.showReleasesDiv = true
 			this.showCopyButton = true
-			this.reviewsText = results
 		} else {
+			this.showNoResults = true
 			this.showCopyButton = false
-			this.reviewsText = 'No results for your search.'
 		}
 	}
 

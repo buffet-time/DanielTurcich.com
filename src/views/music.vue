@@ -100,7 +100,16 @@
 					-->
 				</div>
 
-				<div class="music-text-div">{{ reviewsText }}</div>
+				<div v-if="showReleasesDiv" class="music-text-div">
+					<ul class="list-group list-group-horizontal">
+						<music-release
+							v-for="release in releaseToShow"
+							:key="release"
+							:release="release"
+						></music-release>
+					</ul>
+				</div>
+				<div v-if="showNoResults">No results from your search.</div>
 				<button
 					v-show="showCopyButton"
 					class="btn btn-secondary"
@@ -114,6 +123,13 @@
 </template>
 
 <style>
+.list-group {
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
 .music-title {
 	margin-top: 8px;
 }
@@ -128,7 +144,7 @@
 }
 
 .music-text-div {
-	margin: 24px;
+	margin: 8px;
 	margin-top: 16px;
 	margin-bottom: 8px;
 }
