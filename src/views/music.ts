@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Release } from '@/typings'
 import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
@@ -25,22 +24,19 @@ export default class Home extends Vue {
 	public async created(): Promise<void> {
 		await this.initializeSheets()
 		this.intializing = false
-		function isNum(value: string): boolean {
-			return !isNaN(Number(value))
-		}
 		let scoreCount = 0,
 			questionMarkScoreCount = 0,
 			yearCount = 0,
 			tempScore = 0,
 			tempYear = 0
-
 		const reversedArray = this.releasesArray.reverse()
+
 		reversedArray.forEach((current) => {
-			if (isNum(current[Release.year])) {
+			if (this.isNum(current[Release.year])) {
 				tempYear += Number(current[Release.year])
 				yearCount++
 			}
-			if (isNum(current[Release.score])) {
+			if (this.isNum(current[Release.score])) {
 				tempScore += Number(current[Release.score])
 				scoreCount++
 			} else if (current[Release.score] == '?') {
@@ -142,10 +138,12 @@ export default class Home extends Vue {
 	}
 
 	private async getArray(id: string, range: string): Promise<string[][]> {
-		const response = await fetch(
-			`https://api.danielturcich.com/Sheets/${id}/${range}`
-		)
-		const data: string[][] = await response.json()
-		return data
+		return (
+			await fetch(`https://api.danielturcich.com/Sheets/${id}/${range}`)
+		).json()
+	}
+
+	private isNum(value: string): boolean {
+		return !isNaN(Number(value))
 	}
 }

@@ -41,7 +41,7 @@ export default class MusicRelease extends Vue.with(Props) {}
 	>
 		<!-- comments -->
 		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
+			<div class="modal-content cock">
 				<div class="modal-header">
 					<h5 class="modal-title">
 						{{ release[0] }} - {{ release[1] }} ( {{ release[2] }}/10 )
@@ -80,13 +80,14 @@ export default class MusicRelease extends Vue.with(Props) {}
 </template>
 
 <style>
-.modal {
-	color: black;
+.cock {
+	background-color: #383838;
+	color: lightgray;
 }
 
 .list-group-item {
 	background-color: #616161;
-	color: white;
+	color: lightgray;
 	width: 20%;
 	text-align: center;
 }

@@ -40,7 +40,7 @@
 			aria-labelledby="stats-tab"
 		>
 			<div class="table-div">
-				<table class="table table-dark table-striped .table-borderless">
+				<table class="table table-dark .table-borderless">
 					<thead v-once>
 						<tr>
 							<th scope="col">Stat</th>
