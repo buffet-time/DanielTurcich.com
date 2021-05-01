@@ -20,6 +20,17 @@ export default class Home extends Vue {
 	public numberOfReleases = 'Loading...'
 	public averageYear = 'Loading...'
 	public averageScore = 'Loading...'
+	public numberOfArtists = 'Loading...'
+	public numberOf50sAndBefore = 'Loading...'
+	public numberOf1960sReleases = 'Loading...'
+	public numberOf1970sReleases = 'Loading...'
+	public numberOf1980sReleases = 'Loading...'
+	public numberOf1990sReleases = 'Loading...'
+	public numberOf2000sReleases = 'Loading...'
+	public numberOf2010sReleases = 'Loading...'
+	public numberOf2020sReleases = 'Loading...'
+
+	// add possible functionality to export last.fm to chart?
 
 	public async created(): Promise<void> {
 		await this.initializeSheets()
@@ -28,13 +39,43 @@ export default class Home extends Vue {
 			questionMarkScoreCount = 0,
 			yearCount = 0,
 			tempScore = 0,
-			tempYear = 0
+			tempYear = 0,
+			before1960 = 0,
+			num1960s = 0,
+			num1970s = 0,
+			num1980s = 0,
+			num1990s = 0,
+			num2000s = 0,
+			num2010s = 0,
+			num2020s = 0
 		const reversedArray = this.releasesArray.reverse()
+		const artistArray: string[] = []
 
 		reversedArray.forEach((current) => {
-			if (this.isNum(current[Release.year])) {
-				tempYear += Number(current[Release.year])
+			if (!artistArray.includes(current[Release.artist])) {
+				artistArray.push(current[Release.artist])
+			}
+			const currentYear = Number(current[Release.year])
+			if (currentYear) {
+				tempYear += currentYear
 				yearCount++
+				if (currentYear > 2019) {
+					num2020s++
+				} else if (currentYear > 2009) {
+					num2010s++
+				} else if (currentYear > 1999) {
+					num2000s++
+				} else if (currentYear > 1989) {
+					num1990s++
+				} else if (currentYear > 1979) {
+					num1980s++
+				} else if (currentYear > 1969) {
+					num1970s++
+				} else if (currentYear > 1959) {
+					num1960s++
+				} else {
+					before1960++
+				}
 			}
 			if (this.isNum(current[Release.score])) {
 				tempScore += Number(current[Release.score])
@@ -46,8 +87,17 @@ export default class Home extends Vue {
 		this.releasesArray.reverse()
 
 		this.averageScore = (tempScore / scoreCount).toFixed(2)
+		this.numberOfArtists = artistArray.length.toString()
 		this.averageYear = (tempYear / yearCount).toFixed(2)
 		this.numberOfReleases = (scoreCount + questionMarkScoreCount).toString()
+		this.numberOf50sAndBefore = before1960.toString()
+		this.numberOf1960sReleases = num1960s.toString()
+		this.numberOf1970sReleases = num1970s.toString()
+		this.numberOf1980sReleases = num1980s.toString()
+		this.numberOf1990sReleases = num1990s.toString()
+		this.numberOf2000sReleases = num2000s.toString()
+		this.numberOf2010sReleases = num2010s.toString()
+		this.numberOf2020sReleases = num2020s.toString()
 	}
 
 	public copyReviews(): void {
@@ -98,6 +148,12 @@ export default class Home extends Vue {
 			this.getArray(id2021, range2021)
 		])
 
+		for (let x = 0; x < this.releasesArray.length; x++) {
+			for (let n = 0; n < this.releasesArray[x].length; n++) {
+				this.releasesArray[x][n].trim()
+			}
+		}
+
 		this.releasesArray = arrayBefore
 			.concat(array2020, array2021)
 			.filter((current) => current.length > 5) // makes sure to not include any not fully written reviews
@@ -107,7 +163,7 @@ export default class Home extends Vue {
 		if (equals) {
 			return this.releasesArray.filter((release) => {
 				if (release[index]) {
-					return release[index].trim().toLowerCase() === this.searchInput
+					return release[index].toLowerCase() === this.searchInput
 				} else {
 					return false
 				}
@@ -115,7 +171,7 @@ export default class Home extends Vue {
 		} else {
 			return this.releasesArray.filter((release) => {
 				if (release[index]) {
-					return release[index].trim().toLowerCase().includes(this.searchInput)
+					return release[index].toLowerCase().includes(this.searchInput)
 				} else {
 					return false
 				}
@@ -127,9 +183,9 @@ export default class Home extends Vue {
 		return array
 			.map((release) => {
 				if (release.length > 0) {
-					return ` ${release[Release.artist].trim()} - ${release[
-						Release.name
-					].trim()}: ${release[Release.score].trim()}`
+					return ` ${release[Release.artist]} - ${release[Release.name]}: ${
+						release[Release.score]
+					}`
 				} else {
 					return ''
 				}

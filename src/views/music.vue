@@ -53,12 +53,48 @@
 							<td>{{ numberOfReleases }}</td>
 						</tr>
 						<tr>
+							<th v-once scope="row">Number of artists</th>
+							<td>{{ numberOfArtists }}</td>
+						</tr>
+						<tr>
 							<th v-once scope="row">Average Year</th>
 							<td>{{ averageYear }}</td>
 						</tr>
 						<tr>
 							<th v-once scope="row">Average Score</th>
 							<td>{{ averageScore }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases before 1960</th>
+							<td>{{ numberOf50sAndBefore }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 1960s</th>
+							<td>{{ numberOf1960sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 1970s</th>
+							<td>{{ numberOf1970sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 1980s</th>
+							<td>{{ numberOf1980sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 1990s</th>
+							<td>{{ numberOf1990sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 2000s</th>
+							<td>{{ numberOf2000sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 2010s</th>
+							<td>{{ numberOf2010sReleases }}</td>
+						</tr>
+						<tr>
+							<th v-once scope="row">Releases in the 2020s</th>
+							<td>{{ numberOf2020sReleases }}</td>
 						</tr>
 					</tbody>
 				</table>
