@@ -118,6 +118,7 @@
 				</select>
 
 				<div class="input-container">
+					<!-- Search against score -->
 					<template v-if="searchType === '2'">
 						<label for="customRange1" class="form-label">{{
 							searchInput
@@ -133,6 +134,17 @@
 							step="0.5"
 						/>
 					</template>
+
+					<!-- Search against release type -->
+					<template v-else-if="searchType === '3'">
+						<select v-model="searchInput" class="form-select type-select">
+							<option v-for="type in releaseTypes" :key="type" :value="type">
+								{{ type }}
+							</option>
+						</select>
+					</template>
+
+					<!-- All others -->
 					<input
 						v-else
 						v-model="searchInput"
@@ -225,5 +237,9 @@
 	width: 155px;
 	margin-left: calc(50% - 77.5px);
 	margin-bottom: 16px;
+}
+
+.type-select {
+	margin-bottom: 10px;
 }
 </style>

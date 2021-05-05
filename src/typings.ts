@@ -27,13 +27,3 @@ export enum Release {
 	genre,
 	comments
 }
-
-// actually use this at some point
-export type ReleaseType =
-	| 'Album'
-	| 'Live Album'
-	| 'Soundtrack'
-	| 'Remix Album'
-	| 'Compilation'
-	| 'EP'
-	| 'Demo Album'

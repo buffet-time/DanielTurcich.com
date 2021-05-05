@@ -32,6 +32,15 @@ export default class Home extends Vue {
 	public numberOf2000sReleases: string | number = load
 	public numberOf2010sReleases: string | number = load
 	public numberOf2020sReleases: string | number = load
+	public releaseTypes = [
+		'Album',
+		'EP',
+		'Live Album',
+		'Soundtrack',
+		'Remix Album',
+		'Compilation',
+		'Demo Album'
+	]
 
 	// add possible functionality to export last.fm to chart?
 
@@ -109,6 +118,8 @@ export default class Home extends Vue {
 			() => {
 				if (this.searchType === '2') {
 					this.searchInput = '7'
+				} else if (this.searchType === '3') {
+					this.searchInput = 'Album'
 				} else {
 					this.searchInput = ''
 				}
@@ -123,7 +134,7 @@ export default class Home extends Vue {
 	public searchButtonPressed(): void {
 		this.showReleasesDiv = false
 		this.showNoResults = false
-		this.searchInput = this.searchInput.trim().toLowerCase()
+		this.searchInput = this.searchInput.trim()
 		let equals = false
 
 		switch (Number(this.searchType)) {
@@ -181,7 +192,7 @@ export default class Home extends Vue {
 		if (equals) {
 			return this.releasesArray.filter((release) => {
 				if (release[index]) {
-					return release[index].toLowerCase() === this.searchInput
+					return release[index].toLowerCase() === this.searchInput.toLowerCase()
 				} else {
 					return false
 				}
@@ -189,7 +200,9 @@ export default class Home extends Vue {
 		} else {
 			return this.releasesArray.filter((release) => {
 				if (release[index]) {
-					return release[index].toLowerCase().includes(this.searchInput)
+					return release[index]
+						.toLowerCase()
+						.includes(this.searchInput.toLowerCase())
 				} else {
 					return false
 				}
@@ -217,6 +230,7 @@ export default class Home extends Vue {
 		).json()
 	}
 
+	// for readability
 	private isNum(value: string): boolean {
 		return !isNaN(Number(value))
 	}
