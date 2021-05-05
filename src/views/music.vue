@@ -108,17 +108,33 @@
 		>
 			<div>
 				<h3 v-once>Search by:</h3>
-				<select v-once ref="searchType" class="form-select">
-					<option value="0">Artist</option>
+				<select v-model="searchType" class="form-select">
+					<option selected value="0">Artist</option>
 					<option value="1">Release Name</option>
 					<option value="2">Score</option>
 					<option value="3">Type</option>
 					<option value="4">Year</option>
 					<option value="5">Genre</option>
 				</select>
+
 				<div class="input-container">
+					<template v-if="searchType === '2'">
+						<label for="customRange1" class="form-label">{{
+							searchInput
+						}}</label>
+						<br />
+						<input
+							v-model="searchInput"
+							placeholder="10"
+							type="range"
+							class="music-input form-range"
+							min="0"
+							max="10"
+							step="0.5"
+						/>
+					</template>
 					<input
-						v-once
+						v-else
 						v-model="searchInput"
 						class="music-input form-control"
 						placeholder="Search input"

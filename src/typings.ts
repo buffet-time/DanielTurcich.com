@@ -28,6 +28,7 @@ export enum Release {
 	comments
 }
 
+// actually use this at some point
 export type ReleaseType =
 	| 'Album'
 	| 'Live Album'

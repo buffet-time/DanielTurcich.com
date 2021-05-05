@@ -3,6 +3,8 @@ import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'
 
+const load = 'Loading...' // because why not
+
 @Options({
 	components: {
 		'music-release': MusicRelease
@@ -11,24 +13,25 @@ import MusicRelease from '../components/musicRelease.vue'
 export default class Home extends Vue {
 	public releasesArray: string[][] = []
 	public releasesToShow: string[][] = []
+	public searchType = '0'
 	public searchInput = ''
 	public reviewsText = ''
 	public intializing = true
 	public showCopyButton = false
 	public showReleasesDiv = false
 	public showNoResults = false
-	public numberOfReleases = 'Loading...'
-	public averageYear = 'Loading...'
-	public averageScore = 'Loading...'
-	public numberOfArtists = 'Loading...'
-	public numberOf50sAndBefore = 'Loading...'
-	public numberOf1960sReleases = 'Loading...'
-	public numberOf1970sReleases = 'Loading...'
-	public numberOf1980sReleases = 'Loading...'
-	public numberOf1990sReleases = 'Loading...'
-	public numberOf2000sReleases = 'Loading...'
-	public numberOf2010sReleases = 'Loading...'
-	public numberOf2020sReleases = 'Loading...'
+	public numberOfReleases: string | number = load
+	public averageYear: string | number = load
+	public averageScore: string | number = load
+	public numberOfArtists: string | number = load
+	public numberOf50sAndBefore: string | number = load
+	public numberOf1960sReleases: string | number = load
+	public numberOf1970sReleases: string | number = load
+	public numberOf1980sReleases: string | number = load
+	public numberOf1990sReleases: string | number = load
+	public numberOf2000sReleases: string | number = load
+	public numberOf2010sReleases: string | number = load
+	public numberOf2020sReleases: string | number = load
 
 	// add possible functionality to export last.fm to chart?
 
@@ -87,17 +90,30 @@ export default class Home extends Vue {
 		this.releasesArray.reverse()
 
 		this.averageScore = (tempScore / scoreCount).toFixed(2)
-		this.numberOfArtists = artistArray.length.toString()
+		this.numberOfArtists = artistArray.length
 		this.averageYear = (tempYear / yearCount).toFixed(2)
-		this.numberOfReleases = (scoreCount + questionMarkScoreCount).toString()
-		this.numberOf50sAndBefore = before1960.toString()
-		this.numberOf1960sReleases = num1960s.toString()
-		this.numberOf1970sReleases = num1970s.toString()
-		this.numberOf1980sReleases = num1980s.toString()
-		this.numberOf1990sReleases = num1990s.toString()
-		this.numberOf2000sReleases = num2000s.toString()
-		this.numberOf2010sReleases = num2010s.toString()
-		this.numberOf2020sReleases = num2020s.toString()
+		this.numberOfReleases = scoreCount + questionMarkScoreCount
+		this.numberOf50sAndBefore = before1960
+		this.numberOf1960sReleases = num1960s
+		this.numberOf1970sReleases = num1970s
+		this.numberOf1980sReleases = num1980s
+		this.numberOf1990sReleases = num1990s
+		this.numberOf2000sReleases = num2000s
+		this.numberOf2010sReleases = num2010s
+		this.numberOf2020sReleases = num2020s
+
+		this.$watch(
+			() => {
+				return this.searchType
+			},
+			() => {
+				if (this.searchType === '2') {
+					this.searchInput = '7'
+				} else {
+					this.searchInput = ''
+				}
+			}
+		)
 	}
 
 	public copyReviews(): void {
@@ -108,10 +124,9 @@ export default class Home extends Vue {
 		this.showReleasesDiv = false
 		this.showNoResults = false
 		this.searchInput = this.searchInput.trim().toLowerCase()
-		const column = Number((this.$refs.searchType as HTMLSelectElement).value)
 		let equals = false
 
-		switch (column) {
+		switch (Number(this.searchType)) {
 			case Release.score:
 				equals = true
 				break
@@ -122,7 +137,10 @@ export default class Home extends Vue {
 				equals = true
 				break
 		}
-		this.releasesToShow = this.getRelasesFromSearch(column, equals)
+		this.releasesToShow = this.getRelasesFromSearch(
+			Number(this.searchType),
+			equals
+		)
 
 		if (this.releasesToShow.length > 0) {
 			this.showReleasesDiv = true
