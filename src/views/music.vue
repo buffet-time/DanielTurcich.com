@@ -167,7 +167,6 @@
 						v-model="searchInput"
 						class="music-input form-control"
 						placeholder="Search input"
-						@keyup.enter="searchButtonPressed"
 					/>
 					<button
 						:disabled="intializing || searchInput.length < 1"
@@ -176,9 +175,6 @@
 					>
 						Search
 					</button>
-					<!-- 
-						add exact match checkbox			
-					-->
 				</div>
 
 				<div v-if="showReleasesDiv" class="music-text-div">

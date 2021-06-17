@@ -134,6 +134,9 @@ export default class Home extends Vue {
 		)
 
 		window.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter' && this.searchInput.length > 0) {
+				this.executeSearch()
+			}
 			if (this.searchType === '2') {
 				this.incrementRange(event.key, 0.5, 0, 10)
 			} else if (this.searchType === '4') {
@@ -147,6 +150,10 @@ export default class Home extends Vue {
 	}
 
 	public searchButtonPressed(): void {
+		this.executeSearch()
+	}
+
+	private executeSearch() {
 		this.showReleasesDiv = false
 		this.showNoResults = false
 		this.searchInput = this.searchInput.trim()

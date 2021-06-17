@@ -6,8 +6,9 @@ const Acronym = () => import('./views/acronym.vue')
 const Password = () => import('./views/password.vue')
 const Discord = () => import('./views/discord.vue')
 const Sorting = () => import('./views/sorting.vue')
-// const Performance = () => import('./components/performance.vue')
 const Music = () => import('./views/music.vue')
+const Life = () => import('./views/life.vue')
+// const Performance = () => import('./components/performance.vue')
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
@@ -32,30 +33,42 @@ const routes: Array<RouteRecordRaw> = [
 		component: Sorting,
 		meta: { buttonName: 'Sorting Visualizations' }
 	},
+
 	// {
 	// 	path: '/performance',
 	// 	name: 'Performance',
 	// 	component: Performance,
 	// 	meta: { buttonName: 'JS Perf Comparison' }
 	// },
+
+	{
+		path: '/life',
+		name: 'Life',
+		component: Life,
+		meta: { buttonName: 'Game of Life' }
+	},
+
 	{
 		path: '/acronym',
 		name: 'Acronym',
 		component: Acronym,
 		meta: { buttonName: 'Acronym Generator' }
 	},
+
 	{
 		path: '/password',
 		name: 'Password',
 		component: Password,
 		meta: { buttonName: 'Password Generator' }
 	},
+
 	{
 		path: '/discord',
 		name: 'Discord',
 		component: Discord,
 		meta: { buttonName: 'Discord Generator' }
 	},
+
 	{
 		path: '/resume',
 		name: 'Resume',
@@ -65,6 +78,7 @@ const routes: Array<RouteRecordRaw> = [
 			return 'redirecting'
 		}
 	},
+
 	{
 		path: '/recc',
 		name: 'Recc',
