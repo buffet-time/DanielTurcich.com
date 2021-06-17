@@ -61,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Resume',
 		redirect: () => {
 			window.location.href =
-				'https://drive.google.com/file/d/1leSR2lYS7mDaV92JMSDVDn8KZK__bBdO/view'
+				'https://drive.google.com/file/d/1w5yABHkIDi6crRtK5YsdJEIm_shd3JjJ/view'
 			return 'redirecting'
 		}
 	},

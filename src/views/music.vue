@@ -1,7 +1,7 @@
 <script lang="ts" src="./music.ts"></script>
 
 <template>
-	<h1 v-once class="music-title disable-select">Music Page (WiP)</h1>
+	<h1 v-once class="music-title disable-select">My Music Page (WiP)</h1>
 	<ul v-once id="myTab" class="nav nav-tabs" role="tablist">
 		<li class="nav-item" role="presentation">
 			<button
@@ -144,6 +144,23 @@
 						</select>
 					</template>
 
+					<!-- Search against score -->
+					<template v-else-if="searchType === '4'">
+						<label for="customRange1" class="form-label">{{
+							searchInput
+						}}</label>
+						<br />
+						<input
+							v-model="searchInput"
+							:placeholder="latestYear"
+							type="range"
+							class="music-input form-range"
+							:min="earliestYear"
+							:max="latestYear"
+							step="1"
+						/>
+					</template>
+
 					<!-- All others -->
 					<input
 						v-else
@@ -241,5 +258,10 @@
 
 .type-select {
 	margin-bottom: 10px;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+	color: white;
 }
 </style>

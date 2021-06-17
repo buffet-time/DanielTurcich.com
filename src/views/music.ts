@@ -13,6 +13,8 @@ const load = 'Loading...' // because why not
 export default class Home extends Vue {
 	public releasesArray: string[][] = []
 	public releasesToShow: string[][] = []
+	public latestYear = 2021
+	public earliestYear = this.latestYear
 	public searchType = '0'
 	public searchInput = ''
 	public reviewsText = ''
@@ -69,6 +71,9 @@ export default class Home extends Vue {
 			}
 			const currentYear = Number(current[Release.year])
 			if (currentYear) {
+				if (currentYear < this.earliestYear) {
+					this.earliestYear = currentYear
+				}
 				tempYear += currentYear
 				yearCount++
 				if (currentYear > 2019) {
@@ -120,11 +125,21 @@ export default class Home extends Vue {
 					this.searchInput = '7'
 				} else if (this.searchType === '3') {
 					this.searchInput = 'Album'
+				} else if (this.searchType === '4') {
+					this.searchInput = this.latestYear.toString()
 				} else {
 					this.searchInput = ''
 				}
 			}
 		)
+
+		window.addEventListener('keydown', (event) => {
+			if (this.searchType === '2') {
+				this.incrementRange(event.key, 0.5, 0, 10)
+			} else if (this.searchType === '4') {
+				this.incrementRange(event.key, 1, this.earliestYear, this.latestYear)
+			}
+		})
 	}
 
 	public copyReviews(): void {
@@ -222,6 +237,21 @@ export default class Home extends Vue {
 				}
 			})
 			.toString()
+	}
+
+	private incrementRange(
+		key: string,
+		incrementAmount: number,
+		minimum: number,
+		maximum: number
+	): void {
+		if (key === 'ArrowLeft' && Number(this.searchInput) > minimum) {
+			this.searchInput = (
+				Number(this.searchInput) + -incrementAmount
+			).toString()
+		} else if (key === 'ArrowRight' && Number(this.searchInput) < maximum) {
+			this.searchInput = (Number(this.searchInput) + incrementAmount).toString()
+		}
 	}
 
 	private async getArray(id: string, range: string): Promise<string[][]> {
