@@ -256,7 +256,9 @@ export default class Home extends Vue {
 
 	private async getArray(id: string, range: string): Promise<string[][]> {
 		return (
-			await fetch(`https://api.danielturcich.com/Sheets/${id}/${range}`)
+			await fetch(
+				`https://api.danielturcich.com/Sheets?id=${id}&range=${range}`
+			)
 		).json()
 	}
 
