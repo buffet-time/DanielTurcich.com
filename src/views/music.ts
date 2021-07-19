@@ -3,7 +3,7 @@ import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'
 
-const load = 'Loading...' // because why not
+const load = '...' // because why not
 
 @Options({
 	components: {
@@ -192,15 +192,15 @@ export default class Home extends Vue {
 			this.getArray(id2021, range2021)
 		])
 
+		this.releasesArray = arrayBefore
+			.concat(array2020, array2021)
+			.filter((current) => current.length > 5) // makes sure to not include any not fully written reviews
+
 		for (let x = 0; x < this.releasesArray.length; x++) {
 			for (let n = 0; n < this.releasesArray[x].length; n++) {
 				this.releasesArray[x][n].trim()
 			}
 		}
-
-		this.releasesArray = arrayBefore
-			.concat(array2020, array2021)
-			.filter((current) => current.length > 5) // makes sure to not include any not fully written reviews
 	}
 
 	private getRelasesFromSearch(index: Release, equals: boolean): string[][] {
