@@ -3,7 +3,7 @@ import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'
 
-const load = '...' // because why not
+const loadingString = '...' // because why not
 
 @Options({
 	components: {
@@ -22,18 +22,18 @@ export default class Home extends Vue {
 	public showCopyButton = false
 	public showReleasesDiv = false
 	public showNoResults = false
-	public numberOfReleases: string | number = load
-	public averageYear: string | number = load
-	public averageScore: string | number = load
-	public numberOfArtists: string | number = load
-	public numberOf50sAndBefore: string | number = load
-	public numberOf1960sReleases: string | number = load
-	public numberOf1970sReleases: string | number = load
-	public numberOf1980sReleases: string | number = load
-	public numberOf1990sReleases: string | number = load
-	public numberOf2000sReleases: string | number = load
-	public numberOf2010sReleases: string | number = load
-	public numberOf2020sReleases: string | number = load
+	public numberOfReleases: string | number = loadingString
+	public averageYear: string | number = loadingString
+	public averageScore: string | number = loadingString
+	public numberOfArtists: string | number = loadingString
+	public numberOf50sAndBefore: string | number = loadingString
+	public numberOf1960sReleases: string | number = loadingString
+	public numberOf1970sReleases: string | number = loadingString
+	public numberOf1980sReleases: string | number = loadingString
+	public numberOf1990sReleases: string | number = loadingString
+	public numberOf2000sReleases: string | number = loadingString
+	public numberOf2010sReleases: string | number = loadingString
+	public numberOf2020sReleases: string | number = loadingString
 	public releaseTypes = [
 		'Album',
 		'EP',
@@ -205,23 +205,14 @@ export default class Home extends Vue {
 
 	private getRelasesFromSearch(index: Release, equals: boolean): string[][] {
 		if (equals) {
-			return this.releasesArray.filter((release) => {
-				if (release[index]) {
-					return release[index].toLowerCase() === this.searchInput.toLowerCase()
-				} else {
-					return false
-				}
-			})
+			return this.releasesArray.filter(
+				(release) =>
+					release[index].toLowerCase() === this.searchInput.toLowerCase()
+			)
 		} else {
-			return this.releasesArray.filter((release) => {
-				if (release[index]) {
-					return release[index]
-						.toLowerCase()
-						.includes(this.searchInput.toLowerCase())
-				} else {
-					return false
-				}
-			})
+			return this.releasesArray.filter((release) =>
+				release[index].toLowerCase().includes(this.searchInput.toLowerCase())
+			)
 		}
 	}
 
