@@ -69,7 +69,7 @@ export default class Navbar extends Vue {
 
 			case 'resume':
 				window.open(
-					'https://drive.google.com/file/d/1leSR2lYS7mDaV92JMSDVDn8KZK__bBdO/view',
+					'https://drive.google.com/file/d/1ql438ApSvi6vyaYaivL23U0z9FC-RLXl/view',
 					'_blank'
 				)
 				break
