@@ -1,4 +1,4 @@
-import router from '@/router'
+import router, { resume } from '@/router'
 import { SidenavLink } from '@/typings'
 import { Vue } from 'vue-class-component'
 import { RouteRecordNormalized } from 'vue-router'
@@ -68,10 +68,7 @@ export default class Navbar extends Vue {
 				break
 
 			case 'resume':
-				window.open(
-					'https://drive.google.com/file/d/1ql438ApSvi6vyaYaivL23U0z9FC-RLXl/view',
-					'_blank'
-				)
+				window.open(resume, '_blank')
 				break
 
 			case 'bandcamp':
