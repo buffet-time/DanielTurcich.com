@@ -43,10 +43,10 @@ export default class Navbar extends Vue {
 
 	public mounted(): void {
 		this.routes = this.$router.getRoutes().filter((route) => {
-			return route.meta.buttonName !== undefined
+			return route.meta['buttonName'] !== undefined
 		})
-		this.sidenavElement = this.$refs.sidenav as HTMLDivElement
-		this.overlayElement = this.$refs.overlay as HTMLDivElement
+		this.sidenavElement = this.$refs['sidenav'] as HTMLDivElement
+		this.overlayElement = this.$refs['overlay'] as HTMLDivElement
 
 		// close the sidenav if click outside
 		document.addEventListener('mouseup', (event) => {

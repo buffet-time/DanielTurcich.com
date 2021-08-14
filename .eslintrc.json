@@ -16,7 +16,7 @@
 	"parserOptions": {
 		"parser": "@typescript-eslint/parser",
 		"sourceType": "module",
-		"ecmaVersion": 12
+		"ecmaVersion": "latest"
 	},
 	"plugins": ["vue", "@typescript-eslint", "prettier"],
 	"rules": {
