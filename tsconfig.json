@@ -11,7 +11,6 @@
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		"noPropertyAccessFromIndexSignature": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"skipLibCheck": true,
@@ -25,7 +24,7 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+		"lib": ["esnext", "ES2017", "dom", "dom.iterable", "scripthost"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.vue"],
 	"exclude": ["node_modules"]

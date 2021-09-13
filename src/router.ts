@@ -10,6 +10,7 @@ const Home = () => import('./views/home.vue'),
 	Sorting = () => import('./views/sorting.vue'),
 	// const Performance = () => import('./components/performance.vue')
 	Music = () => import('./views/music.vue'),
+	Frequency = () => import('./views/frequency.vue'),
 	resume =
 		'https://drive.google.com/file/d/1ql438ApSvi6vyaYaivL23U0z9FC-RLXl/view',
 	// TODO catch routes that dont exist and redirect to home
@@ -52,6 +53,12 @@ const Home = () => import('./views/home.vue'),
 			name: 'Discord',
 			component: Discord,
 			meta: { buttonName: 'Discord Generator' }
+		},
+		{
+			path: '/frequency',
+			name: 'Frequency',
+			component: Frequency,
+			meta: { buttonName: 'Frequency' }
 		},
 		{
 			path: '/resume',

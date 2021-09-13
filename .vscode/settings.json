@@ -28,5 +28,6 @@
 	},
 	"[javascript]": {
 		"editor.tabSize": 3
-	}
+	},
+	"editor.insertSpaces": false
 }

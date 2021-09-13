@@ -42,7 +42,7 @@ export default class Sorting extends Vue {
 		)
 
 		this.sortingMethodStarted()
-		this.canvasElement = this.$refs['pixi'] as HTMLCanvasElement
+		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
 		this.app = new Application({
 			autoStart: true,
 			antialias: false,
