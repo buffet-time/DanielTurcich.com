@@ -2,8 +2,9 @@ import { Release } from '@/typings'
 import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'
+import { watch } from 'vue'
 
-const loadingString = '...' // because why not
+const loadingString = '...'
 
 @Options({
 	components: {
@@ -116,10 +117,8 @@ export default class Home extends Vue {
 		this.numberOf2010sReleases = num2010s
 		this.numberOf2020sReleases = num2020s
 
-		this.$watch(
-			() => {
-				return this.searchType
-			},
+		watch(
+			() => this.searchType,
 			() => {
 				if (this.searchType === '2') {
 					this.searchInput = '7'

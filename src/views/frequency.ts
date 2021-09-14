@@ -15,59 +15,66 @@ export default class Frequency extends Vue {
 	public mounted(): void {
 		watch(
 			() => this.frequency,
-			() =>
+			() => {
+				if (!this.initialized) {
+					this.initializeContext()
+				}
 				this.oscillator.frequency.setValueAtTime(
 					this.frequency,
 					this.audioContext.currentTime
 				)
+			}
 		)
 
 		watch(
 			() => this.oscillatorType,
 			() => {
-				this.oscillator.disconnect()
-				this.oscillator.type = this.oscillatorType
-				this.oscillator
-					.connect(this.gainNode)
-					.connect(this.audioContext.destination)
+				if (!this.initialized) {
+					this.initializeContext()
+				}
+
+				if (this.started) {
+					this.oscillator.disconnect()
+					this.oscillator.type = this.oscillatorType
+					this.oscillator
+						.connect(this.gainNode)
+						.connect(this.audioContext.destination)
+				} else {
+					this.oscillator.type = this.oscillatorType
+				}
 			}
 		)
 
 		watch(
 			() => this.volume,
 			() => {
-				this.oscillator.disconnect()
-				this.gainNode.gain.setValueAtTime(
-					this.volume,
-					this.audioContext.currentTime
-				)
-				this.oscillator
-					.connect(this.gainNode)
-					.connect(this.audioContext.destination)
+				if (!this.initialized) {
+					this.initializeContext()
+				}
+
+				if (this.started) {
+					this.oscillator.disconnect()
+					this.gainNode.gain.setValueAtTime(
+						this.volume,
+						this.audioContext.currentTime
+					)
+					this.oscillator
+						.connect(this.gainNode)
+						.connect(this.audioContext.destination)
+				} else {
+					this.gainNode.gain.setValueAtTime(
+						this.volume,
+						this.audioContext.currentTime
+					)
+				}
 			}
 		)
 	}
 
-	public async frequencyButton(): Promise<void> {
+	public frequencyButton(): void {
 		this.started = !this.started
-		// Audio contexts must be created by user gesture
-		// so if this is the first press of the button create the contexts and if not ignore
 		if (!this.initialized) {
-			this.initialized = true
-			this.audioContext = new AudioContext()
-
-			this.gainNode = new GainNode(this.audioContext, {
-				gain: this.volume
-			})
-
-			this.oscillator = new OscillatorNode(this.audioContext, {
-				type: this.oscillatorType,
-				frequency: this.frequency
-			})
-
-			this.oscillator.start()
-			this.oscillator.connect(this.audioContext.destination)
-			this.oscillator.disconnect()
+			this.initializeContext()
 		}
 
 		if (this.started) {
@@ -77,5 +84,25 @@ export default class Frequency extends Vue {
 		} else {
 			this.oscillator.disconnect()
 		}
+	}
+
+	// Audio contexts must be created by user gesture
+	// so if this is the first press of the button create the contexts and if not ignore
+	private initializeContext() {
+		this.initialized = true
+		this.audioContext = new AudioContext()
+
+		this.gainNode = new GainNode(this.audioContext, {
+			gain: this.volume
+		})
+
+		this.oscillator = new OscillatorNode(this.audioContext, {
+			type: this.oscillatorType,
+			frequency: this.frequency
+		})
+
+		this.oscillator.start()
+		this.oscillator.connect(this.audioContext.destination)
+		this.oscillator.disconnect()
 	}
 }

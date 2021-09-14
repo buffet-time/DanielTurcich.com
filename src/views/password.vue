@@ -1,7 +1,7 @@
 <script lang="ts" src="./password.ts"></script>
 
 <template>
-	<h1 v-once class="password-title disable-select">Password Generator</h1>
+	<h1 v-once class="app-title disable-select">Password Generator</h1>
 
 	<div class="password-generator-options">
 		<div>
@@ -86,10 +86,6 @@
 </template>
 
 <style>
-.password-title {
-	margin-top: 8px;
-}
-
 .password-length-range {
 	width: 300px;
 }

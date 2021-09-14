@@ -22,14 +22,12 @@ const Home = () => import('./views/home.vue'),
 			component: Home,
 			meta: { buttonName: 'Home' }
 		},
-
 		{
 			path: '/music',
 			name: 'Music',
 			component: Music,
 			meta: { buttonName: 'Music Page' }
 		},
-
 		{
 			path: '/sorting',
 			name: 'Sorting',

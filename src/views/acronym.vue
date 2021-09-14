@@ -1,7 +1,7 @@
 <script lang="ts" src="./acronym.ts"></script>
 
 <template>
-	<h1 v-once class="acronym-title disable-select">Acronym Generator</h1>
+	<h1 v-once class="app-title disable-select">Acronym Generator</h1>
 	<input
 		v-once
 		v-model="acronymInput"
@@ -29,10 +29,6 @@
 </template>
 
 <style>
-.acronym-title {
-	margin-top: 8px;
-}
-
 .acronym-input {
 	display: inline-block;
 	width: 250px;

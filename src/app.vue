@@ -86,4 +86,8 @@ body {
 .card-text {
 	padding-left: 16px;
 }
+
+.app-title {
+	margin-top: 8px;
+}
 </style>

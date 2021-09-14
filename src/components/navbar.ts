@@ -42,7 +42,7 @@ export default class Navbar extends Vue {
 	private overlayElement!: HTMLDivElement
 
 	public mounted(): void {
-		this.routes = this.$router.getRoutes().filter((route) => {
+		this.routes = router.getRoutes().filter((route) => {
 			return route.meta['buttonName'] !== undefined
 		})
 		this.sidenavElement = this.$refs['sidenav'] as HTMLDivElement

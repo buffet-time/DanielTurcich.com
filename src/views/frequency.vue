@@ -1,9 +1,7 @@
 <script lang="ts" src="./frequency.ts"></script>
 
 <template>
-	<h1 v-once class="frequency-title disable-select">
-		Frequency Sound Generator
-	</h1>
+	<h1 v-once class="app-title disable-select">Frequency Generator</h1>
 
 	<div class="options-div">
 		<label for="range-1">Frequency: {{ frequency }}</label>
@@ -48,10 +46,6 @@
 </template>
 
 <style>
-.frequency-title {
-	margin-top: 8px;
-}
-
 .options-div {
 	width: 80%;
 	margin: 0 auto;
@@ -59,7 +53,8 @@
 
 .form-select {
 	margin: 0 auto;
-	width: 400px;
+	width: 125px;
 	margin-bottom: 8px;
+	text-align: center;
 }
 </style>

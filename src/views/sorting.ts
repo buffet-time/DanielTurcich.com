@@ -1,6 +1,7 @@
 import { Vue } from 'vue-class-component'
 import { PixiRect, SortingAlgorithm } from '@/typings'
 import { Application, Graphics } from 'pixi.js'
+import { watch } from 'vue'
 
 export default class Sorting extends Vue {
 	public sleepTime = 0
@@ -32,17 +33,13 @@ export default class Sorting extends Vue {
 	private audioContext!: AudioContext
 
 	public async mounted(): Promise<void> {
-		this.$watch(
-			() => {
-				return this.numberOfRectangles
-			},
-			() => {
-				this.disableSortButtons = true
-			}
+		watch(
+			() => this.numberOfRectangles,
+			() => (this.disableSortButtons = true)
 		)
 
 		this.sortingMethodStarted()
-		this.canvasElement = this.$refs.pixi as HTMLCanvasElement
+		this.canvasElement = this.$refs['pixi'] as HTMLCanvasElement
 		this.app = new Application({
 			autoStart: true,
 			antialias: false,
@@ -60,6 +57,10 @@ export default class Sorting extends Vue {
 		this.createUnsortedArray()
 		await this.drawAllRectangles()
 		this.sortingMethodEnded()
+	}
+
+	public beforeUnmount(): void {
+		this.app.destroy()
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types

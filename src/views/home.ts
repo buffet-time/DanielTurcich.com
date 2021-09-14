@@ -19,7 +19,7 @@ export default class Home extends Vue {
 			text: 'Rock Paper Shotgun'
 		},
 		{
-			url: 'https://gamerant.com/half-life-alyx-speedrun-games-done-quick/ ',
+			url: 'https://gamerant.com/half-life-alyx-speedrun-games-done-quick/',
 			text: 'Gamerant'
 		},
 		{

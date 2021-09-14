@@ -1,9 +1,7 @@
 <script lang="ts" src="./discord.ts"></script>
 
 <template>
-	<h1 v-once class="discord-title disable-select">
-		Discord Max Message Generator
-	</h1>
+	<h1 v-once class="app-title disable-select">Discord Max Message Generator</h1>
 	<input
 		v-once
 		v-model="discordInput"
@@ -31,10 +29,6 @@
 </template>
 
 <style>
-.discord-title {
-	margin-top: 8px;
-}
-
 .discord-input {
 	display: inline-block;
 	width: 250px;
