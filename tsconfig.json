@@ -16,6 +16,7 @@
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
+		"useDefineForClassFields": true,
 		"removeComments": true,
 		"pretty": true,
 		"sourceMap": true,
@@ -24,7 +25,7 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"lib": ["esnext", "ES2017", "dom", "dom.iterable", "scripthost"]
+		"lib": ["esnext", "dom", "scripthost"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.vue"],
 	"exclude": ["node_modules"]
