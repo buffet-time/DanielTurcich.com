@@ -2,10 +2,17 @@
 
 <template>
 	<h1 v-once class="app-title disable-select">Frequency Generator (wip)</h1>
-	<div class="generators-container">
-		<d-sound-gen generator-type="Frequency" />
-		<d-sound-gen generator-type="Note" />
-	</div>
+
+	<!-- <template v-if="showGenerators"> -->
+	<d-sound-gen
+		v-for="(generator, index) in generators"
+		:key="index"
+		:ref="setChildRef"
+		:generator-settings="generator"
+		:blah="index"
+		@deleteGenerator="onDeleteGenerator(index)"
+	/>
+	<!-- </template> -->
 </template>
 
 <style>
@@ -15,7 +22,7 @@
 }
 
 .frequency-ranges {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 }
 

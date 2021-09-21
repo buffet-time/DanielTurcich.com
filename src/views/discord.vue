@@ -28,7 +28,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .discord-input {
 	display: inline-block;
 	width: 250px;

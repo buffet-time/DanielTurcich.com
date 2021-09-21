@@ -204,7 +204,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .list-group {
 	flex-wrap: wrap;
 	justify-content: center;

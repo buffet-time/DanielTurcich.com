@@ -79,7 +79,7 @@ export default class MusicRelease extends Vue.with(Props) {}
 	</div>
 </template>
 
-<style>
+<style scoped>
 .cock {
 	background-color: #383838;
 	color: lightgray;

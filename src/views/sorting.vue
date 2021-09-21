@@ -69,7 +69,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .sorting-wrapper {
 	height: calc(100vh - 60px);
 	display: flex;

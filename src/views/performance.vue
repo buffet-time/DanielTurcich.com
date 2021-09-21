@@ -32,7 +32,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .perf-container {
 	height: calc(100vh - 60px);
 	display: flex;

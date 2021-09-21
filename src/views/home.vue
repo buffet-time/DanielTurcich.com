@@ -85,7 +85,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .list-group {
 	width: 100%;
 	flex-wrap: wrap;

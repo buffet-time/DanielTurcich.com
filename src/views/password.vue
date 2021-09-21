@@ -85,7 +85,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .password-length-range {
 	width: 300px;
 }

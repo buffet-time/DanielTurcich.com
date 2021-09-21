@@ -63,7 +63,7 @@
 	<div v-once ref="overlay" class="sidenav-overlay"></div>
 </template>
 
-<style>
+<style scoped>
 .hamburger-menu {
 	width: 24px;
 }

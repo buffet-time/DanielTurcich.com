@@ -27,3 +27,14 @@ export enum Release {
 	genre,
 	comments
 }
+
+export interface GeneratorSettings {
+	generatorType: 'Frequency' | 'Note'
+	volume: number
+	frequency: number
+	oscillatorType: OscillatorType
+	noteName?: string
+	noteOctave?: number
+	noteOffset?: number
+	notesIndex?: number
+}

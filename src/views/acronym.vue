@@ -28,7 +28,7 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
 .acronym-input {
 	display: inline-block;
 	width: 250px;
