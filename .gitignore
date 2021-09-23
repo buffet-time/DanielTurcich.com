@@ -1,7 +1,15 @@
 node_modules
 /dist
-/.yarn
-.yarnrc.yml
+
+# yarn
+# /.yarn
+/.yarn/cache
+/.yarn/patches
+/.yarn/plugins
+/.yarn/releases
+/.yarn/sdks
+/.yarn/versions
+.pnp.*
 
 #firebase
 /.firebase
@@ -9,3 +17,5 @@ node_modules
 /firebasePublic
 /.github
 firebase-debug.log
+
+ignore.txt

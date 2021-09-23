@@ -1,11 +1,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/modal'
-
-class Props {
-	release!: string[]
-	index!: number
-}
+import { closeSvg } from '../svgs'
 
 @Options({
 	props: {
@@ -13,7 +9,9 @@ class Props {
 		index: Number
 	}
 })
-export default class MusicRelease extends Vue.with(Props) {}
+export default class MusicRelease extends Vue {
+	public closeSvg = closeSvg
+}
 </script>
 
 <template>
@@ -41,7 +39,7 @@ export default class MusicRelease extends Vue.with(Props) {}
 	>
 		<!-- comments -->
 		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content cock">
+			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
 						{{ release[0] }} - {{ release[1] }} ( {{ release[2] }}/10 )
@@ -53,10 +51,7 @@ export default class MusicRelease extends Vue.with(Props) {}
 						data-bs-dismiss="modal"
 						aria-label="Close"
 					>
-						<path
-							fill="currentColor"
-							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-						/>
+						<path fill="currentColor" :d="closeSvg" />
 					</svg>
 				</div>
 				<div class="modal-body">
@@ -80,7 +75,7 @@ export default class MusicRelease extends Vue.with(Props) {}
 </template>
 
 <style scoped>
-.cock {
+.modal-content {
 	background-color: #383838;
 	color: lightgray;
 }

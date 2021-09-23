@@ -28,8 +28,13 @@ export enum Release {
 	comments
 }
 
+export interface Generator {
+	id: number
+	settings: GeneratorSettings
+}
+
 export interface GeneratorSettings {
-	generatorType: 'Frequency' | 'Note'
+	generatorType: GeneratorType
 	volume: number
 	frequency: number
 	oscillatorType: OscillatorType
@@ -38,3 +43,5 @@ export interface GeneratorSettings {
 	noteOffset?: number
 	notesIndex?: number
 }
+
+export type GeneratorType = 'Frequency' | 'Note'

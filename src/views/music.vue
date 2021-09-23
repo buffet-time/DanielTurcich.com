@@ -172,7 +172,7 @@
 					<button
 						:disabled="intializing || searchInput.length < 1"
 						class="music-button btn btn-secondary"
-						@click="searchButtonPressed"
+						@click="searchButtonPressed()"
 					>
 						Search
 					</button>
@@ -195,7 +195,7 @@
 				<button
 					v-show="showCopyButton"
 					class="btn btn-secondary"
-					@click="copyReviews"
+					@click="copyReviews()"
 				>
 					Copy
 				</button>

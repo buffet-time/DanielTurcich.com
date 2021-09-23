@@ -12,7 +12,7 @@
 	<button
 		v-once
 		class="discord-button btn btn-secondary"
-		@click="discordButtonPressed"
+		@click="discordButtonPressed()"
 	>
 		Generate
 	</button>
@@ -21,7 +21,7 @@
 		<button
 			v-show="discordText.length > 0"
 			class="btn btn-secondary"
-			@click="copydiscord"
+			@click="copydiscord()"
 		>
 			Copy
 		</button>

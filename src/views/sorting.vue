@@ -6,7 +6,7 @@
 			<button
 				class="sorting-button btn btn-secondary disable-select"
 				:disabled="disableStopButton"
-				@click="stop"
+				@click="stop()"
 			>
 				Stop Execution
 			</button>
@@ -14,7 +14,7 @@
 			<button
 				class="sorting-button btn btn-secondary disable-select"
 				:disabled="disableRandomizeButton"
-				@click="randomizeArray"
+				@click="randomizeArray()"
 			>
 				Randomize
 			</button>

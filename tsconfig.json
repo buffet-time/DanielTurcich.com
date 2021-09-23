@@ -5,6 +5,7 @@
 		"strict": true,
 		"alwaysStrict": true,
 		"importHelpers": true,
+		"resolveJsonModule": true,
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"noFallthroughCasesInSwitch": true,

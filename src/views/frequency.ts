@@ -1,8 +1,18 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { GeneratorSettings } from '@/typings'
+import { Generator, GeneratorType } from '@/typings'
 import { Options, Vue } from 'vue-class-component'
 import noteGenerator from '../components/soundGenerator.vue'
+import 'bootstrap/js/dist/modal'
+import { closeSvg, addSvg } from '../svgs'
+
+const baseGeneratorConfig: Generator = {
+	id: 0,
+	settings: {
+		generatorType: 'Frequency',
+		volume: 0.07,
+		frequency: 440,
+		oscillatorType: 'sine'
+	}
+}
 
 @Options({
 	components: {
@@ -10,57 +20,69 @@ import noteGenerator from '../components/soundGenerator.vue'
 	}
 })
 export default class Frequency extends Vue {
-	// public showGenerators = true
-	public childRefs: any[] = []
-	public generators: GeneratorSettings[] = [
+	public closeSvg = closeSvg
+	public addSvg = addSvg
+
+	public generators: Generator[] = [
 		{
-			generatorType: 'Frequency',
-			volume: 0.07,
-			frequency: 440,
-			oscillatorType: 'sine'
+			id: 0,
+			settings: {
+				...baseGeneratorConfig.settings
+			}
 		},
 		{
-			generatorType: 'Note',
-			volume: 0.07,
-			frequency: 440,
-			oscillatorType: 'square',
-			noteName: 'A',
-			noteOctave: 4,
-			noteOffset: 0,
-			notesIndex: 9
-		},
-		{
-			generatorType: 'Frequency',
-			volume: 0.1,
-			frequency: 450,
-			oscillatorType: 'sine'
+			id: 1,
+			settings: {
+				...baseGeneratorConfig.settings,
+				generatorType: 'Note',
+				noteName: 'A',
+				noteOctave: 4,
+				noteOffset: 0,
+				notesIndex: 9
+			}
 		}
 	]
 
-	// public mounted(): void {
-	// 	for (let x = 0; x < this.generators.length; x++) {
-	// 		console.log(this.childRefs[x].generatorSettings)
-	// 	}
-	// }
+	public addGenerator(type: GeneratorType): void {
+		let availableId = 0
+		while (this.isIdInUse(availableId)) {
+			availableId++
+		}
 
-	public setChildRef(el: any): void {
-		this.childRefs.push(el)
+		const baseGenerator: Generator = {
+			id: availableId,
+			settings: {
+				...baseGeneratorConfig.settings,
+				generatorType: type
+			}
+		}
+
+		if (type === 'Frequency') {
+			this.generators.push(baseGenerator)
+		} else {
+			const noteGenerator: Generator = {
+				id: availableId,
+				settings: {
+					...baseGenerator.settings,
+					noteName: 'A',
+					noteOctave: 4,
+					noteOffset: 0,
+					notesIndex: 9
+				}
+			}
+			this.generators.push(noteGenerator)
+		}
 	}
 
-	public onDeleteGenerator(index: number): void {
-		// console.log(1, this.generators)
-		console.log(1, index)
-		// this.showGenerators = false
-		// console.log(index, this.generators)
-		this.childRefs.splice(index, 1)
-		// console.log(2)
-		// console.log(
-		this.generators.splice(index, 1)
+	private isIdInUse(id: number): boolean {
+		if (
+			this.generators.some((generator) => {
+				return generator.id === id
+			})
+		) {
+			return true
+		}
 
-		// console.log(3)
-		// )
-		// this.showGenerators = true
-		// console.log(4)
-		// console.log(1, this.generators)
+		return false
 	}
 }

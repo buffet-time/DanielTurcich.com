@@ -12,7 +12,7 @@
 	<button
 		v-once
 		class="acronym-button btn btn-secondary"
-		@click="acronymButtonPressed"
+		@click="acronymButtonPressed()"
 	>
 		Generate
 	</button>
@@ -21,7 +21,7 @@
 		<button
 			v-if="buttonPressedState === 'good'"
 			class="btn btn-secondary"
-			@click="copyAcronym"
+			@click="copyAcronym()"
 		>
 			Copy
 		</button>
