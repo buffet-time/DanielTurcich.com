@@ -9,6 +9,8 @@
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"noFallthroughCasesInSwitch": true,
+		"isolatedModules": true,
+		"noEmit": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
@@ -21,6 +23,7 @@
 		"removeComments": true,
 		"pretty": true,
 		"sourceMap": true,
+		"jsx": "preserve",
 		"baseUrl": ".",
 		"types": ["webpack-env"],
 		"paths": {
@@ -28,6 +31,5 @@
 		},
 		"lib": ["esnext", "dom", "scripthost"]
 	},
-	"include": ["src/**/*.ts", "src/**/*.vue"],
-	"exclude": ["node_modules"]
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
