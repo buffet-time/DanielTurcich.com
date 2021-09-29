@@ -90,9 +90,4 @@ body {
 .app-title {
 	margin-top: 8px;
 }
-
-b {
-	filter: blur(0.000001px);
-	-webkit-font-smoothing: antialiased;
-}
 </style>

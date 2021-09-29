@@ -35,6 +35,12 @@ const Home = () => import('./views/home.vue'),
 			meta: { buttonName: 'Sorting Visualizations' }
 		},
 		{
+			path: '/frequency',
+			name: 'Frequency',
+			component: Frequency,
+			meta: { buttonName: 'Frequency' }
+		},
+		{
 			path: '/acronym',
 			name: 'Acronym',
 			component: Acronym,
@@ -51,12 +57,6 @@ const Home = () => import('./views/home.vue'),
 			name: 'Discord',
 			component: Discord,
 			meta: { buttonName: 'Discord Generator' }
-		},
-		{
-			path: '/frequency',
-			name: 'Frequency',
-			component: Frequency,
-			meta: { buttonName: 'Frequency' }
 		},
 		{
 			path: '/resume',
