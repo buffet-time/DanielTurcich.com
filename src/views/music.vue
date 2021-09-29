@@ -138,7 +138,11 @@
 					<!-- Search against release type -->
 					<template v-else-if="searchType === '3'">
 						<select v-model="searchInput" class="form-select type-select">
-							<option v-for="type in releaseTypes" :key="type" :value="type">
+							<option
+								v-for="(type, index) in releaseTypes"
+								:key="index"
+								:value="type"
+							>
 								{{ type }}
 							</option>
 						</select>
@@ -152,7 +156,7 @@
 						<br />
 						<input
 							v-model="searchInput"
-							:placeholder="latestYear"
+							:placeholder="latestYear.toString()"
 							type="range"
 							class="music-input form-range"
 							:min="earliestYear"

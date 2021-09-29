@@ -56,8 +56,8 @@
 			/>
 
 			<button
-				v-for="algorithm in sorts"
-				:key="algorithm"
+				v-for="(algorithm, index) in sorts"
+				:key="index"
 				class="sorting-button btn btn-secondary disable-select"
 				:disabled="disableSortButtons"
 				@click="executeMethod(algorithm.method)"

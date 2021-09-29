@@ -1,7 +1,12 @@
-import router, { resume } from '@/router'
-import { SidenavLink } from '@/typings'
+import router, { resume } from '../router'
+import { SidenavLink } from '../typings'
 import { Vue } from 'vue-class-component'
 import { RouteRecordNormalized } from 'vue-router'
+import githubSrc from '../assets/github.png'
+import linkedinSrc from '../assets/linkedin.png'
+import resumeSrc from '../assets/resume.png'
+import bandcampSrc from '../assets/bandcamp.png'
+import soundcloudSrc from '../assets/soundcloud.png'
 
 export default class Navbar extends Vue {
 	public routes: RouteRecordNormalized[] = []
@@ -10,31 +15,31 @@ export default class Navbar extends Vue {
 			openLink: 'github',
 			buttonText: 'Github',
 			alt: 'github logo',
-			src: 'github.png'
+			src: githubSrc
 		},
 		{
 			openLink: 'linkedin',
 			buttonText: 'LinkedIn',
 			alt: 'linkedin logo',
-			src: 'linkedin.png'
+			src: linkedinSrc
 		},
 		{
 			openLink: 'resume',
 			buttonText: 'Resume',
 			alt: 'pdf logo',
-			src: 'resume.png'
+			src: resumeSrc
 		},
 		{
 			openLink: 'bandcamp',
 			buttonText: 'Bandcamp',
 			alt: 'bandcamp logo',
-			src: 'bandcamp.png'
+			src: bandcampSrc
 		},
 		{
 			openLink: 'soundcloud',
 			buttonText: 'Soundcloud',
 			alt: 'soundcloud logo',
-			src: 'soundcloud.png'
+			src: soundcloudSrc
 		}
 	]
 

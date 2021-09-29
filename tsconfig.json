@@ -23,9 +23,8 @@
 		"removeComments": true,
 		"pretty": true,
 		"sourceMap": true,
-		"jsx": "preserve",
 		"baseUrl": ".",
-		"types": ["webpack-env"],
+		"types": ["node"],
 		"paths": {
 			"@/*": ["src/*"]
 		},

@@ -7,6 +7,7 @@ export default class Password extends Vue {
 	public excludeNumbers = false
 	public excludeSymbols = false
 	public textToShow = ''
+	public password = ''
 
 	// prettier-ignore
 	private lowercaseLetters = [
@@ -28,8 +29,6 @@ export default class Password extends Vue {
 		'-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', 
 		']', '^', '_', '`', '{', '|', '}', '~'
 	]
-
-	private password = ''
 
 	public generatePassword(): void {
 		let passwordCharacters = ['']

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { GeneratorSettings } from '@/typings'
+import { GeneratorSettings } from '../typings'
 import { watch } from 'vue'
 import { Vue, Options, prop } from 'vue-class-component'
 import { closeSvg } from '../svgs'

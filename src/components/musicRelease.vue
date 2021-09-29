@@ -1,15 +1,20 @@
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { prop, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/modal'
 import { closeSvg } from '../svgs'
 
-@Options({
-	props: {
-		release: Array,
-		index: Number
-	}
-})
-export default class MusicRelease extends Vue {
+class Props {
+	release = prop({
+		type: Array,
+		required: true
+	})
+	index: number = prop({
+		type: Number,
+		required: true
+	})
+}
+
+export default class MusicRelease extends Vue.with(Props) {
 	public closeSvg = closeSvg
 }
 </script>

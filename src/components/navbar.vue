@@ -30,24 +30,20 @@
 				</svg>
 			</div>
 			<div
-				v-for="link in links"
-				:key="link"
+				v-for="(link, index) in links"
+				:key="index"
 				class="sidenav-card card"
 				@click="openLink(link.openLink)"
 			>
 				<div class="sidenav-card-body card-body disable-select">
-					<img
-						class="sidenav-card-image"
-						:src="require(`../assets/${link.src}`)"
-						:alt="link.alt"
-					/>
+					<img class="sidenav-card-image" :src="link.src" :alt="link.alt" />
 					<div class="sidenav-card-text">{{ link.buttonText }}</div>
 				</div>
 			</div>
 
 			<button
-				v-for="route in routes"
-				:key="route"
+				v-for="(route, index) in routes"
+				:key="index"
 				class="card sidenav-card btn btn-secondary route-button"
 				:disabled="$route.name === route.name"
 				@click="routeChange(route.path)"

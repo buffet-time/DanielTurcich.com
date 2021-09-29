@@ -73,8 +73,8 @@
 		<h5 class="card-title">Articles I'm featured in</h5>
 		<ul class="list-group list-group-horizontal">
 			<a
-				v-for="link in links"
-				:key="link"
+				v-for="(link, index) in links"
+				:key="index"
 				class="list-group-item list-group-item-action"
 				:href="link.url"
 				target="_blank"

@@ -6,11 +6,12 @@
 		"node": true
 	},
 	"extends": [
+		"prettier",
 		"eslint:recommended",
 		"plugin:vue/base",
 		"plugin:vue/vue3-recommended",
-		"plugin:@typescript-eslint/recommended",
-		"prettier"
+		"@vue/typescript/recommended",
+		"plugin:@typescript-eslint/recommended"
 	],
 	"parser": "vue-eslint-parser",
 	"parserOptions": {
@@ -21,6 +22,7 @@
 	"plugins": ["vue", "@typescript-eslint", "prettier"],
 	"rules": {
 		"prefer-const": "error",
-		"prettier/prettier": "error"
+		"prettier/prettier": "error",
+		"vue/max-attributes-per-line": null
 	}
 }

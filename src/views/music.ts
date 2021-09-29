@@ -1,4 +1,4 @@
-import { Release } from '@/typings'
+import { Release } from '../typings'
 import { Options, Vue } from 'vue-class-component'
 import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'

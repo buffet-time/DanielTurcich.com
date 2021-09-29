@@ -1,5 +1,5 @@
 import { Vue } from 'vue-class-component'
-import { PixiRect, SortingAlgorithm } from '@/typings'
+import { PixiRect, SortingAlgorithm } from '../typings'
 import { Application, Graphics } from 'pixi.js'
 import { watch } from 'vue'
 

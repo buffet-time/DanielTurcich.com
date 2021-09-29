@@ -1,4 +1,4 @@
-import { Generator, GeneratorType } from '@/typings'
+import { Generator, GeneratorType } from '../typings'
 import { Options, Vue } from 'vue-class-component'
 import noteGenerator from '../components/soundGenerator.vue'
 import 'bootstrap/js/dist/modal'
