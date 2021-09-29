@@ -1,5 +1,8 @@
+# general
 node_modules
 /dist
+.eslintcache
+ignore.txt
 
 # yarn
 .yarn/*
@@ -10,13 +13,9 @@ node_modules
 !.yarn/versions
 .pnp.*
 
-#firebase
+# firebase
 /.firebase
 .firebaserc
 /firebasePublic
 /.github
 firebase-debug.log
-
-ignore.txt
-
-# .eslintcache

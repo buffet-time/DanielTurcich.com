@@ -1,14 +1,17 @@
 import { Vue } from 'vue-class-component'
-import Words from '../acronymWords.json'
-
-const words: { [key: string]: string[] } = Words
 
 export default class Acronym extends Vue {
 	public acronymInput = ''
 	public buttonPressedState = ''
 	public textToDisplay = ''
 
+	private words: { [key: string]: string[] } = {}
 	private acronymText = ''
+
+	public async mounted(): Promise<void> {
+		const wordsResponse = await import('../acronymWords.json')
+		this.words = wordsResponse.default
+	}
 
 	public copyAcronym(): void {
 		navigator.clipboard.writeText(this.acronymText)
@@ -37,7 +40,7 @@ export default class Acronym extends Vue {
 		let wordsArray: string[]
 
 		return acronymArray.map((letter: string) => {
-			wordsArray = words[letter]
+			wordsArray = this.words[letter]
 			return wordsArray[Math.floor(Math.random() * wordsArray.length)]
 		})
 	}

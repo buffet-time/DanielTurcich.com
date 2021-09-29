@@ -354,6 +354,7 @@ export default class Sorting extends Vue {
 			if (this.stopExecution) {
 				return []
 			}
+			// disbale
 			;(this.app.stage.children[indexArray[n]] as Graphics).clear()
 			await this.redrawRectangle(indexArray[n])
 		}

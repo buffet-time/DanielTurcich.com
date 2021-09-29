@@ -13,9 +13,9 @@
 					v-if="generatorSettings.generatorType === 'Frequency'"
 					class="frequency-range"
 				>
-					<label for="range-1"
-						>Frequency: {{ generatorSettings.frequency }}</label
-					>
+					<label for="range-1">
+						Frequency: {{ generatorSettings.frequency }}
+					</label>
 					<input
 						v-once
 						id="range-1"
@@ -49,9 +49,9 @@
 				</div>
 
 				<div class="volume-range">
-					<label for="range-1"
-						>Volume: {{ toPercent(generatorSettings.volume) }}%</label
-					>
+					<label for="range-1">
+						Volume: {{ toPercent(generatorSettings.volume) }}%
+					</label>
 					<input
 						v-once
 						id="range-1"
