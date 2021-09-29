@@ -38,12 +38,12 @@
 					<div class="card-text">
 						<div class="card-body card-left">
 							<h5 class="card-title-1">Technical</h5>
-							<b>Frontend - </b> TypeScript/ JavaScript, Vue.js, Electron,
-							Angular, HTML, CSS, React <br />
+							Frontend ~ TypeScript/ JavaScript, Vue.js, Electron, Angular,
+							HTML, CSS, React <br />
 
-							<b>Middle/ Backend - </b> Node, C#, SQL Server, MySQL<br />
+							Middle/ Backend ~ Node, C#, SQL Server, MySQL<br />
 
-							<b>Other - </b> Git, Python, Java, LUA, Android, XML
+							Other ~ Git, Python, Java, LUA, Android, XML
 						</div>
 						<div class="card-body">
 							<h5 class="card-title-1">Creative</h5>

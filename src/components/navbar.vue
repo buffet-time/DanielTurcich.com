@@ -142,9 +142,11 @@
 }
 
 .sidenav-card-text {
+	display: flex;
+	height: 100%;
 	font-size: 18px;
-	padding-top: 8px;
-	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .sidenav-overlay {
