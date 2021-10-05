@@ -1,7 +1,7 @@
 <script lang="ts" src="./music.ts"></script>
 
 <template>
-	<h1 v-once class="app-title disable-select">My Music Page (WiP)</h1>
+	<h1 v-once class="app-title disable-select">My Music Page</h1>
 	<ul v-once id="myTab" class="nav nav-tabs" role="tablist">
 		<li class="nav-item" role="presentation">
 			<button

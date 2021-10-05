@@ -19,7 +19,7 @@
 				Randomize
 			</button>
 
-			<label for="range-1">Volume: {{ volume }}</label>
+			<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
 			<input
 				v-once
 				id="range-1"
@@ -31,7 +31,7 @@
 				step="0.0001"
 			/>
 
-			<label for="range-2">Delay: {{ sleepTime }}ms</label>
+			<label for="range-2">Add extra Delay of: {{ sleepTime }}ms</label>
 			<input
 				v-once
 				id="range-2"

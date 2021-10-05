@@ -10,7 +10,6 @@
 		"**/.github": true,
 		"**/dist": true,
 		"**/node_modules": true,
-		"**/.yarn": true,
 		"**acronymWords.json": true,
 		".eslintcache": true,
 		"yarn.lock": true

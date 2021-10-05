@@ -27,18 +27,48 @@ export default class Sorting extends Vue {
 
 	private app!: Application
 	private canvasElement!: HTMLCanvasElement
+	private audioContext!: AudioContext
+	private oscillator!: OscillatorNode
+	private gainNode!: GainNode
+
 	private sortingArray: PixiRect[] = []
 	private quickSortIndex = 0
 	private pendingRecursiveCalls = 0
-	private audioContext!: AudioContext
+	private audioIntialized = false
 
 	public async mounted(): Promise<void> {
 		watch(
 			() => this.numberOfRectangles,
-			() => (this.disableSortButtons = true)
+			() => {
+				this.intializeAudio()
+				this.disableSortButtons = true
+			}
 		)
 
-		this.sortingMethodStarted()
+		watch(
+			() => this.volume,
+			() => {
+				this.intializeAudio()
+				if (this.disableSortButtons) {
+					this.oscillator.disconnect()
+					this.gainNode.gain.setValueAtTime(
+						this.volume,
+						this.audioContext.currentTime
+					)
+					this.oscillator
+						.connect(this.gainNode)
+						.connect(this.audioContext.destination)
+				} else {
+					this.gainNode.gain.setValueAtTime(
+						this.volume,
+						this.audioContext.currentTime
+					)
+				}
+			}
+		)
+
+		this.sortingMethodStartedBools()
+
 		this.canvasElement = this.$refs['pixi'] as HTMLCanvasElement
 		this.app = new Application({
 			autoStart: true,
@@ -53,14 +83,17 @@ export default class Sorting extends Vue {
 			resizeTo: this.canvasElement
 		})
 
-		this.audioContext = new window.AudioContext()
 		this.createUnsortedArray()
 		await this.drawAllRectangles()
-		this.sortingMethodEnded()
+		this.sortingMethodEndedBools()
 	}
 
 	public beforeUnmount(): void {
 		this.app.destroy()
+	}
+
+	public toPercent(value: number): number {
+		return parseFloat((value * 5 * 100).toFixed(1))
 	}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
@@ -70,13 +103,15 @@ export default class Sorting extends Vue {
 
 	public async stop(): Promise<void> {
 		this.stopExecution = true
+		this.oscillator.disconnect()
 		await this.sleep(500) // easy safe way to ensure all operations are done
 		this.stopExecution = false
 		this.sortingMethodEnded()
 	}
 
 	public async randomizeArray(): Promise<void> {
-		this.sortingMethodStarted()
+		this.sortingMethodStartedBools()
+		this.audioForRandomizing()
 
 		while (this.sortingArray.length > 0) {
 			this.sortingArray.pop()
@@ -94,15 +129,187 @@ export default class Sorting extends Vue {
 	// gnome sort, bitonic sort,   tim sort
 
 	// // // // // // //
+	// Other methods
+	// // // // // // //
+	private isSorted() {
+		for (let index = 0; index < this.sortingArray.length - 1; index++) {
+			if (
+				this.sortingArray[index].height > this.sortingArray[index + 1].height
+			) {
+				return false
+			}
+		}
+		return true
+	}
+
+	private sleep(time: number) {
+		return new Promise((s) => {
+			setTimeout(s, time)
+		})
+	}
+
+	private sortingMethodStarted() {
+		this.intializeAudio()
+		this.oscillator
+			.connect(this.gainNode)
+			.connect(this.audioContext.destination)
+		this.sortingMethodStartedBools()
+	}
+
+	private sortingMethodEnded() {
+		this.oscillator.disconnect()
+		this.sortingMethodEndedBools()
+	}
+
+	private sortingMethodStartedBools() {
+		this.disableRectangleSlider = true
+		this.disableRandomizeButton = true
+		this.disableSortButtons = true
+		this.disableStopButton = false
+	}
+
+	private sortingMethodEndedBools() {
+		this.disableRectangleSlider = false
+		this.disableRandomizeButton = false
+		this.disableSortButtons = false
+		this.disableStopButton = true
+	}
+
+	private swapArrayElements(indexOne: number, indexTwo: number) {
+		// swap the x positions of the 2 rectangles
+		const temp1 = this.sortingArray[indexOne].x
+		this.sortingArray[indexOne].x = this.sortingArray[indexTwo].x
+		this.sortingArray[indexTwo].x = temp1
+		// then swap their position in the array
+		const temp2 = this.sortingArray[indexOne]
+		this.sortingArray[indexOne] = this.sortingArray[indexTwo]
+		this.sortingArray[indexTwo] = temp2
+	}
+
+	private async drawAllRectangles() {
+		for (let n = 0; n < this.numberOfRectangles; n++) {
+			await this.drawRectangle(n)
+		}
+	}
+
+	private async redrawRectangles(firstIndex: number, secondIndex: number) {
+		this.app.stage.swapChildren(
+			(this.app.stage.children[secondIndex] as Graphics).clear(),
+			(this.app.stage.children[firstIndex] as Graphics).clear()
+		)
+
+		await this.redrawRectangle(firstIndex)
+		await this.redrawRectangle(secondIndex)
+	}
+
+	private async drawRectangle(index: number) {
+		const arrayRect = this.sortingArray[index]
+		this.app.stage.addChild(
+			new Graphics()
+				.beginFill(0x00ff00)
+				.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
+				.endFill()
+		)
+		await this.sleep(this.sleepTime)
+	}
+
+	private async redrawRectangle(index: number) {
+		const arrayRect = this.sortingArray[index]
+		this.beep(arrayRect.frequency)
+		;(this.app.stage.children[index] as Graphics)
+			.beginFill(0x00ff00)
+			.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
+			.endFill()
+		await this.sleep(this.sleepTime)
+	}
+
+	private createUnsortedArray() {
+		const divWidth = this.canvasElement.clientWidth,
+			widthOfRectangle = divWidth / this.numberOfRectangles,
+			divHeight = this.canvasElement.clientHeight,
+			heightOfRectangle = divHeight / this.numberOfRectangles,
+			widthValue = widthOfRectangle - 1,
+			lowFrequencyBound = 100,
+			highFrequencyBound = 10000,
+			frequencyIncrease = highFrequencyBound / this.numberOfRectangles
+
+		for (let n = 0; n < this.numberOfRectangles; n++) {
+			this.sortingArray.push({
+				x: Number((n * widthOfRectangle).toFixed(2)),
+				y: Number((divHeight - (n + 1) * heightOfRectangle).toFixed(2)),
+				width: Number(widthValue.toFixed(2)),
+				height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2)),
+				frequency: frequencyIncrease * n + lowFrequencyBound
+			})
+		}
+
+		const sortingLengthMultiplied = this.numberOfRectangles * 10
+		for (let n = 0; n < sortingLengthMultiplied; n++) {
+			this.randomSwaps()
+		}
+	}
+
+	private randomSwaps() {
+		const firstElementIndex = Math.floor(
+			Math.random() * this.numberOfRectangles
+		)
+		let secondElementIndex = 0
+		do {
+			secondElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
+		} while (firstElementIndex === secondElementIndex)
+
+		this.swapArrayElements(firstElementIndex, secondElementIndex)
+		return [firstElementIndex, secondElementIndex]
+	}
+
+	// // // // // // //
+	// Audio Methods
+	// // // // // // //
+	private intializeAudio() {
+		if (!this.audioIntialized) {
+			this.audioContext = new AudioContext()
+
+			this.gainNode = new GainNode(this.audioContext, {
+				gain: this.volume
+			})
+
+			this.oscillator = new OscillatorNode(this.audioContext, {
+				type: 'sine',
+				frequency: 500
+			})
+
+			this.oscillator.start()
+			this.oscillator.connect(this.audioContext.destination)
+			this.oscillator.disconnect()
+			this.audioIntialized = true
+		}
+	}
+
+	private beep(frequency: number) {
+		this.oscillator.frequency.setValueAtTime(
+			frequency,
+			this.audioContext.currentTime
+		)
+	}
+
+	private audioForRandomizing() {
+		this.intializeAudio()
+		this.oscillator
+			.connect(this.gainNode)
+			.connect(this.audioContext.destination)
+		this.beep(250)
+	}
+
+	// // // // // // //
 	// Sorting methods
 	// // // // // // //
 	private async bubbleSort() {
 		this.sortingMethodStarted()
 		const length = this.sortingArray.length
-		let swapped = false
-		let count = 0
-		let loopLength = 0
-		let n = 0
+		let swapped = false,
+			count = 0,
+			loopLength = 0,
+			n = 0
 		do {
 			count++
 			swapped = false
@@ -490,140 +697,4 @@ export default class Sorting extends Vue {
 	//			}
 	//		}
 	//	}
-
-	// // // // // // //
-	// Other methods
-	// // // // // // //
-	private isSorted() {
-		for (let index = 0; index < this.sortingArray.length - 1; index++) {
-			if (
-				this.sortingArray[index].height > this.sortingArray[index + 1].height
-			) {
-				return false
-			}
-		}
-		return true
-	}
-
-	private sleep(time: number) {
-		return new Promise((s) => {
-			setTimeout(s, time)
-		})
-	}
-
-	private sortingMethodStarted() {
-		this.disableRectangleSlider = true
-		this.disableRandomizeButton = true
-		this.disableSortButtons = true
-		this.disableStopButton = false
-	}
-
-	private sortingMethodEnded() {
-		this.disableRectangleSlider = false
-		this.disableRandomizeButton = false
-		this.disableSortButtons = false
-		this.disableStopButton = true
-	}
-
-	private swapArrayElements(indexOne: number, indexTwo: number) {
-		// swap the x positions of the 2 rectangles
-		const temp1 = this.sortingArray[indexOne].x
-		this.sortingArray[indexOne].x = this.sortingArray[indexTwo].x
-		this.sortingArray[indexTwo].x = temp1
-		// then swap their position in the array
-		const temp2 = this.sortingArray[indexOne]
-		this.sortingArray[indexOne] = this.sortingArray[indexTwo]
-		this.sortingArray[indexTwo] = temp2
-	}
-
-	private async drawAllRectangles() {
-		for (let n = 0; n < this.numberOfRectangles; n++) {
-			await this.drawRectangle(n)
-		}
-	}
-
-	private async redrawRectangles(firstIndex: number, secondIndex: number) {
-		this.app.stage.swapChildren(
-			(this.app.stage.children[secondIndex] as Graphics).clear(),
-			(this.app.stage.children[firstIndex] as Graphics).clear()
-		)
-
-		await this.redrawRectangle(firstIndex)
-		await this.redrawRectangle(secondIndex)
-	}
-
-	private async drawRectangle(index: number) {
-		const arrayRect = this.sortingArray[index]
-		this.app.stage.addChild(
-			new Graphics()
-				.beginFill(0x00ff00)
-				.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
-				.endFill()
-		)
-		await this.sleep(this.sleepTime)
-	}
-
-	private async redrawRectangle(index: number) {
-		const arrayRect = this.sortingArray[index]
-		this.beep(arrayRect.frequency)
-		;(this.app.stage.children[index] as Graphics)
-			.beginFill(0x00ff00)
-			.drawRect(arrayRect.x, arrayRect.y, arrayRect.width, arrayRect.height)
-			.endFill()
-		await this.sleep(this.sleepTime)
-	}
-
-	private createUnsortedArray() {
-		const divWidth = this.canvasElement.clientWidth
-		const widthOfRectangle = divWidth / this.numberOfRectangles
-		const divHeight = this.canvasElement.clientHeight
-		const heightOfRectangle = divHeight / this.numberOfRectangles
-		const widthValue = widthOfRectangle - 1
-		const lowFrequencyBound = 100
-		const highFrequencyBound = 10000
-		const frequencyIncrease = highFrequencyBound / this.numberOfRectangles
-
-		for (let n = 0; n < this.numberOfRectangles; n++) {
-			this.sortingArray.push({
-				x: Number((n * widthOfRectangle).toFixed(2)),
-				y: Number((divHeight - (n + 1) * heightOfRectangle).toFixed(2)),
-				width: Number(widthValue.toFixed(2)),
-				height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2)),
-				frequency: frequencyIncrease * n + lowFrequencyBound
-			})
-		}
-
-		const sortingLengthMultiplied = this.numberOfRectangles * 10
-		for (let n = 0; n < sortingLengthMultiplied; n++) {
-			this.randomSwaps()
-		}
-	}
-
-	private randomSwaps() {
-		const firstElementIndex = Math.floor(
-			Math.random() * this.numberOfRectangles
-		)
-		let secondElementIndex = 0
-		do {
-			secondElementIndex = Math.floor(Math.random() * this.numberOfRectangles)
-		} while (firstElementIndex === secondElementIndex)
-
-		this.swapArrayElements(firstElementIndex, secondElementIndex)
-		return [firstElementIndex, secondElementIndex]
-	}
-
-	private async beep(frequency: number) {
-		if (this.volume > 0) {
-			const oscillator = this.audioContext.createOscillator()
-			const gainNode = this.audioContext.createGain()
-			oscillator.connect(gainNode)
-			gainNode.connect(this.audioContext.destination)
-			gainNode.gain.value = this.volume
-			oscillator.type = 'sine'
-			oscillator.frequency.value = frequency
-			oscillator.start()
-			await this.sleep(50)
-			oscillator.stop()
-		}
-	}
 }

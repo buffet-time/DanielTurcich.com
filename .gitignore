@@ -4,15 +4,6 @@ node_modules
 .eslintcache
 ignore.txt
 
-# yarn
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
-
 # firebase
 /.firebase
 .firebaserc

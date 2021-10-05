@@ -1,7 +1,7 @@
 <script lang="ts" src="./frequency.ts"></script>
 
 <template>
-	<h1 v-once class="app-title disable-select">Frequency Generator (wip)</h1>
+	<h1 v-once class="app-title disable-select">Frequency Generator</h1>
 
 	<d-sound-gen
 		v-for="(generator, index) in generators"
