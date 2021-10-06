@@ -27,9 +27,10 @@
 		"jsx": "preserve",
 		"types": ["node", "vite/client"],
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["src/*"],
+			"tslib": ["./node_modules/tslib/tslib.d.ts"]
 		},
 		"lib": ["esnext", "dom", "scripthost"]
 	},
-	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
 }
