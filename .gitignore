@@ -10,3 +10,6 @@ ignore.txt
 /firebasePublic
 /.github
 firebase-debug.log
+
+#pnpm 
+# pnpm-lock.yaml
