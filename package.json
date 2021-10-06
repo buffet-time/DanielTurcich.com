@@ -39,5 +39,8 @@
 		"vite": "^2.6.3",
 		"vue-eslint-parser": "^7.11.0",
 		"vue-tsc": "^0.3.0"
+	},
+	"peerDependencies": {
+		"@popperjs/core": "^2.10.2"
 	}
 }
