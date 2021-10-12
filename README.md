@@ -1,9 +1,9 @@
 # DanielTurcich.com
 
-My personal website, simple site with links to my resume and more. Also I periodically create small little webapps that are accesible via the Hamburger Menu.
+My personal website that functions as a resume site and a host for various webapps that are accesible via the Hamburger Menu or direct routing.
 
-Acronym Generator dictionary was taken from: https://github.com/RazorSh4rk/random-word-api
+Acronym Generator dictionary was taken from: <https://github.com/RazorSh4rk/random-word-api>
 
-api.danielTurcich.com source here https://github.com/buffet-time/api
+api.danielTurcich.com source here: <https://github.com/buffet-time/api>
 
-Api hosted on Ubuntu 21.04 machine
+Api hosted on an Ubuntu server using [PM2](https://www.npmjs.com/package/pm2)

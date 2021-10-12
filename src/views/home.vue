@@ -171,5 +171,8 @@
 	.card-left {
 		margin-bottom: 0px;
 	}
+	.card-title-1 {
+		margin-left: -20px;
+	}
 }
 </style>

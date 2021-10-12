@@ -180,6 +180,7 @@
 					>
 						Search
 					</button>
+
 					<!-- 
 						add exact match checkbox			
 					-->

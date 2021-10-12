@@ -1,8 +1,3 @@
-<template>
-	<d-navbar />
-	<router-view />
-</template>
-
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Navbar from './components/navbar.vue'
@@ -14,6 +9,11 @@ import Navbar from './components/navbar.vue'
 })
 export default class App extends Vue {}
 </script>
+
+<template>
+	<d-navbar />
+	<router-view />
+</template>
 
 <style lang="scss">
 // Required
@@ -79,10 +79,6 @@ body {
 
 .disable-select {
 	user-select: none;
-}
-
-.card-title-1 {
-	margin-left: -20px;
 }
 
 .card-text {

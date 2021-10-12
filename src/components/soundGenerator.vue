@@ -91,4 +91,25 @@
 	float: right;
 	cursor: pointer;
 }
+
+.card {
+	margin: 32px;
+	margin-bottom: 0px;
+}
+
+.frequency-ranges {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.form-select {
+	margin: 0 auto;
+	width: 125px;
+	margin-bottom: 8px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+}
 </style>

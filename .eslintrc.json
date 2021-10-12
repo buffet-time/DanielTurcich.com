@@ -1,5 +1,11 @@
 {
 	"root": true,
+	"ignorePatterns": [
+		"/src/assets/*",
+		"/src/dist/*",
+		"acronymWords.json",
+		"index.html"
+	],
 	"env": {
 		"browser": true,
 		"es2021": true,

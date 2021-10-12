@@ -19,7 +19,7 @@ export default class MusicRelease extends Vue.with(Props) {
 }
 </script>
 
-<template>
+<template v-once>
 	<div
 		data-bs-toggle="modal"
 		:data-bs-target="`#index` + index"

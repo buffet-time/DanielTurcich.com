@@ -4,7 +4,13 @@ import 'bootstrap/js/dist/tab'
 import MusicRelease from '../components/musicRelease.vue'
 import { watch } from 'vue'
 
-const loadingString = '...'
+const loadingString = '...',
+	idBefore = '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
+	rangeBefore = 'Main!A2:F',
+	id2020 = '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
+	range2020 = 'Main!A2:F',
+	id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
+	range2021 = 'Main!A2:G'
 
 @Options({
 	components: {
@@ -12,13 +18,11 @@ const loadingString = '...'
 	}
 })
 export default class Home extends Vue {
-	public releasesArray: string[][] = []
 	public releasesToShow: string[][] = []
 	public latestYear = 2021
 	public earliestYear = this.latestYear
 	public searchType = '0'
 	public searchInput = ''
-	public reviewsText = ''
 	public intializing = true
 	public showCopyButton = false
 	public showReleasesDiv = false
@@ -45,11 +49,15 @@ export default class Home extends Vue {
 		'Demo Album'
 	]
 
-	// add possible functionality to export last.fm to chart?
+	private reviewsText = ''
+	private releasesArray: string[][] = []
 
+	// add possible functionality to export last.fm to chart?
 	public async created(): Promise<void> {
 		await this.initializeSheets()
 		this.intializing = false
+		const reversedArray = this.releasesArray.reverse()
+		const artistArray: string[] = []
 		let scoreCount = 0,
 			questionMarkScoreCount = 0,
 			yearCount = 0,
@@ -63,8 +71,6 @@ export default class Home extends Vue {
 			num2000s = 0,
 			num2010s = 0,
 			num2020s = 0
-		const reversedArray = this.releasesArray.reverse()
-		const artistArray: string[] = []
 
 		reversedArray.forEach((current) => {
 			if (!artistArray.includes(current[Release.artist])) {
@@ -178,13 +184,6 @@ export default class Home extends Vue {
 	}
 
 	private async initializeSheets() {
-		const idBefore = '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
-			rangeBefore = 'Main!A2:F',
-			id2020 = '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
-			range2020 = 'Main!A2:F',
-			id2021 = '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
-			range2021 = 'Main!A2:G'
-
 		const [arrayBefore, array2020, array2021] = await Promise.all([
 			this.getArray(idBefore, rangeBefore),
 			this.getArray(id2020, range2020),
