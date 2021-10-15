@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'bootstrap/js/dist/modal'
-import { closeSvg } from '../svgs'
+import { closeSvg } from '../../svgs'
 
 defineProps<{
 	index: number

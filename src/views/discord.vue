@@ -1,52 +1,65 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// public refs
 const discordInput = ref('')
+const nitro = ref(false)
 const discordText = ref('')
-const reviewsText = ref('')
 
-// TODO: handle no spaces printing properly
 function discordButtonPressed() {
+	// TODO: handle no spaces printing properly
+	const maxLength = nitro.value ? 4000 : 2000
+	const input = discordInput.value.trim() + ' '
+
 	discordText.value = ''
-	reviewsText.value = ''
-	if (discordInput.value && discordInput.value.length < 2000) {
-		const inputLength = discordInput.value.length
-		while (inputLength < 2000) {
-			if (discordText.value.length + inputLength > 2000) {
-				reviewsText.value = discordText.value
+	if (input && discordInput.value.length < maxLength) {
+		const inputLength = input.length
+		while (inputLength < maxLength) {
+			if (discordText.value.length + inputLength > maxLength) {
 				break
 			}
-			discordText.value = discordText.value + discordInput.value
+			discordText.value = discordText.value + input
 		}
 	}
-}
-
-function copydiscord() {
-	navigator.clipboard.writeText(discordText.value)
 }
 </script>
 
 <template>
 	<h1 v-once class="app-title disable-select">Discord Max Message Generator</h1>
-	<input
-		v-model="discordInput"
-		class="discord-input form-control"
-		placeholder="Type a word here"
-		@keyup.enter="discordButtonPressed"
-	/>
-	<button
-		v-once
-		class="discord-button btn btn-secondary"
-		@click="discordButtonPressed"
-	>
-		Generate
-	</button>
-	<div>
-		<div class="discord-text-div">{{ reviewsText }}</div>
+	<div class="input-container">
+		<div>
+			<input
+				v-model="discordInput"
+				class="discord-input form-control"
+				placeholder="Type a word here"
+				@keyup.enter="discordButtonPressed"
+			/>
+
+			<input
+				v-model="nitro"
+				class="form-check-input nitro-checkbox"
+				type="checkbox"
+			/>
+			<label v-once class="form-check-label nitro-label" for="flexCheckDefault">
+				Nitro?
+			</label>
+		</div>
+
+		<button
+			class="discord-button btn btn-secondary"
+			:disabled="discordInput.length < 1"
+			@click="discordButtonPressed"
+		>
+			Generate
+		</button>
+	</div>
+
+	<div class="generated-text">
+		<div class="discord-text-div">{{ discordText }}</div>
 		<button
 			v-show="discordText.length > 0"
 			class="btn btn-secondary"
-			@click="copydiscord"
+			@click="navigator.clipboard.writeText(discordText)"
 		>
 			Copy
 		</button>
@@ -61,11 +74,19 @@ function copydiscord() {
 
 .discord-button {
 	margin-left: 20px;
+	margin-top: 12px;
 }
 
 .discord-text-div {
 	margin: 24px;
 	margin-top: 16px;
 	margin-bottom: 8px;
+}
+
+.nitro-checkbox {
+	height: 1.25em;
+	width: 1.25em;
+	margin: 8px;
+	margin-right: 4px;
 }
 </style>
