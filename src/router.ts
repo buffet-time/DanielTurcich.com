@@ -26,19 +26,19 @@ const Home = () => import('./views/home.vue'),
 			path: '/music',
 			name: 'Music',
 			component: Music,
-			meta: { buttonName: 'Music Page' }
+			meta: { buttonName: ' My Music Page' }
 		},
 		{
 			path: '/sorting',
 			name: 'Sorting',
 			component: Sorting,
-			meta: { buttonName: 'Sorting Visualizations' }
+			meta: { buttonName: 'Sorting Visualizer' }
 		},
 		{
 			path: '/frequency',
 			name: 'Frequency',
 			component: Frequency,
-			meta: { buttonName: 'Frequency' }
+			meta: { buttonName: 'Frequency Tool' }
 		},
 		{
 			path: '/acronym',
@@ -56,7 +56,7 @@ const Home = () => import('./views/home.vue'),
 			path: '/discord',
 			name: 'Discord',
 			component: Discord,
-			meta: { buttonName: 'Discord Generator' }
+			meta: { buttonName: 'Discord Spam Tool' }
 		},
 		{
 			path: '/resume',

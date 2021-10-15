@@ -1,4 +1,121 @@
-<script lang="ts" src="./navbar.ts"></script>
+<script setup lang="ts">
+import router, { resume } from '../router'
+import { SidenavLink } from '../typings'
+import { RouteRecordNormalized } from 'vue-router'
+import githubSrc from '../assets/github.png'
+import linkedinSrc from '../assets/linkedin.png'
+import resumeSrc from '../assets/resume.png'
+import bandcampSrc from '../assets/bandcamp.png'
+import soundcloudSrc from '../assets/soundcloud.png'
+import { ref, onMounted } from 'vue'
+
+// refs
+const sidenav = ref(null)
+const overlay = ref(null)
+
+// public
+const links: SidenavLink[] = [
+	{
+		openLink: 'github',
+		buttonText: 'Github',
+		alt: 'github logo',
+		src: githubSrc
+	},
+	{
+		openLink: 'linkedin',
+		buttonText: 'LinkedIn',
+		alt: 'linkedin logo',
+		src: linkedinSrc
+	},
+	{
+		openLink: 'resume',
+		buttonText: 'Resume',
+		alt: 'pdf logo',
+		src: resumeSrc
+	},
+	{
+		openLink: 'bandcamp',
+		buttonText: 'Bandcamp',
+		alt: 'bandcamp logo',
+		src: bandcampSrc
+	},
+	{
+		openLink: 'soundcloud',
+		buttonText: 'Soundcloud',
+		alt: 'soundcloud logo',
+		src: soundcloudSrc
+	}
+]
+const routes: RouteRecordNormalized[] = router.getRoutes().filter((route) => {
+	return route.meta['buttonName'] !== undefined
+})
+
+// private
+let sidenavElement!: HTMLDivElement
+let overlayElement!: HTMLDivElement
+
+onMounted(() => {
+	sidenavElement = sidenav.value as unknown as HTMLDivElement
+	overlayElement = overlay.value as unknown as HTMLDivElement
+
+	closeNav()
+
+	// close the sidenav if click outside
+	document.addEventListener('mouseup', (event) => {
+		if (overlayElement.style.zIndex === '1' && event.x > 230) {
+			closeNav()
+		}
+	})
+})
+
+function openLink(link: string) {
+	switch (link) {
+		case 'github':
+			window.open('https://github.com/buffet-time', '_blank')
+			break
+
+		case 'linkedin':
+			window.open('https://www.linkedin.com/in/danielturcich/', '_blank')
+			break
+
+		case 'resume':
+			window.open(resume, '_blank')
+			break
+
+		case 'bandcamp':
+			window.open('https://buffet-time.bandcamp.com/', '_blank')
+			break
+
+		case 'soundcloud':
+			window.open('https://soundcloud.com/buffet_time', '_blank')
+			break
+	}
+}
+
+async function routeChange(route: string) {
+	await router.push(route)
+}
+
+function openNav() {
+	sidenavElement.style.width = '230px'
+	Object.assign(overlayElement.style, {
+		opacity: '15%',
+		width: 'calc(100% - 230px)',
+		marginLeft: '230px',
+		zIndex: '1'
+	})
+}
+
+function closeNav() {
+	sidenavElement.style.width = '0'
+	Object.assign(overlayElement.style, {
+		opacity: '0',
+		width: '100%',
+		marginLeft: '0',
+		zIndex: '-1'
+	})
+}
+</script>
 
 <template>
 	<div toggleable="lg" type="dark" class="navbar">

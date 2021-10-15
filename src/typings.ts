@@ -30,18 +30,18 @@ export enum Release {
 
 export interface Generator {
 	id: number
-	settings: GeneratorSettings
-}
-
-export interface GeneratorSettings {
 	generatorType: GeneratorType
-	volume: number
-	frequency: number
-	oscillatorType: OscillatorType
-	noteName?: string
-	noteOctave?: number
-	noteOffset?: number
-	notesIndex?: number
 }
 
 export type GeneratorType = 'Frequency' | 'Note'
+
+export type GeneratorOscillatorType =
+	| 'sawtooth'
+	| 'sine'
+	| 'square'
+	| 'triangle'
+
+export interface SpreadsheetParams {
+	id: string
+	range: string
+}

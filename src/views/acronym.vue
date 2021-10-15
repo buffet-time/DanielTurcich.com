@@ -1,4 +1,52 @@
-<script lang="ts" src="./acronym.ts"></script>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+// Public
+const acronymInput = ref('')
+const buttonPressedState = ref('')
+const textToDisplay = ref('')
+
+// Private
+let words: { [key: string]: string[] } = {}
+let acronymText = ''
+
+onMounted(async () => {
+	const wordsResponse = await import('../acronymWords.json')
+	words = wordsResponse.default
+})
+
+function copyAcronym() {
+	navigator.clipboard.writeText(acronymText)
+}
+
+function acronymButtonPressed() {
+	if (acronymInput.value) {
+		if (acronymInput.value.split(' ').length > 1) {
+			buttonPressedState.value = 'error'
+			textToDisplay.value = 'There can not be spaces in the input.'
+		} else {
+			acronymText = getWordsFromProvidedAcronym(acronymInput.value)
+				.toString()
+				.replace(/,/g, '  ')
+			buttonPressedState.value = 'good'
+			textToDisplay.value = acronymText
+		}
+	} else {
+		buttonPressedState.value = 'error'
+		textToDisplay.value = 'Must type a word to generate an acronym.'
+	}
+}
+
+function getWordsFromProvidedAcronym(acronym: string) {
+	const acronymArray = acronym.toLowerCase().split('')
+	let wordsArray: string[]
+
+	return acronymArray.map((letter: string) => {
+		wordsArray = words[letter]
+		return wordsArray[Math.floor(Math.random() * wordsArray.length)]
+	})
+}
+</script>
 
 <template>
 	<h1 v-once class="app-title disable-select">Acronym Generator</h1>

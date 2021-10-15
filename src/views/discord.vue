@@ -1,9 +1,34 @@
-<script lang="ts" src="./discord.ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const discordInput = ref('')
+const discordText = ref('')
+const reviewsText = ref('')
+
+// TODO: handle no spaces printing properly
+function discordButtonPressed() {
+	discordText.value = ''
+	reviewsText.value = ''
+	if (discordInput.value && discordInput.value.length < 2000) {
+		const inputLength = discordInput.value.length
+		while (inputLength < 2000) {
+			if (discordText.value.length + inputLength > 2000) {
+				reviewsText.value = discordText.value
+				break
+			}
+			discordText.value = discordText.value + discordInput.value
+		}
+	}
+}
+
+function copydiscord() {
+	navigator.clipboard.writeText(discordText.value)
+}
+</script>
 
 <template>
 	<h1 v-once class="app-title disable-select">Discord Max Message Generator</h1>
 	<input
-		v-once
 		v-model="discordInput"
 		class="discord-input form-control"
 		placeholder="Type a word here"
@@ -12,7 +37,7 @@
 	<button
 		v-once
 		class="discord-button btn btn-secondary"
-		@click="discordButtonPressed()"
+		@click="discordButtonPressed"
 	>
 		Generate
 	</button>
@@ -21,7 +46,7 @@
 		<button
 			v-show="discordText.length > 0"
 			class="btn btn-secondary"
-			@click="copydiscord()"
+			@click="copydiscord"
 		>
 			Copy
 		</button>

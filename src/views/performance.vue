@@ -1,4 +1,36 @@
-<script lang="ts" src="./performance.ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const functionOne = ref(
+	`const array = [];
+const array2 = [];
+for(let x=0; x < 1000001; x++) {
+    array.push(x);
+}
+
+for(let x=0; x < array.length; x++) {
+    array2.push(x * 2)
+}`
+)
+const functionTwo = ref(
+	`const array = [];
+const array2 = [];
+for(let x=0; x < 1000001; x++) {
+    array.push(x);
+}
+
+array.forEach((element) => {
+    array2.push(element * 2)
+});`
+)
+
+const startButton = ref(false)
+const stopButton = ref(true)
+
+function getFuncs() {
+	console.log(functionOne, functionTwo)
+}
+</script>
 
 <template>
 	<div class="perf-container">

@@ -1,14 +1,59 @@
-<script lang="ts" src="./frequency.ts"></script>
+<script setup lang="ts">
+import { Generator, GeneratorType } from '../typings'
+import noteGenerator from '../components/soundGenerator.vue'
+import 'bootstrap/js/dist/modal'
+import { closeSvg, addSvg } from '../svgs'
+import { reactive } from 'vue'
+
+const generators: Generator[] = reactive([
+	{
+		id: 0,
+		generatorType: 'Frequency'
+	},
+	{
+		id: 1,
+		generatorType: 'Note'
+	}
+])
+
+function addGenerator(type: GeneratorType) {
+	let availableId = 0
+	while (isIdInUse(availableId)) {
+		availableId++
+	}
+
+	generators.push({
+		id: availableId,
+		generatorType: type
+	})
+}
+
+function isIdInUse(id: number) {
+	if (
+		generators.some((generator) => {
+			return generator.id === id
+		})
+	) {
+		return true
+	}
+
+	return false
+}
+</script>
 
 <template>
 	<h1 v-once class="app-title disable-select">Frequency Generator</h1>
 
-	<d-sound-gen
+	<!-- v-model:generator-settings="generator.settings" -->
+	<noteGenerator
 		v-for="(generator, index) in generators"
 		:key="generator.id"
-		:generator-settings="generator.settings"
+		:index="index"
+		:generator="generator"
 		@deleteGenerator="generators.splice(index, 1)"
 	/>
+
+	<!-- @updateSettings="updateSettings(type, value, index)" -->
 
 	<svg
 		class="add-generator btn-secondary"

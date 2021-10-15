@@ -33,6 +33,13 @@
 		"vue/html-indent": 0,
 		"vue/html-self-closing": 0,
 		"vue/singleline-html-element-content-newline": 0,
-		"@typescript-eslint/no-extra-semi": 0
+		"@typescript-eslint/no-extra-semi": 0,
+		"@typescript-eslint/no-explicit-any": 0
+	},
+	"globals": {
+		"defineProps": "readonly",
+		"defineEmits": "readonly",
+		"defineExpose": "readonly",
+		"withDefaults": "readonly"
 	}
 }

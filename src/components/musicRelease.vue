@@ -1,22 +1,11 @@
-<script lang="ts">
-import { prop, Vue } from 'vue-class-component'
+<script setup lang="ts">
 import 'bootstrap/js/dist/modal'
 import { closeSvg } from '../svgs'
 
-class Props {
-	release = prop({
-		type: Array,
-		required: true
-	})
-	index: number = prop({
-		type: Number,
-		required: true
-	})
-}
-
-export default class MusicRelease extends Vue.with(Props) {
-	public closeSvg = closeSvg
-}
+defineProps<{
+	index: number
+	release: string[]
+}>()
 </script>
 
 <template v-once>

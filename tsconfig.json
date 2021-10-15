@@ -17,7 +17,6 @@
 		"useDefineForClassFields": true,
 
 		"noEmit": true,
-		"noUnusedLocals": true,
 		"noImplicitReturns": true,
 		"noUnusedParameters": true,
 		"allowUnreachableCode": false,

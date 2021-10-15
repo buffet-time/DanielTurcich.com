@@ -1,17 +1,9 @@
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script setup lang="ts">
 import Navbar from './components/navbar.vue'
-
-@Options({
-	components: {
-		'd-navbar': Navbar
-	}
-})
-export default class App extends Vue {}
 </script>
 
 <template>
-	<d-navbar />
+	<Navbar />
 	<router-view />
 </template>
 
