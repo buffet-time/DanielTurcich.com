@@ -29,15 +29,7 @@ function addGenerator(type: GeneratorType) {
 }
 
 function isIdInUse(id: number) {
-	if (
-		generators.some((generator) => {
-			return generator.id === id
-		})
-	) {
-		return true
-	}
-
-	return false
+	return generators.some((generator) => generator.id === id)
 }
 </script>
 

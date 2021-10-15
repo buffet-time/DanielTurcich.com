@@ -13,14 +13,12 @@ const props = defineProps<{
 // refs
 const releasesToShow = ref([['']]),
 	searchType = ref(Release.artist),
-	showCopyButton = ref(false),
 	showReleasesDiv = ref(false),
 	latestYear = ref(props.currentYear),
 	showNoResults = ref(false),
 	searchInput = ref('')
 
 // variables
-let reviewsText = ''
 const releaseTypes = [
 	'Album',
 	'EP',
@@ -53,10 +51,6 @@ onMounted(() => {
 	})
 })
 
-function copyReviews() {
-	navigator.clipboard.writeText(reviewsText)
-}
-
 function searchButtonPressed() {
 	showReleasesDiv.value = false
 	showNoResults.value = false
@@ -78,11 +72,8 @@ function searchButtonPressed() {
 
 	if (releasesToShow.value.length > 0) {
 		showReleasesDiv.value = true
-		showCopyButton.value = true
-		reviewsText = arrayToFormattedOutput(releasesToShow.value)
 	} else {
 		showNoResults.value = true
-		showCopyButton.value = false
 	}
 }
 
@@ -97,20 +88,6 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			release[index].toLowerCase().includes(searchInput.value.toLowerCase())
 		)
 	}
-}
-
-function arrayToFormattedOutput(array: string[][]) {
-	return array
-		.map((release) => {
-			if (release.length > 0) {
-				return ` ${release[Release.artist]} - ${release[Release.name]}: ${
-					release[Release.score]
-				}`
-			} else {
-				return ''
-			}
-		})
-		.toString()
 }
 
 function incrementRange(
@@ -221,13 +198,6 @@ function incrementRange(
 				</ul>
 			</div>
 			<div v-if="showNoResults">No results from your search.</div>
-			<button
-				v-show="showCopyButton"
-				class="btn btn-secondary"
-				@click="copyReviews()"
-			>
-				Copy
-			</button>
 		</div>
 	</div>
 </template>

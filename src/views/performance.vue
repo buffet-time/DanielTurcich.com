@@ -38,14 +38,14 @@ function getFuncs() {
 			<button
 				class="btn btn-secondary disable-select perf-button"
 				:disabled="startButton"
-				@click="getFuncs()"
+				@click="getFuncs"
 			>
 				Start Comparison
 			</button>
 			<button
 				class="btn btn-secondary disable-select perf-button"
 				:disabled="stopButton"
-				@click="getFuncs()"
+				@click="getFuncs"
 			>
 				Stop Comparison
 			</button>

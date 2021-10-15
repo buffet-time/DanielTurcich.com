@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import 'bootstrap/js/dist/modal'
+import { Release } from '../../typings'
 import { closeSvg } from '../../svgs'
 
-defineProps<{
+const props = defineProps<{
 	index: number
 	release: string[]
 }>()
+
+function copyReviews() {
+	navigator.clipboard.writeText(
+		` ${props.release[Release.artist]} - ${props.release[Release.name]}: ${
+			props.release[Release.score]
+		}`
+	)
+}
 </script>
 
 <template v-once>
@@ -59,6 +68,7 @@ defineProps<{
 				<div class="modal-footer">
 					<div class="footer-text">({{ release[4] }} {{ release[3] }})</div>
 					<span></span>
+					<button class="btn btn-secondary" @click="copyReviews">Copy</button>
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">
 						Close
 					</button>

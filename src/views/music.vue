@@ -118,9 +118,9 @@ onBeforeMount(async () => {
 
 async function initializeSheets() {
 	const [arrayBefore, array2020, array2021] = await Promise.all(
-		spreadsheets.map((spreadsheet) => {
-			return getArray(spreadsheet.id, spreadsheet.range)
-		})
+		spreadsheets.map((spreadsheet) =>
+			getArray(spreadsheet.id, spreadsheet.range)
+		)
 	)
 
 	releasesArray.value = arrayBefore

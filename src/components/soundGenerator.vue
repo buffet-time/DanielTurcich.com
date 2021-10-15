@@ -35,9 +35,7 @@ const notes = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B�
 
 if (props.generator.generatorType === 'Frequency') {
 	watch(frequency, () => {
-		if (!initialized) {
-			initializeContext()
-		}
+		if (!initialized) initializeContext()
 
 		oscillator.frequency.setValueAtTime(
 			frequency.value,
@@ -46,9 +44,7 @@ if (props.generator.generatorType === 'Frequency') {
 	})
 } else {
 	watch(noteOffset, (newValue, previousValue) => {
-		if (!initialized) {
-			initializeContext()
-		}
+		if (!initialized) initializeContext()
 
 		difference = newValue - previousValue!
 		updateNoteFrequency()
@@ -65,9 +61,7 @@ if (props.generator.generatorType === 'Frequency') {
 }
 
 watch(volume, () => {
-	if (!initialized) {
-		initializeContext()
-	}
+	if (!initialized) initializeContext()
 
 	if (started.value) {
 		oscillator.disconnect()
@@ -79,9 +73,7 @@ watch(volume, () => {
 })
 
 watch(oscillatorType, () => {
-	if (!initialized) {
-		initializeContext()
-	}
+	if (!initialized) initializeContext()
 
 	if (started.value) {
 		oscillator.disconnect()
@@ -94,17 +86,13 @@ watch(oscillatorType, () => {
 
 // Lifecycle Hooks
 onBeforeUnmount(() => {
-	if (started.value) {
-		oscillator.disconnect()
-	}
+	if (started.value) oscillator.disconnect()
 })
 
 // Methods
 function startStopButton() {
 	started.value = !started.value
-	if (!initialized) {
-		initializeContext()
-	}
+	if (!initialized) initializeContext()
 
 	if (started.value) {
 		oscillator.connect(gainNode).connect(audioContext.destination)
@@ -146,7 +134,6 @@ function incrementNote(increment: 'Up' | 'Down') {
 			} else {
 				noteIndex++
 			}
-			noteName.value = notes[noteIndex]
 		} else {
 			if (noteIndex === 0) {
 				noteOctave.value--
@@ -154,8 +141,8 @@ function incrementNote(increment: 'Up' | 'Down') {
 			} else {
 				noteIndex--
 			}
-			noteName.value = notes[noteIndex]
 		}
+		noteName.value = notes[noteIndex]
 		difference--
 	} while (difference > 0)
 }

@@ -46,9 +46,9 @@ const links: SidenavLink[] = [
 		src: soundcloudSrc
 	}
 ]
-const routes: RouteRecordNormalized[] = router.getRoutes().filter((route) => {
-	return route.meta['buttonName'] !== undefined
-})
+const routes: RouteRecordNormalized[] = router
+	.getRoutes()
+	.filter((route) => route.meta['buttonName'] !== undefined)
 
 // private
 let sidenavElement!: HTMLDivElement
@@ -120,7 +120,7 @@ function closeNav() {
 <template>
 	<div toggleable="lg" type="dark" class="navbar">
 		<div v-once class="disable-select">
-			<button class="btn btn-secondary hamburger-button" @click="openNav()">
+			<button class="btn btn-secondary hamburger-button" @click="openNav">
 				<svg class="hamburger-menu" viewBox="0 0 24 24">
 					<path
 						fill="currentColor"
@@ -135,11 +135,7 @@ function closeNav() {
 			<div v-once class="sidenav-top">
 				<div class="sidenav-top-text disable-select">Websites</div>
 
-				<svg
-					class="sidenav-close-button"
-					viewBox="0 0 24 24"
-					@click="closeNav()"
-				>
+				<svg class="sidenav-close-button" viewBox="0 0 24 24" @click="closeNav">
 					<path
 						fill="currentColor"
 						d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"

@@ -498,9 +498,7 @@ async function merge(left: PixiRect[], right: PixiRect[]): Promise<PixiRect[]> {
 	// get all the x values of the current array and sort them and then set the merged contents above.
 	// TODO create a mergesort for a normal array instead of using builtin
 	const combinedXArray = combinedArray
-		.map((rect) => {
-			return rect.x
-		})
+		.map((rect) => rect.x)
 		.sort((a, b) => a - b)
 
 	for (let n = 0; n < combinedXArray.length; n++) {
@@ -509,9 +507,7 @@ async function merge(left: PixiRect[], right: PixiRect[]): Promise<PixiRect[]> {
 
 	// gets an array of the index value of where the subarray is from the main array
 	const indexArray = []
-	const xValues = combinedArray.map((rect) => {
-		return rect.height
-	})
+	const xValues = combinedArray.map((rect) => rect.height)
 
 	for (const value of xValues) {
 		indexArray.push(
@@ -645,7 +641,7 @@ async function shellSort() {
 			<button
 				class="sorting-button btn btn-secondary disable-select"
 				:disabled="disableStopButton"
-				@click="stop()"
+				@click="stop"
 			>
 				Stop Execution
 			</button>
@@ -653,7 +649,7 @@ async function shellSort() {
 			<button
 				class="sorting-button btn btn-secondary disable-select"
 				:disabled="disableRandomizeButton"
-				@click="randomizeArray()"
+				@click="randomizeArray"
 			>
 				Randomize
 			</button>

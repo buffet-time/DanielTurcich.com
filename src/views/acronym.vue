@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import { default as acronymWords } from '../acronymWords.json'
 
 // Public
 const acronymInput = ref('')
@@ -7,13 +8,8 @@ const buttonPressedState = ref('')
 const textToDisplay = ref('')
 
 // Private
-let words: { [key: string]: string[] } = {}
+const words: { [key: string]: string[] } = acronymWords
 let acronymText = ''
-
-onMounted(async () => {
-	const wordsResponse = await import('../acronymWords.json')
-	words = wordsResponse.default
-})
 
 function copyAcronym() {
 	navigator.clipboard.writeText(acronymText)
@@ -26,8 +22,6 @@ function acronymButtonPressed() {
 			textToDisplay.value = 'There can not be spaces in the input.'
 		} else {
 			acronymText = getWordsFromProvidedAcronym(acronymInput.value)
-				.toString()
-				.replace(/,/g, '  ')
 			buttonPressedState.value = 'good'
 			textToDisplay.value = acronymText
 		}
@@ -38,13 +32,18 @@ function acronymButtonPressed() {
 }
 
 function getWordsFromProvidedAcronym(acronym: string) {
-	const acronymArray = acronym.toLowerCase().split('')
-	let wordsArray: string[]
-
-	return acronymArray.map((letter: string) => {
-		wordsArray = words[letter]
-		return wordsArray[Math.floor(Math.random() * wordsArray.length)]
-	})
+	return acronym
+		.toLowerCase()
+		.split('')
+		.reduce(
+			(previousValue: string, currentLetter: string) =>
+				`${previousValue} ${
+					words[currentLetter][
+						Math.floor(Math.random() * words[currentLetter].length)
+					]
+				}`,
+			''
+		)
 }
 </script>
 
@@ -60,7 +59,7 @@ function getWordsFromProvidedAcronym(acronym: string) {
 	<button
 		v-once
 		class="acronym-button btn btn-secondary"
-		@click="acronymButtonPressed()"
+		@click="acronymButtonPressed"
 	>
 		Generate
 	</button>
@@ -69,7 +68,7 @@ function getWordsFromProvidedAcronym(acronym: string) {
 		<button
 			v-if="buttonPressedState === 'good'"
 			class="btn btn-secondary"
-			@click="copyAcronym()"
+			@click="copyAcronym"
 		>
 			Copy
 		</button>

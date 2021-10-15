@@ -131,7 +131,7 @@ function randomInt(min: number, max: number): number {
 		<button
 			v-once
 			class="password-generate-button btn btn-secondary"
-			@click="generatePassword()"
+			@click="generatePassword"
 		>
 			Generate
 		</button>
@@ -142,7 +142,7 @@ function randomInt(min: number, max: number): number {
 		<button
 			v-show="password.length > 0"
 			class="password-copy-button btn btn-secondary"
-			@click="copyPassword()"
+			@click="copyPassword"
 		>
 			Copy
 		</button>
