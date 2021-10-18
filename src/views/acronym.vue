@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { default as acronymWords } from '../acronymWords.json'
 
 // Public
-const acronymInput = ref('')
-const buttonPressedState = ref('')
-const textToDisplay = ref('')
+const acronymInput = ref(''),
+	buttonPressedState = ref(''),
+	textToDisplay = ref('')
 
 // Private
 const words: { [key: string]: string[] } = acronymWords

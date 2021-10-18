@@ -1,30 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const passwordLength = ref(16)
-const excludeLowercase = ref(false)
-const excludeUppercase = ref(false)
-const excludeNumbers = ref(false)
-const excludeSymbols = ref(false)
-const textToShow = ref('')
-const password = ref('')
-
-// prettier-ignore
-const lowercaseLetters = [
+const passwordLength = ref(16),
+	excludeLowercase = ref(false),
+	excludeUppercase = ref(false),
+	excludeNumbers = ref(false),
+	excludeSymbols = ref(false),
+	textToShow = ref(''),
+	password = ref(''),
+	// prettier-ignore
+	lowercaseLetters = [
 	'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
-]
-// prettier-ignore
-const uppercaseLetters = [
+],
+	// prettier-ignore
+	uppercaseLetters = [
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 	'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-]
-// prettier-ignore
-const numbers = [
+],
+	// prettier-ignore
+	numbers = [
 	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-]
-// prettier-ignore
-const symbols = [
+],
+	// prettier-ignore
+	symbols = [
 	'!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',
 	'-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\',
 	']', '^', '_', '`', '{', '|', '}', '~'

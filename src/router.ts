@@ -12,7 +12,7 @@ const Home = () => import('./views/home.vue'),
 	Music = () => import('./views/music.vue'),
 	Frequency = () => import('./views/frequency.vue'),
 	resume =
-		'https://drive.google.com/file/d/1ql438ApSvi6vyaYaivL23U0z9FC-RLXl/view',
+		'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view',
 	// TODO catch routes that dont exist and redirect to home
 	// TODO  JS/ HTML/ CSS editor?
 	routes: Array<RouteRecordRaw> = [
@@ -58,6 +58,7 @@ const Home = () => import('./views/home.vue'),
 			component: Discord,
 			meta: { buttonName: 'Discord Spam Tool' }
 		},
+		// TODO: optimize this to not render the navbar
 		{
 			path: '/resume',
 			name: 'Resume',
@@ -76,6 +77,7 @@ const Home = () => import('./views/home.vue'),
 				return 'redirecting'
 			}
 		}
+		// TODO - self explantory
 		// {
 		// 	path: '/performance',
 		// 	name: 'Performance',

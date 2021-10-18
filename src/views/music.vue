@@ -6,8 +6,8 @@ import search from '../components/music/search.vue'
 import stats from '../components/music/stats.vue'
 
 // public variables
-const loadingString = '...'
-const currentYear = 2021,
+const loadingString = 'loading...',
+	currentYear = 2021,
 	releasesArray = ref([['']]),
 	initializing = ref(true),
 	earliestYear = ref(currentYear),
@@ -18,30 +18,31 @@ const currentYear = 2021,
 		numberOfArtists: loadingString,
 		numberOf50sAndBefore: loadingString,
 		numberOf1960sReleases: loadingString,
+		numberOf1970sReleases: loadingString,
 		numberOf1980sReleases: loadingString,
 		numberOf1990sReleases: loadingString,
 		numberOf2000sReleases: loadingString,
 		numberOf2010sReleases: loadingString,
 		numberOf2020sReleases: loadingString
-	}) as Ref<StatsObject>
+	}) as Ref<StatsObject>,
+	// Private variables
+	artistArray: string[] = [],
+	spreadsheets: SpreadsheetParams[] = [
+		{
+			id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
+			range: 'Main!A2:F' // before
+		},
 
-// Private variables
-const artistArray: string[] = []
-const spreadsheets: SpreadsheetParams[] = [
-	{
-		id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
-		range: 'Main!A2:F' // before
-	},
+		{
+			id: '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
+			range: 'Main!A2:F' // 2020
+		},
+		{
+			id: '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
+			range: 'Main!A2:G' // 2021
+		}
+	]
 
-	{
-		id: '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
-		range: 'Main!A2:F' // 2020
-	},
-	{
-		id: '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
-		range: 'Main!A2:G' // 2021
-	}
-]
 let scoreCount = 0,
 	questionMarkScoreCount = 0,
 	yearCount = 0,

@@ -17,57 +17,57 @@ defineProps<{
 			<table class="table table-dark .table-borderless">
 				<thead v-once>
 					<tr>
-						<th scope="col">Stat</th>
-						<th scope="col">Value</th>
+						<th scope="col bold">Stat</th>
+						<th scope="col bold">Value</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th v-once scope="row">Number of releases</th>
+						<th v-once scope="row bold">Number of releases</th>
 						<td>{{ statsObject.numberOfReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Number of artists</th>
+						<th v-once scope="row bold">Number of artists</th>
 						<td>{{ statsObject.numberOfArtists }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Average Year</th>
+						<th v-once scope="row bold">Average Year</th>
 						<td>{{ statsObject.averageYear }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Average Score</th>
+						<th v-once scope="row bold">Average Score</th>
 						<td>{{ statsObject.averageScore }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases before 1960</th>
+						<th v-once scope="row bold">Releases before 1960</th>
 						<td>{{ statsObject.numberOf50sAndBefore }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 1960s</th>
+						<th v-once scope="row bold">Releases in the 1960s</th>
 						<td>{{ statsObject.numberOf1960sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 1970s</th>
+						<th v-once scope="row bold">Releases in the 1970s</th>
 						<td>{{ statsObject.numberOf1970sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 1980s</th>
+						<th v-once scope="row bold">Releases in the 1980s</th>
 						<td>{{ statsObject.numberOf1980sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 1990s</th>
+						<th v-once scope="row bold">Releases in the 1990s</th>
 						<td>{{ statsObject.numberOf1990sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 2000s</th>
+						<th v-once scope="row bold">Releases in the 2000s</th>
 						<td>{{ statsObject.numberOf2000sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 2010s</th>
+						<th v-once scope="row bold">Releases in the 2010s</th>
 						<td>{{ statsObject.numberOf2010sReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once scope="row">Releases in the 2020s</th>
+						<th v-once scope="row bold">Releases in the 2020s</th>
 						<td>{{ statsObject.numberOf2020sReleases }}</td>
 					</tr>
 				</tbody>
@@ -81,5 +81,10 @@ defineProps<{
 	width: 400px;
 	margin-left: calc(50% - 200px);
 	color: white;
+}
+
+th {
+	font-weight: normal;
+	font-size: large;
 }
 </style>

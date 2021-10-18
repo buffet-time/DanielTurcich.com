@@ -45,9 +45,9 @@ function copyReviews() {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						{{ release[0] }} - {{ release[1] }} ( {{ release[2] }}/10 )
+						{{ release[0] }} - {{ release[1] }}
+						<span class="nowrap">( {{ release[2] }}/10 )</span>
 					</h5>
-
 					<svg
 						class="release-close-button"
 						viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ function copyReviews() {
 				</div>
 				<div class="modal-body">
 					<div class="genres-text">Genres: {{ release[5] }}</div>
-					<br />
+					<br /><br />
 					<div v-if="release.length === 7">
 						{{ release[6] }}
 					</div>
@@ -83,7 +83,6 @@ function copyReviews() {
 	background-color: #383838;
 	color: lightgray;
 }
-
 .list-group-item {
 	background-color: #616161;
 	color: lightgray;
@@ -99,22 +98,29 @@ function copyReviews() {
 	margin: 0px;
 	padding: 8px;
 }
-
 .release-close-button {
 	height: 24px;
 	cursor: pointer;
+	width: 8%;
+	position: absolute;
+	top: 8%;
+	left: 90%;
 }
-
 .footer-text {
 	float: left;
 }
-
 .modal-footer > span {
 	flex-grow: 1;
 }
-
 .genres-text {
-	font-weight: bold;
+	font-weight: normal;
 	float: left;
+	font-size: large;
+}
+.modal-title {
+	width: 92%;
+}
+.nowrap {
+	white-space: nowrap;
 }
 </style>

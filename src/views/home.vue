@@ -111,8 +111,8 @@ const links = ref([
 						I'm 25, a Vegetarian, and listen to an insane amount of music (check
 						the music page of this site).
 					</p>
-					<p class="card-text">
-						<b>You should check out the hamburger menu in the top left</b>
+					<p class="card-text bold">
+						You should check out the hamburger menu in the top left
 					</p>
 				</div>
 			</div>
@@ -186,6 +186,9 @@ const links = ref([
 	width: 20%;
 	min-width: 180px;
 	text-align: center;
+}
+.bold {
+	font-size: larger;
 }
 .card {
 	margin: 32px;

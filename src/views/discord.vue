@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 // public refs
-const discordInput = ref('')
-const nitro = ref(false)
-const discordText = ref('')
+const discordInput = ref(''),
+	nitro = ref(false),
+	discordText = ref('')
 
 function discordButtonPressed() {
 	// TODO: handle no spaces printing properly
@@ -13,11 +13,8 @@ function discordButtonPressed() {
 
 	discordText.value = ''
 	if (input && discordInput.value.length < maxLength) {
-		const inputLength = input.length
-		while (inputLength < maxLength) {
-			if (discordText.value.length + inputLength > maxLength) {
-				break
-			}
+		while (input.length < maxLength) {
+			if (discordText.value.length + input.length > maxLength) break
 			discordText.value = discordText.value + input
 		}
 	}

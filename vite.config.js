@@ -5,7 +5,7 @@ export default defineConfig({
 	root: './src',
 
 	build: {
-		chunkSizeWarningLimit: 2067, // the size of acronymWords.json
+		chunkSizeWarningLimit: 2068, // the size of acronymWords.json
 
 		rollupOptions: {
 			maxParallelFileReads: 512,

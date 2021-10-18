@@ -51,8 +51,8 @@ const routes: RouteRecordNormalized[] = router
 	.filter((route) => route.meta['buttonName'] !== undefined)
 
 // private
-let sidenavElement!: HTMLDivElement
-let overlayElement!: HTMLDivElement
+let sidenavElement: HTMLDivElement
+let overlayElement: HTMLDivElement
 
 onMounted(() => {
 	sidenavElement = sidenav.value as unknown as HTMLDivElement
@@ -68,26 +68,27 @@ onMounted(() => {
 	})
 })
 
+const open = (link: string) => window.open(link, '_blank')
 function openLink(link: string) {
 	switch (link) {
 		case 'github':
-			window.open('https://github.com/buffet-time', '_blank')
+			open('https://github.com/buffet-time')
 			break
 
 		case 'linkedin':
-			window.open('https://www.linkedin.com/in/danielturcich/', '_blank')
+			open('https://www.linkedin.com/in/danielturcich/')
 			break
 
 		case 'resume':
-			window.open(resume, '_blank')
+			open(resume)
 			break
 
 		case 'bandcamp':
-			window.open('https://buffet-time.bandcamp.com/', '_blank')
+			open('https://buffet-time.bandcamp.com/')
 			break
 
 		case 'soundcloud':
-			window.open('https://soundcloud.com/buffet_time', '_blank')
+			open('https://soundcloud.com/buffet_time')
 			break
 	}
 }
