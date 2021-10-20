@@ -120,10 +120,10 @@ async function randomizeArray(): Promise<void> {
 // Other methods
 // // // // // // //
 function isSorted() {
-	for (let index = 0; index < sortingArray.length - 1; index++) {
+	for (let index = 0; index < sortingArray.length - 1; index++)
 		if (sortingArray[index].height > sortingArray[index + 1].height)
 			return false
-	}
+
 	return true
 }
 
