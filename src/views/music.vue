@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { Release, SpreadsheetParams, StatsObject } from '../typings'
+import { Release, ReleasesIn, SpreadsheetParams, StatsObject } from '../typings'
 import { onBeforeMount, Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
 import search from '../components/music/search.vue'
 import stats from '../components/music/stats.vue'
 
-// public variables
 const loadingString = 'loading...',
 	currentYear = 2021,
-	releasesArray = ref([['']]),
+	releasePerYear: number[] = []
+
+for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) releasePerYear.push(0)
+
+// public variables
+const releasesArray = ref([['']]),
 	initializing = ref(true),
 	earliestYear = ref(currentYear),
 	statsObject = ref({
@@ -16,23 +20,16 @@ const loadingString = 'loading...',
 		averageYear: loadingString,
 		averageScore: loadingString,
 		numberOfArtists: loadingString,
-		numberOf50sAndBefore: loadingString,
-		numberOf1960sReleases: loadingString,
-		numberOf1970sReleases: loadingString,
-		numberOf1980sReleases: loadingString,
-		numberOf1990sReleases: loadingString,
-		numberOf2000sReleases: loadingString,
-		numberOf2010sReleases: loadingString,
-		numberOf2020sReleases: loadingString
-	}) as Ref<StatsObject>,
-	// Private variables
-	artistArray: string[] = [],
+		releasesPerYear: releasePerYear
+	}) as Ref<StatsObject>
+
+// Private variables
+const artistArray: string[] = [],
 	spreadsheets: SpreadsheetParams[] = [
 		{
 			id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
 			range: 'Main!A2:F' // before
 		},
-
 		{
 			id: '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
 			range: 'Main!A2:F' // 2020
@@ -47,58 +44,58 @@ let scoreCount = 0,
 	questionMarkScoreCount = 0,
 	yearCount = 0,
 	tempScore = 0,
-	tempYear = 0,
-	before1960 = 0,
-	num1960s = 0,
-	num1970s = 0,
-	num1980s = 0,
-	num1990s = 0,
-	num2000s = 0,
-	num2010s = 0,
-	num2020s = 0
+	tempYear = 0
 
+// Lifecycle Hooks
 onBeforeMount(async () => {
 	// add possible functionality to export last.fm to chart?
 	await initializeSheets()
 	initializing.value = false
-	const reversedArray = releasesArray.value.reverse()
 
-	reversedArray.forEach((current) => {
-		if (!artistArray.includes(current[Release.artist])) {
+	releasesArray.value.reverse().forEach((current) => {
+		if (!artistArray.includes(current[Release.artist]))
 			artistArray.push(current[Release.artist])
-		}
-		const currentYear = Number(current[Release.year])
 
-		if (currentYear < earliestYear.value) {
-			earliestYear.value = currentYear
-		}
-		tempYear += currentYear
+		const curYear = Number(current[Release.year])
+
+		if (curYear < earliestYear.value) earliestYear.value = curYear
+
+		tempYear += curYear
 		yearCount++
-		if (currentYear > 2019) {
-			num2020s++
-		} else if (currentYear > 2009) {
-			num2010s++
-		} else if (currentYear > 1999) {
-			num2000s++
-		} else if (currentYear > 1989) {
-			num1990s++
-		} else if (currentYear > 1979) {
-			num1980s++
-		} else if (currentYear > 1969) {
-			num1970s++
-		} else if (currentYear > 1959) {
-			num1960s++
-		} else {
-			before1960++
-		}
 
 		if (isNum(current[Release.score])) {
 			tempScore += Number(current[Release.score])
 			scoreCount++
-		} else if (current[Release.score] == '?') {
-			questionMarkScoreCount++
+		} else if (current[Release.score] == '?') questionMarkScoreCount++
+
+		switch (true) {
+			case curYear > 2019:
+				releasePerYear[ReleasesIn['2020s']]++
+				break
+			case curYear > 2009:
+				releasePerYear[ReleasesIn['2010s']]++
+				break
+			case curYear > 1999:
+				releasePerYear[ReleasesIn['2000s']]++
+				break
+			case curYear > 1989:
+				releasePerYear[ReleasesIn['1990s']]++
+				break
+			case curYear > 1979:
+				releasePerYear[ReleasesIn['1980s']]++
+				break
+			case curYear > 1969:
+				releasePerYear[ReleasesIn['1970s']]++
+				break
+			case curYear > 1959:
+				releasePerYear[ReleasesIn['1960s']]++
+				break
+			default:
+				releasePerYear[ReleasesIn['1950s']]++
+				break
 		}
 	})
+
 	releasesArray.value.reverse()
 
 	statsObject.value = {
@@ -106,33 +103,23 @@ onBeforeMount(async () => {
 		numberOfArtists: artistArray.length,
 		averageYear: (tempYear / yearCount).toFixed(2),
 		numberOfReleases: scoreCount + questionMarkScoreCount,
-		numberOf50sAndBefore: before1960,
-		numberOf1960sReleases: num1960s,
-		numberOf1970sReleases: num1970s,
-		numberOf1980sReleases: num1980s,
-		numberOf1990sReleases: num1990s,
-		numberOf2000sReleases: num2000s,
-		numberOf2010sReleases: num2010s,
-		numberOf2020sReleases: num2020s
+		releasesPerYear: releasePerYear
 	}
 })
 
 async function initializeSheets() {
-	const [arrayBefore, array2020, array2021] = await Promise.all(
-		spreadsheets.map((spreadsheet) =>
-			getArray(spreadsheet.id, spreadsheet.range)
+	releasesArray.value = (
+		await Promise.all(
+			spreadsheets.map((spreadsheet) =>
+				getArray(spreadsheet.id, spreadsheet.range)
+			)
 		)
 	)
-
-	releasesArray.value = arrayBefore
-		.concat(array2020, array2021)
-		.filter((current: any) => current.length > 5) // makes sure to not include any not fully written reviews
-
-	for (let x = 0; x < releasesArray.value.length; x++) {
-		for (let n = 0; n < releasesArray.value[x].length; n++) {
-			releasesArray.value[x][n].trim()
-		}
-	}
+		.flat()
+		.filter((current: string[]) => {
+			current.forEach((element) => element.trim())
+			return current.length > 5 // makes sure to not include any not fully written reviews
+		})
 }
 
 async function getArray(id: string, range: string) {

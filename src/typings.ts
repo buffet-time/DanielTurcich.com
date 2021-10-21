@@ -51,12 +51,16 @@ export interface StatsObject {
 	averageYear: string | number
 	averageScore: string | number
 	numberOfArtists: string | number
-	numberOf50sAndBefore: string | number
-	numberOf1960sReleases: string | number
-	numberOf1970sReleases: string | number
-	numberOf1980sReleases: string | number
-	numberOf1990sReleases: string | number
-	numberOf2000sReleases: string | number
-	numberOf2010sReleases: string | number
-	numberOf2020sReleases: string | number
+	releasesPerYear: number[]
+}
+
+export enum ReleasesIn {
+	'1950s',
+	'1960s',
+	'1970s',
+	'1980s',
+	'1990s',
+	'2000s',
+	'2010s',
+	'2020s'
 }
