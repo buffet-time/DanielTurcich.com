@@ -68,32 +68,10 @@ onBeforeMount(async () => {
 			scoreCount++
 		} else if (current[Release.score] == '?') questionMarkScoreCount++
 
-		switch (true) {
-			case curYear > 2019:
-				releasePerYear[ReleasesIn['2020s']]++
-				break
-			case curYear > 2009:
-				releasePerYear[ReleasesIn['2010s']]++
-				break
-			case curYear > 1999:
-				releasePerYear[ReleasesIn['2000s']]++
-				break
-			case curYear > 1989:
-				releasePerYear[ReleasesIn['1990s']]++
-				break
-			case curYear > 1979:
-				releasePerYear[ReleasesIn['1980s']]++
-				break
-			case curYear > 1969:
-				releasePerYear[ReleasesIn['1970s']]++
-				break
-			case curYear > 1959:
-				releasePerYear[ReleasesIn['1960s']]++
-				break
-			default:
-				releasePerYear[ReleasesIn['1950s']]++
-				break
-		}
+		curYear > 1959
+			? // @ts-ignore
+			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
+			: releasePerYear[ReleasesIn['1950s']]++
 	})
 
 	releasesArray.value.reverse()
