@@ -30,26 +30,29 @@ const releaseTypes = [
 ]
 
 watch(searchType, () => {
-	if (searchType.value === Release.score) {
-		searchInput.value = '7'
-	} else if (searchType.value === Release.type) {
-		searchInput.value = 'Album'
-	} else if (searchType.value === Release.year) {
-		searchInput.value = latestYear.value.toString()
-	} else {
-		searchInput.value = ''
+	switch (searchType.value) {
+		case Release.score:
+			searchInput.value = '7'
+			break
+		case Release.type:
+			searchInput.value = 'Album'
+			break
+		case Release.year:
+			searchInput.value = latestYear.value.toString()
+			break
+		default:
+			searchInput.value = ''
 	}
 })
 
-onMounted(() => {
+onMounted(() =>
 	window.addEventListener('keydown', (event) => {
-		if (searchType.value === Release.score) {
+		if (searchType.value === Release.score)
 			incrementRange(event.key, 0.5, 0, 10)
-		} else if (searchType.value === Release.year) {
+		else if (searchType.value === Release.year)
 			incrementRange(event.key, 1, props.earliestYear, latestYear.value)
-		}
 	})
-})
+)
 
 function searchButtonPressed() {
 	showReleasesDiv.value = false
@@ -70,24 +73,16 @@ function searchButtonPressed() {
 	}
 	releasesToShow.value = getRelasesFromSearch(searchType.value, equals)
 
-	if (releasesToShow.value.length > 0) {
-		showReleasesDiv.value = true
-	} else {
-		showNoResults.value = true
-	}
+	if (releasesToShow.value.length > 0) showReleasesDiv.value = true
+	else showNoResults.value = true
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
-	if (equals) {
-		return props.releasesArray.filter(
-			(release) =>
-				release[index].toLowerCase() === searchInput.value.toLowerCase()
-		)
-	} else {
-		return props.releasesArray.filter((release) =>
-			release[index].toLowerCase().includes(searchInput.value.toLowerCase())
-		)
-	}
+	return props.releasesArray.filter((release) =>
+		equals
+			? release[index].toLowerCase() === searchInput.value.toLowerCase()
+			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())
+	)
 }
 
 function incrementRange(
@@ -96,11 +91,10 @@ function incrementRange(
 	minimum: number,
 	maximum: number
 ) {
-	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum) {
+	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum)
 		searchInput.value = (searchInput.value + -incrementAmount).toString()
-	} else if (key === 'ArrowRight' && Number(searchInput.value) < maximum) {
+	else if (key === 'ArrowRight' && Number(searchInput.value) < maximum)
 		searchInput.value = (searchInput.value + incrementAmount).toString()
-	}
 }
 </script>
 

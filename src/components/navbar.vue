@@ -62,9 +62,7 @@ onMounted(() => {
 
 	// close the sidenav if click outside
 	document.addEventListener('mouseup', (event) => {
-		if (overlayElement.style.zIndex === '1' && event.x > 230) {
-			closeNav()
-		}
+		if (overlayElement.style.zIndex === '1' && event.x > 230) closeNav()
 	})
 })
 

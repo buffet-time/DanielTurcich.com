@@ -49,9 +49,7 @@ watch(volume, () => {
 		oscillator.disconnect()
 		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 		oscillator.connect(gainNode).connect(audioContext.destination)
-	} else {
-		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
-	}
+	} else gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 })
 
 // Lifecycle hooks
@@ -75,15 +73,9 @@ onMounted(async () => {
 	sortingMethodEndedBools()
 })
 
-onBeforeUnmount(() => {
-	app.destroy()
-})
+onBeforeUnmount(() => app.destroy())
 
 // Methods
-function toPercent(value: number): number {
-	return parseFloat((value * 5 * 100).toFixed(1))
-}
-
 // eslint-disable-next-line @typescript-eslint/ban-types
 function executeMethod(this: any, method: Function) {
 	method.call(this)
@@ -306,8 +298,8 @@ async function bubbleSort() {
 async function insertionSort() {
 	sortingMethodStarted()
 	const length = sortingArray.length
-	let j = 0
-	let current: PixiRect
+	let j = 0,
+		current: PixiRect
 
 	for (let i = 1; i < length; i++) {
 		current = sortingArray[i]
@@ -403,9 +395,7 @@ async function quickSort(left: number, right: number) {
 		pendingRecursiveCalls++
 		quickSort(quickSortIndex, right)
 	}
-	if (pendingRecursiveCalls-- === 0) {
-		sortingMethodEnded()
-	}
+	if (pendingRecursiveCalls-- === 0) sortingMethodEnded()
 }
 
 async function quicksortPartition(left: number, right: number) {
@@ -479,9 +469,8 @@ async function merge(left: PixiRect[], right: PixiRect[]): Promise<PixiRect[]> {
 		.map((rect) => rect.x)
 		.sort((a, b) => a - b)
 
-	for (let n = 0; n < combinedXArray.length; n++) {
+	for (let n = 0; n < combinedXArray.length; n++)
 		combinedArray[n].x = combinedXArray[n]
-	}
 
 	// gets an array of the index value of where the subarray is from the main array
 	const indexArray = []
@@ -585,7 +574,6 @@ async function shellSort() {
 				n -= gap
 			) {
 				if (stopExecution.value) return
-
 				swapArrayElements(n, n - gap)
 				await redrawRectangles(n, n - gap)
 			}
@@ -617,7 +605,9 @@ async function shellSort() {
 				Randomize
 			</button>
 
-			<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
+			<label for="range-1">
+				Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
+			</label>
 			<input
 				v-once
 				id="range-1"

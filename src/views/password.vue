@@ -33,23 +33,21 @@ function generatePassword() {
 	let passwordCharacters = ['']
 	password.value = ''
 
-	if (!excludeLowercase.value) {
+	if (!excludeLowercase.value)
 		passwordCharacters = passwordCharacters.concat(lowercaseLetters)
-	}
-	if (!excludeUppercase.value) {
-		passwordCharacters = passwordCharacters.concat(uppercaseLetters)
-	}
-	if (!excludeNumbers.value) {
-		passwordCharacters = passwordCharacters.concat(numbers)
-	}
-	if (!excludeSymbols.value) {
-		passwordCharacters = passwordCharacters.concat(symbols)
-	}
 
-	for (let i = 0; i < passwordLength.value; i++) {
+	if (!excludeUppercase.value)
+		passwordCharacters = passwordCharacters.concat(uppercaseLetters)
+
+	if (!excludeNumbers.value)
+		passwordCharacters = passwordCharacters.concat(numbers)
+
+	if (!excludeSymbols.value)
+		passwordCharacters = passwordCharacters.concat(symbols)
+
+	for (let i = 0; i < passwordLength.value; i++)
 		password.value +=
 			passwordCharacters[randomInt(0, passwordCharacters.length - 1)]
-	}
 
 	textToShow.value = password.value
 }

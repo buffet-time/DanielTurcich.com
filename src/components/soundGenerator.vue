@@ -49,9 +49,8 @@ if (props.generator.generatorType === 'Frequency') {
 		difference = newValue - previousValue!
 		updateNoteFrequency()
 
-		if (difference > 0) {
-			incrementNote('Up')
-		} else {
+		if (difference > 0) incrementNote('Up')
+		else {
 			// get absolute value of the difference when its negative
 			// so we can easily recursive call in incrementNote()
 			difference = Math.abs(difference)
@@ -85,20 +84,16 @@ watch(oscillatorType, () => {
 })
 
 // Lifecycle Hooks
-onBeforeUnmount(() => {
-	if (started.value) oscillator.disconnect()
-})
+onBeforeUnmount(() => oscillator?.disconnect())
 
 // Methods
 function startStopButton() {
 	started.value = !started.value
 	if (!initialized) initializeContext()
 
-	if (started.value) {
+	if (started.value)
 		oscillator.connect(gainNode).connect(audioContext.destination)
-	} else {
-		oscillator.disconnect()
-	}
+	else oscillator.disconnect()
 }
 
 function toPercent(value: number) {
@@ -131,16 +126,12 @@ function incrementNote(increment: 'Up' | 'Down') {
 			if (noteIndex === 11) {
 				noteOctave.value++
 				noteIndex = 0
-			} else {
-				noteIndex++
-			}
+			} else noteIndex++
 		} else {
 			if (noteIndex === 0) {
 				noteOctave.value--
 				noteIndex = 11
-			} else {
-				noteIndex--
-			}
+			} else noteIndex--
 		}
 		noteName.value = notes[noteIndex]
 		difference--
@@ -148,16 +139,11 @@ function incrementNote(increment: 'Up' | 'Down') {
 }
 
 function updateNoteFrequency() {
-	// From here: https://pages.mtu.edu/~suits/NoteFreqCalcs.html
-	const updatedFrequency = parseFloat(
+	frequency.value = parseFloat(
+		// From here: https://pages.mtu.edu/~suits/NoteFreqCalcs.html
 		(fixedNote * twelthRoot ** noteOffset.value).toFixed(4)
 	)
-
-	frequency.value = updatedFrequency
-	oscillator.frequency.setValueAtTime(
-		updatedFrequency,
-		audioContext.currentTime
-	)
+	oscillator.frequency.setValueAtTime(frequency.value, audioContext.currentTime)
 }
 </script>
 

@@ -25,9 +25,6 @@ function acronymButtonPressed() {
 			buttonPressedState.value = 'good'
 			textToDisplay.value = acronymText
 		}
-	} else {
-		buttonPressedState.value = 'error'
-		textToDisplay.value = 'Must type a word to generate an acronym.'
 	}
 }
 

@@ -18,7 +18,7 @@ specifiers:
   lodash.clonedeep: ^4.5.0
   pixi.js: ^6.1.3
   prettier: ^2.4.1
-  sass: ^1.43.2
+  sass: ^1.43.3
   tslib: ^2.3.1
   typescript: ^4.4.4
   vite: ^2.6.10
@@ -49,10 +49,10 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_15313026b01cdd263118061498e273ac
   eslint-plugin-vue: 7.20.0_eslint@8.0.1
   prettier: 2.4.1
-  sass: 1.43.2
+  sass: 1.43.3
   tslib: 2.3.1
   typescript: 4.4.4
-  vite: 2.6.10_sass@1.43.2
+  vite: 2.6.10_sass@1.43.3
   vue-eslint-parser: 8.0.0_eslint@8.0.1
   vue-tsc: 0.28.7_typescript@4.4.4
 
@@ -130,10 +130,10 @@ packages:
       eslint: '*'
       vite: ^2
     dependencies:
-      '@types/eslint': 7.28.1
+      '@types/eslint': 7.28.2
       chalk: 4.1.2
       eslint: 8.0.1
-      vite: 2.6.10_sass@1.43.2
+      vite: 2.6.10_sass@1.43.3
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -599,8 +599,8 @@ packages:
     resolution: {integrity: sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==}
     dev: false
 
-  /@types/eslint/7.28.1:
-    resolution: {integrity: sha512-XhZKznR3i/W5dXqUhgU9fFdJekufbeBd5DALmkuXoeFcjbQcPk+2cL+WLHf6Q81HWAnM2vrslIHpGVyCAviRwg==}
+  /@types/eslint/7.28.2:
+    resolution: {integrity: sha512-KubbADPkfoU75KgKeKLsFHXnU4ipH7wYg0TRT33NK3N3yiu7jlFAAoygIWBV+KbuHx/G+AvuGX6DllnK35gfJA==}
     dependencies:
       '@types/estree': 0.0.50
       '@types/json-schema': 7.0.9
@@ -750,7 +750,7 @@ packages:
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: 2.6.10_sass@1.43.2
+      vite: 2.6.10_sass@1.43.3
     dev: true
 
   /@volar/code-gen/0.28.7:
@@ -2218,8 +2218,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass/1.43.2:
-    resolution: {integrity: sha512-DncYhjl3wBaPMMJR0kIUaH3sF536rVrOcqqVGmTZHQRRzj7LQlyGV7Mb8aCKFyILMr5VsPHwRYtyKpnKYlmQSQ==}
+  /sass/1.43.3:
+    resolution: {integrity: sha512-BJnLngqWpMeS65UvlYYEuCb3/fLxDxhHtOB/gWPxs6NKrslTxGt3ZxwIvOe/0Jm4tWwM/+tIpE3wj4dLEhPDeQ==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
@@ -2369,7 +2369,7 @@ packages:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
 
-  /vite/2.6.10_sass@1.43.2:
+  /vite/2.6.10_sass@1.43.3:
     resolution: {integrity: sha512-XbevwpDJMs3lKiGEj0UQScsOCpwHIjFgfzPnFVkPgnxsF9oPv1uGyckLg58XkXv6LnO46KN9yZqJzINFmAxtUg==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -2389,7 +2389,7 @@ packages:
       postcss: 8.3.11
       resolve: 1.20.0
       rollup: 2.58.0
-      sass: 1.43.2
+      sass: 1.43.3
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
