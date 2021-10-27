@@ -202,32 +202,26 @@ function incrementRange(
 	justify-content: center;
 	align-items: center;
 }
-
 .music-input {
 	display: inline-block;
 	width: 250px;
 }
-
 .music-button {
 	margin-left: 20px;
 }
-
 .music-text-div {
 	margin: 8px;
 	margin-top: 16px;
 	margin-bottom: 8px;
 }
-
 .form-select {
 	width: 300px;
 	margin-left: calc(50% - 150px);
 }
-
 .input-container {
 	margin-top: 16px;
 	margin-bottom: 16px;
 }
-
 .type-select {
 	margin-bottom: 10px;
 }

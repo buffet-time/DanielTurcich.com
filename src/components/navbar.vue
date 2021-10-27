@@ -15,40 +15,40 @@ const overlay = ref(null)
 
 // public
 const links: SidenavLink[] = [
-	{
-		openLink: 'github',
-		buttonText: 'Github',
-		alt: 'github logo',
-		src: githubSrc
-	},
-	{
-		openLink: 'linkedin',
-		buttonText: 'LinkedIn',
-		alt: 'linkedin logo',
-		src: linkedinSrc
-	},
-	{
-		openLink: 'resume',
-		buttonText: 'Resume',
-		alt: 'pdf logo',
-		src: resumeSrc
-	},
-	{
-		openLink: 'bandcamp',
-		buttonText: 'Bandcamp',
-		alt: 'bandcamp logo',
-		src: bandcampSrc
-	},
-	{
-		openLink: 'soundcloud',
-		buttonText: 'Soundcloud',
-		alt: 'soundcloud logo',
-		src: soundcloudSrc
-	}
-]
-const routes: RouteRecordNormalized[] = router
-	.getRoutes()
-	.filter((route) => route.meta['buttonName'] !== undefined)
+		{
+			openLink: 'github',
+			buttonText: 'Github',
+			alt: 'github logo',
+			src: githubSrc
+		},
+		{
+			openLink: 'linkedin',
+			buttonText: 'LinkedIn',
+			alt: 'linkedin logo',
+			src: linkedinSrc
+		},
+		{
+			openLink: 'resume',
+			buttonText: 'Resume',
+			alt: 'pdf logo',
+			src: resumeSrc
+		},
+		{
+			openLink: 'bandcamp',
+			buttonText: 'Bandcamp',
+			alt: 'bandcamp logo',
+			src: bandcampSrc
+		},
+		{
+			openLink: 'soundcloud',
+			buttonText: 'Soundcloud',
+			alt: 'soundcloud logo',
+			src: soundcloudSrc
+		}
+	],
+	routes: RouteRecordNormalized[] = router
+		.getRoutes()
+		.filter((route) => route.meta['buttonName'] !== undefined)
 
 // private
 let sidenavElement: HTMLDivElement
@@ -179,26 +179,22 @@ function closeNav() {
 .hamburger-menu {
 	width: 24px;
 }
-
 .hamburger-button {
 	background-color: transparent !important;
 	border-color: transparent !important;
 	margin-top: -2px;
 	margin-left: 10px;
 }
-
 .hamburger-button:hover {
 	background-color: #6c757d !important;
 	border-color: #6c757d !important;
 }
-
 .route-button {
 	border-color: transparent !important;
 	background-color: #424242 !important;
 	color: white !important;
 	box-shadow: unset !important;
 }
-
 .sidenav {
 	height: 100%;
 	width: 0;
@@ -211,7 +207,6 @@ function closeNav() {
 	transition: 0.25s;
 	padding-top: 60px;
 }
-
 .sidenav .sidenav-close-button {
 	float: right;
 	height: 24px;
@@ -219,14 +214,12 @@ function closeNav() {
 	margin-right: 16px;
 	cursor: pointer;
 }
-
 .sidenav-top-text {
 	font-size: 20px;
 	float: left;
 	padding-top: 14px;
 	padding-left: 16px;
 }
-
 .sidenav-top {
 	/* position: fixed; */
 	z-index: 1;
@@ -235,24 +228,20 @@ function closeNav() {
 	width: 230px;
 	background-color: #398e3d;
 }
-
 .sidenav-card {
 	padding: 0 !important;
 	margin: 0 !important;
 	cursor: pointer;
 }
-
 .sidenav-card-body {
 	background-color: #616161;
 	width: 230px;
 }
-
 .sidenav-card-image {
 	float: left;
 	padding-left: 8px;
 	padding-top: 5px;
 }
-
 .sidenav-card-text {
 	display: flex;
 	height: 100%;
@@ -260,7 +249,6 @@ function closeNav() {
 	justify-content: center;
 	align-items: center;
 }
-
 .sidenav-overlay {
 	opacity: 0;
 	position: fixed;
@@ -270,13 +258,11 @@ function closeNav() {
 	z-index: 1;
 	transition: 0.25s;
 }
-
 .sidenav-card .card-body {
 	padding: 0;
 	height: 45px;
 	margin-top: 1px;
 }
-
 .navbar {
 	background-color: #388e3c;
 	height: 60px;

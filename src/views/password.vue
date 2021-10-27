@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// Public variables
 const passwordLength = ref(16),
 	excludeLowercase = ref(false),
 	excludeUppercase = ref(false),
 	excludeNumbers = ref(false),
 	excludeSymbols = ref(false),
 	textToShow = ref(''),
-	password = ref(''),
-	// prettier-ignore
+	password = ref('')
+
+// Local variables
+const // prettier-ignore
 	lowercaseLetters = [
 	'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
@@ -30,34 +33,23 @@ const passwordLength = ref(16),
 ]
 
 function generatePassword() {
-	let passwordCharacters = ['']
 	password.value = ''
 
-	if (!excludeLowercase.value)
-		passwordCharacters = passwordCharacters.concat(lowercaseLetters)
-
-	if (!excludeUppercase.value)
-		passwordCharacters = passwordCharacters.concat(uppercaseLetters)
-
-	if (!excludeNumbers.value)
-		passwordCharacters = passwordCharacters.concat(numbers)
-
-	if (!excludeSymbols.value)
-		passwordCharacters = passwordCharacters.concat(symbols)
+	const passwordCharacters = ['']
+	if (!excludeLowercase.value) passwordCharacters.push(...lowercaseLetters)
+	if (!excludeUppercase.value) passwordCharacters.push(...uppercaseLetters)
+	if (!excludeNumbers.value) passwordCharacters.push(...numbers)
+	if (!excludeSymbols.value) passwordCharacters.push(...symbols)
 
 	for (let i = 0; i < passwordLength.value; i++)
 		password.value +=
-			passwordCharacters[randomInt(0, passwordCharacters.length - 1)]
+			passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)]
 
 	textToShow.value = password.value
 }
 
 function copyPassword() {
 	navigator.clipboard.writeText(password.value)
-}
-
-function randomInt(min: number, max: number): number {
-	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 </script>
 
@@ -150,27 +142,22 @@ function randomInt(min: number, max: number): number {
 .password-length-range {
 	width: 300px;
 }
-
 .password-generator-options {
 	margin-bottom: 16px;
 }
-
 .password-generator-checkboxes {
 	display: inline-block;
 	text-align: left;
 }
-
 .password-text-div {
 	display: inline-block;
 	margin-right: 24px;
 	margin-top: 8px;
 	margin-bottom: 8px;
 }
-
 .password-copy-button {
 	margin-left: 5px;
 }
-
 .password-generate-button {
 	margin-top: 8px;
 }

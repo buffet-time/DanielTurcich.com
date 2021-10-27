@@ -17,19 +17,10 @@ const generators: Generator[] = reactive([
 ])
 
 function addGenerator(type: GeneratorType) {
-	let availableId = 0
-	while (isIdInUse(availableId)) {
-		availableId++
-	}
-
 	generators.push({
-		id: availableId,
+		id: generators.length > 0 ? generators[generators.length - 1].id + 1 : 0,
 		generatorType: type
 	})
-}
-
-function isIdInUse(id: number) {
-	return generators.some((generator) => generator.id === id)
 }
 </script>
 
@@ -111,21 +102,17 @@ function isIdInUse(id: number) {
 	border-radius: 10px;
 	padding: 3px;
 }
-
 .release-close-button {
 	height: 24px;
 	cursor: pointer;
 }
-
 .modal-content {
 	background-color: #383838;
 	color: lightgray;
 }
-
 .note-modal-button {
 	margin-left: 8px;
 }
-
 .modal-dialog {
 	width: 300px;
 }

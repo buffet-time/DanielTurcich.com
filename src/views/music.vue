@@ -48,10 +48,10 @@ let scoreCount = 0,
 
 // Lifecycle Hooks
 onBeforeMount(async () => {
-	// add possible functionality to export last.fm to chart?
 	await initializeSheets()
 	initializing.value = false
 
+	// TODO: handle doing this without twice reversing the array because i was lazy
 	releasesArray.value.reverse().forEach((current) => {
 		if (!artistArray.includes(current[Release.artist]))
 			artistArray.push(current[Release.artist])
@@ -159,13 +159,11 @@ function isNum(value: string) {
 .nav-link {
 	color: white;
 }
-
 .nav-tabs {
 	width: 155px;
 	margin-left: calc(50% - 77.5px);
 	margin-bottom: 16px;
 }
-
 .nav-link:hover,
 .nav-link:focus {
 	color: white;

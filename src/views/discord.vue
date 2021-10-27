@@ -12,12 +12,15 @@ function discordButtonPressed() {
 	const input = discordInput.value.trim() + ' '
 
 	discordText.value = ''
-	if (input && discordInput.value.length < maxLength) {
+	if (discordInput.value.length < maxLength)
 		while (input.length < maxLength) {
 			if (discordText.value.length + input.length > maxLength) break
 			discordText.value = discordText.value + input
 		}
-	}
+}
+
+function copy() {
+	navigator.clipboard.writeText(discordText.value)
 }
 </script>
 
@@ -56,7 +59,7 @@ function discordButtonPressed() {
 		<button
 			v-show="discordText.length > 0"
 			class="btn btn-secondary"
-			@click="navigator.clipboard.writeText(discordText)"
+			@click="copy"
 		>
 			Copy
 		</button>
@@ -68,18 +71,15 @@ function discordButtonPressed() {
 	display: inline-block;
 	width: 250px;
 }
-
 .discord-button {
 	margin-left: 20px;
 	margin-top: 12px;
 }
-
 .discord-text-div {
 	margin: 24px;
 	margin-top: 16px;
 	margin-bottom: 8px;
 }
-
 .nitro-checkbox {
 	height: 1.25em;
 	width: 1.25em;

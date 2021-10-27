@@ -27,6 +27,7 @@
 	},
 	"plugins": ["vue", "@typescript-eslint", "prettier"],
 	"rules": {
+		"no-fallthrough": 0,
 		"prefer-const": "error",
 		"no-mixed-spaces-and-tabs": 0,
 		"prettier/prettier": "error",

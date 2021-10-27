@@ -20,7 +20,6 @@
 		"noImplicitReturns": true,
 		"noUnusedParameters": true,
 		"allowUnreachableCode": false,
-		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true,
 
 		"baseUrl": ".",

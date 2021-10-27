@@ -61,7 +61,6 @@ defineProps<{
 	margin-left: calc(50% - 200px);
 	color: white;
 }
-
 th {
 	font-weight: normal;
 	font-size: large;

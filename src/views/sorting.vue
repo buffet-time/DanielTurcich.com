@@ -662,16 +662,13 @@ async function shellSort() {
 	height: calc(100vh - 60px);
 	display: flex;
 }
-
 .settings {
 	flex: 0 0 300px;
 	align-self: center;
 }
-
 .pixi-canvas {
 	flex: 1 1 auto;
 }
-
 .sorting-button {
 	margin-right: 8px;
 	margin-bottom: 8px;
@@ -679,7 +676,6 @@ async function shellSort() {
 	width: 43%;
 	line-height: normal;
 }
-
 .password-length-range {
 	width: 280px;
 }

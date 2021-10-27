@@ -37,7 +37,6 @@ import Navbar from './components/navbar.vue'
 		U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
 		U+FEFF, U+FFFD;
 }
-
 // latin-ext
 @font-face {
 	font-display: swap;
@@ -49,7 +48,6 @@ import Navbar from './components/navbar.vue'
 	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
 		U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 #app {
 	font-family: Roboto, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -57,26 +55,21 @@ import Navbar from './components/navbar.vue'
 	text-align: center;
 	color: #fff;
 }
-
 body {
 	background-color: #303030;
 }
-
 .card {
 	margin: 20px;
 	color: #fff;
 	text-align: left;
 	background-color: #424242 !important;
 }
-
 .disable-select {
 	user-select: none;
 }
-
 .card-text {
 	padding-left: 16px;
 }
-
 .app-title {
 	margin-top: 8px;
 }

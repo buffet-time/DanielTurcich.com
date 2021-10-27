@@ -77,11 +77,9 @@ function getWordsFromProvidedAcronym(acronym: string) {
 	display: inline-block;
 	width: 250px;
 }
-
 .acronym-button {
 	margin-left: 20px;
 }
-
 .acronym-text-div {
 	display: inline-block;
 	text-transform: capitalize;
@@ -89,11 +87,9 @@ function getWordsFromProvidedAcronym(acronym: string) {
 	margin-top: 8px;
 	margin-bottom: 8px;
 }
-
 .generated-text-div {
 	margin-top: 12px;
 }
-
 @media screen and (max-width: 400px) {
 	.acronym-button {
 		margin: 16px auto;

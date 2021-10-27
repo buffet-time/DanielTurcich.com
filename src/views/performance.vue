@@ -69,26 +69,21 @@ function getFuncs() {
 	height: calc(100vh - 60px);
 	display: flex;
 }
-
 .form-group {
 	width: 98%;
 	margin-left: 1%;
 	margin-top: 1%;
 }
-
 .form-control {
 	height: 41vh;
 }
-
 .functions-container {
 	flex: 1 1 auto;
 }
-
 .other-container {
 	flex: 0 0 200px;
 	align-self: center;
 }
-
 .perf-button {
 	margin-bottom: 16px;
 	height: 50px;
