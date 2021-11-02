@@ -19,10 +19,10 @@ const sleepTime = ref(0),
 	sorts: Ref<SortingAlgorithm[]> = ref([
 		{ buttonText: 'Bubble Sort', method: bubbleSort },
 		{ buttonText: 'Insertion Sort', method: insertionSort },
-		{ buttonText: 'Selection Sort', method: selectionSort },
 		{ buttonText: 'Cocktail Shaker Sort', method: cocktailShakerSort },
-		{ buttonText: 'Quicksort', method: callQuickSort },
+		{ buttonText: 'Selection Sort', method: selectionSort },
 		{ buttonText: 'Merge Sort', method: callMergeSort },
+		{ buttonText: 'Quicksort', method: callQuickSort },
 		{ buttonText: 'Heap Sort', method: callHeapSort },
 		{ buttonText: 'Shell Sort', method: shellSort }
 		// { buttonText: 'Bitonic Sort', method: bitonicsort }
@@ -31,7 +31,6 @@ const sleepTime = ref(0),
 // Private
 let Context2d: CanvasRenderingContext2D,
 	Canvas: HTMLCanvasElement,
-	Dpi: number,
 	audioContext!: AudioContext,
 	oscillator!: OscillatorNode,
 	gainNode!: GainNode,
@@ -58,12 +57,9 @@ watch(volume, () => {
 // Lifecycle hooks
 onMounted(async () => {
 	sortingMethodStartedBools()
-	Dpi = window.devicePixelRatio
 	Canvas = document.getElementById('canvas') as HTMLCanvasElement
-	console.log(0, window.innerHeight)
-	Canvas.setAttribute('height', window.innerHeight.toString())
-	console.log(1, window.innerWidth)
-	Canvas.setAttribute('width', window.innerWidth.toString())
+	Canvas.setAttribute('height', String(window.innerHeight - 64))
+	Canvas.setAttribute('width', String(window.innerWidth - 300))
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	Context2d = Canvas.getContext('2d')!
 	fixDpi()
@@ -80,20 +76,22 @@ function executeMethod(this: any, method: Function) {
 }
 
 function fixDpi() {
-	//the + prefix casts it to an integer
-	//the slice method gets rid of "px"
-	//scale the canvas
+	// the + prefix casts it to an integer
+	// the slice method gets rid of "px"
+	// scale the canvas
 	Canvas.setAttribute(
 		'height',
-		(
-			+getComputedStyle(Canvas).getPropertyValue('height').slice(0, -2) * Dpi
-		).toString()
+		String(
+			+getComputedStyle(Canvas).getPropertyValue('height').slice(0, -2) *
+				window.devicePixelRatio
+		)
 	)
 	Canvas.setAttribute(
 		'width',
-		(
-			+getComputedStyle(Canvas).getPropertyValue('width').slice(0, -2) * Dpi
-		).toString()
+		String(
+			+getComputedStyle(Canvas).getPropertyValue('width').slice(0, -2) *
+				window.devicePixelRatio
+		)
 	)
 }
 
@@ -478,9 +476,11 @@ async function merge(
 	}
 
 	// merge based on height
-	const combinedArray = resultSortingArray
-		.concat(left.slice(leftIndex))
-		.concat(right.slice(rightIndex))
+	const combinedArray = [
+		...resultSortingArray,
+		...left.slice(leftIndex),
+		...right.slice(rightIndex)
+	]
 
 	// get all the x values of the current array and sort them and then set the merged contents above.
 	// TODO create a mergesort for a normal array instead of using builtin

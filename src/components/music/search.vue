@@ -38,7 +38,7 @@ watch(searchType, () => {
 			searchInput.value = 'Album'
 			break
 		case Release.year:
-			searchInput.value = latestYear.value.toString()
+			searchInput.value = String(latestYear.value)
 			break
 		default:
 			searchInput.value = ''
@@ -92,9 +92,9 @@ function incrementRange(
 	maximum: number
 ) {
 	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum)
-		searchInput.value = (searchInput.value + -incrementAmount).toString()
+		searchInput.value = String(searchInput.value + -incrementAmount)
 	else if (key === 'ArrowRight' && Number(searchInput.value) < maximum)
-		searchInput.value = (searchInput.value + incrementAmount).toString()
+		searchInput.value = String(searchInput.value + incrementAmount)
 }
 </script>
 
@@ -151,7 +151,7 @@ function incrementRange(
 					<br />
 					<input
 						v-model="searchInput"
-						:placeholder="latestYear.toString()"
+						:placeholder="String(latestYear)"
 						type="range"
 						class="music-input form-range"
 						:min="earliestYear"
