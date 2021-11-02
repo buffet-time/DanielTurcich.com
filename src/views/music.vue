@@ -52,7 +52,7 @@ onBeforeMount(async () => {
 	initializing.value = false
 
 	// TODO: handle doing this without twice reversing the array because i was lazy
-	releasesArray.value.reverse().forEach((current) => {
+	for (const current of releasesArray.value.reverse()) {
 		if (!artistArray.includes(current[Release.artist]))
 			artistArray.push(current[Release.artist])
 
@@ -72,7 +72,7 @@ onBeforeMount(async () => {
 			? // @ts-ignore
 			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
 			: releasePerYear[ReleasesIn['1950s']]++
-	})
+	}
 
 	releasesArray.value.reverse()
 
@@ -95,7 +95,7 @@ async function initializeSheets() {
 	)
 		.flat()
 		.filter((current: string[]) => {
-			current.forEach((element) => element.trim())
+			for (const element of current) element.trim()
 			return current.length > 5 // makes sure to not include any not fully written reviews
 		})
 }

@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { PixiRect, SortingAlgorithm } from '../typings'
-import { Application, Graphics } from 'pixi.js'
-import { onBeforeUnmount, onMounted, Ref, ref, watch } from 'vue'
+import { SortingRect, SortingAlgorithm } from '../typings'
+import { onMounted, Ref, ref, watch } from 'vue'
+
+// TODO:
+// Show time to draw and time to execute
+// Show array accesses?
+// Show swaps?
 
 // Public
-const pixi = ref(null),
-	sleepTime = ref(0),
+const sleepTime = ref(0),
 	numberOfRectangles = ref(100),
 	disableSortButtons = ref(false),
 	stopExecution = ref(false),
@@ -21,18 +24,18 @@ const pixi = ref(null),
 		{ buttonText: 'Quicksort', method: callQuickSort },
 		{ buttonText: 'Merge Sort', method: callMergeSort },
 		{ buttonText: 'Heap Sort', method: callHeapSort },
-		{ buttonText: 'Bogo Sort', method: bogoSort },
 		{ buttonText: 'Shell Sort', method: shellSort }
 		// { buttonText: 'Bitonic Sort', method: bitonicsort }
 	])
 
 // Private
-let app!: Application,
-	canvasElement!: HTMLCanvasElement,
+let Context2d: CanvasRenderingContext2D,
+	Canvas: HTMLCanvasElement,
+	Dpi: number,
 	audioContext!: AudioContext,
 	oscillator!: OscillatorNode,
 	gainNode!: GainNode,
-	sortingArray: PixiRect[] = [],
+	sortingArray: SortingRect[] = [],
 	quickSortIndex = 0,
 	pendingRecursiveCalls = 0,
 	audioIntialized = false
@@ -55,30 +58,43 @@ watch(volume, () => {
 // Lifecycle hooks
 onMounted(async () => {
 	sortingMethodStartedBools()
-	canvasElement = pixi.value as unknown as HTMLCanvasElement
-	app = new Application({
-		autoStart: true,
-		antialias: false,
-		width: canvasElement.clientWidth,
-		height: canvasElement.clientHeight,
-		view: canvasElement,
-		clearBeforeRender: false,
-		powerPreference: 'high-performance',
-		sharedTicker: false,
-		sharedLoader: false,
-		resizeTo: canvasElement
-	})
+	Dpi = window.devicePixelRatio
+	Canvas = document.getElementById('canvas') as HTMLCanvasElement
+	console.log(0, window.innerHeight)
+	Canvas.setAttribute('height', window.innerHeight.toString())
+	console.log(1, window.innerWidth)
+	Canvas.setAttribute('width', window.innerWidth.toString())
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	Context2d = Canvas.getContext('2d')!
+	fixDpi()
+	Context2d.fillStyle = '#0F0'
 	createUnsortedArray()
 	await drawAllRectangles()
 	sortingMethodEndedBools()
 })
 
-onBeforeUnmount(() => app.destroy())
-
 // Methods
 // eslint-disable-next-line @typescript-eslint/ban-types
 function executeMethod(this: any, method: Function) {
 	method.call(this)
+}
+
+function fixDpi() {
+	//the + prefix casts it to an integer
+	//the slice method gets rid of "px"
+	//scale the canvas
+	Canvas.setAttribute(
+		'height',
+		(
+			+getComputedStyle(Canvas).getPropertyValue('height').slice(0, -2) * Dpi
+		).toString()
+	)
+	Canvas.setAttribute(
+		'width',
+		(
+			+getComputedStyle(Canvas).getPropertyValue('width').slice(0, -2) * Dpi
+		).toString()
+	)
 }
 
 async function stop(): Promise<void> {
@@ -93,10 +109,10 @@ async function randomizeArray(): Promise<void> {
 	sortingMethodStartedBools()
 	audioForRandomizing()
 
-	while (sortingArray.length > 0) {
-		sortingArray.pop()
-		app.stage.children[0].destroy()
-	}
+	Context2d.fillStyle = '#303030'
+	Context2d.fillRect(0, 0, Canvas.width, Canvas.height)
+	Context2d.fillStyle = '#0F0'
+
 	createUnsortedArray()
 
 	await drawAllRectangles()
@@ -148,15 +164,23 @@ function sortingMethodEndedBools() {
 	disableStopButton.value = true
 }
 
-function swapArrayElements(indexOne: number, indexTwo: number) {
-	// swap the x positions of the 2 rectangles
-	const temp1 = sortingArray[indexOne].x
-	sortingArray[indexOne].x = sortingArray[indexTwo].x
-	sortingArray[indexTwo].x = temp1
-	// then swap their position in the array
-	const temp2 = sortingArray[indexOne]
-	sortingArray[indexOne] = sortingArray[indexTwo]
-	sortingArray[indexTwo] = temp2
+// swap the x and Frequency values then swap the objects
+function swapArrayElements(index1: number, index2: number) {
+	;[
+		sortingArray[index1].x,
+		sortingArray[index2].x,
+		sortingArray[index1].frequency,
+		sortingArray[index2].frequency,
+		sortingArray[index1],
+		sortingArray[index2]
+	] = [
+		sortingArray[index2].x,
+		sortingArray[index1].x,
+		sortingArray[index2].frequency,
+		sortingArray[index1].frequency,
+		sortingArray[index2],
+		sortingArray[index1]
+	]
 }
 
 async function drawAllRectangles() {
@@ -164,66 +188,66 @@ async function drawAllRectangles() {
 }
 
 async function redrawRectangles(firstIndex: number, secondIndex: number) {
-	app.stage.swapChildren(
-		(app.stage.children[secondIndex] as Graphics).clear(),
-		(app.stage.children[firstIndex] as Graphics).clear()
-	)
+	// blank out the recatngles that are being swapped
+	eraseRectangle(firstIndex)
+	eraseRectangle(secondIndex)
 
+	// redraw them
+	swapArrayElements(firstIndex, secondIndex)
 	await redrawRectangle(firstIndex)
 	await redrawRectangle(secondIndex)
 }
 
 async function drawRectangle(index: number) {
-	app.stage.addChild(
-		new Graphics()
-			.beginFill(0x00ff00)
-			.drawRect(
-				sortingArray[index].x,
-				sortingArray[index].y,
-				sortingArray[index].width,
-				sortingArray[index].height
-			)
-			.endFill()
+	Context2d.fillRect(
+		sortingArray[index].x,
+		sortingArray[index].y,
+		sortingArray[index].width,
+		sortingArray[index].height
 	)
 	await sleep(sleepTime.value)
 }
 
+function eraseRectangle(index: number) {
+	Context2d.fillStyle = '#303030'
+	Context2d.fillRect(
+		sortingArray[index].x - 1,
+		sortingArray[index].y - 1,
+		sortingArray[index].width + 2,
+		sortingArray[index].height + 2
+	)
+	Context2d.fillStyle = '#0F0'
+}
+
+function eraseRectangleByObject(rect: SortingRect) {
+	Context2d.fillStyle = '#303030'
+	Context2d.fillRect(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2)
+	Context2d.fillStyle = '#0F0'
+}
+
 async function redrawRectangle(index: number) {
 	beep(sortingArray[index].frequency)
-	;(app.stage.children[index] as Graphics)
-		.beginFill(0x00ff00)
-		.drawRect(
-			sortingArray[index].x,
-			sortingArray[index].y,
-			sortingArray[index].width,
-			sortingArray[index].height
-		)
-		.endFill()
-	await sleep(sleepTime.value)
+	await drawRectangle(index)
 }
 
 function createUnsortedArray() {
-	const divWidth = canvasElement.clientWidth,
-		widthOfRectangle = divWidth / numberOfRectangles.value,
-		divHeight = canvasElement.clientHeight,
-		heightOfRectangle = divHeight / numberOfRectangles.value,
-		widthValue = widthOfRectangle - 1,
+	sortingArray = []
+	const widthOfRect = Canvas.width / numberOfRectangles.value,
+		heightOfRect = Canvas.height / numberOfRectangles.value,
 		lowFrequencyBound = 100,
 		highFrequencyBound = 10000,
 		frequencyIncrease = highFrequencyBound / numberOfRectangles.value
 
-	for (let n = 0; n < numberOfRectangles.value; n++) {
+	for (let n = 0; n < numberOfRectangles.value; n++)
 		sortingArray.push({
-			x: Number((n * widthOfRectangle).toFixed(2)),
-			y: Number((divHeight - (n + 1) * heightOfRectangle).toFixed(2)),
-			width: Number(widthValue.toFixed(2)),
-			height: Number((n * heightOfRectangle + heightOfRectangle).toFixed(2)),
+			x: widthOfRect * n,
+			y: Canvas.height - heightOfRect * (n + 1),
+			width: widthOfRect - 1,
+			height: Canvas.height - (heightOfRect - (n + 1)),
 			frequency: frequencyIncrease * n + lowFrequencyBound
 		})
-	}
 
-	const sortingLengthMultiplied = numberOfRectangles.value * 10
-	for (let n = 0; n < sortingLengthMultiplied; n++) randomSwaps()
+	for (let n = 0; n < numberOfRectangles.value * 10; n++) randomSwaps()
 }
 
 function randomSwaps() {
@@ -286,7 +310,6 @@ async function bubbleSort() {
 			if (stopExecution.value) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
-				swapArrayElements(n, n + 1)
 				await redrawRectangles(n, n + 1)
 				swapped = true
 			}
@@ -299,7 +322,7 @@ async function insertionSort() {
 	sortingMethodStarted()
 	const length = sortingArray.length
 	let j = 0,
-		current: PixiRect
+		current: SortingRect
 
 	for (let i = 1; i < length; i++) {
 		current = sortingArray[i]
@@ -307,7 +330,6 @@ async function insertionSort() {
 		for (j = i - 1; j >= 0 && sortingArray[j].height > current.height; j--) {
 			if (stopExecution.value) return
 
-			swapArrayElements(j, j + 1)
 			await redrawRectangles(j, j + 1)
 		}
 
@@ -328,10 +350,7 @@ async function selectionSort() {
 
 			if (sortingArray[x].height < sortingArray[minHeight].height) minHeight = x
 		}
-		if (minHeight !== n) {
-			swapArrayElements(minHeight, n)
-			await redrawRectangles(n, minHeight)
-		}
+		if (minHeight !== n) await redrawRectangles(n, minHeight)
 	}
 	sortingMethodEnded()
 }
@@ -347,23 +366,20 @@ async function cocktailShakerSort() {
 			if (stopExecution.value) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
-				swapArrayElements(n, n + 1)
 				await redrawRectangles(n, n + 1)
 				sorted = false
 			}
 			n++
 		}
 
-		if (sorted) {
-			break
-		}
+		if (sorted) break
+
 		sorted = true
 
 		while (n > 0) {
 			if (stopExecution.value) return
 
 			if (sortingArray[n - 1].height > sortingArray[n].height) {
-				swapArrayElements(n, n - 1)
 				await redrawRectangles(n, n - 1)
 				sorted = false
 			}
@@ -409,7 +425,6 @@ async function quicksortPartition(left: number, right: number) {
 		while (sortingArray[right].height > pivot.height) right--
 
 		if (left <= right) {
-			swapArrayElements(left, right)
 			await redrawRectangles(left, right)
 			left++
 			right--
@@ -431,7 +446,7 @@ async function callMergeSort() {
 	}
 }
 
-async function mergeSort(unsorted: PixiRect[]): Promise<PixiRect[]> {
+async function mergeSort(unsorted: SortingRect[]): Promise<SortingRect[]> {
 	if (stopExecution.value) return []
 	if (unsorted.length < 2) return unsorted
 
@@ -443,53 +458,60 @@ async function mergeSort(unsorted: PixiRect[]): Promise<PixiRect[]> {
 	)
 }
 
-async function merge(left: PixiRect[], right: PixiRect[]): Promise<PixiRect[]> {
-	const resultPixiArray: PixiRect[] = []
+// Less efficient and slightly modified to handle drawing properly
+async function merge(
+	left: SortingRect[],
+	right: SortingRect[]
+): Promise<SortingRect[]> {
+	const resultSortingArray: SortingRect[] = []
 	let leftIndex = 0
 	let rightIndex = 0
 
 	while (leftIndex < left.length && rightIndex < right.length) {
 		if (left[leftIndex].height < right[rightIndex].height) {
-			resultPixiArray.push(left[leftIndex])
+			resultSortingArray.push(left[leftIndex])
 			leftIndex++
 		} else {
-			resultPixiArray.push(right[rightIndex])
+			resultSortingArray.push(right[rightIndex])
 			rightIndex++
 		}
 	}
 
 	// merge based on height
-	const combinedArray = resultPixiArray
+	const combinedArray = resultSortingArray
 		.concat(left.slice(leftIndex))
 		.concat(right.slice(rightIndex))
 
 	// get all the x values of the current array and sort them and then set the merged contents above.
 	// TODO create a mergesort for a normal array instead of using builtin
 	const combinedXArray = combinedArray
-		.map((rect) => rect.x)
-		.sort((a, b) => a - b)
+		.map((rect) => {
+			eraseRectangleByObject(rect)
+			return { x: rect.x, frequency: rect.frequency }
+		})
+		.sort((a, b) => a.x - b.x)
 
-	for (let n = 0; n < combinedXArray.length; n++)
-		combinedArray[n].x = combinedXArray[n]
+	for (let n = 0; n < combinedXArray.length; n++) {
+		combinedArray[n].x = combinedXArray[n].x
+		combinedArray[n].frequency = combinedXArray[n].frequency
+	}
 
 	// gets an array of the index value of where the subarray is from the main array
 	const indexArray = []
 	const xValues = combinedArray.map((rect) => rect.height)
 
-	for (const value of xValues) {
+	for (const xValue of xValues)
 		indexArray.push(
 			sortingArray.findIndex(
 				(rect) =>
 					rect.height ===
-					combinedArray[xValues.findIndex((blah) => blah === value)].height
+					combinedArray[xValues.findIndex((x) => x === xValue)].height
 			)
 		)
-	}
 
 	// drawing of the rectangles
 	for (let n = 0; n < combinedArray.length; n++) {
 		if (stopExecution.value) return []
-		;(app.stage.children[indexArray[n]] as Graphics).clear()
 		await redrawRectangle(indexArray[n])
 	}
 
@@ -512,7 +534,6 @@ async function heapSort() {
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
 		if (stopExecution.value) return
 
-		swapArrayElements(0, n)
 		redrawRectangles(0, n)
 		await heapify(n, 0)
 	}
@@ -532,27 +553,9 @@ async function heapify(size: number, index: number) {
 		max = right
 
 	if (max != index) {
-		swapArrayElements(index, max)
 		await redrawRectangles(index, max)
 		await heapify(size, max)
 	}
-}
-
-async function bogoSort() {
-	sortingMethodStarted()
-
-	while (!isSorted()) {
-		const length = sortingArray.length * 3
-		for (let index = 0; index < length; index++) {
-			if (stopExecution.value) return
-
-			const indexes = randomSwaps()
-
-			await redrawRectangles(indexes[0], indexes[1])
-		}
-	}
-
-	sortingMethodEnded()
 }
 
 async function shellSort() {
@@ -574,7 +577,6 @@ async function shellSort() {
 				n -= gap
 			) {
 				if (stopExecution.value) return
-				swapArrayElements(n, n - gap)
 				await redrawRectangles(n, n - gap)
 			}
 
@@ -653,7 +655,7 @@ async function shellSort() {
 				{{ algorithm.buttonText }}
 			</button>
 		</div>
-		<canvas v-once ref="pixi" class="pixi-canvas disable-select"></canvas>
+		<canvas v-once id="canvas" class="canvas disable-select"></canvas>
 	</div>
 </template>
 
@@ -666,7 +668,7 @@ async function shellSort() {
 	flex: 0 0 300px;
 	align-self: center;
 }
-.pixi-canvas {
+.canvas {
 	flex: 1 1 auto;
 }
 .sorting-button {

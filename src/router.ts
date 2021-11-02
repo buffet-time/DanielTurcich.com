@@ -8,9 +8,9 @@ const Home = () => import('./views/home.vue'),
 	Password = () => import('./views/password.vue'),
 	Discord = () => import('./views/discord.vue'),
 	Sorting = () => import('./views/sorting.vue'),
-	// const Performance = () => import('./components/performance.vue')
 	Music = () => import('./views/music.vue'),
 	Frequency = () => import('./views/frequency.vue'),
+	// const Performance = () => import('./components/performance.vue')
 	resume =
 		'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view',
 	// TODO catch routes that dont exist and redirect to home

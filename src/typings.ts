@@ -1,4 +1,4 @@
-export interface PixiRect {
+export interface SortingRect {
 	x: number
 	y: number
 	width: number
