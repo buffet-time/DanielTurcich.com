@@ -46,13 +46,11 @@ let scoreCount = 0,
 	tempScore = 0,
 	tempYear = 0
 
-// Lifecycle Hooks
 onBeforeMount(async () => {
 	await initializeSheets()
 	initializing.value = false
 
-	// TODO: handle doing this without twice reversing the array because i was lazy
-	for (const current of releasesArray.value.reverse()) {
+	for (const current of releasesArray.value) {
 		if (!artistArray.includes(current[Release.artist]))
 			artistArray.push(current[Release.artist])
 
@@ -73,8 +71,6 @@ onBeforeMount(async () => {
 			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
 			: releasePerYear[ReleasesIn['1950s']]++
 	}
-
-	releasesArray.value.reverse()
 
 	statsObject.value = {
 		averageScore: (tempScore / scoreCount).toFixed(2),

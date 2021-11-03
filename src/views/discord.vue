@@ -7,7 +7,6 @@ const discordInput = ref(''),
 	discordText = ref('')
 
 function discordButtonPressed() {
-	// TODO: handle no spaces printing properly
 	const maxLength = nitro.value ? 4000 : 2000
 	const input = discordInput.value.trim() + ' '
 

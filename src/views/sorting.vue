@@ -6,6 +6,8 @@ import { onMounted, Ref, ref, watch } from 'vue'
 // Show time to draw and time to execute
 // Show array accesses?
 // Show swaps?
+// Break this down into components/ more TS files
+// Add implementations of WebGL and WebGL2 rendering and a switch for each
 
 // Public
 const sleepTime = ref(0),
@@ -16,6 +18,7 @@ const sleepTime = ref(0),
 	disableRandomizeButton = ref(false),
 	disableRectangleSlider = ref(false),
 	volume = ref(0.025),
+	// executionTime = ref(0),
 	sorts: Ref<SortingAlgorithm[]> = ref([
 		{ buttonText: 'Bubble Sort', method: bubbleSort },
 		{ buttonText: 'Insertion Sort', method: insertionSort },
@@ -37,7 +40,8 @@ let Context2d: CanvasRenderingContext2D,
 	sortingArray: SortingRect[] = [],
 	quickSortIndex = 0,
 	pendingRecursiveCalls = 0,
-	audioIntialized = false
+	audioIntialized = false,
+	timestamp = 0
 
 // Watchers
 watch(numberOfRectangles, () => {
@@ -100,7 +104,8 @@ async function stop(): Promise<void> {
 	oscillator.disconnect()
 	await sleep(500) // easy safe way to ensure all operations are done
 	stopExecution.value = false
-	sortingMethodEnded()
+	oscillator.disconnect()
+	sortingMethodEndedBools()
 }
 
 async function randomizeArray(): Promise<void> {
@@ -114,7 +119,8 @@ async function randomizeArray(): Promise<void> {
 	createUnsortedArray()
 
 	await drawAllRectangles()
-	sortingMethodEnded()
+	oscillator.disconnect()
+	sortingMethodEndedBools()
 }
 
 // sorting methods to add
@@ -141,9 +147,11 @@ function sortingMethodStarted() {
 	intializeAudio()
 	oscillator.connect(gainNode).connect(audioContext.destination)
 	sortingMethodStartedBools()
+	timestamp = Date.now()
 }
 
 function sortingMethodEnded() {
+	console.log(Date.now() - timestamp)
 	oscillator.disconnect()
 	sortingMethodEndedBools()
 }
@@ -483,7 +491,6 @@ async function merge(
 	]
 
 	// get all the x values of the current array and sort them and then set the merged contents above.
-	// TODO create a mergesort for a normal array instead of using builtin
 	const combinedXArray = combinedArray
 		.map((rect) => {
 			eraseRectangleByObject(rect)
