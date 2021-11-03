@@ -33,7 +33,7 @@ function addGenerator(type: GeneratorType) {
 		:key="generator.id"
 		:index="index"
 		:generator="generator"
-		@deleteGenerator="generators.splice(index, 1)"
+		@delete-generator="generators.splice(index, 1)"
 	/>
 
 	<!-- @updateSettings="updateSettings(type, value, index)" -->
@@ -115,5 +115,6 @@ function addGenerator(type: GeneratorType) {
 }
 .modal-dialog {
 	width: 300px;
+	margin: 1.75rem auto;
 }
 </style>

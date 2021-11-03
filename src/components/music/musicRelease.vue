@@ -79,6 +79,10 @@ function copyReviews() {
 </template>
 
 <style scoped>
+.modal-dialog {
+	padding: 4%;
+	max-width: 600px;
+}
 .modal-content {
 	background-color: #383838;
 	color: lightgray;

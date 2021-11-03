@@ -6,7 +6,7 @@ import { onMounted, Ref, ref, watch } from 'vue'
 // Show time to draw and time to execute
 // Show array accesses?
 // Show swaps?
-// Break this down into components/ more TS files
+// Break this down into components/ more TS files // hopw to do this optimally?
 // Add implementations of WebGL and WebGL2 rendering and a switch for each
 
 // Public
@@ -39,7 +39,6 @@ let Context2d: CanvasRenderingContext2D,
 	gainNode!: GainNode,
 	sortingArray: SortingRect[] = [],
 	quickSortIndex = 0,
-	pendingRecursiveCalls = 0,
 	audioIntialized = false,
 	timestamp = 0
 
@@ -395,12 +394,10 @@ async function cocktailShakerSort() {
 	sortingMethodEnded()
 }
 
-function callQuickSort() {
-	if (!isSorted()) {
-		sortingMethodStarted()
-		pendingRecursiveCalls = 0
-		quickSort(0, sortingArray.length - 1)
-	}
+async function callQuickSort() {
+	sortingMethodStarted()
+	await quickSort(0, sortingArray.length - 1)
+	sortingMethodEnded()
 }
 
 async function quickSort(left: number, right: number) {
@@ -408,16 +405,10 @@ async function quickSort(left: number, right: number) {
 	if (stopExecution.value) return
 
 	//more elements on the left side of the pivot
-	if (left < quickSortIndex - 1) {
-		pendingRecursiveCalls++
-		quickSort(left, quickSortIndex - 1)
-	}
+	if (left < quickSortIndex - 1) await quickSort(left, quickSortIndex - 1)
+
 	//more elements on the right side of the pivot
-	if (quickSortIndex < right) {
-		pendingRecursiveCalls++
-		quickSort(quickSortIndex, right)
-	}
-	if (pendingRecursiveCalls-- === 0) sortingMethodEnded()
+	if (quickSortIndex < right) await quickSort(quickSortIndex, right)
 }
 
 async function quicksortPartition(left: number, right: number) {
@@ -541,7 +532,7 @@ async function heapSort() {
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
 		if (stopExecution.value) return
 
-		redrawRectangles(0, n)
+		await redrawRectangles(0, n)
 		await heapify(n, 0)
 	}
 }
