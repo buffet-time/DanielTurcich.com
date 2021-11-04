@@ -76,6 +76,10 @@ const Home = () => import('./views/home.vue'),
 					'https://docs.google.com/spreadsheets/d/1Ru91tRwbJSL7aAruHrhRORBRB2Y1-XGcyWFPtnwW6O4/edit?usp=sharing'
 				return 'redirecting'
 			}
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			redirect: '/'
 		}
 		// TODO - self explantory
 		// {
