@@ -84,6 +84,7 @@ function sortingMethodStarted() {
 }
 
 function sortingMethodEnded() {
+	sortingMethod.value = ''
 	console.log(Date.now() - timestamp)
 	oscillator.value.disconnect()
 	sortingMethodEndedBools()

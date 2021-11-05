@@ -49,6 +49,8 @@ watch(
 watch(
 	() => props.sortingMethod,
 	async (newValue) => {
+		if (newValue === '') return
+
 		emit('sortingMethodStarted')
 		switch (newValue) {
 			case 'Bubble':
