@@ -13,10 +13,16 @@ export interface SidenavLink {
 	buttonText: string
 }
 
-export interface SortingAlgorithm {
-	method: () => Promise<void> | void
-	buttonText: string
-}
+export type SortingAlgorithm =
+	| ''
+	| 'Bubble'
+	| 'Insertion'
+	| 'Cocktail Shaker'
+	| 'Selection'
+	| 'Merge'
+	| 'Quick'
+	| 'Heap'
+	| 'Shell'
 
 export enum Release {
 	artist,
