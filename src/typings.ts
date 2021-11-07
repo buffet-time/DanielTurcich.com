@@ -23,6 +23,7 @@ export type SortingAlgorithm =
 	| 'Quick'
 	| 'Heap'
 	| 'Shell'
+	| 'Gnome'
 
 export enum Release {
 	artist,

@@ -7,16 +7,15 @@ import SortingVisualization from '../components/sortingVisualization.vue'
 // Show time to draw and time to execute
 // Show array accesses?
 // Show swaps?
-// Break this down into components/ more TS files // hopw to do this optimally?
 // Add implementations of WebGL and WebGL2 rendering and a switch for each
 
 // Public
-const sleepTime = ref(0),
+const sleepTime: Ref<number | string> = ref(0),
 	volume = ref(0.025),
 	stopExecution = ref(false),
 	randomizeArray = ref(false),
 	disableStopButton = ref(true),
-	numberOfRectangles = ref(100),
+	numberOfRectangles: Ref<number | string> = ref(100),
 	disableSortButtons = ref(false),
 	disableRandomizeButton = ref(false),
 	disableRectangleSlider = ref(false),
@@ -31,7 +30,8 @@ const sleepTime = ref(0),
 		'Merge',
 		'Quick',
 		'Heap',
-		'Shell'
+		'Shell',
+		'Gnome'
 		// 'Bitonic Sort'
 	]) as Ref<SortingAlgorithm[]>
 
@@ -56,7 +56,6 @@ watch(volume, () => {
 	} else gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 })
 
-// Methods
 async function stop(): Promise<void> {
 	stopExecution.value = true
 	oscillator.value.disconnect()
@@ -66,11 +65,19 @@ async function stop(): Promise<void> {
 	sortingMethodEndedBools()
 }
 
-// TODO:
-// sorting methods to add
-//  radix sort (LSD), radix sort (MSD),
-// std::sort (intro sort), std::stable_sort (adaptive merge sort)
-// gnome sort, bitonic sort,   tim sort
+// TODO: sorting methods to add
+// radix (LSD)
+// radix (MSD)
+// std::sort (intro sort)
+// std::stable_sort (adaptive merge sort)
+// bitonic
+// comb
+// binary insertion
+// tim
+// Quad
+// smooth
+// odd even
+// bogo
 
 function sleep(time: number) {
 	return new Promise((s) => setTimeout(s, time))
@@ -84,8 +91,8 @@ function sortingMethodStarted() {
 }
 
 function sortingMethodEnded() {
-	sortingMethod.value = ''
 	console.log(Date.now() - timestamp)
+	sortingMethod.value = ''
 	oscillator.value.disconnect()
 	sortingMethodEndedBools()
 }
@@ -105,7 +112,7 @@ function sortingMethodEndedBools() {
 }
 
 // // // // // // //
-// Audio Methods
+// Audio Functions
 // // // // // // //
 function intializeAudio() {
 	if (!audioIntialized) {

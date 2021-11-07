@@ -21,7 +21,7 @@
 		"vue-router": "^4.0.12"
 	},
 	"devDependencies": {
-		"@nabla/vite-plugin-eslint": "^1.3.2",
+		"@nabla/vite-plugin-eslint": "^1.3.4",
 		"@popperjs/core": "^2.10.2",
 		"@types/bootstrap": "^5.1.6",
 		"@types/node": "^16.11.6",
@@ -29,7 +29,7 @@
 		"@typescript-eslint/parser": "^5.3.0",
 		"@vitejs/plugin-vue": "^1.9.4",
 		"@vue/eslint-config-typescript": "^9.0.1",
-		"eslint": "^8.1.0",
+		"eslint": "^8.2.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-vue": "^8.0.3",

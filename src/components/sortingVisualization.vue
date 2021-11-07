@@ -3,11 +3,11 @@ import { SortingAlgorithm, SortingRect } from '../typings'
 import { onMounted, watch } from 'vue'
 
 const props = defineProps<{
-	sleepTime: number
+	sleepTime: number | string
 	stopExecution: boolean
 	randomizeArray: boolean
 	oscillator: OscillatorNode
-	numberOfRectangles: number
+	numberOfRectangles: number | string
 	sortingMethod: SortingAlgorithm
 }>()
 
@@ -77,6 +77,9 @@ watch(
 			case 'Shell':
 				await shellSort()
 				break
+			case 'Gnome':
+				await gnomeSort()
+				break
 		}
 		emit('sortingMethodEnded')
 	}
@@ -135,33 +138,37 @@ function swapArrayElements(index1: number, index2: number) {
 
 function createUnsortedArray() {
 	sortingArray = []
-	const widthOfRect = Canvas.width / props.numberOfRectangles,
-		heightOfRect = Canvas.height / props.numberOfRectangles,
+	const widthOfRect = Canvas.width / Number(props.numberOfRectangles),
+		heightOfRect = Canvas.height / Number(props.numberOfRectangles),
 		lowFrequencyBound = 100,
 		highFrequencyBound = 10000,
-		frequencyIncrease = highFrequencyBound / props.numberOfRectangles
+		frequencyIncrease = highFrequencyBound / Number(props.numberOfRectangles)
 
-	for (let n = 0; n < props.numberOfRectangles; n++)
+	for (let n = 0; n < Number(props.numberOfRectangles); n++)
 		sortingArray.push({
 			x: widthOfRect * n,
 			y: Canvas.height - heightOfRect * (n + 1),
 			width: widthOfRect - 1,
-			height: Canvas.height - (heightOfRect - (n + 1)),
+			height: heightOfRect * (n + 1),
 			frequency: frequencyIncrease * n + lowFrequencyBound
 		})
 
-	for (let n = 0; n < props.numberOfRectangles * 10; n++) randomSwaps()
+	for (let n = 0; n < Number(props.numberOfRectangles) * 10; n++) randomSwaps()
 }
 
 function randomSwaps() {
-	const firstElementIndex = Math.floor(Math.random() * props.numberOfRectangles)
+	const firstElementIndex = Math.floor(
+		Math.random() * Number(props.numberOfRectangles)
+	)
 	let secondElementIndex = 0
 
-	do secondElementIndex = Math.floor(Math.random() * props.numberOfRectangles)
+	do
+		secondElementIndex = Math.floor(
+			Math.random() * Number(props.numberOfRectangles)
+		)
 	while (firstElementIndex === secondElementIndex)
 
 	swapArrayElements(firstElementIndex, secondElementIndex)
-	return [firstElementIndex, secondElementIndex]
 }
 
 // // // // // // //
@@ -189,7 +196,7 @@ async function drawRectangle(index: number) {
 		sortingArray[index].width,
 		sortingArray[index].height
 	)
-	await sleep(props.sleepTime)
+	await sleep(Number(props.sleepTime))
 }
 
 function eraseRectangle(index: number) {
@@ -465,6 +472,17 @@ async function shellSort() {
 
 			sortingArray[n].x = temp.x
 			sortingArray[n] = temp
+		}
+	}
+}
+
+async function gnomeSort() {
+	for (let n = 1; n < sortingArray.length; n++) {
+		if (sortingArray[n - 1].height > sortingArray[n].height) {
+			while (n > 0 && sortingArray[n - 1].height > sortingArray[n].height) {
+				await redrawRectangles(n, n - 1)
+				n--
+			}
 		}
 	}
 }

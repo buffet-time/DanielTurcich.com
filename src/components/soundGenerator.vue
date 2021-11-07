@@ -86,7 +86,6 @@ watch(oscillatorType, () => {
 // Lifecycle Hooks
 onBeforeUnmount(() => oscillator?.disconnect())
 
-// Methods
 function startStopButton() {
 	started.value = !started.value
 	if (!initialized) initializeContext()
