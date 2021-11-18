@@ -7,11 +7,11 @@ import linkedinSrc from '../assets/linkedin.png'
 import resumeSrc from '../assets/resume.png'
 import bandcampSrc from '../assets/bandcamp.png'
 import soundcloudSrc from '../assets/soundcloud.png'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, Ref } from 'vue'
 
 // refs
-const sidenav = ref(null)
-const overlay = ref(null)
+const sidenav = ref() as Ref<HTMLDivElement>
+const overlay = ref() as Ref<HTMLDivElement>
 
 // public
 const links: SidenavLink[] = [
@@ -55,8 +55,8 @@ let sidenavElement: HTMLDivElement
 let overlayElement: HTMLDivElement
 
 onMounted(() => {
-	sidenavElement = sidenav.value as unknown as HTMLDivElement
-	overlayElement = overlay.value as unknown as HTMLDivElement
+	sidenavElement = sidenav.value
+	overlayElement = overlay.value
 
 	closeNav()
 
@@ -164,7 +164,7 @@ function closeNav() {
 					<img
 						v-once
 						class="sidenav-card-image"
-						src="../assets/cardano.png"
+						src="../assets/pfp.png"
 						alt="cardano logo"
 					/>
 					<div class="sidenav-card-text">{{ route.meta.buttonName }}</div>
