@@ -11,10 +11,8 @@
 		"**/dist": true,
 		"**/node_modules": true,
 		"**acronymWords.json": true,
-		".eslintcache": true,
 		"pnpm-lock.yaml": true
 	},
-	"volar.tsPlugin": true,
 	"volar.icon.preview": true,
 	"volar.icon.finder": true
 }
