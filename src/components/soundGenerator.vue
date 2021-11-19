@@ -1,6 +1,5 @@
 <script setup lang="ts">
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { onBeforeUnmount, Ref, ref, watch } from 'vue'
+import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
 import { closeSvg } from '../svgs'
 import { type Generator } from '../views/frequency.vue'
 
@@ -48,6 +47,7 @@ if (props.generator.generatorType === 'Frequency') {
 	watch(noteOffset, (newValue, previousValue) => {
 		if (!initialized) initializeContext()
 
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		difference = newValue - previousValue!
 		updateNoteFrequency()
 

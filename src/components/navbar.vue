@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import router, { resume } from '../router'
-import { RouteRecordNormalized } from 'vue-router'
+import { type RouteRecordNormalized } from 'vue-router'
 import githubSrc from '../assets/github.png'
 import linkedinSrc from '../assets/linkedin.png'
 import resumeSrc from '../assets/resume.png'
 import bandcampSrc from '../assets/bandcamp.png'
 import soundcloudSrc from '../assets/soundcloud.png'
-import { ref, onMounted, Ref } from 'vue'
+import { ref, onMounted, type Ref } from 'vue'
 
 interface SidenavLink {
 	openLink: string

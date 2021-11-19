@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, Ref, ref } from 'vue'
+import { onBeforeMount, type Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
 import search from '../components/music/search.vue'
 import stats from '../components/music/stats.vue'
