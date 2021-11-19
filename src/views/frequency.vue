@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { Generator, GeneratorType } from '../typings'
 import noteGenerator from '../components/soundGenerator.vue'
 import 'bootstrap/js/dist/modal'
 import { closeSvg, addSvg } from '../svgs'
 import { reactive } from 'vue'
+
+export interface Generator {
+	id: number
+	generatorType: GeneratorType
+}
+
+type GeneratorType = 'Frequency' | 'Note'
 
 const generators: Generator[] = reactive([
 	{

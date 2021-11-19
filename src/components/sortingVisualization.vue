@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { SortingAlgorithm, SortingRect } from '../typings'
+import { type SortingAlgorithm } from '../views/sorting.vue'
 import { onMounted, watch } from 'vue'
+
+interface SortingRect {
+	x: number
+	y: number
+	width: number
+	height: number
+	frequency: number
+}
 
 const props = defineProps<{
 	sleepTime: number | string

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../typings'
+import { Release } from '../../enums'
 import musicRelease from './musicRelease.vue'
 
 const props = defineProps<{

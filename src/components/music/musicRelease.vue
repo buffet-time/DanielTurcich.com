@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'bootstrap/js/dist/modal'
-import { Release } from '../../typings'
+import { Release } from '../../enums'
 import { closeSvg } from '../../svgs'
 
 const props = defineProps<{

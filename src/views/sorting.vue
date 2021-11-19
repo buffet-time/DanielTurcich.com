@@ -1,7 +1,18 @@
 <script setup lang="ts">
-import { SortingAlgorithm } from '../typings'
 import { Ref, ref, watch } from 'vue'
 import SortingVisualization from '../components/sortingVisualization.vue'
+
+export type SortingAlgorithm =
+	| ''
+	| 'Bubble'
+	| 'Insertion'
+	| 'Cocktail Shaker'
+	| 'Selection'
+	| 'Merge'
+	| 'Quick'
+	| 'Heap'
+	| 'Shell'
+	| 'Gnome'
 
 // TODO:
 // Show time to draw and time to execute

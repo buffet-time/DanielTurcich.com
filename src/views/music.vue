@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { Release, ReleasesIn, SpreadsheetParams, StatsObject } from '../typings'
 import { onBeforeMount, Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
 import search from '../components/music/search.vue'
 import stats from '../components/music/stats.vue'
+import { Release, ReleasesIn } from '../enums'
+
+export interface StatsObject {
+	numberOfReleases: string | number
+	averageYear: string | number
+	averageScore: string | number
+	numberOfArtists: string | number
+	releasesPerYear: number[]
+}
+
+interface SpreadsheetParams {
+	id: string
+	range: string
+}
 
 const loadingString = 'loading...',
 	currentYear = 2021,

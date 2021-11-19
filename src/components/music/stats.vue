@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StatsObject } from '../../typings'
+import { StatsObject } from '../../views/music.vue'
 
 defineProps<{
 	statsObject: StatsObject

@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { onBeforeUnmount, Ref, ref, watch } from 'vue'
 import { closeSvg } from '../svgs'
-import { Generator, GeneratorOscillatorType } from '../typings'
+import { type Generator } from '../views/frequency.vue'
+
+type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
 
 defineEmits<{
 	(e: 'deleteGenerator'): void
