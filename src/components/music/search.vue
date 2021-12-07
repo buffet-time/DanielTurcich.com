@@ -47,10 +47,11 @@ watch(searchType, () => {
 
 onMounted(() =>
 	window.addEventListener('keydown', (event) => {
-		if (searchType.value === Release.score)
+		if (searchType.value === Release.score) {
 			incrementRange(event.key, 0.5, 0, 10)
-		else if (searchType.value === Release.year)
+		} else if (searchType.value === Release.year) {
 			incrementRange(event.key, 1, props.earliestYear, latestYear.value)
+		}
 	})
 )
 
@@ -73,8 +74,11 @@ function searchButtonPressed() {
 	}
 	releasesToShow.value = getRelasesFromSearch(searchType.value, equals)
 
-	if (releasesToShow.value.length > 0) showReleasesDiv.value = true
-	else showNoResults.value = true
+	if (releasesToShow.value.length > 0) {
+		showReleasesDiv.value = true
+	} else {
+		showNoResults.value = true
+	}
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
@@ -91,10 +95,11 @@ function incrementRange(
 	minimum: number,
 	maximum: number
 ) {
-	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum)
+	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum) {
 		searchInput.value = String(searchInput.value + -incrementAmount)
-	else if (key === 'ArrowRight' && Number(searchInput.value) < maximum)
+	} else if (key === 'ArrowRight' && Number(searchInput.value) < maximum) {
 		searchInput.value = String(searchInput.value + incrementAmount)
+	}
 }
 </script>
 

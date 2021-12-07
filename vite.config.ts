@@ -24,7 +24,9 @@ export default defineConfig({
 			ecma: 2018,
 			module: true,
 			toplevel: true
-		}
+		},
+
+		outDir: '../dist'
 	},
 
 	server: {

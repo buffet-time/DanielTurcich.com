@@ -8,6 +8,8 @@ import Navbar from './components/navbar.vue'
 </template>
 
 <style lang="scss">
+// TODO: figure out exactly which are needed and what is missing for bootstrap
+
 // Required
 @import 'node_modules/bootstrap/scss/functions';
 @import 'node_modules/bootstrap/scss/variables';
@@ -24,6 +26,7 @@ import Navbar from './components/navbar.vue'
 @import 'node_modules/bootstrap/scss/nav';
 @import 'node_modules/bootstrap/scss/list-group';
 @import 'node_modules/bootstrap/scss/modal';
+@import 'node_modules/bootstrap/scss/transitions';
 
 // latin
 @font-face {

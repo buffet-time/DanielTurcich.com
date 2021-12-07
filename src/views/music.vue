@@ -3,7 +3,7 @@ import { onBeforeMount, type Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
 import search from '../components/music/search.vue'
 import stats from '../components/music/stats.vue'
-import { Release, ReleasesIn } from '../enums'
+import { Release } from '../enums'
 
 export interface StatsObject {
 	numberOfReleases: string | number
@@ -13,63 +13,79 @@ export interface StatsObject {
 	releasesPerYear: number[]
 }
 
+const enum ReleasesIn {
+	'1950s',
+	'1960s',
+	'1970s',
+	'1980s',
+	'1990s',
+	'2000s',
+	'2010s',
+	'2020s'
+}
+
 interface SpreadsheetParams {
 	id: string
 	range: string
 }
 
-const loadingString = 'loading...',
-	currentYear = 2021,
-	releasePerYear: number[] = []
+const loadingString = 'loading...'
+const currentYear = 2021
+const releasePerYear: number[] = []
 
-for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) releasePerYear.push(0)
+for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) {
+	releasePerYear.push(0)
+}
 
 // public variables
-const releasesArray = ref([['']]),
-	initializing = ref(true),
-	earliestYear = ref(currentYear),
-	statsObject = ref({
-		numberOfReleases: loadingString,
-		averageYear: loadingString,
-		averageScore: loadingString,
-		numberOfArtists: loadingString,
-		releasesPerYear: releasePerYear
-	}) as Ref<StatsObject>
+const releasesArray = ref([['']])
+const initializing = ref(true)
+const earliestYear = ref(currentYear)
+const statsObject = ref({
+	numberOfReleases: loadingString,
+	averageYear: loadingString,
+	averageScore: loadingString,
+	numberOfArtists: loadingString,
+	releasesPerYear: releasePerYear
+}) as Ref<StatsObject>
 
 // Private variables
-const artistArray: string[] = [],
-	spreadsheets: SpreadsheetParams[] = [
-		{
-			id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
-			range: 'Main!A2:F' // before
-		},
-		{
-			id: '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
-			range: 'Main!A2:F' // 2020
-		},
-		{
-			id: '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
-			range: 'Main!A2:G' // 2021
-		}
-	]
+const artistArray: string[] = []
+const spreadsheets: SpreadsheetParams[] = [
+	{
+		id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
+		range: 'Main!A2:F' // before
+	},
+	{
+		id: '1dmETb3Ybqs8Dhez_kP2DHiXR_Gqw-X56qsXDHYyTH1w',
+		range: 'Main!A2:F' // 2020
+	},
+	{
+		id: '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
+		range: 'Main!A2:G' // 2021
+	}
+]
 
-let scoreCount = 0,
-	questionMarkScoreCount = 0,
-	yearCount = 0,
-	tempScore = 0,
-	tempYear = 0
+let scoreCount = 0
+let questionMarkScoreCount = 0
+let yearCount = 0
+let tempScore = 0
+let tempYear = 0
 
 onBeforeMount(async () => {
 	await initializeSheets()
 	initializing.value = false
 
 	for (const current of releasesArray.value) {
-		if (!artistArray.includes(current[Release.artist]))
+		if (!artistArray.includes(current[Release.artist])) {
 			artistArray.push(current[Release.artist])
+		}
 
 		const curYear = Number(current[Release.year])
 
-		if (curYear < earliestYear.value) earliestYear.value = curYear
+		if (curYear < earliestYear.value) {
+			earliestYear.value = curYear
+		}
 
 		tempYear += curYear
 		yearCount++
@@ -77,7 +93,9 @@ onBeforeMount(async () => {
 		if (isNum(current[Release.score])) {
 			tempScore += Number(current[Release.score])
 			scoreCount++
-		} else if (current[Release.score] == '?') questionMarkScoreCount++
+		} else if (current[Release.score] == '?') {
+			questionMarkScoreCount++
+		}
 
 		curYear > 1959
 			? // @ts-ignore
@@ -173,8 +191,8 @@ function isNum(value: string) {
 	margin-left: calc(50% - 77.5px);
 	margin-bottom: 16px;
 }
-.nav-link:hover,
-.nav-link:focus {
-	color: white;
+.nav-link:hover .active,
+.nav-link:focus .active {
+	color: black;
 }
 </style>

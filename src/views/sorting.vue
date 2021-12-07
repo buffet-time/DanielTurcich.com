@@ -21,36 +21,36 @@ export type SortingAlgorithm =
 // Add implementations of WebGL and WebGL2 rendering and a switch for each
 
 // Public
-const sleepTime: Ref<number | string> = ref(0),
-	volume = ref(0.025),
-	stopExecution = ref(false),
-	randomizeArray = ref(false),
-	disableStopButton = ref(true),
-	numberOfRectangles: Ref<number | string> = ref(100),
-	disableSortButtons = ref(false),
-	disableRandomizeButton = ref(false),
-	disableRectangleSlider = ref(false),
-	// executionTime = ref(0),
-	oscillator: Ref<OscillatorNode> = ref() as Ref<OscillatorNode>,
-	sortingMethod: Ref<SortingAlgorithm> = ref('') as Ref<SortingAlgorithm>,
-	sorts: Ref<SortingAlgorithm[]> = ref([
-		'Bubble',
-		'Insertion',
-		'Cocktail Shaker',
-		'Selection',
-		'Merge',
-		'Quick',
-		'Heap',
-		'Shell',
-		'Gnome'
-		// 'Bitonic Sort'
-	]) as Ref<SortingAlgorithm[]>
+const sleepTime: Ref<number | string> = ref(0)
+const volume = ref(0.025)
+const stopExecution = ref(false)
+const randomizeArray = ref(false)
+const disableStopButton = ref(true)
+const numberOfRectangles: Ref<number | string> = ref(100)
+const disableSortButtons = ref(false)
+const disableRandomizeButton = ref(false)
+const disableRectangleSlider = ref(false)
+// executionTime = ref(0),
+const oscillator: Ref<OscillatorNode> = ref() as Ref<OscillatorNode>
+const sortingMethod: Ref<SortingAlgorithm> = ref('') as Ref<SortingAlgorithm>
+const sorts: Ref<SortingAlgorithm[]> = ref([
+	'Bubble',
+	'Insertion',
+	'Cocktail Shaker',
+	'Selection',
+	'Merge',
+	'Quick',
+	'Heap',
+	'Shell',
+	'Gnome'
+	// 'Bitonic Sort'
+]) as Ref<SortingAlgorithm[]>
 
 // Private
-let audioContext!: AudioContext,
-	audioIntialized = false,
-	gainNode!: GainNode,
-	timestamp = 0
+let audioContext!: AudioContext
+let audioIntialized = false
+let gainNode!: GainNode
+let timestamp = 0
 
 // Watchers
 watch(numberOfRectangles, () => {
@@ -64,7 +64,9 @@ watch(volume, () => {
 		oscillator.value.disconnect()
 		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 		oscillator.value.connect(gainNode).connect(audioContext.destination)
-	} else gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
+	} else {
+		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
+	}
 })
 
 async function stop(): Promise<void> {

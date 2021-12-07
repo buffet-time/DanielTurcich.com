@@ -2,31 +2,31 @@
 import { ref } from 'vue'
 
 // Public variables
-const passwordLength = ref(16),
-	excludeLowercase = ref(false),
-	excludeUppercase = ref(false),
-	excludeNumbers = ref(false),
-	excludeSymbols = ref(false),
-	textToShow = ref(''),
-	password = ref('')
+const passwordLength = ref(16)
+const excludeLowercase = ref(false)
+const excludeUppercase = ref(false)
+const excludeNumbers = ref(false)
+const excludeSymbols = ref(false)
+const textToShow = ref('')
+const password = ref('')
 
 // Local variables
 const // prettier-ignore
 	lowercaseLetters = [
 	'a','b','c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 	'n','o', 'p', 'q', 'r', 's','t','u','v', 'w', 'x', 'y', 'z'
-],
-	// prettier-ignore
-	uppercaseLetters = [
+]
+// prettier-ignore
+const	uppercaseLetters = [
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 	'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-],
-	// prettier-ignore
-	numbers = [
+]
+// prettier-ignore
+const	numbers = [
 	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-],
-	// prettier-ignore
-	symbols = [
+]
+// prettier-ignore
+const	symbols = [
 	'!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',
 	'-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\',
 	']', '^', '_', '`', '{', '|', '}', '~'
@@ -36,14 +36,24 @@ function generatePassword() {
 	password.value = ''
 
 	const passwordCharacters = ['']
-	if (!excludeLowercase.value) passwordCharacters.push(...lowercaseLetters)
-	if (!excludeUppercase.value) passwordCharacters.push(...uppercaseLetters)
-	if (!excludeNumbers.value) passwordCharacters.push(...numbers)
-	if (!excludeSymbols.value) passwordCharacters.push(...symbols)
 
-	for (let i = 0; i < passwordLength.value; i++)
+	if (!excludeLowercase.value) {
+		passwordCharacters.push(...lowercaseLetters)
+	}
+	if (!excludeUppercase.value) {
+		passwordCharacters.push(...uppercaseLetters)
+	}
+	if (!excludeNumbers.value) {
+		passwordCharacters.push(...numbers)
+	}
+	if (!excludeSymbols.value) {
+		passwordCharacters.push(...symbols)
+	}
+
+	for (let i = 0; i < passwordLength.value; i++) {
 		password.value +=
 			passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)]
+	}
 
 	textToShow.value = password.value
 }

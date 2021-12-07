@@ -14,29 +14,31 @@ const props = defineProps<{
 }>()
 
 // Public Refs
-const volume = ref(0.07),
-	frequency = ref(440),
-	oscillatorType = ref('sine') as Ref<GeneratorOscillatorType>,
-	noteName = ref(''),
-	noteOctave = ref(4),
-	noteOffset = ref(0),
-	started = ref(false)
+const volume = ref(0.07)
+const frequency = ref(440)
+const oscillatorType = ref('sine') as Ref<GeneratorOscillatorType>
+const noteName = ref('')
+const noteOctave = ref(4)
+const noteOffset = ref(0)
+const started = ref(false)
 
 // Private Variables
-let audioContext!: AudioContext,
-	oscillator!: OscillatorNode,
-	gainNode!: GainNode,
-	initialized = false,
-	difference = 0,
-	noteIndex = 9
+let audioContext!: AudioContext
+let oscillator!: OscillatorNode
+let gainNode!: GainNode
+let initialized = false
+let difference = 0
+let noteIndex = 9
 
-const twelthRoot = 2 ** (1 / 12),
-	fixedNote = 440, // Standard tuning frequency of A4 for 12 tone equal temperment
-	notes = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
+const twelthRoot = 2 ** (1 / 12)
+const fixedNote = 440 // Standard tuning frequency of A4 for 12 tone equal temperment
+const notes = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
 
 if (props.generator.generatorType === 'Frequency') {
 	watch(frequency, () => {
-		if (!initialized) initializeContext()
+		if (!initialized) {
+			initializeContext()
+		}
 
 		oscillator.frequency.setValueAtTime(
 			frequency.value,
@@ -45,14 +47,17 @@ if (props.generator.generatorType === 'Frequency') {
 	})
 } else {
 	watch(noteOffset, (newValue, previousValue) => {
-		if (!initialized) initializeContext()
+		if (!initialized) {
+			initializeContext()
+		}
 
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		difference = newValue - previousValue!
 		updateNoteFrequency()
 
-		if (difference > 0) incrementNote('Up')
-		else {
+		if (difference > 0) {
+			incrementNote('Up')
+		} else {
 			// get absolute value of the difference when its negative
 			// so we can easily recursive call in incrementNote()
 			difference = Math.abs(difference)
@@ -62,7 +67,9 @@ if (props.generator.generatorType === 'Frequency') {
 }
 
 watch(volume, () => {
-	if (!initialized) initializeContext()
+	if (!initialized) {
+		initializeContext()
+	}
 
 	if (started.value) {
 		oscillator.disconnect()
@@ -74,7 +81,9 @@ watch(volume, () => {
 })
 
 watch(oscillatorType, () => {
-	if (!initialized) initializeContext()
+	if (!initialized) {
+		initializeContext()
+	}
 
 	if (started.value) {
 		oscillator.disconnect()
@@ -90,11 +99,15 @@ onBeforeUnmount(() => oscillator?.disconnect())
 
 function startStopButton() {
 	started.value = !started.value
-	if (!initialized) initializeContext()
+	if (!initialized) {
+		initializeContext()
+	}
 
-	if (started.value)
+	if (started.value) {
 		oscillator.connect(gainNode).connect(audioContext.destination)
-	else oscillator.disconnect()
+	} else {
+		oscillator.disconnect()
+	}
 }
 
 function toPercent(value: number) {
@@ -127,12 +140,16 @@ function incrementNote(increment: 'Up' | 'Down') {
 			if (noteIndex === 11) {
 				noteOctave.value++
 				noteIndex = 0
-			} else noteIndex++
+			} else {
+				noteIndex++
+			}
 		} else {
 			if (noteIndex === 0) {
 				noteOctave.value--
 				noteIndex = 11
-			} else noteIndex--
+			} else {
+				noteIndex--
+			}
 		}
 		noteName.value = notes[noteIndex]
 		difference--

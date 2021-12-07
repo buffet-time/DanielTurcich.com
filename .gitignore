@@ -1,8 +1,13 @@
 # general
 node_modules
-/src/dist
+dist
 .eslintcache
+*.local
 ignore.txt
+
+# local env files
+.env.local
+.env.*.local
 
 # firebase
 /.firebase
@@ -11,5 +16,10 @@ ignore.txt
 /.github
 firebase-debug.log
 
-#pnpm 
-# pnpm-lock.yaml
+# other
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

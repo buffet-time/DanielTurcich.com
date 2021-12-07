@@ -29,10 +29,10 @@ const emit = defineEmits<{
 	(e: 'beep', frequency: number): void
 }>()
 
-let Context2d: CanvasRenderingContext2D,
-	Canvas: HTMLCanvasElement,
-	sortingArray: SortingRect[] = [],
-	quickSortIndex = 0
+let Context2d: CanvasRenderingContext2D
+let Canvas: HTMLCanvasElement
+let sortingArray: SortingRect[] = []
+let quickSortIndex = 0
 
 watch(
 	() => props.randomizeArray,
@@ -57,8 +57,9 @@ watch(
 watch(
 	() => props.sortingMethod,
 	async (newValue) => {
-		if (newValue === '') return
-
+		if (newValue === '') {
+			return
+		}
 		emit('sortingMethodStarted')
 		switch (newValue) {
 			case 'Bubble':
@@ -146,13 +147,14 @@ function swapArrayElements(index1: number, index2: number) {
 
 function createUnsortedArray() {
 	sortingArray = []
-	const widthOfRect = Canvas.width / Number(props.numberOfRectangles),
-		heightOfRect = Canvas.height / Number(props.numberOfRectangles),
-		lowFrequencyBound = 100,
-		highFrequencyBound = 10000,
-		frequencyIncrease = highFrequencyBound / Number(props.numberOfRectangles)
+	const widthOfRect = Canvas.width / Number(props.numberOfRectangles)
+	const heightOfRect = Canvas.height / Number(props.numberOfRectangles)
+	const lowFrequencyBound = 100
+	const highFrequencyBound = 10000
+	const frequencyIncrease =
+		highFrequencyBound / Number(props.numberOfRectangles)
 
-	for (let n = 0; n < Number(props.numberOfRectangles); n++)
+	for (let n = 0; n < Number(props.numberOfRectangles); n++) {
 		sortingArray.push({
 			x: widthOfRect * n,
 			y: Canvas.height - heightOfRect * (n + 1),
@@ -160,8 +162,11 @@ function createUnsortedArray() {
 			height: heightOfRect * (n + 1),
 			frequency: frequencyIncrease * n + lowFrequencyBound
 		})
+	}
 
-	for (let n = 0; n < Number(props.numberOfRectangles) * 10; n++) randomSwaps()
+	for (let n = 0; n < Number(props.numberOfRectangles) * 10; n++) {
+		randomSwaps()
+	}
 }
 
 function randomSwaps() {
@@ -170,11 +175,11 @@ function randomSwaps() {
 	)
 	let secondElementIndex = 0
 
-	do
+	do {
 		secondElementIndex = Math.floor(
 			Math.random() * Number(props.numberOfRectangles)
 		)
-	while (firstElementIndex === secondElementIndex)
+	} while (firstElementIndex === secondElementIndex)
 
 	swapArrayElements(firstElementIndex, secondElementIndex)
 }
@@ -183,7 +188,9 @@ function randomSwaps() {
 // Drawing functions
 // // // // // // //
 async function drawAllRectangles() {
-	for (let n = 0; n < props.numberOfRectangles; n++) await drawRectangle(n)
+	for (let n = 0; n < props.numberOfRectangles; n++) {
+		await drawRectangle(n)
+	}
 }
 
 async function redrawRectangles(firstIndex: number, secondIndex: number) {
@@ -238,14 +245,17 @@ function sleep(time: number) {
 // // // // // // //
 async function bubbleSort() {
 	const length = sortingArray.length
-	let swapped = false,
-		count = 0,
-		n = 0
+	let swapped = false
+	let count = 0
+	let n = 0
+
 	do {
 		count++
 		swapped = false
 		for (n = 0; n < length - count; n++) {
-			if (props.stopExecution) return
+			if (props.stopExecution) {
+				return
+			}
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
 				await redrawRectangles(n, n + 1)
@@ -257,14 +267,16 @@ async function bubbleSort() {
 
 async function insertionSort() {
 	const length = sortingArray.length
-	let j = 0,
-		current: SortingRect
+	let j = 0
+	let current: SortingRect
 
 	for (let i = 1; i < length; i++) {
 		current = sortingArray[i]
 
 		for (j = i - 1; j >= 0 && sortingArray[j].height > current.height; j--) {
-			if (props.stopExecution) return
+			if (props.stopExecution) {
+				return
+			}
 
 			await redrawRectangles(j, j + 1)
 		}
@@ -280,11 +292,17 @@ async function selectionSort() {
 	for (let n = 0; n < sortingArray.length; n++) {
 		minHeight = n // Finding the smallest number in the array
 		for (x = n + 1; x < sortingArray.length; x++) {
-			if (props.stopExecution) return
+			if (props.stopExecution) {
+				return
+			}
 
-			if (sortingArray[x].height < sortingArray[minHeight].height) minHeight = x
+			if (sortingArray[x].height < sortingArray[minHeight].height) {
+				minHeight = x
+			}
 		}
-		if (minHeight !== n) await redrawRectangles(n, minHeight)
+		if (minHeight !== n) {
+			await redrawRectangles(n, minHeight)
+		}
 	}
 }
 
@@ -295,7 +313,9 @@ async function cocktailShakerSort() {
 	while (!sorted) {
 		sorted = true
 		while (n < sortingArray.length - 1) {
-			if (props.stopExecution) return
+			if (props.stopExecution) {
+				return
+			}
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
 				await redrawRectangles(n, n + 1)
@@ -304,12 +324,16 @@ async function cocktailShakerSort() {
 			n++
 		}
 
-		if (sorted) break
+		if (sorted) {
+			break
+		}
 
 		sorted = true
 
 		while (n > 0) {
-			if (props.stopExecution) return
+			if (props.stopExecution) {
+				return
+			}
 
 			if (sortingArray[n - 1].height > sortingArray[n].height) {
 				await redrawRectangles(n, n - 1)
@@ -322,24 +346,35 @@ async function cocktailShakerSort() {
 
 async function quickSort(left: number, right: number) {
 	quickSortIndex = await quicksortPartition(left, right) //index returned from partition
-	if (props.stopExecution) return
+	if (props.stopExecution) {
+		return
+	}
 
 	//more elements on the left side of the pivot
-	if (left < quickSortIndex - 1) await quickSort(left, quickSortIndex - 1)
+	if (left < quickSortIndex - 1) {
+		await quickSort(left, quickSortIndex - 1)
+	}
 
 	//more elements on the right side of the pivot
-	if (quickSortIndex < right) await quickSort(quickSortIndex, right)
+	if (quickSortIndex < right) {
+		await quickSort(quickSortIndex, right)
+	}
 }
 
 async function quicksortPartition(left: number, right: number) {
 	const pivot = sortingArray[Math.floor((right + left) / 2)]
 	while (left <= right) {
-		if (props.stopExecution) return 0
-
+		if (props.stopExecution) {
+			return 0
+		}
 		// increment up until find a height to the left larger than the pivot
-		while (sortingArray[left].height < pivot.height) left++
+		while (sortingArray[left].height < pivot.height) {
+			left++
+		}
 		// increment up until  find a height to the right smaller than the pivot
-		while (sortingArray[right].height > pivot.height) right--
+		while (sortingArray[right].height > pivot.height) {
+			right--
+		}
 
 		if (left <= right) {
 			await redrawRectangles(left, right)
@@ -351,8 +386,12 @@ async function quicksortPartition(left: number, right: number) {
 }
 
 async function mergeSort(unsorted: SortingRect[]): Promise<SortingRect[]> {
-	if (props.stopExecution) return []
-	if (unsorted.length < 2) return unsorted
+	if (props.stopExecution) {
+		return []
+	}
+	if (unsorted.length < 2) {
+		return unsorted
+	}
 
 	const middle = Math.floor(unsorted.length / 2)
 
@@ -405,7 +444,7 @@ async function merge(
 	const indexArray = []
 	const xValues = combinedArray.map((rect) => rect.height)
 
-	for (const xValue of xValues)
+	for (const xValue of xValues) {
 		indexArray.push(
 			sortingArray.findIndex(
 				(rect) =>
@@ -413,10 +452,12 @@ async function merge(
 					combinedArray[xValues.findIndex((x) => x === xValue)].height
 			)
 		)
-
+	}
 	// drawing of the rectangles
 	for (let n = 0; n < combinedArray.length; n++) {
-		if (props.stopExecution) return []
+		if (props.stopExecution) {
+			return []
+		}
 		await redrawRectangle(indexArray[n])
 	}
 
@@ -425,13 +466,17 @@ async function merge(
 
 async function heapSort() {
 	for (let n = Math.floor(sortingArray.length / 2 - 1); n >= 0; n--) {
-		if (props.stopExecution) return
+		if (props.stopExecution) {
+			return
+		}
 
 		await heapify(sortingArray.length, n)
 	}
 
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
-		if (props.stopExecution) return
+		if (props.stopExecution) {
+			return
+		}
 
 		await redrawRectangles(0, n)
 		await heapify(n, 0)
@@ -443,13 +488,17 @@ async function heapify(size: number, index: number) {
 	const left = 2 * index + 1
 	const right = 2 * index + 2
 
-	if (props.stopExecution) return
+	if (props.stopExecution) {
+		return
+	}
 
-	if (left < size && sortingArray[left].height > sortingArray[max].height)
+	if (left < size && sortingArray[left].height > sortingArray[max].height) {
 		max = left
+	}
 
-	if (right < size && sortingArray[right].height > sortingArray[max].height)
+	if (right < size && sortingArray[right].height > sortingArray[max].height) {
 		max = right
+	}
 
 	if (max != index) {
 		await redrawRectangles(index, max)

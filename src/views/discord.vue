@@ -2,20 +2,24 @@
 import { ref } from 'vue'
 
 // public refs
-const discordInput = ref(''),
-	nitro = ref(false),
-	discordText = ref('')
+const discordInput = ref('')
+const nitro = ref(false)
+const discordText = ref('')
 
 function discordButtonPressed() {
 	const maxLength = nitro.value ? 4000 : 2000
 	const input = discordInput.value.trim() + ' '
 
 	discordText.value = ''
-	if (discordInput.value.length < maxLength)
+	if (discordInput.value.length < maxLength) {
 		while (input.length < maxLength) {
-			if (discordText.value.length + input.length > maxLength) break
+			if (discordText.value.length + input.length > maxLength) {
+				break
+			}
+
 			discordText.value = discordText.value + input
 		}
+	}
 }
 
 function copy() {

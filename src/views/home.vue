@@ -111,9 +111,6 @@ const links = ref([
 						I'm 25, a Vegetarian, and listen to an insane amount of music (check
 						the music page of this site).
 					</p>
-					<p class="card-text bold">
-						You should check out the hamburger menu in the top left
-					</p>
 				</div>
 			</div>
 		</div>
@@ -177,18 +174,24 @@ const links = ref([
 <style scoped>
 .list-group {
 	width: 100%;
+	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
 	border-top: transparent !important;
 }
 .list-group-item {
+	height: 56px;
 	background-color: #616161;
 	color: white;
 	width: 20%;
-	min-width: 180px;
+	min-width: 139px;
 	text-align: center;
+	align-items: center;
+	justify-content: center;
 }
-.bold {
-	font-size: larger;
+.card-title {
+	text-align: center;
 }
 .card {
 	margin: 32px;
@@ -199,14 +202,10 @@ const links = ref([
 	margin-bottom: 16px;
 }
 .card-left {
-	margin-top: 32px;
 	margin-right: 0px;
-	padding-right: 0px;
 }
 .card-right {
-	margin-top: 32px;
 	margin-left: 0px;
-	padding-left: 0px;
 	height: calc(100% - 32px);
 }
 .col-sm-6 {

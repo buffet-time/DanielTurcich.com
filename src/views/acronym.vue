@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { default as acronymWords } from '../acronymWords.json'
 
 // Public
-const acronymInput = ref(''),
-	buttonPressedState = ref(''),
-	textToDisplay = ref('')
+const acronymInput = ref('')
+const buttonPressedState = ref('')
+const textToDisplay = ref('')
 
 // Private
 const words: { [key: string]: string[] } = acronymWords
@@ -16,15 +16,17 @@ function copyAcronym() {
 }
 
 function acronymButtonPressed() {
-	if (acronymInput.value) {
-		if (acronymInput.value.split(' ').length > 1) {
-			buttonPressedState.value = 'error'
-			textToDisplay.value = 'There can not be spaces in the input.'
-		} else {
-			acronymText = getWordsFromProvidedAcronym(acronymInput.value)
-			buttonPressedState.value = 'good'
-			textToDisplay.value = acronymText
-		}
+	if (!acronymInput.value) {
+		return
+	}
+
+	if (acronymInput.value.split(' ').length > 1) {
+		buttonPressedState.value = 'error'
+		textToDisplay.value = 'There can not be spaces in the input.'
+	} else {
+		acronymText = getWordsFromProvidedAcronym(acronymInput.value)
+		buttonPressedState.value = 'good'
+		textToDisplay.value = acronymText
 	}
 }
 
