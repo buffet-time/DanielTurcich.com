@@ -11,22 +11,19 @@ const props = defineProps<{
 }>()
 
 // refs
-const releasesToShow = ref([['']]),
-	searchType = ref(Release.artist),
-	showReleasesDiv = ref(false),
-	latestYear = ref(props.currentYear),
-	showNoResults = ref(false),
-	searchInput = ref('')
+const releasesToShow = ref([['']])
+const searchType = ref(Release.artist)
+const showReleasesDiv = ref(false)
+const latestYear = ref(props.currentYear)
+const showNoResults = ref(false)
+const searchInput = ref('')
 
 // variables
+// prettier-ignore
 const releaseTypes = [
-	'Album',
-	'EP',
-	'Live Album',
-	'Soundtrack',
-	'Remix Album',
-	'Compilation',
-	'Demo Album'
+	'Album', 'EP', 'Live Album',
+	'Soundtrack', 'Remix Album',
+	'Compilation', 'Demo Album'
 ]
 
 watch(searchType, () => {

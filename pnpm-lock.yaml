@@ -18,7 +18,7 @@ specifiers:
   sass: ^1.44.0
   tslib: ^2.3.1
   typescript: ^4.5.2
-  vite: ^2.7.0
+  vite: ^2.7.1
   vue: ^3.2.24
   vue-eslint-parser: ^8.0.1
   vue-router: ^4.0.12
@@ -30,13 +30,13 @@ dependencies:
   vue-router: 4.0.12_vue@3.2.24
 
 devDependencies:
-  '@nabla/vite-plugin-eslint': 1.3.5_eslint@8.4.1+vite@2.7.0
+  '@nabla/vite-plugin-eslint': 1.3.5_eslint@8.4.1+vite@2.7.1
   '@popperjs/core': 2.11.0
   '@types/bootstrap': 5.1.6
   '@types/node': 16.11.12
   '@typescript-eslint/eslint-plugin': 5.6.0_16d83f5c41c3abb1061a82b07c18e4f3
   '@typescript-eslint/parser': 5.6.0_eslint@8.4.1+typescript@4.5.2
-  '@vitejs/plugin-vue': 1.10.2_vite@2.7.0
+  '@vitejs/plugin-vue': 1.10.2_vite@2.7.1
   '@vue/eslint-config-typescript': 9.1.0_abdffbad964e57e22aeb1346f1df57ad
   eslint: 8.4.1
   eslint-config-prettier: 8.3.0_eslint@8.4.1
@@ -46,7 +46,7 @@ devDependencies:
   sass: 1.44.0
   tslib: 2.3.1
   typescript: 4.5.2
-  vite: 2.7.0_sass@1.44.0
+  vite: 2.7.1_sass@1.44.0
   vue-eslint-parser: 8.0.1_eslint@8.4.1
   vue-tsc: 0.29.8_typescript@4.5.2
 
@@ -118,7 +118,7 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@nabla/vite-plugin-eslint/1.3.5_eslint@8.4.1+vite@2.7.0:
+  /@nabla/vite-plugin-eslint/1.3.5_eslint@8.4.1+vite@2.7.1:
     resolution: {integrity: sha512-JFtwkGh0b/vMIAXGmkZJAVLol6UiqK0e5zRJKyIiIEzGlcHfEHGZEaJHV8kfuMhc17294h7TqjJNpNzIDSx3/A==}
     peerDependencies:
       eslint: '*'
@@ -127,7 +127,7 @@ packages:
       '@types/eslint': 8.2.1
       chalk: 4.1.2
       eslint: 8.4.1
-      vite: 2.7.0_sass@1.44.0
+      vite: 2.7.1_sass@1.44.0
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -297,13 +297,13 @@ packages:
       eslint-visitor-keys: 3.1.0
     dev: true
 
-  /@vitejs/plugin-vue/1.10.2_vite@2.7.0:
+  /@vitejs/plugin-vue/1.10.2_vite@2.7.1:
     resolution: {integrity: sha512-/QJ0Z9qfhAFtKRY+r57ziY4BSbGUTGsPRMpB/Ron3QPwBZM4OZAZHdTa4a8PafCwU5DTatXG8TMDoP8z+oDqJw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
     dependencies:
-      vite: 2.7.0_sass@1.44.0
+      vite: 2.7.1_sass@1.44.0
     dev: true
 
   /@volar/code-gen/0.29.8:
@@ -1813,8 +1813,8 @@ packages:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
 
-  /vite/2.7.0_sass@1.44.0:
-    resolution: {integrity: sha512-ZM629j9n6f1Gcr2KsfpLhJ0FRkift4SsTLSvExmNpGJYzyi1JyLOFybz85ShqFP5f4oCfJSblWAma9X8lZg/vA==}
+  /vite/2.7.1_sass@1.44.0:
+    resolution: {integrity: sha512-TDXXhcu5lyQ6uosK4ZWaOyB4VzOiizk0biitRzDzaEtgSUi8rVYPc4k1xgOjLSf0OuceDJmojFKXHOX9DB1WuQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:

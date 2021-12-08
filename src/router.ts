@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 // Lazy Loading for routes for less resource waste/ better performance
-const Home = () => import('./views/home.vue'),
-	Acronym = () => import('./views/acronym.vue'),
-	Password = () => import('./views/password.vue'),
-	Discord = () => import('./views/discord.vue'),
-	Sorting = () => import('./views/sorting.vue'),
-	Music = () => import('./views/music.vue'),
-	Frequency = () => import('./views/frequency.vue')
+const Home = () => import('./views/Home.vue'),
+	Acronym = () => import('./views/Acronym.vue'),
+	Password = () => import('./views/Password.vue'),
+	Discord = () => import('./views/Discord.vue'),
+	Sorting = () => import('./views/Sorting.vue'),
+	Music = () => import('./views/Music.vue'),
+	Frequency = () => import('./views/Frequency.vue')
 // const Performance = () => import('./components/performance.vue')
 
 const resume =

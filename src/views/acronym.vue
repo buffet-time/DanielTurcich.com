@@ -20,7 +20,7 @@ function acronymButtonPressed() {
 		return
 	}
 
-	if (acronymInput.value.split(' ').length > 1) {
+	if (acronymInput.value.length > 1) {
 		buttonPressedState.value = 'error'
 		textToDisplay.value = 'There can not be spaces in the input.'
 	} else {

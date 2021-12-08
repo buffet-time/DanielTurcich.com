@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { type Ref, ref, watch } from 'vue'
-import SortingVisualization from '../components/sortingVisualization.vue'
+import SortingVisualization from '../components/SortingVisualization.vue'
 
+// prettier-ignore
 export type SortingAlgorithm =
-	| ''
-	| 'Bubble'
-	| 'Insertion'
-	| 'Cocktail Shaker'
-	| 'Selection'
-	| 'Merge'
-	| 'Quick'
-	| 'Heap'
-	| 'Shell'
-	| 'Gnome'
+	| '' | 'Bubble' | 'Insertion'
+	| 'Cocktail Shaker' | 'Selection' | 'Merge'
+	| 'Quick' | 'Heap' | 'Shell' | 'Gnome'
 
 // TODO:
 // Show time to draw and time to execute
@@ -33,16 +27,10 @@ const disableRectangleSlider = ref(false)
 // executionTime = ref(0),
 const oscillator: Ref<OscillatorNode> = ref() as Ref<OscillatorNode>
 const sortingMethod: Ref<SortingAlgorithm> = ref('') as Ref<SortingAlgorithm>
+// prettier-ignore
 const sorts: Ref<SortingAlgorithm[]> = ref([
-	'Bubble',
-	'Insertion',
-	'Cocktail Shaker',
-	'Selection',
-	'Merge',
-	'Quick',
-	'Heap',
-	'Shell',
-	'Gnome'
+	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
+	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome'
 	// 'Bitonic Sort'
 ]) as Ref<SortingAlgorithm[]>
 
@@ -128,23 +116,25 @@ function sortingMethodEndedBools() {
 // Audio Functions
 // // // // // // //
 function intializeAudio() {
-	if (!audioIntialized) {
-		audioContext = new AudioContext()
-
-		gainNode = new GainNode(audioContext, {
-			gain: volume.value
-		})
-
-		oscillator.value = new OscillatorNode(audioContext, {
-			type: 'sine',
-			frequency: 500
-		})
-
-		oscillator.value.start()
-		oscillator.value.connect(audioContext.destination)
-		oscillator.value.disconnect()
-		audioIntialized = true
+	if (audioIntialized) {
+		return
 	}
+
+	audioContext = new AudioContext()
+
+	gainNode = new GainNode(audioContext, {
+		gain: volume.value
+	})
+
+	oscillator.value = new OscillatorNode(audioContext, {
+		type: 'sine',
+		frequency: 500
+	})
+
+	oscillator.value.start()
+	oscillator.value.connect(audioContext.destination)
+	oscillator.value.disconnect()
+	audioIntialized = true
 }
 
 function beep(frequency: number) {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
-import search from '../components/music/search.vue'
-import stats from '../components/music/stats.vue'
+import search from '../components/music/Search.vue'
+import stats from '../components/music/Stats.vue'
 import { Release } from '../enums'
 
 export interface StatsObject {
@@ -13,15 +13,10 @@ export interface StatsObject {
 	releasesPerYear: number[]
 }
 
+// prettier-ignore
 const enum ReleasesIn {
-	'1950s',
-	'1960s',
-	'1970s',
-	'1980s',
-	'1990s',
-	'2000s',
-	'2010s',
-	'2020s'
+	'1950s', '1960s', '1970s', '1980s',
+	'1990s', '2000s', '2010s', '2020s'
 }
 
 interface SpreadsheetParams {

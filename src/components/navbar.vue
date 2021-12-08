@@ -3,12 +3,14 @@
 import Collapse from 'bootstrap/js/dist/collapse'
 import router, { resume } from '../router'
 import { type RouteRecordNormalized } from 'vue-router'
+import { onMounted } from 'vue'
+
+// Images
 import githubSrc from '../assets/github.png'
 import linkedinSrc from '../assets/linkedin.png'
 import resumeSrc from '../assets/resume.png'
 import bandcampSrc from '../assets/bandcamp.png'
 import soundcloudSrc from '../assets/soundcloud.png'
-import { onMounted } from 'vue'
 
 interface navLink {
 	openLink: string
@@ -54,7 +56,6 @@ const routes: RouteRecordNormalized[] = router
 	.getRoutes()
 	.filter((route) => route.meta['buttonName'] !== undefined)
 
-const open = (link: string) => window.open(link, '_blank')
 function openLink(link: string) {
 	switch (link) {
 		case 'github':
@@ -111,6 +112,10 @@ onMounted(() => {
 
 async function routeChange(route: string) {
 	await router.push(route)
+}
+
+function open(link: string) {
+	window.open(link, '_blank')
 }
 </script>
 

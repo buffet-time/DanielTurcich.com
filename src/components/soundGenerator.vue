@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
 import { closeSvg } from '../svgs'
-import { type Generator } from '../views/frequency.vue'
+import { type Generator } from '../views/Frequency.vue'
 
 type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
 
@@ -95,7 +95,9 @@ watch(oscillatorType, () => {
 })
 
 // Lifecycle Hooks
-onBeforeUnmount(() => oscillator?.disconnect())
+onBeforeUnmount(() => {
+	oscillator?.disconnect()
+})
 
 function startStopButton() {
 	started.value = !started.value
