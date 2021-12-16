@@ -168,7 +168,7 @@ function updateNoteFrequency() {
 </script>
 
 <template>
-	<div bg-variant="secondary" class="card">
+	<div class="tw-card bg-gray-300">
 		<div class="card-body">
 			<!-- abstract delete button svg -->
 			<svg

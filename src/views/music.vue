@@ -135,59 +135,53 @@ function isNum(value: string) {
 </script>
 
 <template>
-	<h1 v-once class="app-title disable-select">My Music Page</h1>
-	<ul v-once id="myTab" class="nav nav-tabs" role="tablist">
-		<li class="nav-item" role="presentation">
-			<button
-				id="stats-tab"
-				class="nav-link active"
-				data-bs-toggle="tab"
-				data-bs-target="#stats"
-				type="button"
-				role="tab"
-				aria-controls="stats"
-				aria-selected="true"
-			>
-				Stats
-			</button>
-		</li>
-		<li class="nav-item" role="presentation">
-			<button
-				id="search-tab"
-				class="nav-link"
-				data-bs-toggle="tab"
-				data-bs-target="#search"
-				type="button"
-				role="tab"
-				aria-controls="search"
-				aria-selected="false"
-			>
-				Search
-			</button>
-		</li>
-	</ul>
-	<div id="myTabContent" class="tab-content">
-		<stats :stats-object="statsObject" />
-		<search
-			:current-year="currentYear"
-			:earliest-year="earliestYear"
-			:releases-array="releasesArray"
-			:initializing="initializing"
-		/>
+	<div class="flex flex-col justify-center items-center gap-4">
+		<h1 v-once class="mt-4 text-2xl font-semibold">My Music Page</h1>
+
+		<!-- border-bottom: 1px solid #dee2e6; -->
+		<ul
+			v-once
+			id="myTab"
+			class="flex justify-center nav nav-tabs"
+			role="tablist"
+		>
+			<!-- 
+
+		 -->
+			<li role="presentation">
+				<button
+					id="stats-tab"
+					class="nav-link active text-white hover:text-gray-400 focus:text-gray-400 rounded-tl rounded-tr cursor-pointer px-4 py-2"
+					data-bs-toggle="tab"
+					data-bs-target="#stats"
+					type="button"
+					role="tab"
+				>
+					Stats
+				</button>
+			</li>
+			<li role="presentation">
+				<button
+					id="search-tab"
+					class="nav-link text-white hover:text-gray-400 focus:text-gray-400"
+					data-bs-toggle="tab"
+					data-bs-target="#search"
+					type="button"
+					role="tab"
+				>
+					Search
+				</button>
+			</li>
+		</ul>
+
+		<div id="myTabContent" class="tab-content">
+			<stats :stats-object="statsObject" />
+			<search
+				:current-year="currentYear"
+				:earliest-year="earliestYear"
+				:releases-array="releasesArray"
+				:initializing="initializing"
+			/>
+		</div>
 	</div>
 </template>
-
-<style scoped>
-.nav-link {
-	color: white;
-}
-.nav-tabs {
-	width: 155px;
-	margin-left: calc(50% - 77.5px);
-	margin-bottom: 16px;
-}
-.nav-link:hover .active,
-.nav-link:focus .active {
-	color: black;
-}
-</style>

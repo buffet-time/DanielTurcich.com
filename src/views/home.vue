@@ -86,82 +86,69 @@ const links = ref([
 </script>
 
 <template>
-	<div v-once bg-variant="secondary" class="card">
-		<div class="row g-0">
-			<div class="col-md-4">
+	<div v-once class="tw-card">
+		<div class="flex flex-row">
+			<div class="w-[300px] mr-4">
 				<img
-					v-once
 					height="300"
 					width="300"
-					class="picture"
 					src="../assets/me.jpg"
 					alt="Picture of myself"
 				/>
 			</div>
-			<div class="col-md-8">
-				<div class="card-body">
-					<h5 class="card-title">Bio</h5>
-					<p class="card-text">
-						Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
-						currently works at Bank of America in Pennington, New Jersey. I
-						mostly do Frontend development and really enjoy TypeScript, Vue, and
-						Electron.
-					</p>
-					<p class="card-text">
-						I'm 25, a Vegetarian, and listen to an insane amount of music (check
-						the music page of this site).
-					</p>
-				</div>
+			<div class="flex flex-col gap-2 items-center justify-center mt-[-128px]">
+				<h5 class="text-center">Bio</h5>
+				<p>
+					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
+					currently works at Bank of America in Pennington, New Jersey. I mostly
+					do Frontend development and really enjoy TypeScript, Vue, and
+					Electron.
+				</p>
+				<p>
+					I'm 25, a Vegetarian, and listen to an insane amount of music (check
+					the music page of this site).
+				</p>
 			</div>
 		</div>
 	</div>
 
-	<div v-once class="row bottom-card">
-		<div class="col-sm-6 col-left">
-			<div class="card card-left">
-				<div class="card-body">
-					<h5 class="card-title">Skills</h5>
-					<div class="card-text">
-						<div class="card-body card-left">
-							<h5 class="card-title-1">Technical</h5>
-							Frontend ~ TypeScript/ JavaScript, Vue.js, React, Electron,
-							Angular, HTML, CSS, <br />
-
-							Middle/ Backend ~ Node & C# <br />
-
-							Other ~ Git, Python, LUA, Android
-						</div>
-						<div class="card-body">
-							<h5 class="card-title-1">Creative</h5>
-							Music Production, Song Writing, Basic Video Editing, Basic Photo
-							Editing
-						</div>
+	<div v-once class="tw-card flex flex-row h-[300px]">
+		<div class="flex flex-col gap-5 justify-center p-4 w-[800px]">
+			<h4>Skills</h4>
+			<div class="flex flex-col">
+				<h5>Technical</h5>
+				<div>
+					<div>
+						Frontend ~ Type/JavaScript, Vue, HTML, CSS, Electron, Angular, React
 					</div>
+					<div>Middle/ Backend ~ Node & C#</div>
+					<div>Other ~ Git, Python, LUA, Android</div>
 				</div>
+			</div>
+			<div>
+				<h5>Creative</h5>
+				Music Production, Song Writing, Basic Video Editing, Basic Photo Editing
 			</div>
 		</div>
 
-		<div class="col-sm-6 col-right">
-			<div class="card card-right">
-				<iframe
-					width="100%"
-					height="100%"
-					scrolling="no"
-					frameborder="no"
-					allow="autoplay"
-					src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-				></iframe>
-			</div>
+		<div class="w-[100%]">
+			<iframe
+				width="100%"
+				height="100%"
+				scrolling="no"
+				frameborder="no"
+				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+			></iframe>
 		</div>
 	</div>
 
-	<div v-once class="card links-card">
-		<h5 class="card-title">Articles I'm featured in</h5>
-		<ul class="list-group list-group-horizontal">
+	<div v-once class="tw-card p-4 mb-4">
+		<h5>Articles I'm featured in</h5>
+		<ul class="pl-0 mb-0 flex flex-wrap">
 			<a
 				v-for="(link, index) in links"
 				:key="index"
-				class="list-group-item list-group-item-action"
+				class="h-14 w-1/5 text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white flex justify-center items-center"
 				:href="link.url"
 				target="_blank"
 			>
@@ -170,100 +157,3 @@ const links = ref([
 		</ul>
 	</div>
 </template>
-
-<style scoped>
-.list-group {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	border-top: transparent !important;
-}
-.list-group-item {
-	height: 56px;
-	background-color: #616161;
-	color: white;
-	width: 20%;
-	min-width: 139px;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-}
-.card-title {
-	text-align: center;
-}
-.card {
-	margin: 32px;
-	margin-bottom: 0px;
-}
-.links-card {
-	padding: 16px;
-	margin-bottom: 16px;
-}
-.card-left {
-	margin-right: 0px;
-}
-.card-right {
-	margin-left: 0px;
-	height: calc(100% - 32px);
-}
-.col-sm-6 {
-	padding-right: 0px;
-}
-.col-right {
-	padding-left: 0px;
-}
-.col-left {
-	padding-right: 0px;
-}
-.row {
-	margin-right: 0px;
-}
-.col-md-4 {
-	width: 300px;
-	margin-right: 16px;
-}
-.bottom-card {
-	margin-bottom: 16px;
-}
-
-@media screen and (max-width: 1000px) {
-	.card {
-		margin: 16px;
-	}
-	.card-left {
-		margin-right: 0px;
-	}
-	.card-right {
-		margin-left: 0px;
-	}
-	.col-md-4 {
-		margin-left: calc(100% / 2 - 150px);
-	}
-	.col-md-8 {
-		width: 100%;
-	}
-}
-@media screen and (max-width: 576px) {
-	.card {
-		margin: 8px;
-	}
-	.row {
-		margin: 0px;
-	}
-	.col-left {
-		padding: 0px;
-	}
-	.card-right {
-		margin-top: 0px;
-		height: 300px;
-	}
-	.card-left {
-		margin-bottom: 0px;
-	}
-	.card-title-1 {
-		margin-left: -20px;
-	}
-}
-</style>

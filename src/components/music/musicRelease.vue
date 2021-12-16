@@ -21,14 +21,17 @@ function copyReviews() {
 	<div
 		data-bs-toggle="modal"
 		:data-bs-target="`#index` + index"
-		class="card list-group-item release-card"
+		class="tw-card bg-gray-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
 	>
-		<div class="card-body release-body">
-			<h5 class="card-title">
-				{{ release[0] }}
+		<div
+			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"
+		>
+			<h5 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
+				{{ release[Release.artist] }}
 			</h5>
-			<h6 class="card-subtitle mb-2 text-muted">
-				{{ release[1] }} ({{ release[2] }}/10)
+			<!-- TODO: have score always visible and have just the releas name overflow -->
+			<h6 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
+				{{ release[Release.name] }} ({{ release[Release.score] }}/10)
 			</h6>
 		</div>
 	</div>
@@ -41,12 +44,12 @@ function copyReviews() {
 		aria-hidden="true"
 	>
 		<!-- comments -->
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog flex items-center h-[93vh]">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						{{ release[0] }} - {{ release[1] }}
-						<span class="nowrap">( {{ release[2] }}/10 )</span>
+						{{ release[Release.artist] }} - {{ release[Release.name] }}
+						<span class="nowrap">( {{ release[Release.score] }}/10 )</span>
 					</h5>
 					<svg
 						class="release-close-button"
@@ -57,19 +60,23 @@ function copyReviews() {
 						<path fill="currentColor" :d="closeSvg" />
 					</svg>
 				</div>
+
 				<div class="modal-body">
-					<div class="genres-text">Genres: {{ release[5] }}</div>
+					<div class="genres-text">Genres: {{ release[Release.genre] }}</div>
 					<br /><br />
 					<div v-if="release.length === 7">
-						{{ release[6] }}
+						{{ release[Release.comments] }}
 					</div>
 					<div v-else>No comments for this release.</div>
 				</div>
+
 				<div class="modal-footer">
-					<div class="footer-text">({{ release[4] }} {{ release[3] }})</div>
+					<div class="footer-text">
+						({{ release[Release.year] }} {{ release[Release.type] }})
+					</div>
 					<span></span>
-					<button class="btn btn-secondary" @click="copyReviews">Copy</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+					<button class="tw-button" @click="copyReviews">Copy</button>
+					<button type="button" class="tw-button" data-bs-dismiss="modal">
 						Close
 					</button>
 				</div>
@@ -86,21 +93,6 @@ function copyReviews() {
 .modal-content {
 	background-color: #383838;
 	color: lightgray;
-}
-.list-group-item {
-	background-color: #616161;
-	color: lightgray;
-	width: 20%;
-	text-align: center;
-}
-.release-card {
-	margin: 8px;
-	width: 18rem;
-	cursor: pointer;
-}
-.release-body {
-	margin: 0px;
-	padding: 8px;
 }
 .release-close-button {
 	height: 24px;

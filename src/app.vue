@@ -14,17 +14,16 @@ import Navbar from './components/Navbar.vue'
 @import 'node_modules/bootstrap/scss/functions';
 @import 'node_modules/bootstrap/scss/variables';
 @import 'node_modules/bootstrap/scss/mixins';
-@import 'node_modules/bootstrap/scss/reboot';
 
 // optional components
-@import 'node_modules/bootstrap/scss/navbar';
-@import 'node_modules/bootstrap/scss/card';
-@import 'node_modules/bootstrap/scss/buttons';
+// @import 'node_modules/bootstrap/scss/reboot';
+// @import 'node_modules/bootstrap/scss/card';
+// @import 'node_modules/bootstrap/scss/list-group';
+// @import 'node_modules/bootstrap/scss/grid';
+// @import 'node_modules/bootstrap/scss/buttons';
 @import 'node_modules/bootstrap/scss/forms';
-@import 'node_modules/bootstrap/scss/grid';
 @import 'node_modules/bootstrap/scss/tables';
 @import 'node_modules/bootstrap/scss/nav';
-@import 'node_modules/bootstrap/scss/list-group';
 @import 'node_modules/bootstrap/scss/modal';
 @import 'node_modules/bootstrap/scss/transitions';
 
@@ -60,20 +59,5 @@ import Navbar from './components/Navbar.vue'
 }
 body {
 	background-color: #303030;
-}
-.card {
-	margin: 20px;
-	color: #fff;
-	text-align: left;
-	background-color: #424242 !important;
-}
-.disable-select {
-	user-select: none;
-}
-.card-text {
-	padding-left: 16px;
-}
-.app-title {
-	margin-top: 8px;
 }
 </style>

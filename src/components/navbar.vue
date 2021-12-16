@@ -120,10 +120,10 @@ function open(link: string) {
 </script>
 
 <template>
-	<div toggleable="lg" type="dark" class="navbar">
-		<div class="navbar-buttons">
+	<div class="bg-[#388e3c] h-16 sticky top-0 flex flex-col items-center">
+		<div class="h-16 w-[100%] flex justify-center">
 			<a
-				class="navbar-link left-link"
+				class="flex p-2 items-center hover:text-gray-300"
 				data-bs-toggle="collapse"
 				href="#navbarCollapse1"
 				role="button"
@@ -133,7 +133,7 @@ function open(link: string) {
 				Website Navigation
 			</a>
 			<a
-				class="navbar-link"
+				class="flex p-2 items-center hover:text-gray-300"
 				data-bs-toggle="collapse"
 				href="#navbarCollapse2"
 				role="button"
@@ -143,17 +143,21 @@ function open(link: string) {
 				Social Links
 			</a>
 		</div>
+	</div>
 
+	<div
+		class="fixed w-[100%] top-16 flex flex-col justify-center items-center z-50"
+	>
 		<div id="navbarCollapse1" class="collapse">
-			<div id="collapsible1" class="card card-body collapsible-top-card">
+			<div id="collapsible1" class="tw-card p-4 mt-4">
 				<button
 					v-for="(route, index) in routes"
 					:key="index"
-					class="card nav-card btn btn-secondary route-button"
+					class="flex flex-col tw-nav-card"
 					:disabled="$route.name === route.name"
 					@click="routeChange(route.path)"
 				>
-					<div class="nav-card-body card-body web-nav-text-div">
+					<div class="bg-[#616161] w-[230px] p-4">
 						{{ route.meta.buttonName }}
 					</div>
 				</button>
@@ -161,98 +165,23 @@ function open(link: string) {
 		</div>
 
 		<div id="navbarCollapse2" class="collapse">
-			<div id="collapsible2" class="card card-body collapsible-top-card">
+			<div id="collapsible2" class="tw-card p-4 mt-4">
 				<div
 					v-for="(link, index) in links"
 					:key="index"
-					class="nav-card card"
+					class="tw-nav-card"
 					@click="openLink(link.openLink)"
 				>
-					<div class="nav-card-body card-body disable-select">
-						<div class="nav-card-image-div">
-							<img class="nav-card-image" :src="link.src" :alt="link.alt" />
-						</div>
-						<div class="nav-card-text">{{ link.buttonText }}</div>
+					<div class="bg-[#616161] w-[230px] p-4 select-none">
+						<img
+							class="ml-2 float-left h-8 w-8"
+							:src="link.src"
+							:alt="link.alt"
+						/>
+						<div class="text-[18px]">{{ link.buttonText }}</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.navbar {
-	background-color: #388e3c;
-	height: 60px;
-	position: sticky;
-	padding: 0px;
-	top: 0;
-	z-index: 1;
-	justify-content: center;
-}
-.navbar-buttons {
-	height: 60px;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-.navbar-link {
-	color: white;
-	text-decoration: unset;
-	padding: 5px;
-	display: flex;
-	align-items: center;
-}
-.left-link {
-	margin-left: -10px;
-}
-.navbar-link:hover {
-	color: #ddd;
-}
-.collapsible-top-card {
-	margin-top: 8px;
-}
-.route-button {
-	border-color: transparent !important;
-	background-color: #424242;
-	color: white;
-	box-shadow: unset;
-}
-.nav-card {
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-}
-.nav-card-body {
-	background-color: #616161;
-	width: 230px;
-}
-.nav-card-image-div {
-	display: flex;
-	height: 100%;
-	float: left;
-	align-items: center;
-	margin-left: 8px;
-}
-.nav-card-image {
-	height: 32px;
-	width: 32px;
-}
-.web-nav-text-div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.nav-card-text {
-	display: flex;
-	height: 100%;
-	font-size: 18px;
-	justify-content: center;
-	align-items: center;
-}
-.nav-card .card-body {
-	padding: 0;
-	height: 45px;
-	margin-top: 1px;
-}
-</style>

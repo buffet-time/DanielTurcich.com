@@ -31,27 +31,30 @@ function addGenerator(type: GeneratorType) {
 </script>
 
 <template>
-	<h1 v-once class="app-title disable-select">Frequency Generator</h1>
+	<div class="flex flex-col">
+		<h1 v-once class="m-4 mb-0 text-2xl font-semibold">Frequency Generator</h1>
 
-	<!-- v-model:generator-settings="generator.settings" -->
-	<noteGenerator
-		v-for="(generator, index) in generators"
-		:key="generator.id"
-		:index="index"
-		:generator="generator"
-		@delete-generator="generators.splice(index, 1)"
-	/>
+		<div>
+			<noteGenerator
+				v-for="(generator, index) in generators"
+				:key="generator.id"
+				:index="index"
+				:generator="generator"
+				@delete-generator="generators.splice(index, 1)"
+			/>
+		</div>
 
-	<!-- @updateSettings="updateSettings(type, value, index)" -->
-
-	<svg
-		class="add-generator btn-secondary"
-		viewBox="0 0 20 20"
-		data-bs-toggle="modal"
-		:data-bs-target="`#index`"
-	>
-		<path :d="addSvg"></path>
-	</svg>
+		<div class="flex justify-center">
+			<svg
+				class="w-[50px] cursor-pointer tw-button fill-white bg-gray-500 mt-4 rounded-xl p-[2px]"
+				viewBox="0 0 20 20"
+				data-bs-toggle="modal"
+				:data-bs-target="`#index`"
+			>
+				<path :d="addSvg"></path>
+			</svg>
+		</div>
+	</div>
 
 	<div
 		:id="'index'"
@@ -99,15 +102,6 @@ function addGenerator(type: GeneratorType) {
 </template>
 
 <style scoped>
-.add-generator {
-	width: 50px;
-	cursor: pointer;
-	fill: white;
-	background-color: #424242 !important;
-	margin-top: 16px;
-	border-radius: 10px;
-	padding: 3px;
-}
 .release-close-button {
 	height: 24px;
 	cursor: pointer;
