@@ -21,7 +21,7 @@ function copyReviews() {
 	<div
 		data-bs-toggle="modal"
 		:data-bs-target="`#index` + index"
-		class="tw-card bg-gray-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
+		class="tw-card bg-zinc-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
 	>
 		<div
 			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"

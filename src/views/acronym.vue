@@ -55,12 +55,12 @@ function getWordsFromProvidedAcronym(acronym: string) {
 		<div class="flex justify-center items-center">
 			<input
 				v-model="acronymInput"
-				class="inline-block w-64 rounded-md border text-gray-900 border-gray-300 border-solid px-3 py-2"
+				class="inline-block w-64 rounded-md border text-zinc-900 border-zinc-300 border-solid px-3 py-2"
 				placeholder="Type a word here"
 				@keyup.enter="acronymButtonPressed"
 			/>
 			<button
-				class="ml-2 cursor-pointer text-white bg-gray-500 border-gray-500 rounded px-3 py-2"
+				class="ml-2 cursor-pointer text-white bg-zinc-500 border-zinc-500 rounded px-3 py-2"
 				@click="acronymButtonPressed"
 			>
 				Generate
@@ -70,7 +70,7 @@ function getWordsFromProvidedAcronym(acronym: string) {
 			<div class="capitalize m-2">{{ textToDisplay }}</div>
 			<button
 				v-if="buttonPressedState === 'good'"
-				class="cursor-pointer text-white bg-gray-500 border-gray-500 rounded px-3 py-2"
+				class="cursor-pointer text-white bg-zinc-500 border-zinc-500 rounded px-3 py-2"
 				@click="copyAcronym"
 			>
 				Copy

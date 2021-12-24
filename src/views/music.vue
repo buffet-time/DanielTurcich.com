@@ -151,7 +151,7 @@ function isNum(value: string) {
 			<li role="presentation">
 				<button
 					id="stats-tab"
-					class="nav-link active text-white hover:text-gray-400 focus:text-gray-400 rounded-tl rounded-tr cursor-pointer px-4 py-2"
+					class="nav-link active text-white hover:text-zinc-400 focus:text-zinc-400 rounded-tl rounded-tr cursor-pointer px-4 py-2"
 					data-bs-toggle="tab"
 					data-bs-target="#stats"
 					type="button"
@@ -163,7 +163,7 @@ function isNum(value: string) {
 			<li role="presentation">
 				<button
 					id="search-tab"
-					class="nav-link text-white hover:text-gray-400 focus:text-gray-400"
+					class="nav-link text-white hover:text-zinc-400 focus:text-zinc-400"
 					data-bs-toggle="tab"
 					data-bs-target="#search"
 					type="button"

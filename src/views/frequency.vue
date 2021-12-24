@@ -46,7 +46,7 @@ function addGenerator(type: GeneratorType) {
 
 		<div class="flex justify-center">
 			<svg
-				class="w-[50px] cursor-pointer tw-button fill-white bg-gray-500 mt-4 rounded-xl p-[2px]"
+				class="w-[50px] cursor-pointer tw-button fill-white bg-zinc-500 mt-4 rounded-xl p-[2px]"
 				viewBox="0 0 20 20"
 				data-bs-toggle="modal"
 				:data-bs-target="`#index`"
@@ -65,12 +65,14 @@ function addGenerator(type: GeneratorType) {
 	>
 		<!-- comments -->
 		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Add a new generator</h5>
+			<div class="text-gray-300 bg-[#383838] w-72">
+				<div
+					class="flex justify-between p-4 border-b border-solid border-[#dee2e6]"
+				>
+					<h5>Add a new generator</h5>
 
 					<svg
-						class="release-close-button"
+						class="h-6 cursor-pointer"
 						viewBox="0 0 24 24"
 						data-bs-dismiss="modal"
 						aria-label="Close"
@@ -78,23 +80,22 @@ function addGenerator(type: GeneratorType) {
 						<path fill="currentColor" :d="closeSvg" />
 					</svg>
 				</div>
-				<div class="modal-body">
-					<div>
-						<button
-							class="btn btn-secondary"
-							data-bs-dismiss="modal"
-							@click="addGenerator('Frequency')"
-						>
-							Frequency
-						</button>
-						<button
-							class="btn btn-secondary note-modal-button"
-							data-bs-dismiss="modal"
-							@click="addGenerator('Note')"
-						>
-							Note
-						</button>
-					</div>
+
+				<div class="p-4 flex gap-2 justify-center">
+					<button
+						class="tw-button"
+						data-bs-dismiss="modal"
+						@click="addGenerator('Frequency')"
+					>
+						Frequency
+					</button>
+					<button
+						class="tw-button"
+						data-bs-dismiss="modal"
+						@click="addGenerator('Note')"
+					>
+						Note
+					</button>
 				</div>
 			</div>
 		</div>
@@ -102,17 +103,6 @@ function addGenerator(type: GeneratorType) {
 </template>
 
 <style scoped>
-.release-close-button {
-	height: 24px;
-	cursor: pointer;
-}
-.modal-content {
-	background-color: #383838;
-	color: lightgray;
-}
-.note-modal-button {
-	margin-left: 8px;
-}
 .modal-dialog {
 	width: 300px;
 	margin: 1.75rem auto;

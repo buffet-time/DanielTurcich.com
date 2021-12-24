@@ -121,67 +121,83 @@ function open(link: string) {
 
 <template>
 	<div class="bg-[#388e3c] h-16 sticky top-0 flex flex-col items-center">
-		<div class="h-16 w-[100%] flex justify-center">
-			<a
-				class="flex p-2 items-center hover:text-gray-300"
-				data-bs-toggle="collapse"
-				href="#navbarCollapse1"
-				role="button"
-				aria-expanded="false"
-				aria-controls="navbarCollapse"
-			>
-				Website Navigation
-			</a>
-			<a
-				class="flex p-2 items-center hover:text-gray-300"
-				data-bs-toggle="collapse"
-				href="#navbarCollapse2"
-				role="button"
-				aria-expanded="false"
-				aria-controls="navbarCollapse"
-			>
-				Social Links
-			</a>
-		</div>
-	</div>
+		<div class="h-16 w-[100%] flex justify-center items-center gap-4">
+			<!--  -->
+			<div class="wrap-collabsible">
+				<input id="website-navigation" class="toggle" type="checkbox" />
 
-	<div
-		class="fixed w-[100%] top-16 flex flex-col justify-center items-center z-50"
-	>
-		<div id="navbarCollapse1" class="collapse">
-			<div id="collapsible1" class="tw-card p-4 mt-4">
-				<button
-					v-for="(route, index) in routes"
-					:key="index"
-					class="flex flex-col tw-nav-card"
-					:disabled="$route.name === route.name"
-					@click="routeChange(route.path)"
-				>
-					<div class="bg-[#616161] w-[230px] p-4">
-						{{ route.meta.buttonName }}
-					</div>
-				</button>
-			</div>
-		</div>
+				<label for="website-navigation" class="toggle-label">
+					Website Navigation
+				</label>
 
-		<div id="navbarCollapse2" class="collapse">
-			<div id="collapsible2" class="tw-card p-4 mt-4">
-				<div
-					v-for="(link, index) in links"
-					:key="index"
-					class="tw-nav-card"
-					@click="openLink(link.openLink)"
-				>
-					<div class="bg-[#616161] w-[230px] p-4 select-none">
-						<img
-							class="ml-2 float-left h-8 w-8"
-							:src="link.src"
-							:alt="link.alt"
-						/>
-						<div class="text-[18px]">{{ link.buttonText }}</div>
+				<div class="collapsible-content">
+					<div class="tw-card p-4 mt-4">
+						<button
+							v-for="(route, index) in routes"
+							:key="index"
+							class="flex flex-col tw-nav-card"
+							:disabled="$route.name === route.name"
+							@click="routeChange(route.path)"
+						>
+							<div class="bg-[#616161] w-[230px] p-4">
+								{{ route.meta.buttonName }}
+							</div>
+						</button>
 					</div>
 				</div>
 			</div>
+			<!--  -->
+			<div class="wrap-collabsible">
+				<input id="social-links" class="toggle" type="checkbox" />
+
+				<label for="social-links" class="toggle-label">Social Links</label>
+
+				<div class="collapsible-content">
+					<div id="collapsible2" class="tw-card p-4 mt-4">
+						<div
+							v-for="(link, index) in links"
+							:key="index"
+							class="tw-nav-card"
+							@click="openLink(link.openLink)"
+						>
+							<div class="bg-[#616161] w-[230px] p-4 select-none">
+								<img
+									class="ml-2 float-left h-8 w-8"
+									:src="link.src"
+									:alt="link.alt"
+								/>
+								<div class="text-lg">{{ link.buttonText }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--  -->
 		</div>
 	</div>
 </template>
+
+<style scoped>
+/* prevents display of the checkbox to allow more pure CSS collapsible */
+input[type='checkbox'] {
+	display: none;
+}
+
+.toggle-label {
+	cursor: pointer;
+	user-select: none;
+}
+
+.collapsible-content {
+	position: absolute;
+	top: 4rem;
+	max-height: 0px;
+	margin-left: 0px;
+	overflow: hidden;
+	transition: max-height 0.25s ease-in-out;
+}
+
+.toggle:checked + .toggle-label + .collapsible-content {
+	max-height: 100vh;
+}
+</style>

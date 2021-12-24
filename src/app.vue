@@ -16,11 +16,6 @@ import Navbar from './components/Navbar.vue'
 @import 'node_modules/bootstrap/scss/mixins';
 
 // optional components
-// @import 'node_modules/bootstrap/scss/reboot';
-// @import 'node_modules/bootstrap/scss/card';
-// @import 'node_modules/bootstrap/scss/list-group';
-// @import 'node_modules/bootstrap/scss/grid';
-// @import 'node_modules/bootstrap/scss/buttons';
 @import 'node_modules/bootstrap/scss/forms';
 @import 'node_modules/bootstrap/scss/tables';
 @import 'node_modules/bootstrap/scss/nav';
