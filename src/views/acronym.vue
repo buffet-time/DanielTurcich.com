@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { default as acronymWords } from '../acronymWords.json'
+import acronymWords from '../assets/acronymWords.json'
 
 // Public
 const acronymInput = ref('')
@@ -34,18 +34,17 @@ function acronymButtonPressed() {
 }
 
 function getWordsFromProvidedAcronym(acronym: string) {
-	return acronym
-		.toLowerCase()
-		.split('')
-		.reduce(
-			(previousValue: string, currentLetter: string) =>
-				`${previousValue} ${
-					words[currentLetter][
-						Math.floor(Math.random() * words[currentLetter].length)
-					]
-				}`,
-			''
-		)
+	const massagedAcronym = acronym.toLowerCase().split('')
+
+	return massagedAcronym.reduce(
+		(previousValue: string, currentLetter: string) => {
+			const randomIndex = Math.floor(
+				Math.random() * words[currentLetter].length
+			)
+			return `${previousValue} ${words[currentLetter][randomIndex]}`
+		},
+		''
+	)
 }
 </script>
 

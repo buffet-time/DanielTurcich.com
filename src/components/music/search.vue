@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../enums'
+import { Release } from '../../assets/enums'
 import musicRelease from './musicRelease.vue'
 
 const props = defineProps<{
@@ -53,6 +53,7 @@ onMounted(() =>
 )
 
 function searchButtonPressed() {
+	console.log(1)
 	showReleasesDiv.value = false
 	showNoResults.value = false
 	searchInput.value = searchInput.value.trim()

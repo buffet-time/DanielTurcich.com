@@ -3,7 +3,7 @@ import { onBeforeMount, type Ref, ref } from 'vue'
 import 'bootstrap/js/dist/tab'
 import search from '../components/music/Search.vue'
 import stats from '../components/music/Stats.vue'
-import { Release } from '../enums'
+import { Release } from '../assets/enums'
 
 export interface StatsObject {
 	numberOfReleases: string | number

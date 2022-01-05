@@ -64,11 +64,11 @@ function copyPassword() {
 </script>
 
 <template>
-	<div class="flex flex-col">
+	<div class="flex flex-col justify-center items-center">
 		<h1 v-once class="m-4 text-2xl font-semibold">Password Generator</h1>
 
 		<div class="flex flex-col justify-center items-center">
-			<div class="flex flex-col mb-2">
+			<div class="flex flex-col justify-center items-center mb-2">
 				<label class="inline-block" for="range-1">
 					Password Length: {{ passwordLength }}
 				</label>
@@ -129,7 +129,7 @@ function copyPassword() {
 			</button>
 		</div>
 
-		<div class="m-4">
+		<div class="m-4 flex flex-col justify-center items-center">
 			<div class="mb-4">{{ textToShow }}</div>
 			<button
 				v-show="password.length > 0"

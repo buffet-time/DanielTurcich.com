@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
-import { closeSvg } from '../svgs'
+import { closeSvg } from '../assets/svgs'
 import { type Generator } from '../views/Frequency.vue'
 
 type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'

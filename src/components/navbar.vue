@@ -1,9 +1,7 @@
 <script setup lang="ts">
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Collapse from 'bootstrap/js/dist/collapse'
 import router, { resume } from '../router'
 import { type RouteRecordNormalized } from 'vue-router'
-import { onMounted } from 'vue'
+import { ref } from 'vue'
 
 // Images
 import githubSrc from '../assets/github.png'
@@ -18,6 +16,9 @@ interface navLink {
 	alt: string
 	buttonText: string
 }
+
+const websiteNavigationInput = ref(false)
+const socialLinksInput = ref(false)
 
 // public
 const links: navLink[] = [
@@ -56,66 +57,48 @@ const routes: RouteRecordNormalized[] = router
 	.getRoutes()
 	.filter((route) => route.meta['buttonName'] !== undefined)
 
-function openLink(link: string) {
-	switch (link) {
-		case 'github':
-			open('https://github.com/buffet-time')
+function navigationClicked(type: 'navigation' | 'social') {
+	switch (type) {
+		case 'navigation':
+			if (socialLinksInput.value) {
+				socialLinksInput.value = false
+			}
 			break
 
-		case 'linkedin':
-			open('https://www.linkedin.com/in/danielturcich/')
-			break
-
-		case 'resume':
-			open(resume)
-			break
-
-		case 'bandcamp':
-			open('https://buffet-time.bandcamp.com/')
-			break
-
-		case 'soundcloud':
-			open('https://soundcloud.com/buffet_time')
+		case 'social':
+			if (websiteNavigationInput.value) {
+				websiteNavigationInput.value = false
+			}
 			break
 	}
 }
 
-onMounted(() => {
-	const target1 = document.querySelector('#collapsible1')!
-	const target2 = document.querySelector('#collapsible2')!
+function openLink(link: string) {
+	switch (link) {
+		case 'github':
+			window.open('https://github.com/buffet-time', '_blank')
+			break
 
-	const navbarCollapse1 = new Collapse(
-		document.getElementById('navbarCollapse1')!,
-		{
-			toggle: false
-		}
-	)
-	const navbarCollapse2 = new Collapse(
-		document.getElementById('navbarCollapse2')!,
-		{
-			toggle: false
-		}
-	)
+		case 'linkedin':
+			window.open('https://www.linkedin.com/in/danielturcich/', '_blank')
+			break
 
-	document.addEventListener('click', (event) => {
-		if (
-			!(
-				event.composedPath().includes(target1) ||
-				event.composedPath().includes(target2)
-			)
-		) {
-			navbarCollapse1.hide()
-			navbarCollapse2.hide()
-		}
-	})
-})
+		case 'resume':
+			window.open(resume, '_blank')
+			break
+
+		case 'bandcamp':
+			window.open('https://buffet-time.bandcamp.com/', '_blank')
+			break
+
+		case 'soundcloud':
+			window.open('https://soundcloud.com/buffet_time', '_blank')
+			break
+	}
+}
 
 async function routeChange(route: string) {
 	await router.push(route)
-}
-
-function open(link: string) {
-	window.open(link, '_blank')
 }
 </script>
 
@@ -124,13 +107,19 @@ function open(link: string) {
 		<div class="h-16 w-[100%] flex justify-center items-center gap-4">
 			<!--  -->
 			<div class="wrap-collabsible">
-				<input id="website-navigation" class="toggle" type="checkbox" />
+				<input
+					id="website-navigation"
+					v-model="websiteNavigationInput"
+					class="toggle"
+					type="checkbox"
+					@click="navigationClicked('navigation')"
+				/>
 
 				<label for="website-navigation" class="toggle-label">
 					Website Navigation
 				</label>
 
-				<div class="collapsible-content">
+				<div class="collapsible-content ml-[-42px]">
 					<div class="tw-card p-4 mt-4">
 						<button
 							v-for="(route, index) in routes"
@@ -148,11 +137,17 @@ function open(link: string) {
 			</div>
 			<!--  -->
 			<div class="wrap-collabsible">
-				<input id="social-links" class="toggle" type="checkbox" />
+				<input
+					id="social-links"
+					v-model="socialLinksInput"
+					class="toggle"
+					type="checkbox"
+					@click="navigationClicked('social')"
+				/>
 
 				<label for="social-links" class="toggle-label">Social Links</label>
 
-				<div class="collapsible-content">
+				<div class="collapsible-content ml-[-194px]">
 					<div id="collapsible2" class="tw-card p-4 mt-4">
 						<div
 							v-for="(link, index) in links"
@@ -178,7 +173,6 @@ function open(link: string) {
 </template>
 
 <style scoped>
-/* prevents display of the checkbox to allow more pure CSS collapsible */
 input[type='checkbox'] {
 	display: none;
 }
@@ -192,7 +186,6 @@ input[type='checkbox'] {
 	position: absolute;
 	top: 4rem;
 	max-height: 0px;
-	margin-left: 0px;
 	overflow: hidden;
 	transition: max-height 0.25s ease-in-out;
 }

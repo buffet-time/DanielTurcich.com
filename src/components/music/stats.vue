@@ -13,32 +13,32 @@ defineProps<{
 		role="tabpanel"
 		aria-labelledby="stats-tab"
 	>
-		<div class="table-div">
-			<table class="table table-dark .table-borderless">
-				<thead v-once>
+		<div class="w-96">
+			<table class="table-auto text-white w-full border-collapse bg-[#212529]">
+				<thead class="border-solid p-2">
 					<tr>
 						<th>Stat</th>
 						<th>Value</th>
 					</tr>
 				</thead>
+
 				<tbody>
 					<tr>
-						<th v-once>Number of releases</th>
+						<th>Number of releases</th>
 						<td>{{ statsObject.numberOfReleases }}</td>
 					</tr>
 					<tr>
-						<th v-once>Number of artists</th>
+						<th>Number of artists</th>
 						<td>{{ statsObject.numberOfArtists }}</td>
 					</tr>
 					<tr>
-						<th v-once>Average Year</th>
+						<th>Average Year</th>
 						<td>{{ statsObject.averageYear }}</td>
 					</tr>
 					<tr>
 						<th v-once>Average Score</th>
 						<td>{{ statsObject.averageScore }}</td>
 					</tr>
-					<!-- change to v-for  -->
 
 					<tr v-for="(item, index) in statsObject.releasesPerYear" :key="index">
 						<th v-if="index > 0">
@@ -56,12 +56,12 @@ defineProps<{
 </template>
 
 <style scoped>
-.table-div {
-	width: 400px;
-	margin-left: calc(50% - 200px);
-	color: white;
-}
-th {
+thead,
+th,
+td {
+	border-style: solid;
+	padding: 0.5rem;
+	border-bottom-width: 1px;
 	font-weight: normal;
 	font-size: large;
 }

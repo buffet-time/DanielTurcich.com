@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import 'bootstrap/js/dist/modal'
-import { Release } from '../../enums'
-import { closeSvg } from '../../svgs'
+import { Release } from '../../assets/enums'
+import { closeSvg } from '../../assets/svgs'
 
 const props = defineProps<{
 	index: number

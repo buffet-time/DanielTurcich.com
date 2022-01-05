@@ -9,6 +9,7 @@ export type SortingAlgorithm =
 	| 'Quick' | 'Heap' | 'Shell' | 'Gnome'
 
 // TODO:
+// Convert drawing to be microTasks to improve rendering speed
 // Show time to draw and time to execute
 // Show array accesses?
 // Show swaps?
