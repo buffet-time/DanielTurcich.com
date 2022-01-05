@@ -46,6 +46,7 @@ const statsObject = ref({
 
 // Private variables
 const artistArray: string[] = []
+// TODO: refactor API and frontend so i dont need to update this everyyear :)
 const spreadsheets: SpreadsheetParams[] = [
 	{
 		id: '1tn0BmleHcs0okzWKhUnyOCWUPD422HvutpNQNzdAAIk',
@@ -58,6 +59,10 @@ const spreadsheets: SpreadsheetParams[] = [
 	{
 		id: '18V5oypFBW3Bu_tHxfTL-iSbb9ALYrCJlMwLhpPmp72M',
 		range: 'Main!A2:G' // 2021
+	},
+	{
+		id: '1lyFD7uLMT0mRdGkKwvbIm_2pqk2YJU7rtRQVhHq-nwU',
+		range: 'Main!A2:G' // 2022
 	}
 ]
 
