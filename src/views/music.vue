@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
-import 'bootstrap/js/dist/tab'
 import search from '../components/music/Search.vue'
 import stats from '../components/music/Stats.vue'
 import { Release } from '../assets/enums'
@@ -122,7 +121,9 @@ async function initializeSheets() {
 	)
 		.flat()
 		.filter((current: string[]) => {
-			for (const element of current) element.trim()
+			for (const element of current) {
+				element.trim()
+			}
 			return current.length > 5 // makes sure to not include any not fully written reviews
 		})
 }
@@ -137,50 +138,51 @@ async function getArray(id: string, range: string) {
 function isNum(value: string) {
 	return !isNaN(Number(value))
 }
+
+function switchTab(event: any, tabName: string) {
+	const tabcontent = document.getElementsByClassName('tabcontent') as any
+	const tablinks = document.getElementsByClassName('tablinks')
+
+	for (let i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = 'none'
+	}
+
+	for (let x = 0; x < tablinks.length; x++) {
+		tablinks[x].className = tablinks[x].className.replace(' active', '')
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	document.getElementById(tabName)!.style.display = 'block'
+	event.currentTarget.tabName += ' active'
+}
 </script>
 
 <template>
 	<div class="flex flex-col justify-center items-center gap-4">
-		<h1 v-once class="mt-4 text-2xl font-semibold">My Music Page</h1>
+		<h1 class="mt-4 text-2xl font-semibold">My Music Page</h1>
 
-		<!-- border-bottom: 1px solid #dee2e6; -->
-		<ul
-			v-once
-			id="myTab"
-			class="flex justify-center nav nav-tabs"
-			role="tablist"
-		>
-			<!-- 
+		<div class="flex justify-center">
+			<button
+				class="tablinks active tw-tab-button"
+				type="button"
+				@click="switchTab($event, 'statsContent')"
+			>
+				Stats
+			</button>
 
-		 -->
-			<li role="presentation">
-				<button
-					id="stats-tab"
-					class="nav-link active text-white hover:text-zinc-400 focus:text-zinc-400 rounded-tl rounded-tr cursor-pointer px-4 py-2"
-					data-bs-toggle="tab"
-					data-bs-target="#stats"
-					type="button"
-					role="tab"
-				>
-					Stats
-				</button>
-			</li>
-			<li role="presentation">
-				<button
-					id="search-tab"
-					class="nav-link text-white hover:text-zinc-400 focus:text-zinc-400"
-					data-bs-toggle="tab"
-					data-bs-target="#search"
-					type="button"
-					role="tab"
-				>
-					Search
-				</button>
-			</li>
-		</ul>
+			<button
+				class="tablinks tw-tab-button"
+				type="button"
+				@click="switchTab($event, 'searchContent')"
+			>
+				Search
+			</button>
+		</div>
 
-		<div id="myTabContent" class="tab-content">
+		<div id="statsContent" class="tabcontent">
 			<stats :stats-object="statsObject" />
+		</div>
+		<div id="searchContent" class="tabcontent hidden">
 			<search
 				:current-year="currentYear"
 				:earliest-year="earliestYear"

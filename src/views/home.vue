@@ -86,7 +86,7 @@ const links = ref([
 </script>
 
 <template>
-	<div v-once class="tw-card">
+	<div class="tw-card">
 		<div class="flex flex-row">
 			<div class="w-[300px] mr-4">
 				<img
@@ -112,7 +112,7 @@ const links = ref([
 		</div>
 	</div>
 
-	<div v-once class="tw-card flex flex-row h-[300px]">
+	<div class="tw-card flex flex-row h-[300px]">
 		<div class="flex flex-col gap-5 justify-center p-4 w-[800px]">
 			<h4>Skills</h4>
 			<div class="flex flex-col">
@@ -142,7 +142,7 @@ const links = ref([
 		</div>
 	</div>
 
-	<div v-once class="tw-card p-4 mb-4">
+	<div class="tw-card p-4 mb-4">
 		<h5>Articles I'm featured in</h5>
 		<ul class="pl-0 mb-0 flex flex-wrap">
 			<a

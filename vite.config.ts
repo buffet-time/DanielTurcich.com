@@ -21,7 +21,7 @@ export default defineConfig({
 		},
 
 		terserOptions: {
-			ecma: 2018,
+			ecma: 2015,
 			module: true,
 			toplevel: true
 		},

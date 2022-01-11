@@ -50,7 +50,7 @@ function getWordsFromProvidedAcronym(acronym: string) {
 
 <template>
 	<div class="flex flex-col justify-center items-center">
-		<h1 v-once class="m-4 text-2xl font-semibold">Acronym Generator</h1>
+		<h1 class="m-4 text-2xl font-semibold">Acronym Generator</h1>
 		<div class="flex justify-center items-center">
 			<input
 				v-model="acronymInput"

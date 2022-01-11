@@ -168,7 +168,7 @@ function updateNoteFrequency() {
 </script>
 
 <template>
-	<div class="tw-card bg-[#424242] p-4">
+	<div class="tw-card bg-[#424242] p-4 w-4/5">
 		<svg
 			class="h-6 float-right cursor-pointer"
 			viewBox="0 0 24 24"
@@ -177,70 +177,69 @@ function updateNoteFrequency() {
 			<path fill="currentColor" :d="closeSvg" />
 		</svg>
 
-		<div class="m-0 p-4">
-			<div v-if="generator.generatorType === 'Frequency'">
-				<label for="range-1"> Frequency: {{ frequency }} </label>
-				<input
-					v-once
-					id="range-1"
-					v-model="frequency"
-					class="w-full h-6 bg-transparent"
-					type="range"
-					min="10"
-					max="22000"
-					step="10"
-				/>
+		<div class="flex flex-col">
+			<div class="m-0 p-4">
+				<div v-if="generator.generatorType === 'Frequency'">
+					<label for="range-1"> Frequency: {{ frequency }} </label>
+					<input
+						id="range-1"
+						v-model="frequency"
+						class="w-full h-6 bg-transparent"
+						type="range"
+						min="10"
+						max="22000"
+						step="10"
+					/>
+				</div>
+
+				<!-- @input="$emit('updateSettings', 'frequency', ($event.target! as any).value)" -->
+
+				<div v-else-if="generator.generatorType === 'Note'">
+					<label class="h-6" for="range-1">
+						Note/ Frequency: {{ noteName }} <sub>{{ noteOctave }}</sub> /
+						{{ frequency }}
+					</label>
+					<input
+						id="range-1"
+						v-model="noteOffset"
+						class="w-full h-6 bg-transparent"
+						type="range"
+						min="-57"
+						max="68"
+						step="1"
+					/>
+				</div>
+
+				<div>
+					<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
+					<input
+						id="range-1"
+						v-model="volume"
+						class="w-full h-6 bg-transparent"
+						type="range"
+						min="0"
+						max="1"
+						step="0.0005"
+					/>
+				</div>
+
+				<select
+					v-model="oscillatorType"
+					class="pt-2 pr-9 pb-2 pl-3 text-black border border-solid border-[#ced4da] rounded my-0 mx-auto flex justify-center"
+				>
+					<option value="sawtooth">Sawtooth</option>
+					<option selected value="sine">Sine</option>
+					<option value="square">Square</option>
+					<option value="triangle">Triangle</option>
+				</select>
 			</div>
 
-			<!-- @input="$emit('updateSettings', 'frequency', ($event.target! as any).value)" -->
-
-			<div v-else-if="generator.generatorType === 'Note'">
-				<label class="h-6" for="range-1">
-					Note/ Frequency: {{ noteName }} <sub>{{ noteOctave }}</sub> /
-					{{ frequency }}
-				</label>
-				<input
-					v-once
-					id="range-1"
-					v-model="noteOffset"
-					class="w-full h-6 bg-transparent"
-					type="range"
-					min="-57"
-					max="68"
-					step="1"
-				/>
+			<div class="flex justify-center">
+				<button class="tw-button" @click="startStopButton">
+					<template v-if="started">Stop</template>
+					<template v-else>Start</template>
+				</button>
 			</div>
-
-			<div>
-				<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
-				<input
-					v-once
-					id="range-1"
-					v-model="volume"
-					class="w-full h-6 bg-transparent"
-					type="range"
-					min="0"
-					max="1"
-					step="0.0005"
-				/>
-			</div>
-
-			<select
-				v-model="oscillatorType"
-				class="pt-2 pr-9 pb-2 pl-3 text-black border border-solid border-[#ced4da] rounded my-0 mx-auto"
-			>
-				<option value="sawtooth">Sawtooth</option>
-				<option selected value="sine">Sine</option>
-				<option value="square">Square</option>
-				<option value="triangle">Triangle</option>
-			</select>
-		</div>
-
-		<div class="flex justify-center">
-			<button class="tw-button" @click="startStopButton">
-				<template v-if="started">Stop</template>
-				<template v-else>Start</template>
-			</button>
 		</div>
 	</div>
 </template>

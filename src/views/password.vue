@@ -65,7 +65,7 @@ function copyPassword() {
 
 <template>
 	<div class="flex flex-col justify-center items-center">
-		<h1 v-once class="m-4 text-2xl font-semibold">Password Generator</h1>
+		<h1 class="m-4 text-2xl font-semibold">Password Generator</h1>
 
 		<div class="flex flex-col justify-center items-center">
 			<div class="flex flex-col justify-center items-center mb-2">
@@ -73,7 +73,6 @@ function copyPassword() {
 					Password Length: {{ passwordLength }}
 				</label>
 				<input
-					v-once
 					id="range-1"
 					v-model="passwordLength"
 					class="w-64 h-6 bg-transparent"
@@ -83,7 +82,7 @@ function copyPassword() {
 				/>
 			</div>
 
-			<div v-once class="flex flex-col items-center justify-center">
+			<div class="flex flex-col items-center justify-center">
 				<div class="pl-6">
 					<input
 						id="lowercase"
@@ -124,9 +123,7 @@ function copyPassword() {
 					<label for="symbols"> Exclude Symbols </label>
 				</div>
 			</div>
-			<button v-once class="mt-4 tw-button" @click="generatePassword">
-				Generate
-			</button>
+			<button class="mt-4 tw-button" @click="generatePassword">Generate</button>
 		</div>
 
 		<div class="m-4 flex flex-col justify-center items-center">

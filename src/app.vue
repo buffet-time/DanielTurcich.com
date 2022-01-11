@@ -8,16 +8,6 @@ import Navbar from './components/Navbar.vue'
 </template>
 
 <style lang="scss">
-// Required
-@import 'node_modules/bootstrap/scss/functions';
-@import 'node_modules/bootstrap/scss/variables';
-@import 'node_modules/bootstrap/scss/mixins';
-
-// optional components
-@import 'node_modules/bootstrap/scss/forms';
-@import 'node_modules/bootstrap/scss/nav';
-@import 'node_modules/bootstrap/scss/modal';
-
 // latin
 @font-face {
 	font-display: swap;
@@ -46,5 +36,6 @@ body {
 	background-color: #303030;
 	font-family: Roboto, Helvetica, Arial, sans-serif;
 	color: white;
+	text-align: center;
 }
 </style>

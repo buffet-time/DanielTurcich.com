@@ -1,25 +1,11 @@
 # general
 node_modules
 dist
-.eslintcache
-*.local
 ignore.txt
-
-# local env files
-.env.local
-.env.*.local
+/.github
 
 # firebase
 /.firebase
 .firebaserc
 /firebasePublic
-/.github
 firebase-debug.log
-
-# other
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw*

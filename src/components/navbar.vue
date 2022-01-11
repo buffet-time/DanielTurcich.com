@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router, { resume } from '../router'
 import { type RouteRecordNormalized } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // Images
 import githubSrc from '../assets/github.png'
@@ -57,21 +57,24 @@ const routes: RouteRecordNormalized[] = router
 	.getRoutes()
 	.filter((route) => route.meta['buttonName'] !== undefined)
 
-function navigationClicked(type: 'navigation' | 'social') {
-	switch (type) {
-		case 'navigation':
-			if (socialLinksInput.value) {
-				socialLinksInput.value = false
-			}
-			break
+onMounted(() => {
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const target1 = document.querySelector('#webNavModal')!
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const target2 = document.querySelector('#socialModal')!
 
-		case 'social':
-			if (websiteNavigationInput.value) {
-				websiteNavigationInput.value = false
-			}
-			break
-	}
-}
+	document.addEventListener('click', (event) => {
+		if (
+			!(
+				event.composedPath().includes(target1) ||
+				event.composedPath().includes(target2)
+			)
+		) {
+			socialLinksInput.value = false
+			websiteNavigationInput.value = false
+		}
+	})
+})
 
 function openLink(link: string) {
 	switch (link) {
@@ -105,14 +108,12 @@ async function routeChange(route: string) {
 <template>
 	<div class="bg-[#388e3c] h-16 sticky top-0 flex flex-col items-center">
 		<div class="h-16 w-[100%] flex justify-center items-center gap-4">
-			<!--  -->
 			<div class="wrap-collabsible">
 				<input
 					id="website-navigation"
 					v-model="websiteNavigationInput"
 					class="toggle"
 					type="checkbox"
-					@click="navigationClicked('navigation')"
 				/>
 
 				<label for="website-navigation" class="toggle-label">
@@ -120,7 +121,7 @@ async function routeChange(route: string) {
 				</label>
 
 				<div class="collapsible-content ml-[-42px]">
-					<div class="tw-card p-4 mt-4">
+					<div ref="webNavModal" class="tw-card p-4 mt-4">
 						<button
 							v-for="(route, index) in routes"
 							:key="index"
@@ -135,20 +136,19 @@ async function routeChange(route: string) {
 					</div>
 				</div>
 			</div>
-			<!--  -->
-			<div class="wrap-collabsible">
+
+			<div class="wrap-collabsible text-center">
 				<input
 					id="social-links"
 					v-model="socialLinksInput"
 					class="toggle"
 					type="checkbox"
-					@click="navigationClicked('social')"
 				/>
 
 				<label for="social-links" class="toggle-label">Social Links</label>
 
 				<div class="collapsible-content ml-[-194px]">
-					<div id="collapsible2" class="tw-card p-4 mt-4">
+					<div id="collapsible2" ref="socialModal" class="tw-card p-4 mt-4">
 						<div
 							v-for="(link, index) in links"
 							:key="index"
@@ -167,7 +167,6 @@ async function routeChange(route: string) {
 					</div>
 				</div>
 			</div>
-			<!--  -->
 		</div>
 	</div>
 </template>

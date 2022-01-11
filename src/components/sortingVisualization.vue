@@ -543,5 +543,5 @@ async function gnomeSort() {
 </script>
 
 <template>
-	<canvas v-once id="canvas" class="flex-auto"></canvas>
+	<canvas id="canvas" class="flex-auto"></canvas>
 </template>
