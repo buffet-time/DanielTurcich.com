@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const soundcloudLink =
+	'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'
+
 const links = ref([
 	{
 		url: 'https://www.pcgamer.com/watch-a-man-run-jump-and-crawl-for-a-half-life-alyx-speedrun',
@@ -87,16 +90,13 @@ const links = ref([
 
 <template>
 	<div class="tw-card">
-		<div class="flex flex-row">
-			<div class="w-[300px] mr-4">
-				<img
-					height="300"
-					width="300"
-					src="../assets/me.jpg"
-					alt="Picture of myself"
-				/>
-			</div>
-			<div class="flex flex-col gap-2 items-center justify-center mt-[-128px]">
+		<div class="flex flex-col sm:flex-row gap-4">
+			<img
+				class="mh-[300px] h-full"
+				src="../assets/me.jpg"
+				alt="Picture of myself"
+			/>
+			<div class="flex flex-col gap-2 items-center justify-center">
 				<h5 class="text-center">Bio</h5>
 				<p>
 					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
@@ -106,14 +106,16 @@ const links = ref([
 				</p>
 				<p>
 					I'm 25, a Vegetarian, and listen to an insane amount of music (check
-					the music page of this site).
+					the music page of this site).1
 				</p>
 			</div>
 		</div>
 	</div>
 
-	<div class="tw-card flex flex-row h-[300px]">
-		<div class="flex flex-col gap-5 justify-center p-4 w-[800px]">
+	<div class="tw-card flex flex-col justify-center items-center sm:flex-row">
+		<div
+			class="flex flex-col gap-5 justify-center p-4 w-full sm:w-[40%] sm:min-w-[380px]"
+		>
 			<h4>Skills</h4>
 			<div class="flex flex-col">
 				<h5>Technical</h5>
@@ -131,24 +133,24 @@ const links = ref([
 			</div>
 		</div>
 
-		<div class="w-[100%]">
+		<div class="w-[100%] h-72">
 			<iframe
 				width="100%"
 				height="100%"
 				scrolling="no"
 				frameborder="no"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+				:src="soundcloudLink"
 			></iframe>
 		</div>
 	</div>
 
 	<div class="tw-card p-4 mb-4">
 		<h5>Articles I'm featured in</h5>
-		<ul class="pl-0 mb-0 flex flex-wrap">
+		<ul class="pl-0 mb-0 flex flex-wrap items-center justify-center">
 			<a
 				v-for="(link, index) in links"
 				:key="index"
-				class="h-14 w-1/5 text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white flex justify-center items-center"
+				class="h-14 w-1/5 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
 				:href="link.url"
 				target="_blank"
 			>
