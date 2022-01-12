@@ -106,7 +106,7 @@ const links = ref([
 				</p>
 				<p>
 					I'm 25, a Vegetarian, and listen to an insane amount of music (check
-					the music page of this site).1
+					the music page of this site).
 				</p>
 			</div>
 		</div>
