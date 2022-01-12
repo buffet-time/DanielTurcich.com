@@ -2,10 +2,4 @@
 node_modules
 dist
 ignore.txt
-/.github
-
-# firebase
-/.firebase
-.firebaserc
-/firebasePublic
-firebase-debug.log
+# /.github

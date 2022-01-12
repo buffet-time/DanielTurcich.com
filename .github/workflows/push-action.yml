@@ -1,0 +1,16 @@
+name: Push Action
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Clones repo"
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - run: echo "Running script"
+      - name: Run script file
+        run: |
+          chmod +x ./deploy.sh
+          ./deploy.sh
+        shell: bash
