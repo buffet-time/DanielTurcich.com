@@ -4,6 +4,7 @@
 set -e
 
 # build
+npm run install
 npm run build
 
 # navigate into the build output directory

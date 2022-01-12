@@ -12,7 +12,6 @@
 		"serve-phone": "vite --host",
 		"build": "vue-tsc --noEmit && vite build --emptyOutDir",
 		"preview": "vite preview",
-		"deploy": "pnpm build && firebase deploy",
 		"eslint": "eslint . --ext .ts --ext .vue"
 	},
 	"dependencies": {
