@@ -22,6 +22,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:buffet-time/DanielTurcich.com.git main:gh-pages
+git push -f git@github.com:buffet-time/DanielTurcich.com.git master:gh-pages
 
 cd -
