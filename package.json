@@ -10,13 +10,9 @@
 	"scripts": {
 		"serve": "vite",
 		"preview": "vite preview",
+		"prepare-husky": "husky install",
 		"build": "vue-tsc --noEmit && vite build --emptyOutDir",
 		"deploy": "git push origin `git subtree split --prefix dist master`:gh-pages --force"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "pnpm build"
-		}
 	},
 	"dependencies": {
 		"dialog-polyfill": "^0.5.6",
