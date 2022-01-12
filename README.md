@@ -1,6 +1,6 @@
 # DanielTurcich.com
 
-My personal website that functions as a resume site and a host for various webapps that are accesible via the Hamburger Menu or direct routing.
+My personal website that functions as a resume site and a host for various webapps via top bar Menu or direct routing.
 
 Acronym Generator dictionary was taken from: <https://github.com/RazorSh4rk/random-word-api>
 
