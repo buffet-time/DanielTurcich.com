@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Ref, ref, watch } from 'vue'
-import SortingVisualization from '../components/SortingVisualization.vue'
+import SortingVisualization from '../components/sortingVisualization.vue'
 
 // prettier-ignore
 export type SortingAlgorithm =

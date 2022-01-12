@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
-import search from '../components/music/Search.vue'
-import stats from '../components/music/Stats.vue'
+import search from '../components/music/search.vue'
+import stats from '../components/music/stats.vue'
 import { Release } from '../assets/enums'
 
 export interface StatsObject {
