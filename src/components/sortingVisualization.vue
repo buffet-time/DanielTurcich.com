@@ -543,5 +543,5 @@ async function gnomeSort() {
 </script>
 
 <template>
-	<canvas id="canvas"></canvas>
+	<canvas id="canvas" class="w-[calc(100vw_-_288px)]"></canvas>
 </template>

@@ -150,8 +150,8 @@ function audioForRandomizing() {
 </script>
 
 <template>
-	<div class="flex">
-		<div class="flex flex-col justify-center items-center gap-2">
+	<div class="flex h-[calc(100vh_-_64px)]">
+		<div class="flex flex-col justify-center items-center gap-2 w-72">
 			<div class="flex gap-1 justify-center">
 				<button
 					class="tw-button h-[50px] w-[130px] p-0"
