@@ -14,62 +14,60 @@ const Home = () => import('./views/home.vue'),
 const resume =
 	'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view'
 
-const prefix = '/DanielTurcich.com'
-
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
 const routes: Array<RouteRecordRaw> = [
 	{
-		path: `${prefix}/`,
+		path: '/',
 		name: 'Home',
 		component: Home,
 		meta: { buttonName: 'Home' }
 	},
 	{
-		path: `${prefix}/music`,
+		path: '/music',
 		name: 'Music',
 		component: Music,
 		meta: { buttonName: ' My Music Page' }
 	},
 	{
-		path: `${prefix}/sorting`,
+		path: '/sorting',
 		name: 'Sorting',
 		component: Sorting,
 		meta: { buttonName: 'Sorting Visualizer' }
 	},
 	{
-		path: `${prefix}/frequency`,
+		path: '/frequency',
 		name: 'Frequency',
 		component: Frequency,
 		meta: { buttonName: 'Frequency Tool' }
 	},
 	{
-		path: `${prefix}/acronym`,
+		path: '/acronym',
 		name: 'Acronym',
 		component: Acronym,
 		meta: { buttonName: 'Acronym Generator' }
 	},
 	{
-		path: `${prefix}/password`,
+		path: '/password',
 		name: 'Password',
 		component: Password,
 		meta: { buttonName: 'Password Generator' }
 	},
 	{
-		path: `${prefix}/discord`,
+		path: '/discord',
 		name: 'Discord',
 		component: Discord,
 		meta: { buttonName: 'Discord Spam Tool' }
 	},
 	{
-		path: `${prefix}/weather`,
+		path: '/weather',
 		name: 'Weather',
 		component: Weather,
 		meta: { buttonName: 'Weather Widget' }
 	},
 	// TODO: optimize this to not render the navbar
 	{
-		path: `${prefix}/resume`,
+		path: '/resume',
 		name: 'Resume',
 		redirect: () => {
 			window.location.href = resume
@@ -78,7 +76,7 @@ const routes: Array<RouteRecordRaw> = [
 		}
 	},
 	{
-		path: `${prefix}/recc`,
+		path: '/recc',
 		name: 'Recc',
 		redirect: () => {
 			window.location.href =
@@ -100,7 +98,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
+	history: createWebHistory(`${import.meta.env.BASE_URL}/DanielTurcich.com/`),
 	routes
 })
 
