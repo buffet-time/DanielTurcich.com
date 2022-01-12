@@ -14,60 +14,62 @@ const Home = () => import('./views/home.vue'),
 const resume =
 	'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view'
 
+const prefix = '/DanielTurcich.com'
+
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
 const routes: Array<RouteRecordRaw> = [
 	{
-		path: '/',
+		path: `${prefix}/`,
 		name: 'Home',
 		component: Home,
 		meta: { buttonName: 'Home' }
 	},
 	{
-		path: '/music',
+		path: `${prefix}/music`,
 		name: 'Music',
 		component: Music,
 		meta: { buttonName: ' My Music Page' }
 	},
 	{
-		path: '/sorting',
+		path: `${prefix}/sorting`,
 		name: 'Sorting',
 		component: Sorting,
 		meta: { buttonName: 'Sorting Visualizer' }
 	},
 	{
-		path: '/frequency',
+		path: `${prefix}/frequency`,
 		name: 'Frequency',
 		component: Frequency,
 		meta: { buttonName: 'Frequency Tool' }
 	},
 	{
-		path: '/acronym',
+		path: `${prefix}/acronym`,
 		name: 'Acronym',
 		component: Acronym,
 		meta: { buttonName: 'Acronym Generator' }
 	},
 	{
-		path: '/password',
+		path: `${prefix}/password`,
 		name: 'Password',
 		component: Password,
 		meta: { buttonName: 'Password Generator' }
 	},
 	{
-		path: '/discord',
+		path: `${prefix}/discord`,
 		name: 'Discord',
 		component: Discord,
 		meta: { buttonName: 'Discord Spam Tool' }
 	},
 	{
-		path: '/weather',
+		path: `${prefix}/weather`,
 		name: 'Weather',
 		component: Weather,
 		meta: { buttonName: 'Weather Widget' }
 	},
 	// TODO: optimize this to not render the navbar
 	{
-		path: '/resume',
+		path: `${prefix}/resume`,
 		name: 'Resume',
 		redirect: () => {
 			window.location.href = resume
@@ -76,7 +78,7 @@ const routes: Array<RouteRecordRaw> = [
 		}
 	},
 	{
-		path: '/recc',
+		path: `${prefix}/recc`,
 		name: 'Recc',
 		redirect: () => {
 			window.location.href =
