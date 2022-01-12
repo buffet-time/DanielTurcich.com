@@ -4,6 +4,7 @@
 set -e
 
 # set email and user
+git config --global init.defaultBranch "master"
 git config --global user.email "github@danielTurcich.com"
 git config --global user.name "buffet-time"
 
