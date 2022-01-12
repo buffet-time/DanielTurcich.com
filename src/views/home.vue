@@ -101,8 +101,8 @@ const links = ref([
 				<p>
 					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
 					currently works at Bank of America in Pennington, New Jersey. I mostly
-					do Frontend development and really enjoy TypeScript, Vue, and
-					Electron.
+					do Frontend development and really enjoy (Java/Type)Script, Vue, and
+					Node.
 				</p>
 				<p>
 					I'm 25, a Vegetarian, and listen to an insane amount of music (check
