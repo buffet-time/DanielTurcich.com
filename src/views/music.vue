@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
-import 'bootstrap/js/dist/tab'
 import search from '../components/music/Search.vue'
 import stats from '../components/music/Stats.vue'
-import { Release } from '../enums'
+import { Release } from '../assets/enums'
 
 export interface StatsObject {
 	numberOfReleases: string | number
@@ -122,7 +121,9 @@ async function initializeSheets() {
 	)
 		.flat()
 		.filter((current: string[]) => {
-			for (const element of current) element.trim()
+			for (const element of current) {
+				element.trim()
+			}
 			return current.length > 5 // makes sure to not include any not fully written reviews
 		})
 }
@@ -137,62 +138,57 @@ async function getArray(id: string, range: string) {
 function isNum(value: string) {
 	return !isNaN(Number(value))
 }
+
+function switchTab(event: any, tabName: string) {
+	const tabcontent = document.getElementsByClassName('tabcontent') as any
+	const tablinks = document.getElementsByClassName('tablinks')
+
+	for (let i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = 'none'
+	}
+
+	for (let x = 0; x < tablinks.length; x++) {
+		tablinks[x].className = tablinks[x].className.replace(' active', '')
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	document.getElementById(tabName)!.style.display = 'block'
+	event.currentTarget.tabName += ' active'
+}
 </script>
 
 <template>
-	<h1 v-once class="app-title disable-select">My Music Page</h1>
-	<ul v-once id="myTab" class="nav nav-tabs" role="tablist">
-		<li class="nav-item" role="presentation">
+	<div class="flex flex-col justify-center items-center gap-4">
+		<h1 class="mt-4 text-2xl font-semibold">My Music Page</h1>
+
+		<div class="flex justify-center">
 			<button
-				id="stats-tab"
-				class="nav-link active"
-				data-bs-toggle="tab"
-				data-bs-target="#stats"
+				class="tablinks active tw-tab-button"
 				type="button"
-				role="tab"
-				aria-controls="stats"
-				aria-selected="true"
+				@click="switchTab($event, 'statsContent')"
 			>
 				Stats
 			</button>
-		</li>
-		<li class="nav-item" role="presentation">
+
 			<button
-				id="search-tab"
-				class="nav-link"
-				data-bs-toggle="tab"
-				data-bs-target="#search"
+				class="tablinks tw-tab-button"
 				type="button"
-				role="tab"
-				aria-controls="search"
-				aria-selected="false"
+				@click="switchTab($event, 'searchContent')"
 			>
 				Search
 			</button>
-		</li>
-	</ul>
-	<div id="myTabContent" class="tab-content">
-		<stats :stats-object="statsObject" />
-		<search
-			:current-year="currentYear"
-			:earliest-year="earliestYear"
-			:releases-array="releasesArray"
-			:initializing="initializing"
-		/>
+		</div>
+
+		<div id="statsContent" class="tabcontent">
+			<stats :stats-object="statsObject" />
+		</div>
+		<div id="searchContent" class="tabcontent hidden">
+			<search
+				:current-year="currentYear"
+				:earliest-year="earliestYear"
+				:releases-array="releasesArray"
+				:initializing="initializing"
+			/>
+		</div>
 	</div>
 </template>
-
-<style scoped>
-.nav-link {
-	color: white;
-}
-.nav-tabs {
-	width: 155px;
-	margin-left: calc(50% - 77.5px);
-	margin-bottom: 16px;
-}
-.nav-link:hover .active,
-.nav-link:focus .active {
-	color: black;
-}
-</style>

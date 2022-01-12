@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../enums'
+import { Release } from '../../assets/enums'
 import musicRelease from './musicRelease.vue'
 
 const props = defineProps<{
@@ -53,6 +53,7 @@ onMounted(() =>
 )
 
 function searchButtonPressed() {
+	console.log(1)
 	showReleasesDiv.value = false
 	showNoResults.value = false
 	searchInput.value = searchInput.value.trim()
@@ -101,130 +102,107 @@ function incrementRange(
 </script>
 
 <template>
-	<div
-		id="search"
-		class="tab-pane fade"
-		role="tabpanel"
-		aria-labelledby="search-tab"
-	>
-		<div>
-			<h3 v-once>Search by:</h3>
-			<select v-model="searchType" class="form-select">
-				<option selected :value="Release.artist">Artist</option>
-				<option :value="Release.name">Release Name</option>
-				<option :value="Release.score">Score</option>
-				<option :value="Release.type">Type</option>
-				<option :value="Release.year">Year</option>
-				<option :value="Release.genre">Genre</option>
-			</select>
+	<div class="flex flex-col justify-center items-center">
+		<h3 class="mb-2">Search by:</h3>
+		<select v-model="searchType" class="text-black pl-4 py-2 rounded w-72">
+			<option selected :value="Release.artist">Artist</option>
+			<option :value="Release.name">Release Name</option>
+			<option :value="Release.score">Score</option>
+			<option :value="Release.type">Type</option>
+			<option :value="Release.year">Year</option>
+			<option :value="Release.genre">Genre</option>
+		</select>
 
-			<div class="input-container">
-				<!-- Search against score -->
-				<template v-if="searchType === Release.score">
-					<label for="customRange1" class="form-label">{{ searchInput }}</label>
-					<br />
-					<input
-						v-model="searchInput"
-						placeholder="10"
-						type="range"
-						class="music-input form-range"
-						min="0"
-						max="10"
-						step="0.5"
-					/>
-				</template>
-
-				<!-- Search against release type -->
-				<template v-else-if="searchType === Release.type">
-					<select v-model="searchInput" class="form-select type-select">
-						<option
-							v-for="(type, index) in releaseTypes"
-							:key="index"
-							:value="type"
-						>
-							{{ type }}
-						</option>
-					</select>
-				</template>
-
-				<!-- Search against score -->
-				<template v-else-if="searchType === Release.year">
-					<label for="customRange1" class="form-label">{{ searchInput }}</label>
-					<br />
-					<input
-						v-model="searchInput"
-						:placeholder="String(latestYear)"
-						type="range"
-						class="music-input form-range"
-						:min="earliestYear"
-						:max="latestYear"
-						step="1"
-					/>
-				</template>
-
-				<!-- All others -->
-				<input
-					v-else
-					v-model="searchInput"
-					class="music-input form-control"
-					placeholder="Search input"
-					@keyup.enter="searchButtonPressed"
-				/>
-				<button
-					:disabled="initializing || searchInput.length < 1"
-					class="music-button btn btn-secondary"
-					@click="searchButtonPressed"
-				>
-					Search
-				</button>
-
+		<div class="m-4 flex">
+			<!-- Search against score -->
+			<div v-if="searchType === Release.score" class="flex flex-col">
+				<label for="customRange1" class="mb-1">{{ searchInput }}</label>
 				<!-- 
+						background-color: transparent;
+					 -->
+				<input
+					v-model="searchInput"
+					placeholder="10"
+					type="range"
+					class="w-64 bg-transparent h-2"
+					min="0"
+					max="10"
+					step="0.5"
+				/>
+			</div>
+
+			<!-- Search against release type -->
+			<div v-else-if="searchType === Release.type">
+				<select v-model="searchInput" class="form-select mb-3">
+					<option
+						v-for="(type, index) in releaseTypes"
+						:key="index"
+						:value="type"
+					>
+						{{ type }}
+					</option>
+				</select>
+			</div>
+
+			<!-- Search against year -->
+			<div v-else-if="searchType === Release.year" class="flex flex-col">
+				<label for="customRange1" class="form-label">{{ searchInput }}</label>
+				<input
+					v-model="searchInput"
+					:placeholder="String(latestYear)"
+					type="range"
+					class="w-64 bg-transparent h-2"
+					:min="earliestYear"
+					:max="latestYear"
+					step="1"
+				/>
+			</div>
+
+			<!-- All others -->
+			<!-- 
+					padding: 0.375rem 0.75rem;
+					color: #212529;
+					border: 1px solid #ced4da;
+					order-radius: 0.25rem;
+				 -->
+			<input
+				v-else
+				v-model="searchInput"
+				class="w-64 py-2 px-3 text-black rounded"
+				placeholder="Search input"
+				@keyup.enter="searchButtonPressed"
+			/>
+
+			<button
+				:disabled="initializing || searchInput.length < 1"
+				class="ml-4 tw-button"
+				@click="searchButtonPressed"
+			>
+				Search
+			</button>
+
+			<!-- 
 						add exact match checkbox			
 					-->
-			</div>
-
-			<div v-if="showReleasesDiv" class="music-text-div">
-				<ul ref="releases" class="list-group list-group-horizontal">
-					<musicRelease
-						v-for="(release, index) in releasesToShow"
-						:key="index"
-						:index="index"
-						:release="release"
-					></musicRelease>
-				</ul>
-			</div>
-			<div v-if="showNoResults">No results from your search.</div>
 		</div>
+
+		<div v-if="showReleasesDiv" class="m-2 mt-4 mb-2">
+			<div ref="releases" class="flex flex-wrap justify-center">
+				<musicRelease
+					v-for="(release, index) in releasesToShow"
+					:key="index"
+					:index="index"
+					:release="release"
+				/>
+			</div>
+		</div>
+		<div v-if="showNoResults">No results from your search.</div>
 	</div>
 </template>
 
 <style scoped>
-.list-group {
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-}
-.music-input {
-	display: inline-block;
-	width: 250px;
-}
-.music-button {
-	margin-left: 20px;
-}
-.music-text-div {
-	margin: 8px;
-	margin-top: 16px;
-	margin-bottom: 8px;
-}
 .form-select {
 	width: 300px;
 	margin-left: calc(50% - 150px);
-}
-.input-container {
-	margin-top: 16px;
-	margin-bottom: 16px;
-}
-.type-select {
-	margin-bottom: 10px;
 }
 </style>

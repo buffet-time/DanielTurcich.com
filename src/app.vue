@@ -8,26 +8,6 @@ import Navbar from './components/Navbar.vue'
 </template>
 
 <style lang="scss">
-// TODO: figure out exactly which are needed and what is missing for bootstrap
-
-// Required
-@import 'node_modules/bootstrap/scss/functions';
-@import 'node_modules/bootstrap/scss/variables';
-@import 'node_modules/bootstrap/scss/mixins';
-@import 'node_modules/bootstrap/scss/reboot';
-
-// optional components
-@import 'node_modules/bootstrap/scss/navbar';
-@import 'node_modules/bootstrap/scss/card';
-@import 'node_modules/bootstrap/scss/buttons';
-@import 'node_modules/bootstrap/scss/forms';
-@import 'node_modules/bootstrap/scss/grid';
-@import 'node_modules/bootstrap/scss/tables';
-@import 'node_modules/bootstrap/scss/nav';
-@import 'node_modules/bootstrap/scss/list-group';
-@import 'node_modules/bootstrap/scss/modal';
-@import 'node_modules/bootstrap/scss/transitions';
-
 // latin
 @font-face {
 	font-display: swap;
@@ -51,29 +31,11 @@ import Navbar from './components/Navbar.vue'
 	unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
 		U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-#app {
-	font-family: Roboto, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #fff;
-}
+
 body {
 	background-color: #303030;
-}
-.card {
-	margin: 20px;
-	color: #fff;
-	text-align: left;
-	background-color: #424242 !important;
-}
-.disable-select {
-	user-select: none;
-}
-.card-text {
-	padding-left: 16px;
-}
-.app-title {
-	margin-top: 8px;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	color: white;
+	text-align: center;
 }
 </style>

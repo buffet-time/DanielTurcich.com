@@ -64,111 +64,77 @@ function copyPassword() {
 </script>
 
 <template>
-	<h1 v-once class="app-title disable-select">Password Generator</h1>
+	<div class="flex flex-col justify-center items-center">
+		<h1 class="m-4 text-2xl font-semibold">Password Generator</h1>
 
-	<div class="password-generator-options">
-		<div>
-			<label for="range-1">Password Length: {{ passwordLength }}</label>
-			<br />
-			<input
-				v-once
-				id="range-1"
-				v-model="passwordLength"
-				class="password-length-range form-range"
-				type="range"
-				min="1"
-				max="128"
-			/>
+		<div class="flex flex-col justify-center items-center">
+			<div class="flex flex-col justify-center items-center mb-2">
+				<label class="inline-block" for="range-1">
+					Password Length: {{ passwordLength }}
+				</label>
+				<input
+					id="range-1"
+					v-model="passwordLength"
+					class="w-64 h-6 bg-transparent"
+					type="range"
+					min="1"
+					max="128"
+				/>
+			</div>
+
+			<div class="flex flex-col items-center justify-center">
+				<div class="pl-6">
+					<input
+						id="lowercase"
+						v-model="excludeLowercase"
+						class="rounded w-4 h-4 bg-white"
+						type="checkbox"
+					/>
+					<label for="lowercase"> Exclude Lowercase Letters </label>
+				</div>
+
+				<div class="pl-6">
+					<input
+						id="uppercase"
+						v-model="excludeUppercase"
+						class="rounded w-4 h-4 bg-white"
+						type="checkbox"
+					/>
+					<label for="uppercase"> Exclude Uppercase Letters </label>
+				</div>
+
+				<div class="pl-6">
+					<input
+						id="numbers"
+						v-model="excludeNumbers"
+						class="rounded w-4 h-4 bg-white"
+						type="checkbox"
+					/>
+					<label for="numbers"> Exclude Numbers </label>
+				</div>
+
+				<div class="pl-6">
+					<input
+						id="symbols"
+						v-model="excludeSymbols"
+						class="rounded w-4 h-4 bg-white"
+						type="checkbox"
+					/>
+					<label for="symbols"> Exclude Symbols </label>
+				</div>
+			</div>
+			<button class="mt-4 tw-button" @click="generatePassword">Generate</button>
 		</div>
 
-		<div v-once class="password-generator-checkboxes">
-			<div class="form-check">
-				<input
-					id="lowercase"
-					v-model="excludeLowercase"
-					class="form-check-input"
-					type="checkbox"
-				/>
-				<label class="form-check-label" for="lowercase">
-					Exclude Lowercase Letters
-				</label>
-			</div>
-
-			<div class="form-check">
-				<input
-					id="uppercase"
-					v-model="excludeUppercase"
-					class="form-check-input"
-					type="checkbox"
-				/>
-				<label class="form-check-label" for="uppercase">
-					Exclude Uppercase Letters
-				</label>
-			</div>
-
-			<div class="form-check">
-				<input
-					id="numbers"
-					v-model="excludeNumbers"
-					class="form-check-input"
-					type="checkbox"
-				/>
-				<label class="form-check-label" for="numbers"> Exclude Numbers </label>
-			</div>
-
-			<div class="form-check">
-				<input
-					id="symbols"
-					v-model="excludeSymbols"
-					class="form-check-input"
-					type="checkbox"
-				/>
-				<label class="form-check-label" for="symbols"> Exclude Symbols </label>
-			</div>
+		<div class="m-4 flex flex-col justify-center items-center">
+			<div class="mb-4">{{ textToShow }}</div>
+			<button
+				v-show="password.length > 0"
+				class="tw-button"
+				@click="copyPassword"
+			>
+				Copy
+			</button>
 		</div>
-		<br />
-		<button
-			v-once
-			class="password-generate-button btn btn-secondary"
-			@click="generatePassword"
-		>
-			Generate
-		</button>
-	</div>
-
-	<div class="generated-password">
-		<div class="password-text-div">{{ textToShow }}</div>
-		<button
-			v-show="password.length > 0"
-			class="password-copy-button btn btn-secondary"
-			@click="copyPassword"
-		>
-			Copy
-		</button>
 	</div>
 </template>
-
-<style scoped>
-.password-length-range {
-	width: 300px;
-}
-.password-generator-options {
-	margin-bottom: 16px;
-}
-.password-generator-checkboxes {
-	display: inline-block;
-	text-align: left;
-}
-.password-text-div {
-	display: inline-block;
-	margin-right: 24px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-.password-copy-button {
-	margin-left: 5px;
-}
-.password-generate-button {
-	margin-top: 8px;
-}
-</style>

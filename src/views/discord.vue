@@ -28,65 +28,40 @@ function copy() {
 </script>
 
 <template>
-	<h1 v-once class="app-title disable-select">Discord Max Message Generator</h1>
-	<div class="input-container">
-		<div>
-			<input
-				v-model="discordInput"
-				class="discord-input form-control"
-				placeholder="Type a word here"
-				@keyup.enter="discordButtonPressed"
-			/>
+	<div class="flex flex-col justify-center items-center">
+		<h1 class="mt-4 mb-4 text-2xl font-semibold">
+			Discord Max Message Generator
+		</h1>
+		<div class="flex flex-col justify-center items-center">
+			<div>
+				<input
+					v-model="discordInput"
+					class="inline-block w-64 rounded-md border text-[#212529] border-[#ced4da] border-solid py-[0.375rem] px-3"
+					placeholder="Type a word here"
+					@keyup.enter="discordButtonPressed"
+				/>
+				<input
+					v-model="nitro"
+					class="m-2 mr-1 w-5 h-5 align-top bg-white border border-solid border-black border-opacity-10 rounded-md br-[#0d6efd] bg-[url( data:image/svg + xml, %3csvgxmlns='http://www.w3.org/2000/svg'viewBox='0 0 20 20'%3e%3cpathfill='none'stroke='%23fff'stroke-linecap='round'stroke-linejoin='round'stroke-width='3'd='M6 10l3 3l6-6'/%3e%3c/svg%3e );]"
+					type="checkbox"
+				/>
+				<label class="inline-block" for="flexCheckDefault"> Nitro? </label>
+			</div>
 
-			<input
-				v-model="nitro"
-				class="form-check-input nitro-checkbox"
-				type="checkbox"
-			/>
-			<label v-once class="form-check-label nitro-label" for="flexCheckDefault">
-				Nitro?
-			</label>
+			<button
+				class="mt-3 tw-button"
+				:disabled="discordInput.length < 1"
+				@click="discordButtonPressed"
+			>
+				Generate
+			</button>
 		</div>
 
-		<button
-			class="discord-button btn btn-secondary"
-			:disabled="discordInput.length < 1"
-			@click="discordButtonPressed"
-		>
-			Generate
-		</button>
-	</div>
-
-	<div class="generated-text">
-		<div class="discord-text-div">{{ discordText }}</div>
-		<button
-			v-show="discordText.length > 0"
-			class="btn btn-secondary"
-			@click="copy"
-		>
-			Copy
-		</button>
+		<div class="flex flex-col justify-center items-center">
+			<div class="m-4">{{ discordText }}</div>
+			<button v-show="discordText.length > 0" class="tw-button" @click="copy">
+				Copy
+			</button>
+		</div>
 	</div>
 </template>
-
-<style scoped>
-.discord-input {
-	display: inline-block;
-	width: 250px;
-}
-.discord-button {
-	margin-left: 20px;
-	margin-top: 12px;
-}
-.discord-text-div {
-	margin: 24px;
-	margin-top: 16px;
-	margin-bottom: 8px;
-}
-.nitro-checkbox {
-	height: 1.25em;
-	width: 1.25em;
-	margin: 8px;
-	margin-right: 4px;
-}
-</style>

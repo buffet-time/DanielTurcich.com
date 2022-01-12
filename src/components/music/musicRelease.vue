@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import 'bootstrap/js/dist/modal'
-import { Release } from '../../enums'
-import { closeSvg } from '../../svgs'
+import { Release } from '../../assets/enums'
+import { closeSvg } from '../../assets/svgs'
+import { onMounted, ref } from 'vue'
+import dialogPolyfill from 'dialog-polyfill'
 
 const props = defineProps<{
 	index: number
 	release: string[]
 }>()
+
+let target1: Element
+const releaseModal = ref()
+
+onMounted(() => {
+	// Because Firefox still doesn't have HTMLDialogElement support...
+	dialogPolyfill.registerDialog(releaseModal.value)
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	target1 = document.querySelector('#releaseModal')!
+})
 
 function copyReviews() {
 	navigator.clipboard.writeText(
@@ -15,116 +26,84 @@ function copyReviews() {
 		}`
 	)
 }
+
+function openModal() {
+	releaseModal.value.showModal()
+	setTimeout(() => {
+		document.addEventListener('click', clickHandler)
+	}, 0)
+}
+
+function closeModal() {
+	document.removeEventListener('click', clickHandler)
+	releaseModal.value.close()
+}
+
+function clickHandler(event: any) {
+	if (!event.composedPath().includes(target1)) {
+		closeModal()
+	}
+}
 </script>
 
-<template v-once>
+<template>
 	<div
-		data-bs-toggle="modal"
-		:data-bs-target="`#index` + index"
-		class="card list-group-item release-card"
+		class="tw-card bg-zinc-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
+		@click="openModal"
 	>
-		<div class="card-body release-body">
-			<h5 class="card-title">
-				{{ release[0] }}
+		<div
+			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"
+		>
+			<h5 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
+				{{ release[Release.artist] }}
 			</h5>
-			<h6 class="card-subtitle mb-2 text-muted">
-				{{ release[1] }} ({{ release[2] }}/10)
+			<h6 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
+				{{ release[Release.name] }} ({{ release[Release.score] }}/10)
 			</h6>
 		</div>
 	</div>
 
-	<div
-		:id="'index' + index"
-		class="modal fade"
-		tabindex="-1"
-		aria-labelledby="exampleModalLabel"
-		aria-hidden="true"
-	>
-		<!-- comments -->
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">
-						{{ release[0] }} - {{ release[1] }}
-						<span class="nowrap">( {{ release[2] }}/10 )</span>
-					</h5>
-					<svg
-						class="release-close-button"
-						viewBox="0 0 24 24"
-						data-bs-dismiss="modal"
-						aria-label="Close"
-					>
-						<path fill="currentColor" :d="closeSvg" />
-					</svg>
-				</div>
-				<div class="modal-body">
-					<div class="genres-text">Genres: {{ release[5] }}</div>
-					<br /><br />
-					<div v-if="release.length === 7">
-						{{ release[6] }}
-					</div>
-					<div v-else>No comments for this release.</div>
-				</div>
-				<div class="modal-footer">
-					<div class="footer-text">({{ release[4] }} {{ release[3] }})</div>
-					<span></span>
-					<button class="btn btn-secondary" @click="copyReviews">Copy</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+	<dialog ref="releaseModal" class="bg-transparent">
+		<div id="releaseModal" class="text-gray-300 bg-[#383838] w-96">
+			<div
+				class="flex items-center justify-between p-4 border-b border-solid border-[#dee2e6]"
+			>
+				<h5>
+					{{ release[Release.artist] }} - {{ release[Release.name] }}
+					<span class="whitespace-nowrap">
+						( {{ release[Release.score] }}/10 )
+					</span>
+				</h5>
+				<svg
+					class="w-6 min-w-[24px] cursor-pointer"
+					viewBox="0 0 24 24"
+					@click="closeModal"
+				>
+					<path fill="currentColor" :d="closeSvg" />
+				</svg>
+			</div>
+
+			<div
+				class="flex flex-col items-center justify-center p-4 border-b border-solid border-[#dee2e6]"
+			>
+				<div class="mb-4">Genres: {{ release[Release.genre] }}</div>
+
+				<template v-if="release.length === 7">
+					{{ release[Release.comments] }}
+				</template>
+				<template v-else>No comments for this release.</template>
+			</div>
+
+			<div class="flex justify-between p-4 items-center">
+				({{ release[Release.year] }} {{ release[Release.type] }})
+
+				<div>
+					<button class="tw-button mr-2" @click="copyReviews">Copy</button>
+					<button type="button" class="tw-button" @click="closeModal">
 						Close
 					</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	</dialog>
 </template>
-
-<style scoped>
-.modal-dialog {
-	padding: 4%;
-	max-width: 600px;
-}
-.modal-content {
-	background-color: #383838;
-	color: lightgray;
-}
-.list-group-item {
-	background-color: #616161;
-	color: lightgray;
-	width: 20%;
-	text-align: center;
-}
-.release-card {
-	margin: 8px;
-	width: 18rem;
-	cursor: pointer;
-}
-.release-body {
-	margin: 0px;
-	padding: 8px;
-}
-.release-close-button {
-	height: 24px;
-	cursor: pointer;
-	width: 8%;
-	position: absolute;
-	top: 8%;
-	left: 90%;
-}
-.footer-text {
-	float: left;
-}
-.modal-footer > span {
-	flex-grow: 1;
-}
-.genres-text {
-	font-weight: normal;
-	float: left;
-	font-size: large;
-}
-.modal-title {
-	width: 92%;
-}
-.nowrap {
-	white-space: nowrap;
-}
-</style>

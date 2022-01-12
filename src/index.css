@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.tw-card {
+		@apply m-8 mb-0 bg-[#434343];
+	}
+	.tw-nav-card {
+		@apply p-0 m-0 cursor-pointer border border-black border-opacity-10;
+	}
+	.tw-button {
+		@apply cursor-pointer text-white bg-gray-500 border-gray-500 rounded px-3 py-2 hover:bg-gray-600 disabled:cursor-default disabled:bg-gray-600 select-none;
+	}
+	.tw-header {
+		@apply m-4 mb-0 text-2xl font-semibold;
+	}
+	.tw-tab-button {
+		@apply border-b text-white hover:bg-white hover:text-zinc-600 focus:bg-white focus:text-zinc-600 rounded-tl rounded-tr cursor-pointer px-4 py-2;
+	}
+}

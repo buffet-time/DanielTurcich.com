@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
-import { closeSvg } from '../svgs'
+import { closeSvg } from '../assets/svgs'
 import { type Generator } from '../views/Frequency.vue'
 
 type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
@@ -168,28 +168,23 @@ function updateNoteFrequency() {
 </script>
 
 <template>
-	<div bg-variant="secondary" class="card">
-		<div class="card-body">
-			<!-- abstract delete button svg -->
-			<svg
-				class="delete-button"
-				viewBox="0 0 24 24"
-				@click="$emit('deleteGenerator')"
-			>
-				<path fill="currentColor" :d="closeSvg" />
-			</svg>
+	<div class="tw-card bg-[#424242] p-4 w-4/5">
+		<svg
+			class="h-6 float-right cursor-pointer"
+			viewBox="0 0 24 24"
+			@click="$emit('deleteGenerator')"
+		>
+			<path fill="currentColor" :d="closeSvg" />
+		</svg>
 
-			<div class="frequency-ranges">
-				<div
-					v-if="generator.generatorType === 'Frequency'"
-					class="frequency-range"
-				>
+		<div class="flex flex-col">
+			<div class="m-0 p-4">
+				<div v-if="generator.generatorType === 'Frequency'">
 					<label for="range-1"> Frequency: {{ frequency }} </label>
 					<input
-						v-once
 						id="range-1"
 						v-model="frequency"
-						class="frequency-range form-range disable-select"
+						class="w-full h-6 bg-transparent"
 						type="range"
 						min="10"
 						max="22000"
@@ -199,16 +194,15 @@ function updateNoteFrequency() {
 
 				<!-- @input="$emit('updateSettings', 'frequency', ($event.target! as any).value)" -->
 
-				<div v-else-if="generator.generatorType === 'Note'" class="note-range">
-					<label class="current-note-label" for="range-1">
+				<div v-else-if="generator.generatorType === 'Note'">
+					<label class="h-6" for="range-1">
 						Note/ Frequency: {{ noteName }} <sub>{{ noteOctave }}</sub> /
 						{{ frequency }}
 					</label>
 					<input
-						v-once
 						id="range-1"
 						v-model="noteOffset"
-						class="frequency-range form-range disable-select"
+						class="w-full h-6 bg-transparent"
 						type="range"
 						min="-57"
 						max="68"
@@ -216,13 +210,12 @@ function updateNoteFrequency() {
 					/>
 				</div>
 
-				<div class="volume-range">
+				<div>
 					<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
 					<input
-						v-once
 						id="range-1"
 						v-model="volume"
-						class="volume-range form-range disable-select"
+						class="w-full h-6 bg-transparent"
 						type="range"
 						min="0"
 						max="1"
@@ -230,7 +223,10 @@ function updateNoteFrequency() {
 					/>
 				</div>
 
-				<select v-model="oscillatorType" class="form-select disable-select">
+				<select
+					v-model="oscillatorType"
+					class="pt-2 pr-9 pb-2 pl-3 text-black border border-solid border-[#ced4da] rounded my-0 mx-auto flex justify-center"
+				>
 					<option value="sawtooth">Sawtooth</option>
 					<option selected value="sine">Sine</option>
 					<option value="square">Square</option>
@@ -238,8 +234,8 @@ function updateNoteFrequency() {
 				</select>
 			</div>
 
-			<div class="button-container">
-				<button class="btn btn-secondary" @click="startStopButton">
+			<div class="flex justify-center">
+				<button class="tw-button" @click="startStopButton">
 					<template v-if="started">Stop</template>
 					<template v-else>Start</template>
 				</button>
@@ -247,31 +243,3 @@ function updateNoteFrequency() {
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.delete-button {
-	height: 24px;
-	float: right;
-	cursor: pointer;
-}
-.card {
-	margin: 32px;
-	margin-bottom: 0px;
-}
-.frequency-ranges {
-	width: 90%;
-	margin: 0 auto;
-}
-.form-select {
-	margin: 0 auto;
-	width: 125px;
-	margin-bottom: 8px;
-}
-.button-container {
-	display: flex;
-	justify-content: center;
-}
-.current-note-label {
-	height: 22px;
-}
-</style>

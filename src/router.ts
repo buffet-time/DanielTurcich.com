@@ -7,7 +7,8 @@ const Home = () => import('./views/Home.vue'),
 	Discord = () => import('./views/Discord.vue'),
 	Sorting = () => import('./views/Sorting.vue'),
 	Music = () => import('./views/Music.vue'),
-	Frequency = () => import('./views/Frequency.vue')
+	Frequency = () => import('./views/Frequency.vue'),
+	Weather = () => import('./views/Weather.vue')
 // const Performance = () => import('./components/performance.vue')
 
 const resume =
@@ -57,6 +58,12 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Discord',
 		component: Discord,
 		meta: { buttonName: 'Discord Spam Tool' }
+	},
+	{
+		path: '/weather',
+		name: 'Weather',
+		component: Weather,
+		meta: { buttonName: 'Weather Widget' }
 	},
 	// TODO: optimize this to not render the navbar
 	{
