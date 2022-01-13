@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Release } from '../../assets/enums'
+import { Release } from '../../types/enums'
 import { closeSvg } from '../../assets/svgs'
 import { onMounted, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'
@@ -63,6 +63,7 @@ function clickHandler(event: any) {
 		</div>
 	</div>
 
+	<!-- TODO: pull out Modal here and everywhere into a generic component -->
 	<dialog ref="releaseModal" class="bg-transparent">
 		<div id="releaseModal" class="text-gray-300 bg-[#383838] w-96">
 			<div

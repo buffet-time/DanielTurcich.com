@@ -10,6 +10,7 @@
 		"**/dist": true,
 		"**/node_modules": true,
 		"**acronymWords.json": true,
-		"pnpm-lock.yaml": true
+		"pnpm-lock.yaml": true,
+		"LICENSE": true
 	}
 }

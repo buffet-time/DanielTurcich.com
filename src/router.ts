@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 // Lazy Loading for routes for less resource waste/ better performance
-const Home = () => import('./views/home.vue'),
-	Acronym = () => import('./views/acronym.vue'),
-	Password = () => import('./views/password.vue'),
-	Discord = () => import('./views/discord.vue'),
-	Sorting = () => import('./views/sorting.vue'),
-	Music = () => import('./views/music.vue'),
-	Frequency = () => import('./views/frequency.vue'),
-	Weather = () => import('./views/Weather.vue')
+const Home = () => import('./pages/Home.vue')
+const Acronym = () => import('./pages/Acronym.vue')
+const Password = () => import('./pages/Password.vue')
+const Discord = () => import('./pages/Discord.vue')
+const Sorting = () => import('./pages/Sorting.vue')
+const Music = () => import('./pages/Music.vue')
+const Frequency = () => import('./pages/Frequency.vue')
+const Weather = () => import('./pages/Weather.vue')
 // const Performance = () => import('./components/performance.vue')
+// TODO: Make a WebMidi demo - https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API
+// TODO: play with Web USB https://developer.mozilla.org/en-US/docs/Web/API/USB
+// TODO Play with Gamepad API
 
 const resume =
 	'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view'

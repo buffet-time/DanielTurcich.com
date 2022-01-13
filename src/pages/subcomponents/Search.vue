@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../assets/enums'
-import musicRelease from './musicRelease.vue'
+import { Release } from '../../types/enums'
+import musicRelease from './MusicRelease.vue'
 
 const props = defineProps<{
 	currentYear: number

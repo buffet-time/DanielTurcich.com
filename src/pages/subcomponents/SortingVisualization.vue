@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type SortingAlgorithm } from '../views/sorting.vue'
+import { type SortingAlgorithm } from '../Sorting.vue'
 import { onMounted, watch } from 'vue'
 
 interface SortingRect {
@@ -186,8 +186,10 @@ function randomSwaps() {
 // // // // // // //
 async function drawAllRectangles() {
 	for (let n = 0; n < props.numberOfRectangles; n++) {
-		await drawRectangle(n)
+		drawRectangle(n, true)
 	}
+
+	await sleep(0)
 }
 
 async function redrawRectangles(firstIndex: number, secondIndex: number) {
@@ -201,14 +203,23 @@ async function redrawRectangles(firstIndex: number, secondIndex: number) {
 	await redrawRectangle(secondIndex)
 }
 
-async function drawRectangle(index: number) {
-	Context2d.fillRect(
-		sortingArray[index].x,
-		sortingArray[index].y,
-		sortingArray[index].width,
-		sortingArray[index].height
-	)
-	await sleep(Number(props.sleepTime))
+async function drawRectangle(index: number, microTask?: boolean) {
+	const fillRect = () =>
+		Context2d.fillRect(
+			sortingArray[index].x,
+			sortingArray[index].y,
+			sortingArray[index].width,
+			sortingArray[index].height
+		)
+
+	if (microTask) {
+		queueMicrotask(() => {
+			fillRect()
+		})
+	} else {
+		fillRect()
+		await sleep(Number(props.sleepTime))
+	}
 }
 
 function eraseRectangle(index: number) {
@@ -438,10 +449,10 @@ async function merge(
 	}
 
 	// gets an array of the index value of where the subarray is from the main array
-	const indexArray = []
+	const indexArray: number[] = []
 	const xValues = combinedArray.map((rect) => rect.height)
 
-	for (const xValue of xValues) {
+	xValues.forEach((xValue) =>
 		indexArray.push(
 			sortingArray.findIndex(
 				(rect) =>
@@ -449,7 +460,8 @@ async function merge(
 					combinedArray[xValues.findIndex((x) => x === xValue)].height
 			)
 		)
-	}
+	)
+
 	// drawing of the rectangles
 	for (let n = 0; n < combinedArray.length; n++) {
 		if (props.stopExecution) {

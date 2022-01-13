@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
-import search from '../components/music/search.vue'
-import stats from '../components/music/stats.vue'
-import { Release } from '../assets/enums'
+import search from './subcomponents/Search.vue'
+import stats from './subcomponents/Stats.vue'
+import { Release } from '../types/enums'
 
 export interface StatsObject {
 	numberOfReleases: string | number
@@ -75,7 +75,7 @@ onBeforeMount(async () => {
 	await initializeSheets()
 	initializing.value = false
 
-	for (const current of releasesArray.value) {
+	releasesArray.value.forEach((current) => {
 		if (!artistArray.includes(current[Release.artist])) {
 			artistArray.push(current[Release.artist])
 		}
@@ -100,7 +100,7 @@ onBeforeMount(async () => {
 			? // @ts-ignore
 			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
 			: releasePerYear[ReleasesIn['1950s']]++
-	}
+	})
 
 	statsObject.value = {
 		averageScore: (tempScore / scoreCount).toFixed(2),
@@ -121,9 +121,9 @@ async function initializeSheets() {
 	)
 		.flat()
 		.filter((current: string[]) => {
-			for (const element of current) {
+			current.forEach((element) => {
 				element.trim()
-			}
+			})
 			return current.length > 5 // makes sure to not include any not fully written reviews
 		})
 }
@@ -140,19 +140,30 @@ function isNum(value: string) {
 }
 
 function switchTab(event: any, tabName: string) {
-	const tabcontent = document.getElementsByClassName('tabcontent') as any
-	const tablinks = document.getElementsByClassName('tablinks')
+	const tabcontent = Array.from(
+		document.getElementsByClassName('tabcontent')
+	) as HTMLDivElement[]
 
-	for (let i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = 'none'
+	const tablinks = Array.from(
+		document.getElementsByClassName('tablinks')
+	) as HTMLButtonElement[]
+
+	tabcontent.forEach((content) => {
+		content.style.display = 'none'
+	})
+
+	tablinks.forEach((link) => {
+		link.className = link.className.replace(' active', '')
+	})
+
+	const tabElement = document.getElementById(tabName)
+
+	if (!tabElement) {
+		console.log('Error in switchtab')
+		return
 	}
 
-	for (let x = 0; x < tablinks.length; x++) {
-		tablinks[x].className = tablinks[x].className.replace(' active', '')
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	document.getElementById(tabName)!.style.display = 'block'
+	tabElement.style.display = 'block'
 	event.currentTarget.tabName += ' active'
 }
 </script>

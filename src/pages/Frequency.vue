@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import noteGenerator from '../components/soundGenerator.vue'
+import noteGenerator from './subcomponents/SoundGenerator.vue'
 import { closeSvg, addSvg } from '../assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type StatsObject } from '../../views/music.vue'
+import { type StatsObject } from '../Music.vue'
 
 defineProps<{
 	statsObject: StatsObject
@@ -53,10 +53,18 @@ thead,
 th,
 td {
 	text-align: center;
-	border-style: solid;
 	padding: 0.5rem;
-	border-bottom-width: 1px;
 	font-weight: normal;
 	font-size: large;
+}
+
+thead {
+	border-style: solid;
+	border-bottom-width: 1px;
+}
+
+tr:not(:last-child) {
+	border-style: solid;
+	border-bottom-width: 1px;
 }
 </style>
