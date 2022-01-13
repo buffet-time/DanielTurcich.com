@@ -48,7 +48,7 @@ function clickHandler(event: any) {
 
 <template>
 	<div
-		class="tw-card bg-zinc-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
+		class="tw-card bg-neutral-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
 		@click="openModal"
 	>
 		<div
@@ -65,7 +65,7 @@ function clickHandler(event: any) {
 
 	<!-- TODO: pull out Modal here and everywhere into a generic component -->
 	<dialog ref="releaseModal" class="bg-transparent">
-		<div id="releaseModal" class="text-gray-300 bg-[#383838] w-96">
+		<div id="releaseModal" class="text-neutral-300 bg-[#383838] w-96">
 			<div
 				class="flex items-center justify-between p-4 border-b border-solid border-[#dee2e6]"
 			>

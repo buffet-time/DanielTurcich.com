@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import noteGenerator from './subcomponents/SoundGenerator.vue'
+import SoundGenerator from './subcomponents/SoundGenerator.vue'
 import { closeSvg, addSvg } from '../assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'
@@ -64,7 +64,7 @@ function addGenerator(type: GeneratorType) {
 	<div class="flex flex-col justify-center items-center">
 		<h1 class="m-4 mb-0 text-2xl font-semibold">Frequency Generator</h1>
 
-		<noteGenerator
+		<SoundGenerator
 			v-for="(generator, index) in generators"
 			:key="generator.id"
 			:index="index"
@@ -74,7 +74,7 @@ function addGenerator(type: GeneratorType) {
 
 		<div class="flex justify-center">
 			<svg
-				class="w-[50px] cursor-pointer tw-button fill-white bg-zinc-500 mt-4 rounded-xl p-[2px]"
+				class="w-[50px] cursor-pointer tw-button fill-white bg-neutral-500 mt-4 rounded-xl p-[2px]"
 				viewBox="0 0 20 20"
 				@click="openModal"
 			>
@@ -84,7 +84,7 @@ function addGenerator(type: GeneratorType) {
 	</div>
 
 	<dialog ref="generatorModal" class="bg-transparent">
-		<div id="generatorModal" class="text-gray-300 bg-[#383838] w-72">
+		<div id="generatorModal" class="text-neutral-300 bg-[#383838] w-72">
 			<div
 				class="flex justify-between p-4 border-b border-solid border-[#dee2e6]"
 			>

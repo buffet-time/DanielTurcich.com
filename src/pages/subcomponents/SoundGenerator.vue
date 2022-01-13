@@ -4,6 +4,8 @@ import { closeSvg } from '../../assets/svgs'
 import { type Generator } from '../Frequency.vue'
 
 type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
+// prettier-ignore
+type Note = 'C'| 'D♭'| 'D'| 'E♭'| 'E'| 'F'| 'G♭'| 'G'| 'A♭'| 'A'| 'B♭'| 'B'
 
 defineEmits<{
 	(e: 'deleteGenerator'): void
@@ -17,7 +19,7 @@ const props = defineProps<{
 const volume = ref(0.07)
 const frequency = ref(440)
 const oscillatorType = ref('sine') as Ref<GeneratorOscillatorType>
-const noteName = ref('')
+const noteName = ref('A') as Ref<Note>
 const noteOctave = ref(4)
 const noteOffset = ref(0)
 const started = ref(false)
@@ -32,7 +34,8 @@ let noteIndex = 9
 
 const twelthRoot = 2 ** (1 / 12)
 const fixedNote = 440 // Standard tuning frequency of A4 for 12 tone equal temperment
-const notes = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
+// prettier-ignore
+const notes: Note[] = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
 
 if (props.generator.generatorType === 'Frequency') {
 	watch(frequency, () => {

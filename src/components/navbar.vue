@@ -53,6 +53,7 @@ const links: navLink[] = [
 		src: soundcloudSrc
 	}
 ]
+
 const routes: RouteRecordNormalized[] = router
 	.getRoutes()
 	.filter((route) => route.meta['buttonName'] !== undefined)
@@ -126,10 +127,10 @@ async function routeChange(route: string) {
 							v-for="(route, index) in routes"
 							:key="index"
 							class="flex flex-col tw-nav-card"
-							:disabled="$route.name === route.name"
+							:disabled="router.currentRoute.value.name === route.name"
 							@click="routeChange(route.path)"
 						>
-							<div class="bg-[#616161] w-[230px] p-4">
+							<div class="w-[230px] p-4">
 								{{ route.meta.buttonName }}
 							</div>
 						</button>
@@ -155,7 +156,7 @@ async function routeChange(route: string) {
 							class="tw-nav-card"
 							@click="openLink(link.openLink)"
 						>
-							<div class="bg-[#616161] w-[230px] p-4 select-none">
+							<div class="w-[230px] p-4 select-none">
 								<img
 									class="ml-2 float-left h-8 w-8"
 									:src="link.src"
@@ -175,12 +176,10 @@ async function routeChange(route: string) {
 input[type='checkbox'] {
 	display: none;
 }
-
 .toggle-label {
 	cursor: pointer;
 	user-select: none;
 }
-
 .collapsible-content {
 	position: absolute;
 	top: 4rem;
@@ -188,7 +187,6 @@ input[type='checkbox'] {
 	overflow: hidden;
 	transition: max-height 0.25s ease-in-out;
 }
-
 .toggle:checked + .toggle-label + .collapsible-content {
 	max-height: 100vh;
 }

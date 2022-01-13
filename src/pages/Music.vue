@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
-import search from './subcomponents/Search.vue'
-import stats from './subcomponents/Stats.vue'
+import Search from './subcomponents/Search.vue'
+import Stats from './subcomponents/Stats.vue'
 import { Release } from '../types/enums'
 
 export interface StatsObject {
@@ -191,10 +191,10 @@ function switchTab(event: any, tabName: string) {
 		</div>
 
 		<div id="statsContent" class="tabcontent">
-			<stats :stats-object="statsObject" />
+			<Stats :stats-object="statsObject" />
 		</div>
 		<div id="searchContent" class="tabcontent hidden">
-			<search
+			<Search
 				:current-year="currentYear"
 				:earliest-year="earliestYear"
 				:releases-array="releasesArray"
