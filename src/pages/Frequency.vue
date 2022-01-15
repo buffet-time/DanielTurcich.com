@@ -3,13 +3,7 @@ import SoundGenerator from './subcomponents/SoundGenerator.vue'
 import { closeSvg, addSvg } from '../assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'
-
-type GeneratorType = 'Frequency' | 'Note'
-
-export interface Generator {
-	id: number
-	generatorType: GeneratorType
-}
+import { type GeneratorType, type Generator } from '../types/Typings'
 
 const generators: Generator[] = reactive([
 	{

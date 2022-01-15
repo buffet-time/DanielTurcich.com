@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import { type SortingAlgorithm } from '../Sorting.vue'
+import { type SortingAlgorithm, type SortingRect } from '../../types/Typings'
 import { onMounted, watch } from 'vue'
-
-interface SortingRect {
-	x: number
-	y: number
-	width: number
-	height: number
-	frequency: number
-}
 
 const props = defineProps<{
 	sleepTime: number | string
@@ -86,6 +78,9 @@ watch(
 			case 'Gnome':
 				await gnomeSort()
 				break
+			// case 'Bogo':
+			// 	await bogoSort()
+			// 	break
 		}
 		emit('sortingMethodEnded')
 	}
@@ -452,7 +447,7 @@ async function merge(
 	const indexArray: number[] = []
 	const xValues = combinedArray.map((rect) => rect.height)
 
-	xValues.forEach((xValue) =>
+	xValues.forEach((xValue) => {
 		indexArray.push(
 			sortingArray.findIndex(
 				(rect) =>
@@ -460,7 +455,7 @@ async function merge(
 					combinedArray[xValues.findIndex((x) => x === xValue)].height
 			)
 		)
-	)
+	})
 
 	// drawing of the rectangles
 	for (let n = 0; n < combinedArray.length; n++) {
@@ -532,7 +527,9 @@ async function shellSort() {
 				n >= gap && sortingArray[n - gap].height > temp.height;
 				n -= gap
 			) {
-				if (props.stopExecution) return
+				if (props.stopExecution) {
+					return
+				}
 				await redrawRectangles(n, n - gap)
 			}
 
@@ -546,12 +543,32 @@ async function gnomeSort() {
 	for (let n = 1; n < sortingArray.length; n++) {
 		if (sortingArray[n - 1].height > sortingArray[n].height) {
 			while (n > 0 && sortingArray[n - 1].height > sortingArray[n].height) {
+				if (props.stopExecution) {
+					return
+				}
 				await redrawRectangles(n, n - 1)
 				n--
 			}
 		}
 	}
 }
+
+// TODO finish this (was almost done but got distracted by runescape)
+// async function bogoSort() {
+// 	const isNotSorted = () => {
+// 		let returnValue = false
+// 		for (let x = 1; x < sortingArray.length; x++) {
+// 			if (sortingArray[x - 1].height > sortingArray[x].height) {
+// 				returnValue = true
+// 			}
+// 		}
+// 		return returnValue
+// 	}
+
+// 	while (isNotSorted()) {
+// 		await drawAllRectangles(true)
+// 	}
+// }
 </script>
 
 <template>

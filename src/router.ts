@@ -8,7 +8,7 @@ const Discord = () => import('./pages/Discord.vue')
 const Sorting = () => import('./pages/Sorting.vue')
 const Music = () => import('./pages/Music.vue')
 const Frequency = () => import('./pages/Frequency.vue')
-const Weather = () => import('./pages/Weather.vue')
+// const Weather = () => import('./pages/Weather.vue') // TODO: update and re add this when done
 // const Performance = () => import('./components/performance.vue')
 // TODO: Make a WebMidi demo - https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API
 // TODO: play with Web USB https://developer.mozilla.org/en-US/docs/Web/API/USB
@@ -62,12 +62,12 @@ const routes: Array<RouteRecordRaw> = [
 		component: Discord,
 		meta: { buttonName: 'Discord Spam Tool' }
 	},
-	{
-		path: '/weather',
-		name: 'Weather',
-		component: Weather,
-		meta: { buttonName: 'Weather Widget' }
-	},
+	// {
+	// 	path: '/weather',
+	// 	name: 'Weather',
+	// 	component: Weather,
+	// 	meta: { buttonName: 'Weather Widget' }
+	// },
 	// TODO: optimize this to not render the navbar
 	{
 		path: '/resume',

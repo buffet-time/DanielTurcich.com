@@ -1,12 +1,7 @@
 <script setup lang="ts">
+import { type SortingAlgorithm } from '../types/Typings'
 import { type Ref, ref, watch } from 'vue'
 import SortingVisualization from './subcomponents/SortingVisualization.vue'
-
-// prettier-ignore
-export type SortingAlgorithm =
-	| '' | 'Bubble' | 'Insertion'
-	| 'Cocktail Shaker' | 'Selection' | 'Merge'
-	| 'Quick' | 'Heap' | 'Shell' | 'Gnome'
 
 // TODO:
 // Convert drawing to be microTasks to improve rendering speed
@@ -32,6 +27,7 @@ const sortingMethod: Ref<SortingAlgorithm> = ref('') as Ref<SortingAlgorithm>
 const sorts: Ref<SortingAlgorithm[]> = ref([
 	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
 	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome'
+	// , 'Bogo'
 	// 'Bitonic Sort'
 ]) as Ref<SortingAlgorithm[]>
 

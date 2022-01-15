@@ -2,26 +2,8 @@
 import { onBeforeMount, type Ref, ref } from 'vue'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import { Release } from '../types/enums'
-
-export interface StatsObject {
-	numberOfReleases: string | number
-	averageYear: string | number
-	averageScore: string | number
-	numberOfArtists: string | number
-	releasesPerYear: number[]
-}
-
-// prettier-ignore
-const enum ReleasesIn {
-	'1950s', '1960s', '1970s', '1980s',
-	'1990s', '2000s', '2010s', '2020s'
-}
-
-interface SpreadsheetParams {
-	id: string
-	range: string
-}
+import { Release, ReleasesIn } from '../types/enums'
+import { type SpreadsheetParams, type StatsObject } from '../types/Typings'
 
 const loadingString = 'loading...'
 const currentYear = 2021

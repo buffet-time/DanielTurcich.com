@@ -15,7 +15,6 @@ function copyAcronym() {
 	navigator.clipboard.writeText(acronymText)
 }
 
-// TODO: flesh out errors
 function acronymButtonPressed() {
 	if (!acronymInput.value) {
 		return

@@ -2,6 +2,7 @@
 import router, { resume } from '../router'
 import { type RouteRecordNormalized } from 'vue-router'
 import { onMounted, ref } from 'vue'
+import { type navLink } from '../types/Typings'
 
 // Images
 import githubSrc from '../assets/github.png'
@@ -9,13 +10,6 @@ import linkedinSrc from '../assets/linkedin.png'
 import resumeSrc from '../assets/resume.png'
 import bandcampSrc from '../assets/bandcamp.png'
 import soundcloudSrc from '../assets/soundcloud.png'
-
-interface navLink {
-	openLink: string
-	src: string
-	alt: string
-	buttonText: string
-}
 
 const websiteNavigationInput = ref(false)
 const socialLinksInput = ref(false)

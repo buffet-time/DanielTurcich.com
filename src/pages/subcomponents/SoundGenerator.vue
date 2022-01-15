@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import {
+	type GeneratorOscillatorType,
+	type Note,
+	type Generator
+} from '../../types/Typings'
 import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
 import { closeSvg } from '../../assets/svgs'
-import { type Generator } from '../Frequency.vue'
-
-type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
-// prettier-ignore
-type Note = 'C'| 'D♭'| 'D'| 'E♭'| 'E'| 'F'| 'G♭'| 'G'| 'A♭'| 'A'| 'B♭'| 'B'
 
 defineEmits<{
 	(e: 'deleteGenerator'): void

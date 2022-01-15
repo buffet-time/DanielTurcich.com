@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { Release } from '../../types/enums'
-import musicRelease from './MusicRelease.vue'
+import MusicRelease from './MusicRelease.vue'
 
 const props = defineProps<{
 	currentYear: number
@@ -188,7 +188,7 @@ function incrementRange(
 
 		<div v-if="showReleasesDiv" class="m-2 mt-4 mb-2">
 			<div ref="releases" class="flex flex-wrap justify-center">
-				<musicRelease
+				<MusicRelease
 					v-for="(release, index) in releasesToShow"
 					:key="index"
 					:index="index"
