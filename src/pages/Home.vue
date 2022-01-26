@@ -96,8 +96,8 @@ const links = ref([
 				src="../assets/me.jpg"
 				alt="Picture of myself"
 			/>
-			<div class="flex flex-col gap-2 items-center justify-center">
-				<h5 class="text-center">Bio</h5>
+			<div class="gap-2 tw-flex-col-center">
+				<h1 class="text-2xl font-semibold">Bio</h1>
 				<p>
 					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
 					currently works at Bank of America in Pennington, New Jersey. I mostly
@@ -112,11 +112,11 @@ const links = ref([
 		</div>
 	</div>
 
-	<div class="tw-card flex flex-col justify-center items-center sm:flex-row">
+	<div class="tw-card tw-flex-col-center sm:flex-row">
 		<div
-			class="flex flex-col gap-5 justify-center p-4 w-full sm:w-[40%] sm:min-w-[380px]"
+			class="gap-5 tw-flex-col-center p-4 w-full sm:w-[40%] sm:min-w-[380px]"
 		>
-			<h4>Skills</h4>
+			<h1 class="text-2xl font-semibold">Skills</h1>
 			<div class="flex flex-col">
 				<h5>Technical</h5>
 				<div>
@@ -139,20 +139,22 @@ const links = ref([
 				height="100%"
 				scrolling="no"
 				frameborder="no"
+				rel="noopener noreferrer"
 				:src="soundcloudLink"
 			></iframe>
 		</div>
 	</div>
 
 	<div class="tw-card p-4 mb-4">
-		<h5>Articles I'm featured in</h5>
+		<h1 class="text-2xl font-semibold mb-4">Articles I'm featured in</h1>
 		<ul class="pl-0 mb-0 flex flex-wrap items-center justify-center">
 			<a
 				v-for="(link, index) in links"
 				:key="index"
-				class="h-14 w-1/5 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
+				class="flex items-center justify-center h-14 w-1/5 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
 				:href="link.url"
 				target="_blank"
+				rel="noopener noreferrer"
 			>
 				{{ link.text }}
 			</a>

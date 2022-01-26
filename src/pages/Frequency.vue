@@ -55,7 +55,7 @@ function addGenerator(type: GeneratorType) {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center">
+	<div class="tw-flex-col-center">
 		<h1 class="m-4 mb-0 text-2xl font-semibold">Frequency Generator</h1>
 
 		<SoundGenerator

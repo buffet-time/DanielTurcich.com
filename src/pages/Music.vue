@@ -151,10 +151,10 @@ function switchTab(event: any, tabName: string) {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center gap-4">
+	<div class="tw-flex-col-center gap-4">
 		<h1 class="mt-4 text-2xl font-semibold">My Music Page</h1>
 
-		<div class="flex justify-center">
+		<div>
 			<button
 				class="tablinks active tw-tab-button"
 				type="button"
@@ -172,16 +172,12 @@ function switchTab(event: any, tabName: string) {
 			</button>
 		</div>
 
-		<div id="statsContent" class="tabcontent">
-			<Stats :stats-object="statsObject" />
-		</div>
-		<div id="searchContent" class="tabcontent hidden">
-			<Search
-				:current-year="currentYear"
-				:earliest-year="earliestYear"
-				:releases-array="releasesArray"
-				:initializing="initializing"
-			/>
-		</div>
+		<Stats :stats-object="statsObject" />
+		<Search
+			:current-year="currentYear"
+			:earliest-year="earliestYear"
+			:releases-array="releasesArray"
+			:initializing="initializing"
+		/>
 	</div>
 </template>

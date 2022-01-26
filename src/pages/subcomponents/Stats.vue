@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-	<div class="w-96">
+	<div id="statsContent" class="tabcontent w-96">
 		<table class="table-auto text-white w-full border-collapse bg-[#212529]">
 			<thead class="border-solid p-2">
 				<tr>

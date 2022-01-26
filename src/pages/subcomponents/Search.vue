@@ -44,16 +44,33 @@ watch(searchType, () => {
 
 onMounted(() =>
 	window.addEventListener('keydown', (event) => {
-		if (searchType.value === Release.score) {
-			incrementRange(event.key, 0.5, 0, 10)
-		} else if (searchType.value === Release.year) {
-			incrementRange(event.key, 1, props.earliestYear, latestYear.value)
+		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+			switch (searchType.value) {
+				case Release.score:
+					incrementRange(event.key, 0.5, 0, 10)
+					break
+				case Release.year:
+					incrementRange(event.key, 1, props.earliestYear, latestYear.value)
+					break
+			}
 		}
 	})
 )
 
+function incrementRange(
+	key: string,
+	incrementAmount: number,
+	minimum: number,
+	maximum: number
+) {
+	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum) {
+		searchInput.value = String(searchInput.value + -incrementAmount)
+	} else if (key === 'ArrowRight' && Number(searchInput.value) < maximum) {
+		searchInput.value = String(searchInput.value + incrementAmount)
+	}
+}
+
 function searchButtonPressed() {
-	console.log(1)
 	showReleasesDiv.value = false
 	showNoResults.value = false
 	searchInput.value = searchInput.value.trim()
@@ -86,23 +103,10 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())
 	)
 }
-
-function incrementRange(
-	key: string,
-	incrementAmount: number,
-	minimum: number,
-	maximum: number
-) {
-	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum) {
-		searchInput.value = String(searchInput.value + -incrementAmount)
-	} else if (key === 'ArrowRight' && Number(searchInput.value) < maximum) {
-		searchInput.value = String(searchInput.value + incrementAmount)
-	}
-}
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center">
+	<div id="searchContent" class="tabcontent hidden">
 		<h3 class="mb-2">Search by:</h3>
 		<select v-model="searchType" class="text-black pl-4 py-2 rounded w-72">
 			<option selected :value="Release.artist">Artist</option>
@@ -116,10 +120,7 @@ function incrementRange(
 		<div class="m-4 flex">
 			<!-- Search against score -->
 			<div v-if="searchType === Release.score" class="flex flex-col">
-				<label for="customRange1" class="mb-1">{{ searchInput }}</label>
-				<!-- 
-						background-color: transparent;
-					 -->
+				<div class="mb-1">{{ searchInput }}</div>
 				<input
 					v-model="searchInput"
 					placeholder="10"
@@ -159,12 +160,6 @@ function incrementRange(
 			</div>
 
 			<!-- All others -->
-			<!-- 
-					padding: 0.375rem 0.75rem;
-					color: #212529;
-					border: 1px solid #ced4da;
-					order-radius: 0.25rem;
-				 -->
 			<input
 				v-else
 				v-model="searchInput"
@@ -181,20 +176,20 @@ function incrementRange(
 				Search
 			</button>
 
-			<!-- 
-						add exact match checkbox			
-					-->
+			<!-- TODO:	add exact match checkbox	-->
 		</div>
 
-		<div v-if="showReleasesDiv" class="m-2 mt-4 mb-2">
-			<div ref="releases" class="flex flex-wrap justify-center">
-				<MusicRelease
-					v-for="(release, index) in releasesToShow"
-					:key="index"
-					:index="index"
-					:release="release"
-				/>
-			</div>
+		<div
+			v-if="showReleasesDiv"
+			ref="releases"
+			class="m-2 mt-4 mb-2 flex flex-wrap justify-center"
+		>
+			<MusicRelease
+				v-for="(release, index) in releasesToShow"
+				:key="index"
+				:index="index"
+				:release="release"
+			/>
 		</div>
 		<div v-if="showNoResults">No results from your search.</div>
 	</div>

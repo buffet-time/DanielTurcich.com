@@ -183,7 +183,7 @@ function updateNoteFrequency() {
 		<div class="flex flex-col">
 			<div class="m-0 p-4">
 				<div v-if="generator.generatorType === 'Frequency'">
-					<label for="range-1"> Frequency: {{ frequency }} </label>
+					Frequency: {{ frequency }}
 					<input
 						id="range-1"
 						v-model="frequency"
@@ -198,10 +198,10 @@ function updateNoteFrequency() {
 				<!-- @input="$emit('updateSettings', 'frequency', ($event.target! as any).value)" -->
 
 				<div v-else-if="generator.generatorType === 'Note'">
-					<label class="h-6" for="range-1">
+					<div class="h-6">
 						Note/ Frequency: {{ noteName }} <sub>{{ noteOctave }}</sub> /
 						{{ frequency }}
-					</label>
+					</div>
 					<input
 						id="range-1"
 						v-model="noteOffset"
@@ -214,9 +214,8 @@ function updateNoteFrequency() {
 				</div>
 
 				<div>
-					<label for="range-1"> Volume: {{ toPercent(volume) }}% </label>
+					Volume: {{ toPercent(volume) }}%
 					<input
-						id="range-1"
 						v-model="volume"
 						class="w-full h-6 bg-transparent"
 						type="range"

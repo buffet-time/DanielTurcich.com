@@ -4,7 +4,7 @@ import acronymWords from '../assets/acronymWords.json'
 
 // Public
 const acronymInput = ref('')
-const buttonPressedState = ref('')
+const showButton = ref(false)
 const textToDisplay = ref('')
 
 // Private
@@ -23,11 +23,11 @@ function acronymButtonPressed() {
 	acronymInput.value = acronymInput.value.trim()
 
 	if (acronymInput.value.length < 2) {
-		buttonPressedState.value = 'error'
+		showButton.value = false
 		textToDisplay.value = 'There can not be spaces in the input.'
 	} else {
 		acronymText = getWordsFromProvidedAcronym(acronymInput.value)
-		buttonPressedState.value = 'good'
+		showButton.value = true
 		textToDisplay.value = acronymText
 	}
 }
@@ -48,29 +48,24 @@ function getWordsFromProvidedAcronym(acronym: string) {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center">
-		<h1 class="m-4 text-2xl font-semibold">Acronym Generator</h1>
-		<div class="flex justify-center items-center">
+	<div class="tw-flex-col-center gap-4">
+		<h1 class="mt-4 tw-h1">Acronym Generator</h1>
+
+		<div class="flex gap-4">
 			<input
 				v-model="acronymInput"
-				class="inline-block w-64 rounded-md border text-neutral-900 border-neutral-300 border-solid px-3 py-2"
+				class="tw-input"
 				placeholder="Type a word here"
 				@keyup.enter="acronymButtonPressed"
 			/>
-			<button
-				class="ml-2 cursor-pointer text-white bg-neutral-500 border-neutral-500 rounded px-3 py-2"
-				@click="acronymButtonPressed"
-			>
+			<button class="tw-button w-24" @click="acronymButtonPressed">
 				Generate
 			</button>
 		</div>
-		<div class="mt-3">
-			<div class="capitalize m-2">{{ textToDisplay }}</div>
-			<button
-				v-if="buttonPressedState === 'good'"
-				class="cursor-pointer text-white bg-neutral-500 border-neutral-500 rounded px-3 py-2"
-				@click="copyAcronym"
-			>
+
+		<div class="tw-flex-col-center gap-4">
+			<div class="capitalize">{{ textToDisplay }}</div>
+			<button v-if="showButton" class="tw-button w-24" @click="copyAcronym">
 				Copy
 			</button>
 		</div>

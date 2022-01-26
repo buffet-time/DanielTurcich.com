@@ -67,9 +67,9 @@ export interface SpreadsheetParams {
 	range: string
 }
 
-export interface navLink {
-	openLink: string
+export interface NavLink {
 	src: string
 	alt: string
 	buttonText: string
+	link: string
 }

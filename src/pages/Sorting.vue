@@ -148,7 +148,7 @@ function audioForRandomizing() {
 <template>
 	<div class="flex h-[calc(100vh_-_64px)]">
 		<div class="flex flex-col justify-center items-center gap-2 w-72">
-			<div class="flex gap-1 justify-center">
+			<div class="flex gap-1">
 				<button
 					class="tw-button h-[50px] w-[130px] p-0"
 					:disabled="disableStopButton"
@@ -166,13 +166,10 @@ function audioForRandomizing() {
 				</button>
 			</div>
 
-			<div class="flex flex-col justify-center items-center">
+			<div class="flex flex-col">
 				<div>
-					<label for="range-1">
-						Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
-					</label>
+					Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
 					<input
-						id="range-1"
 						v-model="volume"
 						class="w-64 h-6 bg-transparent"
 						type="range"
@@ -183,9 +180,8 @@ function audioForRandomizing() {
 				</div>
 
 				<div>
-					<label for="range-2">Add extra Delay of: {{ sleepTime }}ms</label>
+					Add extra Delay of: {{ sleepTime }}ms
 					<input
-						id="range-2"
 						v-model="sleepTime"
 						class="w-64 h-6 bg-transparent"
 						type="range"
@@ -196,9 +192,8 @@ function audioForRandomizing() {
 				</div>
 
 				<div>
-					<label for="range-3"> {{ numberOfRectangles }} Rectangles </label>
+					{{ numberOfRectangles }} Rectangles
 					<input
-						id="range-3"
 						v-model="numberOfRectangles"
 						class="w-64 h-6 bg-transparent"
 						type="range"

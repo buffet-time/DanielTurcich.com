@@ -55,51 +55,41 @@ function copyPassword() {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center">
-		<h1 class="m-4 text-2xl font-semibold">Password Generator</h1>
+	<h1 class="m-4 text-2xl font-semibold">Password Generator</h1>
 
-		<div class="flex flex-col justify-center items-center">
-			<div class="flex flex-col justify-center items-center mb-2">
-				<label class="inline-block" for="range-1">
-					Password Length: {{ passwordLength }}
-				</label>
+	<div>
+		<div class="tw-flex-col-center mb-2">
+			Password Length: {{ passwordLength }}
+			<input
+				v-model="passwordLength"
+				class="w-64 h-6 bg-transparent"
+				type="range"
+				min="1"
+				max="128"
+			/>
+		</div>
+
+		<div class="flex flex-col items-center justify-center">
+			<div v-for="(toggle, index) in PasswordToggles" :key="index" class="pl-6">
 				<input
-					id="range-1"
-					v-model="passwordLength"
-					class="w-64 h-6 bg-transparent"
-					type="range"
-					min="1"
-					max="128"
+					v-model="toggle.exclude"
+					class="rounded w-4 h-4 bg-white"
+					type="checkbox"
 				/>
+				{{ toggle.label }}
 			</div>
-
-			<div class="flex flex-col items-center justify-center">
-				<div
-					v-for="(toggle, index) in PasswordToggles"
-					:key="index"
-					class="pl-6"
-				>
-					<input
-						id="lowercase"
-						v-model="toggle.exclude"
-						class="rounded w-4 h-4 bg-white"
-						type="checkbox"
-					/>
-					<label for="lowercase"> {{ toggle.label }} </label>
-				</div>
-			</div>
-			<button class="mt-4 tw-button" @click="generatePassword">Generate</button>
 		</div>
+		<button class="mt-4 tw-button" @click="generatePassword">Generate</button>
+	</div>
 
-		<div class="m-4 flex flex-col justify-center items-center">
-			<div class="mb-4">{{ textToShow }}</div>
-			<button
-				v-show="password.length > 0"
-				class="tw-button"
-				@click="copyPassword"
-			>
-				Copy
-			</button>
-		</div>
+	<div class="m-4">
+		<div class="mb-4">{{ textToShow }}</div>
+		<button
+			v-show="password.length > 0"
+			class="tw-button"
+			@click="copyPassword"
+		>
+			Copy
+		</button>
 	</div>
 </template>
