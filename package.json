@@ -1,6 +1,7 @@
 {
 	"name": "danielturcich.com",
-	"version": "4.0.0",
+	"description": "My website, a bio and portfolio site.",
+	"version": "1.0.0",
 	"license": "Unlicense",
 	"author": {
 		"email": "packageJson@danielTurcich.com",
