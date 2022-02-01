@@ -105,7 +105,8 @@ const links = ref([
 					Node.
 				</p>
 				<p>
-					I'm 25, a Vegetarian, and listen to an insane amount of music (check
+					<!-- TODO make age a computed property -->
+					I'm 26, a Vegetarian, and listen to an insane amount of music (check
 					the music page of this site).
 				</p>
 			</div>
@@ -120,11 +121,9 @@ const links = ref([
 			<div class="flex flex-col">
 				<h5>Technical</h5>
 				<div>
-					<div>
-						Frontend ~ Type/JavaScript, Vue, HTML, CSS, Electron, Angular, React
-					</div>
+					<div>Frontend ~ Type/JavaScript, Vue, HTML, CSS, Electron, React</div>
 					<div>Middle/ Backend ~ Node & C#</div>
-					<div>Other ~ Git, Python, LUA, Android</div>
+					<div>Other ~ Git, LUA</div>
 				</div>
 			</div>
 			<div>
