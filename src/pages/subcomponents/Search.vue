@@ -117,7 +117,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			<option :value="Release.genre">Genre</option>
 		</select>
 
-		<div class="m-4 flex">
+		<div class="m-4 flex justify-center">
 			<!-- Search against score -->
 			<div v-if="searchType === Release.score" class="flex flex-col">
 				<div class="mb-1">{{ searchInput }}</div>
