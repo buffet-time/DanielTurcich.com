@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const birthdate = 820800000000
+const myCurrentAge = ref(
+	Math.abs(new Date(Date.now() - birthdate).getUTCFullYear() - 1970)
+)
+
 const soundcloudLink =
 	'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'
 
@@ -100,14 +105,13 @@ const links = ref([
 				<h1 class="text-2xl font-semibold">Bio</h1>
 				<p>
 					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
-					currently works at Bank of America in Pennington, New Jersey. I mostly
-					do Frontend development and really enjoy (Java/Type)Script, Vue, and
-					Node.
+					currently works at Squarespace. I mostly do Frontend development and
+					really enjoy (Java/Type)Script, Vue, and Node.
 				</p>
 				<p>
 					<!-- TODO make age a computed property -->
-					I'm 26, a Vegetarian, and listen to an insane amount of music (check
-					the music page of this site).
+					I'm {{ myCurrentAge }}, a Vegetarian, and listen to an insane amount
+					of music (check the music page of this site).
 				</p>
 			</div>
 		</div>
