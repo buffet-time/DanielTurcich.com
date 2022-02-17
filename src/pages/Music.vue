@@ -13,6 +13,10 @@ for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) {
 	releasePerYear.push(0)
 }
 
+// TODO: cleanup
+// TODO: add ability to directly link to the search and an artist or something
+// ex: danielTurcich.com/music/search?type=artist&term=daft punk
+
 // public variables
 const releasesArray = ref([['']])
 const initializing = ref(true)

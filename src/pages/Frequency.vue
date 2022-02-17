@@ -5,6 +5,7 @@ import { onMounted, reactive, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'
 import { type GeneratorType, type Generator } from '../types/Typings'
 
+// TODO: passover this to ensure its written well
 const generators: Generator[] = reactive([
 	{
 		id: 0,

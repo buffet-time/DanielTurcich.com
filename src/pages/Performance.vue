@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 
 // TODO: actually do this at some point?
-
 const functionOne = ref(
 	`const array = [];
 const array2 = [];

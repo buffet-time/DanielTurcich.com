@@ -8,6 +8,8 @@ import {
 } from '../types/OpenWeatherTypes'
 import { onMounted, ref } from 'vue'
 
+// TODO: make this not shit and actually usable!
+
 const baseCurrentWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather'
 const baseOneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall'
 const listOfExcludedParams = 'minutely,alerts'
@@ -24,7 +26,6 @@ const render = ref(false)
 const apiKey = ref('')
 
 onMounted(() => {
-	//'62cb1541476d7147a74a19a8c0760263'
 	// window.localStorage.removeItem(localStorageKey) // how to delet
 	const StoredOpenWeatherKey = window.localStorage.getItem(localStorageKey)
 	if (StoredOpenWeatherKey) {

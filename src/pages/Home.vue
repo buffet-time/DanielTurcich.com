@@ -132,7 +132,7 @@ const links = ref([
 			</div>
 			<div>
 				<h5>Creative</h5>
-				Music Production, Song Writing, Basic Video Editing, Basic Photo Editing
+				Music Production, Basic Video Editing, Basic Photo Editing
 			</div>
 		</div>
 

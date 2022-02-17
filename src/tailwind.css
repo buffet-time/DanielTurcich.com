@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: condense these and make pull more things out into global classes*/
 @layer components {
 	/* Cards */
 	.tw-card {
