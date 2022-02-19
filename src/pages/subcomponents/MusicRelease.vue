@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Release } from '../../types/enums'
+import { Release } from '../../types/Typings'
 import { closeSvg } from '../../assets/svgs'
 import { onMounted, ref } from 'vue'
 import dialogPolyfill from 'dialog-polyfill'

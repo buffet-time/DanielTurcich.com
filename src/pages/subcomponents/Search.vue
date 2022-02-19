@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../types/enums'
+import { Release } from '../../types/Typings'
 import MusicRelease from './MusicRelease.vue'
 
 const props = defineProps<{
@@ -9,6 +10,9 @@ const props = defineProps<{
 	releasesArray: string[][]
 	initializing: boolean
 }>()
+const router = useRouter()
+const route = useRoute()
+let mounting = true
 
 // refs
 const releasesToShow = ref([['']])
@@ -27,6 +31,18 @@ const releaseTypes = [
 ]
 
 watch(searchType, () => {
+	if (mounting) {
+		return
+	}
+
+	router.replace({
+		query: {
+			tab: 'Search',
+			term: searchInput.value,
+			type: Release[searchType.value]
+		}
+	})
+
 	switch (searchType.value) {
 		case Release.score:
 			searchInput.value = '7'
@@ -42,7 +58,19 @@ watch(searchType, () => {
 	}
 })
 
-onMounted(() =>
+onMounted(() => {
+	if (route.query.term) {
+		searchInput.value = route.query.term as string
+		searchType.value = Release[route.query.type as any] as unknown as Release
+		const interval = setInterval(() => {
+			if (!props.initializing) {
+				searchButtonPressed()
+				clearInterval(interval)
+				mounting = false
+			}
+		}, 250)
+	}
+
 	window.addEventListener('keydown', (event) => {
 		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
 			switch (searchType.value) {
@@ -55,7 +83,7 @@ onMounted(() =>
 			}
 		}
 	})
-)
+})
 
 function incrementRange(
 	key: string,
@@ -94,6 +122,14 @@ function searchButtonPressed() {
 	} else {
 		showNoResults.value = true
 	}
+
+	router.replace({
+		query: {
+			tab: 'Search',
+			term: searchInput.value,
+			type: Release[searchType.value]
+		}
+	})
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
@@ -106,7 +142,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 </script>
 
 <template>
-	<div id="searchContent" class="tabcontent hidden">
+	<div id="searchContent" class="w-full">
 		<h3 class="mb-2">Search by:</h3>
 		<select v-model="searchType" class="text-black pl-4 py-2 rounded w-72">
 			<option selected :value="Release.artist">Artist</option>
@@ -134,7 +170,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 
 			<!-- Search against release type -->
 			<div v-else-if="searchType === Release.type">
-				<select v-model="searchInput" class="form-select mb-3">
+				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64">
 					<option
 						v-for="(type, index) in releaseTypes"
 						:key="index"

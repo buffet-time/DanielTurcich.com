@@ -1,23 +1,29 @@
 <script setup lang="ts">
 import { onBeforeMount, type Ref, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import { Release, ReleasesIn } from '../types/enums'
-import { type SpreadsheetParams, type StatsObject } from '../types/Typings'
+import { Release, ReleasesIn } from '../types/Typings'
+import {
+	type Tab,
+	type SpreadsheetParams,
+	type StatsObject
+} from '../types/Typings'
 
 const loadingString = 'loading...'
 const currentYear = 2021
 const releasePerYear: number[] = []
+const router = useRouter()
+const route = useRoute()
 
 for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) {
 	releasePerYear.push(0)
 }
 
 // TODO: cleanup
-// TODO: add ability to directly link to the search and an artist or something
-// ex: danielTurcich.com/music/search?type=artist&term=daft punk
 
 // public variables
+const currentActiveTab = ref('Stats') as Ref<Tab>
 const releasesArray = ref([['']])
 const initializing = ref(true)
 const earliestYear = ref(currentYear)
@@ -58,6 +64,13 @@ let tempScore = 0
 let tempYear = 0
 
 onBeforeMount(async () => {
+	const queryTab = route.query.tab as Tab
+	if (queryTab === 'Search') {
+		setTab(queryTab)
+	} else {
+		switchTabTo('Stats')
+	}
+
 	await initializeSheets()
 	initializing.value = false
 
@@ -114,7 +127,7 @@ async function initializeSheets() {
 		})
 }
 
-async function getArray(id: string, range: string) {
+async function getArray(id: string, range: string): Promise<string[][]> {
 	return (
 		await fetch(`https://api.danielturcich.com/Sheets?id=${id}&range=${range}`)
 	).json()
@@ -125,32 +138,13 @@ function isNum(value: string) {
 	return !isNaN(Number(value))
 }
 
-function switchTab(event: any, tabName: string) {
-	const tabcontent = Array.from(
-		document.getElementsByClassName('tabcontent')
-	) as HTMLDivElement[]
+function setTab(tabName: Tab) {
+	currentActiveTab.value = tabName
+}
 
-	const tablinks = Array.from(
-		document.getElementsByClassName('tablinks')
-	) as HTMLButtonElement[]
-
-	tabcontent.forEach((content) => {
-		content.style.display = 'none'
-	})
-
-	tablinks.forEach((link) => {
-		link.className = link.className.replace(' active', '')
-	})
-
-	const tabElement = document.getElementById(tabName)
-
-	if (!tabElement) {
-		console.log('Error in switchtab')
-		return
-	}
-
-	tabElement.style.display = 'block'
-	event.currentTarget.tabName += ' active'
+function switchTabTo(tabName: Tab) {
+	router.replace({ query: { tab: tabName } })
+	setTab(tabName)
 }
 </script>
 
@@ -159,25 +153,22 @@ function switchTab(event: any, tabName: string) {
 		<h1 class="mt-4 text-2xl font-semibold">My Music Page</h1>
 
 		<div>
-			<button
-				class="tablinks active tw-tab-button"
-				type="button"
-				@click="switchTab($event, 'statsContent')"
-			>
+			<button class="tw-tab-button" type="button" @click="switchTabTo('Stats')">
 				Stats
 			</button>
 
 			<button
-				class="tablinks tw-tab-button"
+				class="tw-tab-button"
 				type="button"
-				@click="switchTab($event, 'searchContent')"
+				@click="switchTabTo('Search')"
 			>
 				Search
 			</button>
 		</div>
 
-		<Stats :stats-object="statsObject" />
+		<Stats v-if="currentActiveTab === 'Stats'" :stats-object="statsObject" />
 		<Search
+			v-else-if="currentActiveTab === 'Search'"
 			:current-year="currentYear"
 			:earliest-year="earliestYear"
 			:releases-array="releasesArray"
