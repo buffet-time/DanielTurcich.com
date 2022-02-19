@@ -76,6 +76,8 @@ export interface NavLink {
 
 export type Tab = 'Stats' | 'Search'
 
+export type SearchType = 'artist' | 'name' | 'score' | 'type' | 'year' | 'genre'
+
 export enum Release {
 	artist,
 	name,
@@ -95,4 +97,12 @@ export enum ReleasesIn {
 	'2000s',
 	'2010s',
 	'2020s'
+}
+
+export interface MusicPageQueries {
+	query: {
+		tab: Tab
+		type?: SearchType
+		term?: string
+	}
 }

@@ -3,7 +3,7 @@ import { onBeforeMount, type Ref, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import { Release, ReleasesIn } from '../types/Typings'
+import { MusicPageQueries, Release, ReleasesIn } from '../types/Typings'
 import {
 	type Tab,
 	type SpreadsheetParams,
@@ -143,7 +143,12 @@ function setTab(tabName: Tab) {
 }
 
 function switchTabTo(tabName: Tab) {
-	router.replace({ query: { tab: tabName } })
+	const queryParams: MusicPageQueries = { query: { tab: tabName } }
+
+	if (tabName === 'Search') {
+		queryParams.query.type = 'artist'
+	}
+	router.replace(queryParams)
 	setTab(tabName)
 }
 </script>

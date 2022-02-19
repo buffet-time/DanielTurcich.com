@@ -14,11 +14,13 @@ const router = useRouter()
 const route = useRoute()
 let mounting = true
 
+// eslint-disable-next-line vue/no-setup-props-destructure
+const latestYear = props.currentYear
+
 // refs
 const releasesToShow = ref([['']])
 const searchType = ref(Release.artist)
 const showReleasesDiv = ref(false)
-const latestYear = ref(props.currentYear)
 const showNoResults = ref(false)
 const searchInput = ref('')
 
@@ -31,7 +33,7 @@ const releaseTypes = [
 ]
 
 watch(searchType, () => {
-	if (mounting) {
+	if (mounting && route.query.term) {
 		return
 	}
 
@@ -51,7 +53,7 @@ watch(searchType, () => {
 			searchInput.value = 'Album'
 			break
 		case Release.year:
-			searchInput.value = String(latestYear.value)
+			searchInput.value = String(latestYear)
 			break
 		default:
 			searchInput.value = ''
@@ -69,6 +71,8 @@ onMounted(() => {
 				mounting = false
 			}
 		}, 250)
+	} else if (route.query.type) {
+		searchType.value = Release[route.query.type as any] as unknown as Release
 	}
 
 	window.addEventListener('keydown', (event) => {
@@ -78,7 +82,7 @@ onMounted(() => {
 					incrementRange(event.key, 0.5, 0, 10)
 					break
 				case Release.year:
-					incrementRange(event.key, 1, props.earliestYear, latestYear.value)
+					incrementRange(event.key, 1, props.earliestYear, latestYear)
 					break
 			}
 		}
