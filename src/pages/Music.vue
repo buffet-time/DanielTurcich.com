@@ -11,11 +11,12 @@ import {
 } from '../types/Typings'
 
 const loadingString = 'loading...'
-const currentYear = 2021
+const currentYear = new Date().getFullYear()
 const releasePerYear: number[] = []
 const router = useRouter()
 const route = useRoute()
 
+// TODO: this is sloppy.
 for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) {
 	releasePerYear.push(0)
 }

@@ -20,12 +20,6 @@ export default defineConfig({
 			}
 		},
 
-		terserOptions: {
-			ecma: 2015,
-			module: true,
-			toplevel: true
-		},
-
 		outDir: '../dist'
 	},
 

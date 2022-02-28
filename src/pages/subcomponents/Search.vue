@@ -74,33 +74,7 @@ onMounted(() => {
 	} else if (route.query.type) {
 		searchType.value = Release[route.query.type as any] as unknown as Release
 	}
-
-	window.addEventListener('keydown', (event) => {
-		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-			switch (searchType.value) {
-				case Release.score:
-					incrementRange(event.key, 0.5, 0, 10)
-					break
-				case Release.year:
-					incrementRange(event.key, 1, props.earliestYear, latestYear)
-					break
-			}
-		}
-	})
 })
-
-function incrementRange(
-	key: string,
-	incrementAmount: number,
-	minimum: number,
-	maximum: number
-) {
-	if (key === 'ArrowLeft' && Number(searchInput.value) > minimum) {
-		searchInput.value = String(searchInput.value + -incrementAmount)
-	} else if (key === 'ArrowRight' && Number(searchInput.value) < maximum) {
-		searchInput.value = String(searchInput.value + incrementAmount)
-	}
-}
 
 function searchButtonPressed() {
 	showReleasesDiv.value = false
