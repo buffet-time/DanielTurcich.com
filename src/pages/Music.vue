@@ -3,7 +3,7 @@ import { onBeforeMount, type Ref, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import { MusicPageQueries, Release, ReleasesIn } from '../types/Typings'
+import { type MusicPageQueries, Release, ReleasesIn } from '../types/Typings'
 import {
 	type Tab,
 	type SpreadsheetParams,

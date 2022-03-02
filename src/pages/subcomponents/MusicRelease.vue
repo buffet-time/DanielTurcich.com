@@ -17,6 +17,7 @@ onMounted(() => {
 	dialogPolyfill.registerDialog(releaseModal.value)
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	target1 = document.querySelector('#releaseModal')!
+	// TODO: probably dont need to use the above line, Vue this shit
 })
 
 function copyReviews() {
@@ -54,18 +55,21 @@ function clickHandler(event: any) {
 		<div
 			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"
 		>
-			<h5 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
+			<div class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
 				{{ release[Release.artist] }}
-			</h5>
-			<h6 class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
-				{{ release[Release.name] }} ({{ release[Release.score] }}/10)
-			</h6>
+			</div>
+			<div class="flex max-w-full gap-1">
+				<div class="flex-auto overflow-hidden whitespace-nowrap text-ellipsis">
+					{{ release[Release.name] }}
+				</div>
+				<div class="flex-none">({{ release[Release.score] }}/10)</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- TODO: pull out Modal here and everywhere into a generic component -->
-	<dialog ref="releaseModal" class="bg-transparent">
-		<div id="releaseModal" class="text-neutral-300 bg-[#383838] w-96">
+	<dialog ref="releaseModal" class="bg-transparent p-0 w-[88vw]">
+		<div id="releaseModal" class="text-neutral-300 bg-[#383838]">
 			<div
 				class="flex items-center justify-between p-4 border-b border-solid border-[#dee2e6]"
 			>
