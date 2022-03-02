@@ -124,7 +124,8 @@ async function initializeSheets() {
 			current.forEach((element) => {
 				element.trim()
 			})
-			return current.length > 5 // makes sure to not include any not fully written reviews
+			// makes sure to not include any not fully written reviews
+			return current.length > 5 && current[Release.score]
 		})
 }
 
