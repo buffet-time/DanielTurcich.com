@@ -37,14 +37,6 @@ watch(searchType, () => {
 		return
 	}
 
-	router.replace({
-		query: {
-			tab: 'Search',
-			term: searchInput.value,
-			type: Release[searchType.value]
-		}
-	})
-
 	switch (searchType.value) {
 		case Release.score:
 			searchInput.value = '7'
@@ -58,6 +50,14 @@ watch(searchType, () => {
 		default:
 			searchInput.value = ''
 	}
+
+	router.replace({
+		query: {
+			tab: 'Search',
+			term: searchInput.value,
+			type: Release[searchType.value]
+		}
+	})
 })
 
 onMounted(() => {
@@ -208,10 +208,3 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 		<div v-if="showNoResults">No results from your search.</div>
 	</div>
 </template>
-
-<style scoped>
-.form-select {
-	width: 300px;
-	margin-left: calc(50% - 150px);
-}
-</style>

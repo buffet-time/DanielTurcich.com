@@ -9,15 +9,12 @@ const props = defineProps<{
 	release: string[]
 }>()
 
-let target1: Element
 const releaseModal = ref()
 
 onMounted(() => {
 	// Because Firefox still doesn't have HTMLDialogElement support...
+	// TODO: only do this when in a browser that doesnt support Dialog Element
 	dialogPolyfill.registerDialog(releaseModal.value)
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	target1 = document.querySelector('#releaseModal')!
-	// TODO: probably dont need to use the above line, Vue this shit
 })
 
 function copyReviews() {
@@ -30,20 +27,10 @@ function copyReviews() {
 
 function openModal() {
 	releaseModal.value.showModal()
-	setTimeout(() => {
-		document.addEventListener('click', clickHandler)
-	}, 0)
 }
 
 function closeModal() {
-	document.removeEventListener('click', clickHandler)
 	releaseModal.value.close()
-}
-
-function clickHandler(event: any) {
-	if (!event.composedPath().includes(target1)) {
-		closeModal()
-	}
 }
 </script>
 

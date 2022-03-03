@@ -11,7 +11,7 @@ specifiers:
   autoprefixer: ^10.4.2
   dialog-polyfill: ^0.5.6
   eslint: ^8.10.0
-  eslint-config-prettier: ^8.4.0
+  eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-vue: ^8.5.0
   husky: ^7.0.4
@@ -42,8 +42,8 @@ devDependencies:
   '@vue/eslint-config-typescript': 10.0.0_4999eaf7519b793a6f98f832632fec6e
   autoprefixer: 10.4.2_postcss@8.4.7
   eslint: 8.10.0
-  eslint-config-prettier: 8.4.0_eslint@8.10.0
-  eslint-plugin-prettier: 4.0.0_1669956a82292b1f29101a00a555e5bf
+  eslint-config-prettier: 8.5.0_eslint@8.10.0
+  eslint-plugin-prettier: 4.0.0_f3d13a703a9c1079e3d1af6044603beb
   eslint-plugin-vue: 8.5.0_eslint@8.10.0
   husky: 7.0.4
   postcss: 8.4.7
@@ -423,7 +423,7 @@ packages:
       '@vue/reactivity-transform': 3.2.31
       '@vue/shared': 3.2.31
       estree-walker: 2.0.2
-      magic-string: 0.25.7
+      magic-string: 0.25.8
       postcss: 8.4.7
       source-map: 0.6.1
     dev: false
@@ -463,7 +463,7 @@ packages:
       '@vue/compiler-core': 3.2.31
       '@vue/shared': 3.2.31
       estree-walker: 2.0.2
-      magic-string: 0.25.7
+      magic-string: 0.25.8
     dev: false
 
   /@vue/reactivity/3.2.31:
@@ -1094,8 +1094,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-config-prettier/8.4.0_eslint@8.10.0:
-    resolution: {integrity: sha512-CFotdUcMY18nGRo5KGsnNxpznzhkopOcOo0InID+sgQssPrzjvsyKZPvOgymTFeHrFuC3Tzdf2YndhXtULK9Iw==}
+  /eslint-config-prettier/8.5.0_eslint@8.10.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -1103,7 +1103,7 @@ packages:
       eslint: 8.10.0
     dev: true
 
-  /eslint-plugin-prettier/4.0.0_1669956a82292b1f29101a00a555e5bf:
+  /eslint-plugin-prettier/4.0.0_f3d13a703a9c1079e3d1af6044603beb:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -1115,7 +1115,7 @@ packages:
         optional: true
     dependencies:
       eslint: 8.10.0
-      eslint-config-prettier: 8.4.0_eslint@8.10.0
+      eslint-config-prettier: 8.5.0_eslint@8.10.0
       prettier: 2.5.1
       prettier-linter-helpers: 1.0.0
     dev: true
@@ -1604,8 +1604,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /magic-string/0.25.7:
-    resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
+  /magic-string/0.25.8:
+    resolution: {integrity: sha512-n9NlSgfkB2rPYjSd/EZDoQcsXzwYAv4CIB/vi3ZSvZ2Tjax5W5Ie1NMy4HG3PVdcL4bBMMR20Ng4UcISMzqRLw==}
     dependencies:
       sourcemap-codec: 1.4.8
     dev: false
