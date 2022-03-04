@@ -62,11 +62,6 @@ export interface StatsObject {
 	releasesPerYear: number[]
 }
 
-export interface SpreadsheetParams {
-	id: string
-	range: string
-}
-
 export interface NavLink {
 	src: string
 	alt: string
