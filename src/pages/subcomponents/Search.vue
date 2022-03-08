@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
-import { Release } from '../../types/Typings'
+import { Release, type SearchType } from '../../types/Typings'
 import MusicRelease from './MusicRelease.vue'
 
-const props = defineProps<{
+const Props = defineProps<{
 	currentYear: number
 	earliestYear: number
 	releasesArray: string[][]
 	initializing: boolean
 }>()
-const router = useRouter()
-const route = useRoute()
-let mounting = true
+const Router = useRouter()
+const Route = useRoute()
 
 // eslint-disable-next-line vue/no-setup-props-destructure
-const latestYear = props.currentYear
+const latestYear = Props.currentYear
+let mounting = true
 
 // refs
 const releasesToShow = ref([['']])
@@ -33,7 +33,7 @@ const releaseTypes = [
 ]
 
 watch(searchType, () => {
-	if (mounting && route.query.term) {
+	if (mounting && Route.query.term) {
 		return
 	}
 
@@ -51,7 +51,7 @@ watch(searchType, () => {
 			searchInput.value = ''
 	}
 
-	router.replace({
+	Router.replace({
 		query: {
 			tab: 'Search',
 			term: searchInput.value,
@@ -61,18 +61,21 @@ watch(searchType, () => {
 })
 
 onMounted(() => {
-	if (route.query.term) {
-		searchInput.value = route.query.term as string
-		searchType.value = Release[route.query.type as any] as unknown as Release
+	if (Route.query.term) {
+		searchInput.value = Route.query.term as string
+		searchType.value = Release[Route.query.type as SearchType]
 		const interval = setInterval(() => {
-			if (!props.initializing) {
+			if (!Props.initializing) {
 				searchButtonPressed()
 				clearInterval(interval)
 				mounting = false
 			}
 		}, 250)
-	} else if (route.query.type) {
-		searchType.value = Release[route.query.type as any] as unknown as Release
+	} else if (Route.query.type) {
+		searchType.value = Release[Route.query.type as SearchType]
+		mounting = false
+	} else {
+		mounting = false
 	}
 })
 
@@ -101,7 +104,7 @@ function searchButtonPressed() {
 		showNoResults.value = true
 	}
 
-	router.replace({
+	Router.replace({
 		query: {
 			tab: 'Search',
 			term: searchInput.value,
@@ -111,7 +114,7 @@ function searchButtonPressed() {
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
-	return props.releasesArray.filter((release) =>
+	return Props.releasesArray.filter((release) =>
 		equals
 			? release[index].toLowerCase() === searchInput.value.toLowerCase()
 			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())

@@ -74,13 +74,13 @@ export type Tab = 'Stats' | 'Search'
 export type SearchType = 'artist' | 'name' | 'score' | 'type' | 'year' | 'genre'
 
 export enum Release {
-	artist,
-	name,
-	score,
-	type,
-	year,
-	genre,
-	comments
+	'artist',
+	'name',
+	'score',
+	'type',
+	'year',
+	'genre',
+	'comments'
 }
 
 export enum ReleasesIn {
