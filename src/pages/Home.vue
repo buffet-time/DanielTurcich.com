@@ -109,7 +109,6 @@ const links = ref([
 					really enjoy (Java/Type)Script, Vue, and Node.
 				</p>
 				<p>
-					<!-- TODO make age a computed property -->
 					I'm {{ myCurrentAge }}, a Vegetarian, and listen to an insane amount
 					of music (check the music page of this site).
 				</p>

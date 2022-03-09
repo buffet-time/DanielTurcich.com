@@ -13,8 +13,10 @@ const releaseModal = ref()
 
 onMounted(() => {
 	// Because Firefox still doesn't have HTMLDialogElement support...
-	// TODO: only do this when in a browser that doesnt support Dialog Element
-	dialogPolyfill.registerDialog(releaseModal.value)
+	// @ts-expect-error
+	if (typeof HTMLDialogElement !== 'function') {
+		dialogPolyfill.registerDialog(releaseModal.value)
+	}
 })
 
 function copyReviews() {

@@ -24,14 +24,6 @@ const showReleasesDiv = ref(false)
 const showNoResults = ref(false)
 const searchInput = ref('')
 
-// variables
-// prettier-ignore
-const releaseTypes = [
-	'Album', 'EP', 'Live Album',
-	'Soundtrack', 'Remix Album',
-	'Compilation', 'Demo Album'
-]
-
 watch(searchType, () => {
 	if (mounting && Route.query.term) {
 		return
@@ -129,7 +121,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			<option selected :value="Release.artist">Artist</option>
 			<option :value="Release.name">Release Name</option>
 			<option :value="Release.score">Score</option>
-			<option :value="Release.type">Type</option>
+			<!-- <option :value="Release.type">Type</option> -->
 			<option :value="Release.year">Year</option>
 			<option :value="Release.genre">Genre</option>
 		</select>
@@ -149,8 +141,16 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 				/>
 			</div>
 
+			<!-- Sorta irrelevant search type? -->
 			<!-- Search against release type -->
-			<div v-else-if="searchType === Release.type">
+
+			<!-- // prettier-ignore
+			const releaseTypes = [
+				'Album', 'EP', 'Live Album',
+				'Soundtrack', 'Remix Album',
+				'Compilation', 'Demo Album'
+			] -->
+			<!-- <div v-else-if="searchType === Release.type">
 				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64">
 					<option
 						v-for="(type, index) in releaseTypes"
@@ -160,7 +160,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 						{{ type }}
 					</option>
 				</select>
-			</div>
+			</div> -->
 
 			<!-- Search against year -->
 			<div v-else-if="searchType === Release.year" class="flex flex-col">
@@ -192,8 +192,6 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			>
 				Search
 			</button>
-
-			<!-- TODO:	add exact match checkbox	-->
 		</div>
 
 		<div

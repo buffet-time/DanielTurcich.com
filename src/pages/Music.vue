@@ -12,8 +12,8 @@ const releasePerYear: number[] = []
 const router = useRouter()
 const route = useRoute()
 
-// TODO: this is sloppy.
-for (let x = 0; x < ReleasesIn['2020s'] + 1; x++) {
+// returns the values of the enum and them in reverse so divide by 2
+for (let x = 0; x < Object.keys(ReleasesIn).length / 2; x++) {
 	releasePerYear.push(0)
 }
 
@@ -74,7 +74,7 @@ onBeforeMount(async () => {
 		}
 
 		curYear > 1959
-			? // @ts-ignore
+			? // @ts-expect-error
 			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
 			: releasePerYear[ReleasesIn['1950s']]++
 	})
