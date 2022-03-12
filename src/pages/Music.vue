@@ -3,45 +3,24 @@ import { onBeforeMount, type Ref, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import { type MusicPageQueries, Release, ReleasesIn } from '../types/Typings'
-import { type Tab, type StatsObject } from '../types/Typings'
+import {
+	type MusicPageQueries,
+	type StatsObject,
+	type Tab
+} from '../types/Typings'
 
-const loadingString = 'loading...'
-const currentYear = new Date().getFullYear()
-const releasePerYear: number[] = []
-const router = useRouter()
+// const loadingString = 'loading...'
 const route = useRoute()
-
-// returns the values of the enum and them in reverse so divide by 2
-for (let x = 0; x < Object.keys(ReleasesIn).length / 2; x++) {
-	releasePerYear.push(0)
-}
-
-// TODO: cleanup
+const router = useRouter()
 
 // public variables
-const currentActiveTab = ref('Stats') as Ref<Tab>
-const releasesArray = ref([['']])
 const initializing = ref(true)
-const earliestYear = ref(currentYear)
-const statsObject = ref({
-	numberOfReleases: loadingString,
-	averageYear: loadingString,
-	averageScore: loadingString,
-	numberOfArtists: loadingString,
-	releasesPerYear: releasePerYear
-}) as Ref<StatsObject>
+const releasesArray = ref([['']])
+const currentActiveTab = ref('Stats') as Ref<Tab>
+const statsObject = ref() as Ref<StatsObject>
 
-// Private variables
-const artistArray: string[] = []
-
-let scoreCount = 0
-let questionMarkScoreCount = 0
-let yearCount = 0
-let tempScore = 0
-let tempYear = 0
-
-onBeforeMount(async () => {
+// TODO: move Stats to be calculated and cached on the API
+onBeforeMount(() => {
 	const queryTab = route.query.tab as Tab
 	if (queryTab === 'Search') {
 		setTab(queryTab)
@@ -49,52 +28,20 @@ onBeforeMount(async () => {
 		switchTabTo('Stats')
 	}
 
-	releasesArray.value = await getReleases()
-	initializing.value = false
-
-	releasesArray.value.forEach((current) => {
-		if (!artistArray.includes(current[Release.artist])) {
-			artistArray.push(current[Release.artist])
-		}
-
-		const curYear = Number(current[Release.year])
-
-		if (curYear < earliestYear.value) {
-			earliestYear.value = curYear
-		}
-
-		tempYear += curYear
-		yearCount++
-
-		if (isNum(current[Release.score])) {
-			tempScore += Number(current[Release.score])
-			scoreCount++
-		} else if (current[Release.score] == '?') {
-			questionMarkScoreCount++
-		}
-
-		curYear > 1959
-			? // @ts-expect-error
-			  releasePerYear[ReleasesIn[current[Release.year].slice(0, 3) + '0s']]++
-			: releasePerYear[ReleasesIn['1950s']]++
+	Promise.all([getReleases(), getStats()]).then((values) => {
+		releasesArray.value = values[0]
+		statsObject.value = values[1]
+		initializing.value = false
 	})
-
-	statsObject.value = {
-		averageScore: (tempScore / scoreCount).toFixed(2),
-		numberOfArtists: artistArray.length,
-		averageYear: (tempYear / yearCount).toFixed(2),
-		numberOfReleases: scoreCount + questionMarkScoreCount,
-		releasesPerYear: releasePerYear
-	}
 })
 
+// TODO: handle errors... (make an abstracted fetch call that handles errors gracefully)
 async function getReleases(): Promise<string[][]> {
 	return (await fetch(`https://api.danielturcich.com/Releases`)).json()
 }
 
-// for readability
-function isNum(value: string) {
-	return !isNaN(Number(value))
+async function getStats(): Promise<StatsObject> {
+	return (await fetch(`https://api.danielturcich.com/Stats`)).json()
 }
 
 function setTab(tabName: Tab) {
@@ -116,6 +63,7 @@ function switchTabTo(tabName: Tab) {
 	<div class="tw-flex-col-center gap-4">
 		<h1 class="mt-4 text-2xl font-semibold">My Music Page</h1>
 
+		<!-- TODO: have the current tab be persistently highlighted -->
 		<div>
 			<button class="tw-tab-button" type="button" @click="switchTabTo('Stats')">
 				Stats
@@ -130,13 +78,15 @@ function switchTabTo(tabName: Tab) {
 			</button>
 		</div>
 
-		<Stats v-if="currentActiveTab === 'Stats'" :stats-object="statsObject" />
-		<Search
-			v-else-if="currentActiveTab === 'Search'"
-			:current-year="currentYear"
-			:earliest-year="earliestYear"
-			:releases-array="releasesArray"
-			:initializing="initializing"
-		/>
+		<template v-if="!initializing">
+			<Stats v-if="currentActiveTab === 'Stats'" :stats-object="statsObject" />
+			<Search
+				v-else-if="currentActiveTab === 'Search'"
+				:current-year="statsObject.currentYear"
+				:earliest-year="statsObject.earliestYear"
+				:releases-array="releasesArray"
+				:initializing="initializing"
+			/>
+		</template>
 	</div>
 </template>

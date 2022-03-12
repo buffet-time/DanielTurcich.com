@@ -60,6 +60,8 @@ export interface StatsObject {
 	averageScore: string | number
 	numberOfArtists: string | number
 	releasesPerYear: number[]
+	currentYear: number
+	earliestYear: number
 }
 
 export interface NavLink {
