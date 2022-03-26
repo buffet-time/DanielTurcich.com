@@ -8,6 +8,7 @@ import {
 	type StatsObject,
 	type Tab
 } from '../types/Typings'
+import { ProperFetch } from '../shared'
 
 // const loadingString = 'loading...'
 const route = useRoute()
@@ -28,20 +29,39 @@ onBeforeMount(() => {
 		switchTabTo('Stats')
 	}
 
-	Promise.all([getReleases(), getStats()]).then((values) => {
-		releasesArray.value = values[0]
-		statsObject.value = values[1]
-		initializing.value = false
-	})
+	let retries = 0
+	const getData = () => {
+		if (retries > 2) {
+			console.error(`Can't get the data :(`)
+		}
+
+		Promise.all([getReleases(), getStats()])
+			.then((values) => {
+				if (values[0] && values[1]) {
+					releasesArray.value = values[0]
+					statsObject.value = values[1]
+					initializing.value = false
+				} else {
+					setTimeout(() => {
+						getData()
+						retries++
+					}, 5000)
+				}
+			})
+			.catch((error) => {
+				console.error(`Error in Music.vue promise.all(): ${error}`)
+			})
+	}
+
+	getData()
 })
 
-// TODO: handle errors... (make an abstracted fetch call that handles errors gracefully)
-async function getReleases(): Promise<string[][]> {
-	return (await fetch(`https://api.danielturcich.com/Releases`)).json()
+async function getReleases(): Promise<string[][] | null> {
+	return await ProperFetch(`https://api.danielturcich.com/Releases`)
 }
 
-async function getStats(): Promise<StatsObject> {
-	return (await fetch(`https://api.danielturcich.com/Stats`)).json()
+async function getStats(): Promise<StatsObject | null> {
+	return await ProperFetch(`https://api.danielturcich.com/Stats`)
 }
 
 function setTab(tabName: Tab) {
