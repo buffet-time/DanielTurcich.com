@@ -57,7 +57,7 @@ function closeModal() {
 	</div>
 
 	<!-- TODO: pull out Modal here and everywhere into a generic component -->
-	<dialog ref="releaseModal" class="bg-transparent p-0 w-[88vw]">
+	<dialog ref="releaseModal" class="bg-transparent p-0 w-[88vw] max-w-xl">
 		<div id="releaseModal" class="text-neutral-300 bg-[#383838]">
 			<div
 				class="flex items-center justify-between p-4 border-b border-solid border-[#dee2e6]"
