@@ -10,11 +10,7 @@ export default defineConfig({
 		rollupOptions: {
 			maxParallelFileReads: 512,
 			output: {
-				minifyInternalExports: true,
 				generatedCode: {
-					arrowFunctions: true,
-					constBindings: true,
-					objectShorthand: true,
 					preset: 'es2015'
 				}
 			}
