@@ -3,6 +3,8 @@
 		"target": "ES2018",
 		"module": "esnext",
 		"moduleResolution": "node",
+		// Needed for Volar to work properly.
+		"jsx": "preserve",
 
 		"strict": true,
 		"pretty": true,
