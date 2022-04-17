@@ -16,7 +16,7 @@
 		"generate:404": "cd dist && cp index.html 404.html",
 		"deploy": "npm run deploy:delete-branch && npm run deploy:create-branch",
 		"deploy:delete-branch": "git branch -D gh-pages",
-		"deploy:create-branch": "git push origin `git subtree split --prefix dist master`:gh-pages --force"
+		"deploy:create-branch": "git push origin `git subtree split --prefix dist main`:gh-pages --force"
 	},
 	"dependencies": {
 		"dialog-polyfill": "^0.5.6",
