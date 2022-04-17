@@ -29,6 +29,6 @@ export default defineConfig({
 	plugins: [
 		vue({
 			isProduction: true
-		}) as any
+		})
 	]
 })
