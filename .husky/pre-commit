@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Build the site
-npm run build
+pnpm run build
 
 # navigate into the build output directory & Add a cname file
 # to ensure Github picks up and sets it to the right domain on deploy
