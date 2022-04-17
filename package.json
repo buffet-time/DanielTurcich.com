@@ -10,6 +10,7 @@
 	},
 	"scripts": {
 		"serve": "vite",
+		"serve:network": "vite --host",
 		"preview": "vite preview",
 		"prepare:husky": "husky install",
 		"build": "vue-tsc --noEmit && vite build --emptyOutDir && pnpm generate:404",
