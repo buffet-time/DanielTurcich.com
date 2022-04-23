@@ -103,3 +103,8 @@ export interface MusicPageQueries {
 		term?: string
 	}
 }
+
+export interface ArticleLink {
+	url: string
+	text: string
+}
