@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
-import { Release, type SearchType } from '../../types/Typings'
+import {
+	type MusicSearchProps,
+	Release,
+	type SearchType
+} from '../../types/Typings'
 import MusicRelease from './MusicRelease.vue'
 
 const Props = defineProps<{
-	currentYear: number
-	earliestYear: number
-	releasesArray: string[][]
-	initializing: boolean
+	search: MusicSearchProps
 }>()
 const Router = useRouter()
 const Route = useRoute()
 
-// eslint-disable-next-line vue/no-setup-props-destructure
-const latestYear = Props.currentYear
 let mounting = true
 
 // refs
@@ -37,7 +36,7 @@ watch(searchType, () => {
 			searchInput.value = 'Album'
 			break
 		case Release.year:
-			searchInput.value = String(latestYear)
+			searchInput.value = String(Props.search.currentYear)
 			break
 		default:
 			searchInput.value = ''
@@ -57,7 +56,7 @@ onMounted(() => {
 		searchInput.value = Route.query.term as string
 		searchType.value = Release[Route.query.type as SearchType]
 		const interval = setInterval(() => {
-			if (!Props.initializing) {
+			if (!Props.search.initializing) {
 				searchButtonPressed()
 				clearInterval(interval)
 				mounting = false
@@ -106,7 +105,7 @@ function searchButtonPressed() {
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
-	return Props.releasesArray.filter((release) =>
+	return Props.search.releasesArray.filter((release) =>
 		equals
 			? release[index].toLowerCase() === searchInput.value.toLowerCase()
 			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())
@@ -167,11 +166,11 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 				<label for="customRange1" class="form-label">{{ searchInput }}</label>
 				<input
 					v-model="searchInput"
-					:placeholder="String(latestYear)"
+					:placeholder="String(search.currentYear)"
 					type="range"
 					class="w-64 bg-transparent h-2"
-					:min="earliestYear"
-					:max="latestYear"
+					:min="search.earliestYear"
+					:max="search.currentYear"
 					step="1"
 				/>
 			</div>
@@ -186,7 +185,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			/>
 
 			<button
-				:disabled="initializing || searchInput.length < 1"
+				:disabled="search.initializing || searchInput.length < 1"
 				class="ml-4 tw-button"
 				@click="searchButtonPressed"
 			>

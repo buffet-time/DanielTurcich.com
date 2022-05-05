@@ -108,3 +108,19 @@ export interface ArticleLink {
 	url: string
 	text: string
 }
+
+export interface MusicSearchProps {
+	currentYear: number
+	earliestYear: number
+	releasesArray: string[][]
+	initializing: boolean
+}
+
+export interface SortingVisualizationProps {
+	sleepTime: number | string
+	stopExecution: boolean
+	randomizeArray: boolean
+	oscillator: OscillatorNode
+	numberOfRectangles: number | string
+	sortingMethod: SortingAlgorithm
+}

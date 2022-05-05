@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { type SortingAlgorithm, type SortingRect } from '../../types/Typings'
+import {
+	type SortingVisualizationProps,
+	type SortingRect
+} from '../../types/Typings'
 import { onMounted, watch } from 'vue'
 
 const props = defineProps<{
-	sleepTime: number | string
-	stopExecution: boolean
-	randomizeArray: boolean
-	oscillator: OscillatorNode
-	numberOfRectangles: number | string
-	sortingMethod: SortingAlgorithm
+	algorithm: SortingVisualizationProps
 }>()
 
 const emit = defineEmits<{
@@ -27,7 +25,7 @@ let sortingArray: SortingRect[] = []
 let quickSortIndex = 0
 
 watch(
-	() => props.randomizeArray,
+	() => props.algorithm.randomizeArray,
 	async (newValue) => {
 		if (newValue) {
 			emit('sortingMethodStartedBools')
@@ -38,7 +36,7 @@ watch(
 			Context2d.fillStyle = '#0F0'
 			createUnsortedArray()
 			await drawAllRectangles()
-			props.oscillator.disconnect()
+			props.algorithm.oscillator.disconnect()
 
 			emit('sortingMethodEndedBools')
 			emit('randomizeArrayDone')
@@ -47,7 +45,7 @@ watch(
 )
 
 watch(
-	() => props.sortingMethod,
+	() => props.algorithm.sortingMethod,
 	async (newValue) => {
 		emit('sortingMethodStarted')
 		switch (newValue) {
@@ -139,14 +137,15 @@ function swapArrayElements(index1: number, index2: number) {
 
 function createUnsortedArray() {
 	sortingArray = []
-	const widthOfRect = Canvas.width / Number(props.numberOfRectangles)
-	const heightOfRect = Canvas.height / Number(props.numberOfRectangles)
+	const widthOfRect = Canvas.width / Number(props.algorithm.numberOfRectangles)
+	const heightOfRect =
+		Canvas.height / Number(props.algorithm.numberOfRectangles)
 	const lowFrequencyBound = 100
 	const highFrequencyBound = 10000
 	const frequencyIncrease =
-		highFrequencyBound / Number(props.numberOfRectangles)
+		highFrequencyBound / Number(props.algorithm.numberOfRectangles)
 
-	for (let n = 0; n < Number(props.numberOfRectangles); n++) {
+	for (let n = 0; n < Number(props.algorithm.numberOfRectangles); n++) {
 		sortingArray.push({
 			x: widthOfRect * n,
 			y: Canvas.height - heightOfRect * (n + 1),
@@ -156,20 +155,20 @@ function createUnsortedArray() {
 		})
 	}
 
-	for (let n = 0; n < Number(props.numberOfRectangles) * 10; n++) {
+	for (let n = 0; n < Number(props.algorithm.numberOfRectangles) * 10; n++) {
 		randomSwaps()
 	}
 }
 
 function randomSwaps() {
 	const firstElementIndex = Math.floor(
-		Math.random() * Number(props.numberOfRectangles)
+		Math.random() * Number(props.algorithm.numberOfRectangles)
 	)
 	let secondElementIndex = 0
 
 	do {
 		secondElementIndex = Math.floor(
-			Math.random() * Number(props.numberOfRectangles)
+			Math.random() * Number(props.algorithm.numberOfRectangles)
 		)
 	} while (firstElementIndex === secondElementIndex)
 
@@ -180,7 +179,7 @@ function randomSwaps() {
 // Drawing functions
 // // // // // // //
 async function drawAllRectangles() {
-	for (let n = 0; n < props.numberOfRectangles; n++) {
+	for (let n = 0; n < props.algorithm.numberOfRectangles; n++) {
 		drawRectangle(n, true)
 	}
 
@@ -213,7 +212,7 @@ async function drawRectangle(index: number, microTask?: boolean) {
 		})
 	} else {
 		fillRect()
-		await sleep(Number(props.sleepTime))
+		await sleep(Number(props.algorithm.sleepTime))
 	}
 }
 
@@ -256,7 +255,7 @@ async function bubbleSort() {
 		count++
 		swapped = false
 		for (n = 0; n < length - count; n++) {
-			if (props.stopExecution) {
+			if (props.algorithm.stopExecution) {
 				return
 			}
 
@@ -277,7 +276,7 @@ async function insertionSort() {
 		current = sortingArray[i]
 
 		for (j = i - 1; j >= 0 && sortingArray[j].height > current.height; j--) {
-			if (props.stopExecution) {
+			if (props.algorithm.stopExecution) {
 				return
 			}
 
@@ -295,7 +294,7 @@ async function selectionSort() {
 	for (let n = 0; n < sortingArray.length; n++) {
 		minHeight = n // Finding the smallest number in the array
 		for (x = n + 1; x < sortingArray.length; x++) {
-			if (props.stopExecution) {
+			if (props.algorithm.stopExecution) {
 				return
 			}
 
@@ -316,7 +315,7 @@ async function cocktailShakerSort() {
 	while (!sorted) {
 		sorted = true
 		while (n < sortingArray.length - 1) {
-			if (props.stopExecution) {
+			if (props.algorithm.stopExecution) {
 				return
 			}
 
@@ -334,7 +333,7 @@ async function cocktailShakerSort() {
 		sorted = true
 
 		while (n > 0) {
-			if (props.stopExecution) {
+			if (props.algorithm.stopExecution) {
 				return
 			}
 
@@ -349,7 +348,7 @@ async function cocktailShakerSort() {
 
 async function quickSort(left: number, right: number) {
 	quickSortIndex = await quicksortPartition(left, right) //index returned from partition
-	if (props.stopExecution) {
+	if (props.algorithm.stopExecution) {
 		return
 	}
 
@@ -367,7 +366,7 @@ async function quickSort(left: number, right: number) {
 async function quicksortPartition(left: number, right: number) {
 	const pivot = sortingArray[Math.floor((right + left) / 2)]
 	while (left <= right) {
-		if (props.stopExecution) {
+		if (props.algorithm.stopExecution) {
 			return 0
 		}
 		// increment up until find a height to the left larger than the pivot
@@ -389,7 +388,7 @@ async function quicksortPartition(left: number, right: number) {
 }
 
 async function mergeSort(unsorted: SortingRect[]): Promise<SortingRect[]> {
-	if (props.stopExecution) {
+	if (props.algorithm.stopExecution) {
 		return []
 	}
 	if (unsorted.length < 2) {
@@ -459,7 +458,7 @@ async function merge(
 
 	// drawing of the rectangles
 	for (let n = 0; n < combinedArray.length; n++) {
-		if (props.stopExecution) {
+		if (props.algorithm.stopExecution) {
 			return []
 		}
 		await redrawRectangle(indexArray[n])
@@ -470,7 +469,7 @@ async function merge(
 
 async function heapSort() {
 	for (let n = Math.floor(sortingArray.length / 2 - 1); n >= 0; n--) {
-		if (props.stopExecution) {
+		if (props.algorithm.stopExecution) {
 			return
 		}
 
@@ -478,7 +477,7 @@ async function heapSort() {
 	}
 
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
-		if (props.stopExecution) {
+		if (props.algorithm.stopExecution) {
 			return
 		}
 
@@ -492,7 +491,7 @@ async function heapify(size: number, index: number) {
 	const left = 2 * index + 1
 	const right = 2 * index + 2
 
-	if (props.stopExecution) {
+	if (props.algorithm.stopExecution) {
 		return
 	}
 
@@ -527,7 +526,7 @@ async function shellSort() {
 				n >= gap && sortingArray[n - gap].height > temp.height;
 				n -= gap
 			) {
-				if (props.stopExecution) {
+				if (props.algorithm.stopExecution) {
 					return
 				}
 				await redrawRectangles(n, n - gap)
@@ -543,7 +542,7 @@ async function gnomeSort() {
 	for (let n = 1; n < sortingArray.length; n++) {
 		if (sortingArray[n - 1].height > sortingArray[n].height) {
 			while (n > 0 && sortingArray[n - 1].height > sortingArray[n].height) {
-				if (props.stopExecution) {
+				if (props.algorithm.stopExecution) {
 					return
 				}
 				await redrawRectangles(n, n - 1)

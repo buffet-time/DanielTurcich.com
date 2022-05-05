@@ -30,16 +30,19 @@ onBeforeMount(() => {
 	}
 
 	let retries = 0
-	const getData = () => {
+	function getData() {
 		if (retries > 2) {
 			console.error(`Can't get the data :(`)
 		}
 
 		Promise.all([getReleases(), getStats()])
 			.then((values) => {
-				if (values[0] && values[1]) {
-					releasesArray.value = values[0]
-					statsObject.value = values[1]
+				const releases = values[0]
+				const stats = values[1]
+
+				if (releases && stats) {
+					releasesArray.value = releases
+					statsObject.value = stats
 					initializing.value = false
 				} else {
 					setTimeout(() => {
@@ -85,12 +88,24 @@ function switchTabTo(tabName: Tab) {
 
 		<!-- TODO: have the current tab be persistently highlighted -->
 		<div>
-			<button class="tw-tab-button" type="button" @click="switchTabTo('Stats')">
+			<button
+				class="tw-tab-button"
+				:class="{
+					'bg-white': currentActiveTab === 'Stats',
+					'text-neutral-600': currentActiveTab === 'Stats'
+				}"
+				type="button"
+				@click="switchTabTo('Stats')"
+			>
 				Stats
 			</button>
 
 			<button
 				class="tw-tab-button"
+				:class="{
+					'bg-white': currentActiveTab === 'Search',
+					'text-neutral-600': currentActiveTab === 'Search'
+				}"
 				type="button"
 				@click="switchTabTo('Search')"
 			>
@@ -99,13 +114,15 @@ function switchTabTo(tabName: Tab) {
 		</div>
 
 		<template v-if="!initializing">
-			<Stats v-if="currentActiveTab === 'Stats'" :stats-object="statsObject" />
+			<Stats v-if="currentActiveTab === 'Stats'" :stats="statsObject" />
 			<Search
 				v-else-if="currentActiveTab === 'Search'"
-				:current-year="statsObject.currentYear"
-				:earliest-year="statsObject.earliestYear"
-				:releases-array="releasesArray"
-				:initializing="initializing"
+				:search="{
+					currentYear: statsObject.currentYear,
+					earliestYear: statsObject.earliestYear,
+					releasesArray: releasesArray,
+					initializing: initializing
+				}"
 			/>
 		</template>
 	</div>

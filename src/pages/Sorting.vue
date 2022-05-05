@@ -219,12 +219,14 @@ function audioForRandomizing() {
 		</div>
 
 		<SortingVisualization
-			:sleep-time="sleepTime"
-			:oscillator="oscillator"
-			:sorting-method="sortingMethod"
-			:stop-execution="stopExecution"
-			:randomize-array="randomizeArray"
-			:number-of-rectangles="numberOfRectangles"
+			:algorithm="{
+				sleepTime: sleepTime,
+				stopExecution: stopExecution,
+				randomizeArray: randomizeArray,
+				oscillator: oscillator,
+				numberOfRectangles: numberOfRectangles,
+				sortingMethod: sortingMethod
+			}"
 			@sorting-method-started-bools="sortingMethodStartedBools"
 			@sorting-method-ended-bools="sortingMethodEndedBools"
 			@sorting-method-started="sortingMethodStarted"

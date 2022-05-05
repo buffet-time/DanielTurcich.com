@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import Navbar from './components/Navbar.vue'
-
-console.table({ foo: 'bar', test: 'works' })
 </script>
 
 <template>

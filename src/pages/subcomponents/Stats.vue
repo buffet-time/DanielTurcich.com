@@ -2,7 +2,7 @@
 import { type StatsObject } from '../../types/Typings'
 
 defineProps<{
-	statsObject: StatsObject
+	stats: StatsObject
 }>()
 </script>
 
@@ -19,22 +19,22 @@ defineProps<{
 			<tbody>
 				<tr>
 					<th>Number of releases</th>
-					<td>{{ statsObject.numberOfReleases }}</td>
+					<td>{{ stats.numberOfReleases }}</td>
 				</tr>
 				<tr>
 					<th>Number of artists</th>
-					<td>{{ statsObject.numberOfArtists }}</td>
+					<td>{{ stats.numberOfArtists }}</td>
 				</tr>
 				<tr>
 					<th>Average Year</th>
-					<td>{{ statsObject.averageYear }}</td>
+					<td>{{ stats.averageYear }}</td>
 				</tr>
 				<tr>
 					<th>Average Score</th>
-					<td>{{ statsObject.averageScore }}</td>
+					<td>{{ stats.averageScore }}</td>
 				</tr>
 
-				<tr v-for="(item, index) in statsObject.releasesPerYear" :key="index">
+				<tr v-for="(item, index) in stats.releasesPerYear" :key="index">
 					<th v-if="index > 0">
 						Releases in the {{ `${1950 + index * 10}s` }}
 					</th>
