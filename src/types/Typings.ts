@@ -96,6 +96,7 @@ export enum ReleasesIn {
 	'2020s'
 }
 
+// Wrapped in query for router.replace()
 export interface MusicPageQueries {
 	query: {
 		tab: Tab
