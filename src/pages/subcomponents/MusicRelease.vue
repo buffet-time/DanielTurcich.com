@@ -13,7 +13,6 @@ const releaseModal = ref()
 
 onMounted(() => {
 	// FIREFOX Finally added <dialog> support!!! - this is now for older versions of FF and other browsers that hate to be inline with spec :)
-	// @ts-expect-error
 	if (typeof HTMLDialogElement !== 'function') {
 		dialogPolyfill.registerDialog(releaseModal.value)
 	}
