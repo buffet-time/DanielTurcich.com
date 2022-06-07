@@ -8,22 +8,10 @@ export default defineConfig({
 		chunkSizeWarningLimit: 2068, // the size of acronymWords.json
 
 		rollupOptions: {
-			maxParallelFileReads: 512,
-			output: {
-				generatedCode: {
-					preset: 'es2015'
-				}
-			}
+			maxParallelFileReads: 512
 		},
 
 		outDir: '../dist'
-	},
-
-	server: {
-		port: 8086,
-		fs: {
-			allow: ['..']
-		}
 	},
 
 	plugins: [

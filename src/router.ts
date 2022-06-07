@@ -15,7 +15,7 @@ const Frequency = () => import('./pages/Frequency.vue')
 // TODO Play with Gamepad API
 
 const resume =
-	'https://drive.google.com/file/d/1bxVwswSy_5m8TW0vDVUAgv6d4TLlbx9k/view'
+	'https://drive.google.com/file/d/12YkFwTwQtf1NituQ07XHSBHAr4nrK3mp/view'
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
