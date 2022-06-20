@@ -2,14 +2,13 @@
 	"root": true,
 	"ignorePatterns": [
 		"/src/assets/*",
-		"/src/dist/*",
+		"/dist/*",
 		"acronymWords.json",
 		"index.html"
 	],
 	"env": {
 		"browser": true,
-		"es2021": true,
-		"node": true
+		"es6": true
 	},
 	"extends": [
 		"prettier",
@@ -21,9 +20,6 @@
 	"parser": "vue-eslint-parser",
 	"parserOptions": {
 		"parser": "@typescript-eslint/parser",
-		"ecmaFeatures": {
-			"jsx": false
-		},
 		"sourceType": "module",
 		"ecmaVersion": "latest"
 	},
@@ -41,11 +37,5 @@
 		"@typescript-eslint/no-extra-semi": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/ban-ts-comment": "off"
-	},
-	"globals": {
-		"defineProps": "readonly",
-		"defineEmits": "readonly",
-		"defineExpose": "readonly",
-		"withDefaults": "readonly"
 	}
 }
