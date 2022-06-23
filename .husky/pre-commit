@@ -3,7 +3,7 @@
 
 # Run ESLint and Prettier on all files to ensure no bad commits
 pnpm lint-fix
-pnpm format-check
+pnpm format-fix
 # add any changed files from lint-fix
 git add -A
 
