@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
 	root: './src',
+	base: './',
 
 	build: {
 		chunkSizeWarningLimit: 2068, // the size of acronymWords.json
