@@ -52,4 +52,6 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Deploy
         run: pnpm deploy
