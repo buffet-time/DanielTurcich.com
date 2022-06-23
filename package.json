@@ -20,7 +20,7 @@
 		"format-check": "prettier --check '**/**'",
 		"preview": "vite preview",
 		"prepare": "husky install",
-		"build": "vue-tsc --noEmit && vite build --emptyOutDir && pnpm generate:404 && add:cname",
+		"build": "vue-tsc --noEmit && vite build --emptyOutDir && pnpm generate:404 && pnpm add:cname",
 		"add:cname": "cd dist && echo 'danielturcich.com' > CNAME",
 		"generate:404": "cd dist && cp index.html 404.html"
 	},
