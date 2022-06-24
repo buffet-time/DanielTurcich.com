@@ -1,7 +1,11 @@
 {
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
 	"eslint.validate": ["javascript", "vue"],
+	"volar.takeOverMode.enabled": true,
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"files.eol": "\n",
