@@ -24,11 +24,6 @@
 		"allowSyntheticDefaultImports": true,
 
 		"baseUrl": ".",
-		"types": ["node", "vite/client"],
-		"paths": {
-			"tslib": ["./node_modules/tslib/tslib.d.ts"]
-		},
-		"lib": ["esnext", "dom", "scripthost"]
-	},
-	"include": ["src/**/*.ts", "src/**/*.d.ts"]
+		"lib": ["esnext", "dom"]
+	}
 }
