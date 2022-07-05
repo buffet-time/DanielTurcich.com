@@ -15,9 +15,5 @@ export default defineConfig({
 		outDir: '../dist'
 	},
 
-	plugins: [
-		vue({
-			isProduction: true
-		})
-	]
+	plugins: [vue()]
 })
