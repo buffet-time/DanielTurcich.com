@@ -2,11 +2,10 @@
 import SoundGenerator from './subcomponents/SoundGenerator.vue'
 import { closeSvg, addSvg } from '../assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
-import dialogPolyfill from 'dialog-polyfill'
 import { type GeneratorType, type Generator } from '../types/Typings'
+import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../shared'
 
-// TODO: passover this to ensure its written well
-const generators: Generator[] = reactive([
+const generators = reactive<Generator[]>([
 	{
 		id: 0,
 		generatorType: 'Frequency'
@@ -17,41 +16,19 @@ const generators: Generator[] = reactive([
 	}
 ])
 
-let target1: Element
-const generatorModal = ref()
+const generatorModal = ref<HTMLDialogElement>()
 
-onMounted(() => {
-	// Because Firefox still doesn't have HTMLDialogElement support...
-	dialogPolyfill.registerDialog(generatorModal.value)
-
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	target1 = document.querySelector('#generatorModal')!
+onMounted(async () => {
+	await DynamicImportDialogPolyfill([generatorModal.value])
+	ClickOutsideDialog(generatorModal.value)
 })
-
-function openModal() {
-	generatorModal.value.showModal()
-	setTimeout(() => {
-		document.addEventListener('click', clickHandler)
-	}, 0)
-}
-
-function closeModal() {
-	document.removeEventListener('click', clickHandler)
-	generatorModal.value.close()
-}
-
-function clickHandler(event: any) {
-	if (!event.composedPath().includes(target1)) {
-		closeModal()
-	}
-}
 
 function addGenerator(type: GeneratorType) {
 	generators.push({
 		id: generators.length > 0 ? generators[generators.length - 1].id + 1 : 0,
 		generatorType: type
 	})
-	closeModal()
+	generatorModal.value.close()
 }
 </script>
 
@@ -71,7 +48,7 @@ function addGenerator(type: GeneratorType) {
 			<svg
 				class="w-[50px] cursor-pointer tw-button fill-white bg-neutral-500 mt-4 rounded-xl p-[2px]"
 				viewBox="0 0 20 20"
-				@click="openModal"
+				@click="generatorModal.showModal()"
 			>
 				<path :d="addSvg"></path>
 			</svg>
@@ -85,7 +62,11 @@ function addGenerator(type: GeneratorType) {
 			>
 				<h5>Add a new generator</h5>
 
-				<svg class="h-6 cursor-pointer" viewBox="0 0 24 24" @click="closeModal">
+				<svg
+					class="h-6 cursor-pointer"
+					viewBox="0 0 24 24"
+					@click="generatorModal.close()"
+				>
 					<path fill="currentColor" :d="closeSvg" />
 				</svg>
 			</div>

@@ -24,7 +24,7 @@
 		"allowSyntheticDefaultImports": true,
 
 		"baseUrl": ".",
-		"types": ["node", "vite/client"],
+		"types": ["node_modules/@types", "vite/client"],
 		"paths": {
 			"tslib": ["./node_modules/tslib/tslib.d.ts"]
 		},

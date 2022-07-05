@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type SortingAlgorithm } from '../types/Typings'
-import { type Ref, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import SortingVisualization from './subcomponents/SortingVisualization.vue'
 
 // TODO:
@@ -11,25 +11,25 @@ import SortingVisualization from './subcomponents/SortingVisualization.vue'
 // Add implementations of WebGL and WebGL2 rendering and a switch for each
 
 // Public
-const sleepTime: Ref<number | string> = ref(0)
+const sleepTime = ref<number | string>(0)
 const volume = ref(0.025)
 const stopExecution = ref(false)
 const randomizeArray = ref(false)
 const disableStopButton = ref(true)
-const numberOfRectangles: Ref<number | string> = ref(100)
+const numberOfRectangles = ref<number | string>(100)
 const disableSortButtons = ref(false)
 const disableRandomizeButton = ref(false)
 const disableRectangleSlider = ref(false)
 // executionTime = ref(0),
-const oscillator: Ref<OscillatorNode> = ref() as Ref<OscillatorNode>
-const sortingMethod: Ref<SortingAlgorithm> = ref('') as Ref<SortingAlgorithm>
+const oscillator = ref<OscillatorNode>()
+const sortingMethod = ref<SortingAlgorithm>('')
 // prettier-ignore
-const sorts: Ref<SortingAlgorithm[]> = ref([
+const sorts = ref<SortingAlgorithm[]>([
 	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
 	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome'
 	// , 'Bogo'
 	// 'Bitonic Sort'
-]) as Ref<SortingAlgorithm[]>
+])
 
 // Private
 let audioContext!: AudioContext
@@ -85,11 +85,9 @@ function sortingMethodStarted() {
 	intializeAudio()
 	oscillator.value.connect(gainNode).connect(audioContext.destination)
 	sortingMethodStartedBools()
-	// timestamp = Date.now()
 }
 
 function sortingMethodEnded() {
-	// console.log(Date.now() - timestamp)
 	sortingMethod.value = ''
 	oscillator.value.disconnect()
 	sortingMethodEndedBools()
@@ -113,9 +111,7 @@ function sortingMethodEndedBools() {
 // Audio Functions
 // // // // // // //
 function intializeAudio() {
-	if (audioIntialized) {
-		return
-	}
+	if (audioIntialized) return
 
 	audioContext = new AudioContext()
 

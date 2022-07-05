@@ -2,20 +2,18 @@
 import { Release } from '../../types/Typings'
 import { closeSvg } from '../../assets/svgs'
 import { onMounted, ref } from 'vue'
-import dialogPolyfill from 'dialog-polyfill'
+import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../../shared'
 
 const props = defineProps<{
 	index: number
 	release: string[]
 }>()
 
-const releaseModal = ref()
+const releaseModal = ref<HTMLDialogElement>()
 
-onMounted(() => {
-	// FIREFOX Finally added <dialog> support!!! - this is now for older versions of FF and other browsers that hate to be inline with spec :)
-	if (typeof HTMLDialogElement !== 'function') {
-		dialogPolyfill.registerDialog(releaseModal.value)
-	}
+onMounted(async () => {
+	await DynamicImportDialogPolyfill([releaseModal.value])
+	ClickOutsideDialog(releaseModal.value)
 })
 
 function copyReviews() {
@@ -25,20 +23,12 @@ function copyReviews() {
 		}`
 	)
 }
-
-function openModal() {
-	releaseModal.value.showModal()
-}
-
-function closeModal() {
-	releaseModal.value.close()
-}
 </script>
 
 <template>
 	<div
 		class="tw-card bg-neutral-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
-		@click="openModal"
+		@click="releaseModal.showModal()"
 	>
 		<div
 			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"
@@ -70,7 +60,7 @@ function closeModal() {
 				<svg
 					class="w-6 min-w-[24px] cursor-pointer"
 					viewBox="0 0 24 24"
-					@click="closeModal"
+					@click="releaseModal.close()"
 				>
 					<path fill="currentColor" :d="closeSvg" />
 				</svg>
@@ -92,7 +82,7 @@ function closeModal() {
 
 				<div>
 					<button class="tw-button mr-2" @click="copyReviews">Copy</button>
-					<button type="button" class="tw-button" @click="closeModal">
+					<button type="button" class="tw-button" @click="releaseModal.close()">
 						Close
 					</button>
 				</div>

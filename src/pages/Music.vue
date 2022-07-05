@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, type Ref, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
@@ -17,8 +17,8 @@ const router = useRouter()
 // public variables
 const initializing = ref(true)
 const releasesArray = ref([['']])
-const currentActiveTab = ref('Stats') as Ref<Tab>
-const statsObject = ref() as Ref<StatsObject>
+const currentActiveTab = ref<Tab>('Stats')
+const statsObject = ref<StatsObject>()
 
 // TODO: move Stats to be calculated and cached on the API
 onBeforeMount(() => {
