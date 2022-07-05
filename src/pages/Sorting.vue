@@ -46,9 +46,9 @@ watch(numberOfRectangles, () => {
 watch(volume, () => {
 	intializeAudio()
 	if (disableSortButtons.value) {
-		oscillator.value.disconnect()
+		oscillator.value?.disconnect()
 		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
-		oscillator.value.connect(gainNode).connect(audioContext.destination)
+		oscillator.value?.connect(gainNode).connect(audioContext.destination)
 	} else {
 		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 	}
@@ -56,10 +56,10 @@ watch(volume, () => {
 
 async function stop(): Promise<void> {
 	stopExecution.value = true
-	oscillator.value.disconnect()
+	oscillator.value?.disconnect()
 	await sleep(500) // easy safe way to ensure all operations are done
 	stopExecution.value = false
-	oscillator.value.disconnect()
+	oscillator.value?.disconnect()
 	sortingMethodEndedBools()
 }
 
@@ -83,13 +83,13 @@ function sleep(time: number) {
 
 function sortingMethodStarted() {
 	intializeAudio()
-	oscillator.value.connect(gainNode).connect(audioContext.destination)
+	oscillator.value?.connect(gainNode).connect(audioContext.destination)
 	sortingMethodStartedBools()
 }
 
 function sortingMethodEnded() {
 	sortingMethod.value = ''
-	oscillator.value.disconnect()
+	oscillator.value?.disconnect()
 	sortingMethodEndedBools()
 }
 
@@ -131,12 +131,15 @@ function intializeAudio() {
 }
 
 function beep(frequency: number) {
-	oscillator.value.frequency.setValueAtTime(frequency, audioContext.currentTime)
+	oscillator.value?.frequency.setValueAtTime(
+		frequency,
+		audioContext.currentTime
+	)
 }
 
 function audioForRandomizing() {
 	intializeAudio()
-	oscillator.value.connect(gainNode).connect(audioContext.destination)
+	oscillator.value?.connect(gainNode).connect(audioContext.destination)
 	beep(300)
 }
 </script>
@@ -219,7 +222,7 @@ function audioForRandomizing() {
 				sleepTime: sleepTime,
 				stopExecution: stopExecution,
 				randomizeArray: randomizeArray,
-				oscillator: oscillator,
+				oscillator: oscillator!,
 				numberOfRectangles: numberOfRectangles,
 				sortingMethod: sortingMethod
 			}"

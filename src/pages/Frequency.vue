@@ -19,6 +19,10 @@ const generators = reactive<Generator[]>([
 const generatorModal = ref<HTMLDialogElement>()
 
 onMounted(async () => {
+	if (!generatorModal.value) {
+		console.error('Release Modal does not exist: ', generatorModal.value)
+		return
+	}
 	await DynamicImportDialogPolyfill([generatorModal.value])
 	ClickOutsideDialog(generatorModal.value)
 })
@@ -28,7 +32,7 @@ function addGenerator(type: GeneratorType) {
 		id: generators.length > 0 ? generators[generators.length - 1].id + 1 : 0,
 		generatorType: type
 	})
-	generatorModal.value.close()
+	generatorModal.value?.close()
 }
 </script>
 
@@ -48,7 +52,7 @@ function addGenerator(type: GeneratorType) {
 			<svg
 				class="w-[50px] cursor-pointer tw-button fill-white bg-neutral-500 mt-4 rounded-xl p-[2px]"
 				viewBox="0 0 20 20"
-				@click="generatorModal.showModal()"
+				@click="generatorModal?.showModal()"
 			>
 				<path :d="addSvg"></path>
 			</svg>
@@ -65,7 +69,7 @@ function addGenerator(type: GeneratorType) {
 				<svg
 					class="h-6 cursor-pointer"
 					viewBox="0 0 24 24"
-					@click="generatorModal.close()"
+					@click="generatorModal?.close()"
 				>
 					<path fill="currentColor" :d="closeSvg" />
 				</svg>

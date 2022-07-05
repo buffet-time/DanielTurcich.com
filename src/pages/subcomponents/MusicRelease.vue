@@ -12,6 +12,10 @@ const props = defineProps<{
 const releaseModal = ref<HTMLDialogElement>()
 
 onMounted(async () => {
+	if (!releaseModal.value) {
+		console.error('Release Modal does not exist: ', releaseModal.value)
+		return
+	}
 	await DynamicImportDialogPolyfill([releaseModal.value])
 	ClickOutsideDialog(releaseModal.value)
 })
@@ -28,7 +32,7 @@ function copyReviews() {
 <template>
 	<div
 		class="tw-card bg-neutral-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
-		@click="releaseModal.showModal()"
+		@click="releaseModal?.showModal()"
 	>
 		<div
 			class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center"
@@ -60,7 +64,7 @@ function copyReviews() {
 				<svg
 					class="w-6 min-w-[24px] cursor-pointer"
 					viewBox="0 0 24 24"
-					@click="releaseModal.close()"
+					@click="releaseModal?.close()"
 				>
 					<path fill="currentColor" :d="closeSvg" />
 				</svg>
@@ -82,7 +86,11 @@ function copyReviews() {
 
 				<div>
 					<button class="tw-button mr-2" @click="copyReviews">Copy</button>
-					<button type="button" class="tw-button" @click="releaseModal.close()">
+					<button
+						type="button"
+						class="tw-button"
+						@click="releaseModal?.close()"
+					>
 						Close
 					</button>
 				</div>

@@ -114,12 +114,12 @@ function switchTabTo(tabName: Tab) {
 		</div>
 
 		<template v-if="!initializing">
-			<Stats v-if="currentActiveTab === 'Stats'" :stats="statsObject" />
+			<Stats v-if="currentActiveTab === 'Stats'" :stats="statsObject!" />
 			<Search
 				v-else-if="currentActiveTab === 'Search'"
 				:search="{
-					currentYear: statsObject.currentYear,
-					earliestYear: statsObject.earliestYear,
+					currentYear: statsObject!.currentYear,
+					earliestYear: statsObject!.earliestYear,
 					releasesArray: releasesArray,
 					initializing: initializing
 				}"
