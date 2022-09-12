@@ -31,15 +31,14 @@ const PasswordToggles: PasswordToggle = {
 
 function generatePassword() {
 	password.value = ''
-
 	let passwordCharacters = ''
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	for (const [_key, toggle] of Object.entries(PasswordToggles)) {
+	Object.entries(PasswordToggles).forEach(([_key, toggle]) => {
 		if (!toggle.exclude) {
 			passwordCharacters += toggle.characters
 		}
-	}
+	})
 
 	for (let i = 0; i < passwordLength.value; i++) {
 		password.value +=

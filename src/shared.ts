@@ -1,6 +1,9 @@
-export async function ProperFetch(url: string): Promise<any | null> {
+export async function ProperFetch(
+	input: RequestInfo | URL,
+	init?: RequestInit | undefined
+): Promise<any | null> {
 	try {
-		const response = await fetch(url)
+		const response = await fetch(input, init)
 
 		if (response.ok) {
 			return await response.json()

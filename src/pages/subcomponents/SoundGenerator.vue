@@ -4,7 +4,7 @@ import {
 	type Note,
 	type Generator
 } from '../../types/Typings'
-import { onBeforeUnmount, type Ref, ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { closeSvg } from '../../assets/svgs'
 
 defineEmits<{
@@ -18,8 +18,8 @@ const props = defineProps<{
 // Public Refs
 const volume = ref(0.07)
 const frequency = ref(440)
-const oscillatorType = ref('sine') as Ref<GeneratorOscillatorType>
-const noteName = ref('A') as Ref<Note>
+const oscillatorType = ref<GeneratorOscillatorType>('sine')
+const noteName = ref<Note>('A')
 const noteOctave = ref(4)
 const noteOffset = ref(0)
 const started = ref(false)
@@ -48,26 +48,26 @@ if (props.generator.generatorType === 'Frequency') {
 			audioContext.currentTime
 		)
 	})
-} else {
-	watch(noteOffset, (newValue, previousValue) => {
-		if (!initialized) {
-			initializeContext()
-		}
-
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		difference = newValue - previousValue!
-		updateNoteFrequency()
-
-		if (difference > 0) {
-			incrementNote('Up')
-		} else {
-			// get absolute value of the difference when its negative
-			// so we can easily recursive call in incrementNote()
-			difference = Math.abs(difference)
-			incrementNote('Down')
-		}
-	})
 }
+
+watch(noteOffset, (newValue, previousValue) => {
+	if (!initialized) {
+		initializeContext()
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	difference = newValue - previousValue!
+	updateNoteFrequency()
+
+	if (difference > 0) {
+		incrementNote('Up')
+	} else {
+		// get absolute value of the difference when its negative
+		// so we can easily recursive call in incrementNote()
+		difference = Math.abs(difference)
+		incrementNote('Down')
+	}
+})
 
 watch(volume, () => {
 	if (!initialized) {

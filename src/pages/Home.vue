@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ArticleLink } from '../types/Typings'
-import { Ref, ref } from 'vue'
+import { ref } from 'vue'
 
 const birthdate = 820800000000
 const myCurrentAge = ref(
@@ -10,7 +10,7 @@ const myCurrentAge = ref(
 const soundcloudLink =
 	'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/921189421&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'
 
-const links: Ref<ArticleLink[]> = ref([
+const links = ref<ArticleLink[]>([
 	{
 		url: 'https://www.pcgamer.com/watch-a-man-run-jump-and-crawl-for-a-half-life-alyx-speedrun',
 		text: 'PC Gamer'

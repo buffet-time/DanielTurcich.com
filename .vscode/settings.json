@@ -5,7 +5,7 @@
 		"source.fixAll.eslint": true
 	},
 	"eslint.validate": ["javascript", "vue"],
-	"volar.takeOverMode.enabled": true,
+	"volar.takeOverMode.enabled": "auto",
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"files.eol": "\n",

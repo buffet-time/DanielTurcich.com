@@ -8,6 +8,7 @@ const Discord = () => import('./pages/Discord.vue')
 const Sorting = () => import('./pages/Sorting.vue')
 const Music = () => import('./pages/Music.vue')
 const Frequency = () => import('./pages/Frequency.vue')
+const Flash = () => import('./pages/Flash.vue')
 // const Weather = () => import('./pages/Weather.vue') // TODO: update and re add this when done
 // const Performance = () => import('./components/performance.vue')
 // TODO: Make a WebMidi demo - https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API
@@ -31,6 +32,12 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'Music',
 		component: Music,
 		meta: { buttonName: ' My Music Page' }
+	},
+	{
+		path: '/flash',
+		name: 'Flash',
+		component: Flash,
+		meta: { buttonName: 'Flash Player' }
 	},
 	{
 		path: '/sorting',
