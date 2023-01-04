@@ -30,30 +30,26 @@ onBeforeMount(() => {
 	}
 
 	let retries = 0
-	function getData() {
+	async function getData() {
 		if (retries > 2) {
 			console.error(`Can't get the data :(`)
 		}
 
-		Promise.all([getReleases(), getStats()])
-			.then((values) => {
-				const releases = values[0]
-				const stats = values[1]
+		const values = await Promise.all([getReleases(), getStats()])
 
-				if (releases && stats) {
-					releasesArray.value = releases
-					statsObject.value = stats
-					initializing.value = false
-				} else {
-					setTimeout(() => {
-						getData()
-						retries++
-					}, 5000)
-				}
-			})
-			.catch((error) => {
-				console.error(`Error in Music.vue promise.all(): ${error}`)
-			})
+		const releases = values[0]
+		const stats = values[1]
+
+		if (releases && stats) {
+			releasesArray.value = releases
+			statsObject.value = stats
+			initializing.value = false
+		} else {
+			setTimeout(() => {
+				getData()
+				retries++
+			}, 5000)
+		}
 	}
 
 	getData()
