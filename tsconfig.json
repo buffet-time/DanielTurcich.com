@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES2017", // First version to support Async Await
+		"target": "ES2021", // keep your browser updated :)
 		"module": "esnext",
 		"moduleResolution": "node",
 		"jsx": "preserve", // Needed for Volar to work properly.
