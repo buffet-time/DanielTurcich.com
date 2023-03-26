@@ -1,10 +1,6 @@
+# single files
 acronymWords.json
 pnpm-lock.yaml
-/dist
-/.vscode
-/.husky
-/.github
-/node_modules
 .npmrc
 .nvmrc
 .pnpmrc
@@ -12,4 +8,16 @@ pnpm-lock.yaml
 .gitignore
 .DS_Store
 LICENSE
+
+# folders
+/dist
+/.vscode
+/.husky
+/.github
+/node_modules
 /src/assets/*
+/public
+
+# file types
+*.md
+*.txt

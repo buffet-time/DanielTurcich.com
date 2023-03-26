@@ -22,8 +22,20 @@ export async function DynamicImportDialogPolyfill(
 	dialogArray: HTMLDialogElement[]
 ): Promise<void> {
 	if (typeof HTMLDialogElement !== 'function') {
-		const { default: dialogPolyfill } = await import('dialog-polyfill')
-		dialogArray.forEach((dialog) => dialogPolyfill.registerDialog(dialog))
+		try {
+			// adds the folllowing to the head of the document
+			// <link rel="stylesheet" type="text/css" href="/dialog-polyfill.css" />
+			const link = document.createElement('link')
+			link.type = 'text/css'
+			link.rel = 'stylesheet'
+			link.href = '/dialog-polyfill.css'
+			document.head.appendChild(link)
+
+			const { default: dialogPolyfill } = await import('dialog-polyfill')
+			dialogArray.forEach((dialog) => dialogPolyfill.registerDialog(dialog))
+		} catch (error) {
+			console.error('You need to update your browser.')
+		}
 	}
 }
 

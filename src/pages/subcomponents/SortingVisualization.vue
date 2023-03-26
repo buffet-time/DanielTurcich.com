@@ -179,7 +179,7 @@ function randomSwaps() {
 // Drawing functions
 // // // // // // //
 async function drawAllRectangles() {
-	for (let n = 0; n < props.algorithm.numberOfRectangles; n++) {
+	for (let n = 0; n < Number(props.algorithm.numberOfRectangles); n++) {
 		drawRectangle(n, true)
 	}
 

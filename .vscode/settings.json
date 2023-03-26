@@ -17,5 +17,6 @@
 		"pnpm-lock.yaml": true,
 		"LICENSE": true,
 		"README.md": true
-	}
+	},
+	"volar.inlayHints.eventArgumentInInlineHandlers": false
 }

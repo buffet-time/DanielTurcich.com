@@ -43,10 +43,7 @@ jobs:
         run: pnpm install
 
       - name: Lint Check
-        run: pnpm lint-check
-
-      - name: Format Check
-        run: pnpm format-check
+        run: pnpm checks
 
       - name: Build
         run: pnpm build

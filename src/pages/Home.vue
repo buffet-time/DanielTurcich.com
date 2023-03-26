@@ -97,11 +97,7 @@ const links = ref<ArticleLink[]>([
 <template>
 	<div class="tw-card">
 		<div class="flex flex-col sm:flex-row gap-4">
-			<img
-				class="mh-[300px] h-full"
-				src="../assets/me.jpg"
-				alt="Picture of myself"
-			/>
+			<img class="mh-[300px] h-full" src="/me.jpg" alt="Picture of myself" />
 			<div class="gap-2 tw-flex-col-center">
 				<h1 class="text-2xl font-semibold">Bio</h1>
 				<p>

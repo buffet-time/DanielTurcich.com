@@ -4,13 +4,6 @@ import { type RouteRecordNormalized } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { type NavLink } from '../types/Typings'
 
-// Images
-import githubSrc from '../assets/github.png'
-import linkedinSrc from '../assets/linkedin.png'
-import resumeSrc from '../assets/resume.png'
-import bandcampSrc from '../assets/bandcamp.png'
-import soundcloudSrc from '../assets/soundcloud.png'
-
 const websiteNavigationInput = ref(false)
 const socialLinksInput = ref(false)
 
@@ -19,31 +12,31 @@ const links: NavLink[] = [
 	{
 		buttonText: 'Github',
 		alt: 'github logo',
-		src: githubSrc,
+		src: '/github.png',
 		link: 'https://github.com/buffet-time'
 	},
 	{
 		buttonText: 'LinkedIn',
 		alt: 'linkedin logo',
-		src: linkedinSrc,
+		src: '/linkedin.png',
 		link: 'https://www.linkedin.com/in/danielturcich/'
 	},
 	{
 		buttonText: 'Resume',
 		alt: 'pdf logo',
-		src: resumeSrc,
+		src: '/resume.png',
 		link: resume
 	},
 	{
 		buttonText: 'Bandcamp',
 		alt: 'bandcamp logo',
-		src: bandcampSrc,
+		src: '/bandcamp.png',
 		link: 'https://buffet-time.bandcamp.com/'
 	},
 	{
 		buttonText: 'Soundcloud',
 		alt: 'soundcloud logo',
-		src: soundcloudSrc,
+		src: '/soundcloud.png',
 		link: 'https://soundcloud.com/buffet_time'
 	}
 ]

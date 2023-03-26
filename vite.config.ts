@@ -2,17 +2,15 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-	root: './src',
-	base: './',
-
 	build: {
-		chunkSizeWarningLimit: 2068, // the size of acronymWords.json
+		chunkSizeWarningLimit: 100,
+		target: 'es2021',
 
 		rollupOptions: {
-			maxParallelFileReads: 512
+			maxParallelFileOps: 512
 		},
 
-		outDir: '../dist'
+		outDir: './dist'
 	},
 
 	plugins: [vue()]

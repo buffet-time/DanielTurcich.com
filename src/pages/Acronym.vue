@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import acronymWords from '../assets/acronymWords.json'
+import { ref, onMounted } from 'vue'
 
 // Public
 const acronymInput = ref('')
@@ -8,7 +7,7 @@ const showButton = ref(false)
 const textToDisplay = ref('')
 
 // Private
-const words: { [key: string]: string[] } = acronymWords
+let words: { [key: string]: string[] }
 let acronymText = ''
 
 function copyAcronym() {
@@ -45,6 +44,17 @@ function getWordsFromProvidedAcronym(acronym: string) {
 		''
 	)
 }
+
+onMounted(async () => {
+	try {
+		const { default: acronymWords } = await import(
+			'../assets/acronymWords.json'
+		)
+		words = acronymWords
+	} catch (error) {
+		console.error('You need to update your browser.')
+	}
+})
 </script>
 
 <template>
