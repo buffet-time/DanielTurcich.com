@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
-import {
-	type MusicSearchProps,
-	Release,
-	type SearchType
-} from '../../types/Typings'
+import { type MusicSearchProps, Release, type SearchType } from '#types'
 import MusicRelease from './MusicRelease.vue'
 
 const Props = defineProps<{

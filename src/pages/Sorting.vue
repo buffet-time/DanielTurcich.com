@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type SortingAlgorithm } from '../types/Typings'
+import type { SortingAlgorithm } from '#types'
 import { ref, watch } from 'vue'
 import SortingVisualization from './subcomponents/SortingVisualization.vue'
 

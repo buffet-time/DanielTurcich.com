@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import {
-	type GeneratorOscillatorType,
-	type Note,
-	type Generator
-} from '../../types/Typings'
+import type { GeneratorOscillatorType, Note, Generator } from '#types'
 import { onBeforeUnmount, ref, watch } from 'vue'
-import { closeSvg } from '../../assets/svgs'
+import { closeSvg } from '#assets/svgs'
 
 defineEmits<{
 	(e: 'deleteGenerator'): void

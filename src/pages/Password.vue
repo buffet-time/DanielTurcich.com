@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PasswordToggle } from '../types/Typings'
+import type { PasswordToggle } from '#types'
 import { ref } from 'vue'
 
 const passwordLength = ref(16)

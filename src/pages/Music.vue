@@ -3,11 +3,7 @@ import { onBeforeMount, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'
-import {
-	type MusicPageQueries,
-	type StatsObject,
-	type Tab
-} from '../types/Typings'
+import type { MusicPageQueries, StatsObject, Tab } from '#types'
 import { ProperFetch } from '../shared'
 
 // const loadingString = 'loading...'

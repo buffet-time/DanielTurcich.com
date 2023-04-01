@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SoundGenerator from './subcomponents/SoundGenerator.vue'
-import { closeSvg, addSvg } from '../assets/svgs'
+import { closeSvg, addSvg } from '#assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
-import { type GeneratorType, type Generator } from '../types/Typings'
+import type { GeneratorType, Generator } from '#types'
 import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../shared'
 
 const generators = reactive<Generator[]>([

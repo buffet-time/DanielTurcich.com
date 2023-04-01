@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Release } from '../../types/Typings'
-import { closeSvg } from '../../assets/svgs'
+import { Release } from '#types'
+import { closeSvg } from '#assets/svgs'
 import { onMounted, ref } from 'vue'
 import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../../shared'
 

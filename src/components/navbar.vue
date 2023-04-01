@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import router, { resume } from '../router'
-import { type RouteRecordNormalized } from 'vue-router'
+import type { RouteRecordNormalized } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { type NavLink } from '../types/Typings'
+import type { NavLink } from '#types'
 
 const websiteNavigationInput = ref(false)
 const socialLinksInput = ref(false)

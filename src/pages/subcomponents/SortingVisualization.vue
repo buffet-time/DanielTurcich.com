@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-	type SortingVisualizationProps,
-	type SortingRect
-} from '../../types/Typings'
+import type { SortingVisualizationProps, SortingRect } from '#types'
 import { onMounted, watch } from 'vue'
 
 const props = defineProps<{

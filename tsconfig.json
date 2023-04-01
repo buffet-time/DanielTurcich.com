@@ -23,6 +23,12 @@
 		"allowUnreachableCode": false,
 		"allowSyntheticDefaultImports": true,
 
+		"paths": {
+			"#root/*": ["./*"],
+			"#types": ["./src/types/Typings.ts"],
+			"#assets/*": ["./src/assets/*"]
+		},
+
 		"baseUrl": ".",
 		"lib": ["esnext", "dom"]
 	}
