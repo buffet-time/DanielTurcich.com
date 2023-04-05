@@ -55,6 +55,7 @@ const links = ref<ArticleLink[]>([
 				class="max-h-[300px] max-w-[300px]"
 				src="https://avatars.githubusercontent.com/u/11199709?v=4g"
 				alt="Picture of myself"
+				loading="lazy"
 			/>
 			<div class="gap-2 tw-flex-col-center">
 				<h1 class="text-2xl font-semibold">Bio</h1>

@@ -125,6 +125,7 @@ async function routeChange(route: string) {
 									class="ml-2 float-left h-8 w-8"
 									:src="navLink.src"
 									:alt="navLink.alt"
+									loading="lazy"
 								/>
 								<div class="text-lg">{{ navLink.buttonText }}</div>
 							</div>
