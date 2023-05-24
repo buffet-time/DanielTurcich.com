@@ -4,7 +4,8 @@ import { onMounted, ref, watch } from 'vue'
 import { type MusicSearchProps, Release, type SearchType } from '#types'
 import MusicRelease from './MusicRelease.vue'
 
-const Props = defineProps<{
+// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
+const { search } = defineProps<{
 	search: MusicSearchProps
 }>()
 const Router = useRouter()
@@ -32,7 +33,7 @@ watch(searchType, () => {
 			searchInput.value = 'Album'
 			break
 		case Release.year:
-			searchInput.value = String(Props.search.currentYear)
+			searchInput.value = String(search.currentYear)
 			break
 		default:
 			searchInput.value = ''
@@ -52,7 +53,7 @@ onMounted(() => {
 		searchInput.value = Route.query.term as string
 		searchType.value = Release[Route.query.type as SearchType]
 		const interval = setInterval(() => {
-			if (!Props.search.initializing) {
+			if (!search.initializing) {
 				searchButtonPressed()
 				clearInterval(interval)
 				mounting = false
@@ -101,7 +102,7 @@ function searchButtonPressed() {
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
-	return Props.search.releasesArray.filter((release) =>
+	return search.releasesArray.filter((release) =>
 		equals
 			? release[index].toLowerCase() === searchInput.value.toLowerCase()
 			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())
@@ -136,6 +137,7 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 				/>
 			</div>
 
+			<!-- TODO:  -->
 			<!-- Sorta irrelevant search type? -->
 			<!-- Search against release type -->
 
