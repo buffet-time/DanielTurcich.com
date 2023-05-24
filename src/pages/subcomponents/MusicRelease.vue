@@ -4,8 +4,8 @@ import { closeSvg } from '#assets/svgs'
 import { onMounted, ref } from 'vue'
 import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../../shared'
 
-const props = defineProps<{
-	index: number
+// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
+const { release } = defineProps<{
 	release: string[]
 }>()
 
@@ -22,8 +22,8 @@ onMounted(async () => {
 
 function copyReviews() {
 	navigator.clipboard.writeText(
-		` ${props.release[Release.artist]} - ${props.release[Release.name]}: ${
-			props.release[Release.score]
+		` ${release[Release.artist]} - ${release[Release.name]}: ${
+			release[Release.score]
 		}`
 	)
 }

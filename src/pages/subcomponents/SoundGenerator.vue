@@ -4,10 +4,11 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 import { closeSvg } from '#assets/svgs'
 
 defineEmits<{
-	(e: 'deleteGenerator'): void
+	deleteGenerator: []
 }>()
 
-const props = defineProps<{
+// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
+const { generator } = defineProps<{
 	generator: Generator
 }>()
 
@@ -33,7 +34,7 @@ const fixedNote = 440 // Standard tuning frequency of A4 for 12 tone equal tempe
 // prettier-ignore
 const notes: Note[] = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
 
-if (props.generator.generatorType === 'Frequency') {
+if (generator.generatorType === 'Frequency') {
 	watch(frequency, () => {
 		if (!initialized) {
 			initializeContext()

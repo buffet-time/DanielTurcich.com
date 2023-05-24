@@ -10,11 +10,18 @@ export default defineConfig({
 		rollupOptions: {
 			maxParallelFileOps: 512
 		},
+		sourcemap: true,
 
 		outDir: './dist'
 	},
 
-	plugins: [vue()],
+	plugins: [
+		vue({
+			script: {
+				propsDestructure: true
+			}
+		})
+	],
 	resolve: {
 		alias: {
 			'#root': resolve(__dirname),
