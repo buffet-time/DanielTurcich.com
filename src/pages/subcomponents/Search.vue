@@ -20,7 +20,7 @@ const showReleasesDiv = ref(false)
 const showNoResults = ref(false)
 const searchInput = ref('')
 
-watch(searchType, () => {
+watch(searchType, async () => {
 	if (mounting && Route.query.term) {
 		return
 	}
@@ -39,7 +39,7 @@ watch(searchType, () => {
 			searchInput.value = ''
 	}
 
-	Router.replace({
+	await Router.replace({
 		query: {
 			tab: 'Search',
 			term: searchInput.value,
@@ -52,13 +52,16 @@ onMounted(() => {
 	if (Route.query.term) {
 		searchInput.value = Route.query.term as string
 		searchType.value = Release[Route.query.type as SearchType]
-		const interval = setInterval(() => {
-			if (!search.initializing) {
-				searchButtonPressed()
-				clearInterval(interval)
-				mounting = false
-			}
-		}, 250)
+		const interval = setInterval(
+			() => async () => {
+				if (!search.initializing) {
+					await searchButtonPressed()
+					clearInterval(interval)
+					mounting = false
+				}
+			},
+			250
+		)
 	} else if (Route.query.type) {
 		searchType.value = Release[Route.query.type as SearchType]
 		mounting = false
@@ -67,7 +70,7 @@ onMounted(() => {
 	}
 })
 
-function searchButtonPressed() {
+async function searchButtonPressed() {
 	showReleasesDiv.value = false
 	showNoResults.value = false
 	searchInput.value = searchInput.value.trim()
@@ -92,7 +95,7 @@ function searchButtonPressed() {
 		showNoResults.value = true
 	}
 
-	Router.replace({
+	await Router.replace({
 		query: {
 			tab: 'Search',
 			term: searchInput.value,

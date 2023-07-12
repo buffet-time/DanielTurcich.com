@@ -19,7 +19,7 @@ const resume =
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: 'Home',

@@ -22,8 +22,8 @@ function discordButtonPressed() {
 	}
 }
 
-function copy() {
-	navigator.clipboard.writeText(discordText.value)
+async function copy() {
+	await navigator.clipboard.writeText(discordText.value)
 }
 </script>
 

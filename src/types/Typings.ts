@@ -1,10 +1,11 @@
-export interface PasswordToggle {
-	[key: string]: {
+export type PasswordToggle = Record<
+	string,
+	{
 		exclude: boolean
 		characters: string
 		label: string
 	}
-}
+>
 
 export type SortingAlgorithm =
 	| ''

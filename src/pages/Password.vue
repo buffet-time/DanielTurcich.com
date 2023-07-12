@@ -48,8 +48,8 @@ function generatePassword() {
 	textToShow.value = password.value
 }
 
-function copyPassword() {
-	navigator.clipboard.writeText(password.value)
+async function copyPassword() {
+	await navigator.clipboard.writeText(password.value)
 }
 </script>
 

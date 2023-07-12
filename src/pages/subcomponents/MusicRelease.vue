@@ -20,8 +20,8 @@ onMounted(async () => {
 	ClickOutsideDialog(releaseModal.value)
 })
 
-function copyReviews() {
-	navigator.clipboard.writeText(
+async function copyReviews() {
+	await navigator.clipboard.writeText(
 		` ${release[Release.artist]} - ${release[Release.name]}: ${
 			release[Release.score]
 		}`

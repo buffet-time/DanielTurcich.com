@@ -7,11 +7,11 @@ const showButton = ref(false)
 const textToDisplay = ref('')
 
 // Private
-let words: { [key: string]: string[] }
+let words: Record<string, string[]>
 let acronymText = ''
 
-function copyAcronym() {
-	navigator.clipboard.writeText(acronymText)
+async function copyAcronym() {
+	await navigator.clipboard.writeText(acronymText)
 }
 
 function acronymButtonPressed() {

@@ -43,7 +43,7 @@ const links: NavLink[] = [
 
 const routes: RouteRecordNormalized[] = router
 	.getRoutes()
-	.filter((route) => route.meta['buttonName'] !== undefined)
+	.filter((route) => route.meta.buttonName !== undefined)
 
 onMounted(() => {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -53,7 +53,7 @@ watch(noteOffset, (newValue, previousValue) => {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	difference = newValue - previousValue!
+	difference = newValue - previousValue
 	updateNoteFrequency()
 
 	if (difference > 0) {

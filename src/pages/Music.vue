@@ -17,12 +17,12 @@ const currentActiveTab = ref<Tab>('Stats')
 const statsObject = ref<StatsObject>()
 
 // TODO: move Stats to be calculated and cached on the API
-onBeforeMount(() => {
+onBeforeMount(async () => {
 	const queryTab = route.query.tab as Tab
 	if (queryTab === 'Search') {
 		setTab(queryTab)
 	} else {
-		switchTabTo('Stats')
+		await switchTabTo('Stats')
 	}
 
 	let retries = 0
@@ -41,35 +41,42 @@ onBeforeMount(() => {
 			statsObject.value = stats
 			initializing.value = false
 		} else {
-			setTimeout(() => {
-				getData()
-				retries++
-			}, 5000)
+			setTimeout(
+				() => async () => {
+					await getData()
+					retries++
+				},
+				5000
+			)
 		}
 	}
 
-	getData()
+	await getData()
 })
 
 async function getReleases(): Promise<string[][] | null> {
-	return await ProperFetch(`https://api.danielturcich.com/Releases`)
+	return (await ProperFetch(
+		`https://api.danielturcich.com/Releases`
+	)) as string[][]
 }
 
 async function getStats(): Promise<StatsObject | null> {
-	return await ProperFetch(`https://api.danielturcich.com/Stats`)
+	return (await ProperFetch(
+		`https://api.danielturcich.com/Stats`
+	)) as StatsObject
 }
 
 function setTab(tabName: Tab) {
 	currentActiveTab.value = tabName
 }
 
-function switchTabTo(tabName: Tab) {
+async function switchTabTo(tabName: Tab) {
 	const queryParams: MusicPageQueries = { query: { tab: tabName } }
 
 	if (tabName === 'Search') {
 		queryParams.query.type = 'artist'
 	}
-	router.replace(queryParams)
+	await router.replace(queryParams)
 	setTab(tabName)
 }
 </script>

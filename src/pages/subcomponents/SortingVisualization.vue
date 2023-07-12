@@ -116,6 +116,7 @@ function fixDpi() {
 
 function swapArrayElements(index1: number, index2: number) {
 	// swap the x and Frequency values then swap the objects
+	// eslint-disable-next-line
 	;[
 		sortingArray[index1].x,
 		sortingArray[index2].x,
@@ -177,7 +178,7 @@ function randomSwaps() {
 // // // // // // //
 async function drawAllRectangles() {
 	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
-		drawRectangle(n, true)
+		await drawRectangle(n, true)
 	}
 
 	await sleep(0)
