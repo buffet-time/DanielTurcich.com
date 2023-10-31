@@ -19,15 +19,24 @@ function acronymButtonPressed() {
 		return
 	}
 
-	acronymInput.value = acronymInput.value.trim()
+	const massagedInput = acronymInput.value.trim().replace(/ /g, '')
+	const lettersOnlyRegex = /^[a-zA-Z]+$/
+	const containsOnlyLetters = lettersOnlyRegex.test(massagedInput)
 
-	if (acronymInput.value.length < 2) {
-		showButton.value = false
-		textToDisplay.value = 'There can not be spaces in the input.'
-	} else {
-		acronymText = getWordsFromProvidedAcronym(acronymInput.value)
-		showButton.value = true
-		textToDisplay.value = acronymText
+	switch (true) {
+		case massagedInput.length < 1:
+			showButton.value = false
+			textToDisplay.value = 'There can not be spaces in the input.'
+			return
+
+		case !containsOnlyLetters:
+			showButton.value = false
+			textToDisplay.value = 'You can only input letters A-Z.'
+
+		default:
+			acronymText = getWordsFromProvidedAcronym(massagedInput)
+			showButton.value = true
+			textToDisplay.value = acronymText
 	}
 }
 

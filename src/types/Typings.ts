@@ -82,6 +82,7 @@ export enum Release {
 	'score',
 	'type',
 	'year',
+	'range',
 	'genre',
 	'comments'
 }
