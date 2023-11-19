@@ -43,4 +43,15 @@
 	.tw-header {
 		@apply m-4 mb-0 text-2xl font-semibold;
 	}
+
+	/* Music Page */
+	.tw-music-search-label {
+		@apply w-[90px] justify-center items-center flex bg-neutral-500 bg-opacity-30;
+	}
+	.tw-music-select {
+		@apply text-black pl-4 py-2 rounded w-44;
+	}
+	.tw-select-container {
+		@apply flex justify-center gap-2;
+	}
 }

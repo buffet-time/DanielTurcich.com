@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
-import { type MusicSearchProps, Release, type SearchType } from '#types'
+import {
+	type MusicSearchProps,
+	Release,
+	type SearchType,
+	ReleaseType
+} from '#types'
 import MusicRelease from './MusicRelease.vue'
 
 // eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
@@ -11,30 +16,35 @@ const { search } = defineProps<{
 const Router = useRouter()
 const Route = useRoute()
 
-let mounting = true
+const massagedReleaseType = Object.keys(ReleaseType).filter((current) =>
+	Number.isNaN(Number(current))
+)
+
+// TODO:
+// Add ability to search by year range
 
 // refs
 const releasesToShow = ref([['']])
 const searchType = ref(Release.artist)
 const showReleasesDiv = ref(false)
 const showNoResults = ref(false)
-const searchInput = ref('')
+const searchInput = ref('Daft Punk')
+const filterBy = ref(Release.score)
+const ascending = ref(true)
 
 watch(searchType, async () => {
-	if (mounting && Route.query.term) {
-		return
-	}
-
 	switch (searchType.value) {
 		case Release.score:
 			searchInput.value = '7'
 			break
 		case Release.type:
-			searchInput.value = 'Album'
+			searchInput.value = 'Live Album'
 			break
 		case Release.year:
 			searchInput.value = String(search.currentYear)
 			break
+		// case Release.range:
+		// 	searchInput.value = '2020-2023'
 		default:
 			searchInput.value = ''
 	}
@@ -48,7 +58,25 @@ watch(searchType, async () => {
 	})
 })
 
+watch(filterBy, () => {
+	switch (filterBy.value) {
+		case Release.score:
+		case Release.year:
+			ascending.value = true
+			break
+
+		default:
+			ascending.value = false
+			break
+	}
+
+	sortReleases()
+})
+
+watch(ascending, () => sortReleases())
+
 onMounted(() => {
+	// TODO bug in setting this not searching on load
 	if (Route.query.term) {
 		searchInput.value = Route.query.term as string
 		searchType.value = Release[Route.query.type as SearchType]
@@ -57,16 +85,12 @@ onMounted(() => {
 				if (!search.initializing) {
 					await searchButtonPressed()
 					clearInterval(interval)
-					mounting = false
 				}
 			},
 			250
 		)
 	} else if (Route.query.type) {
 		searchType.value = Release[Route.query.type as SearchType]
-		mounting = false
-	} else {
-		mounting = false
 	}
 })
 
@@ -80,14 +104,18 @@ async function searchButtonPressed() {
 		case Release.score:
 			equals = true
 			break
+
 		case Release.type:
 			equals = true
 			break
+
 		case Release.year:
 			equals = true
 			break
 	}
+
 	releasesToShow.value = getRelasesFromSearch(searchType.value, equals)
+	sortReleases()
 
 	if (releasesToShow.value.length > 0) {
 		showReleasesDiv.value = true
@@ -105,27 +133,66 @@ async function searchButtonPressed() {
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
-	return search.releasesArray.filter((release) =>
-		equals
+	return search.releasesArray.filter((release) => {
+		return equals
 			? release[index].toLowerCase() === searchInput.value.toLowerCase()
 			: release[index].toLowerCase().includes(searchInput.value.toLowerCase())
+	})
+}
+
+function sortReleases() {
+	if (ascending.value) {
+		releasesToShow.value.sort(
+			(previous, current) =>
+				// @ts-expect-error - this is valid js.
+				current[filterBy.value] - previous[filterBy.value]
+		)
+		return
+	}
+
+	releasesToShow.value.sort(
+		(previous, current) =>
+			// @ts-expect-error - this is valid js.
+			previous[filterBy.value] - current[filterBy.value]
 	)
 }
 </script>
 
 <template>
-	<div id="searchContent" class="w-full">
-		<h3 class="mb-2">Search by:</h3>
-		<select v-model="searchType" class="text-black pl-4 py-2 rounded w-72">
-			<option selected :value="Release.artist">Artist</option>
-			<option :value="Release.name">Release Name</option>
-			<option :value="Release.score">Score</option>
-			<!-- <option :value="Release.type">Type</option> -->
-			<option :value="Release.year">Year</option>
-			<option :value="Release.genre">Genre</option>
-		</select>
+	<div id="searchContent" class="w-full flex flex-col gap-2">
+		<div class="tw-select-container">
+			<h3 class="tw-music-search-label">Search by</h3>
+			<select v-model="searchType" class="tw-music-select">
+				<option :value="Release.artist">Artist</option>
+				<option :value="Release.name">Release Name</option>
+				<option :value="Release.score">Score</option>
+				<option :value="Release.type">Type</option>
+				<option :value="Release.year">Year</option>
+				<option :value="Release.genre">Genre</option>
+			</select>
+		</div>
 
-		<div class="m-4 flex justify-center">
+		<div class="tw-select-container">
+			<h3 class="tw-music-search-label">Sort by</h3>
+			<select v-model="filterBy" class="tw-music-select">
+				<option :value="Release.artist">Artist</option>
+				<option :value="Release.name">Release Name</option>
+				<option :value="Release.score">Score</option>
+				<option :value="Release.type">Type</option>
+				<option :value="Release.year">Year</option>
+				<option :value="Release.genre">Genre</option>
+			</select>
+		</div>
+
+		<div class="tw-select-container">
+			<h3 class="tw-music-search-label">Order</h3>
+			<select v-model="ascending" class="tw-music-select">
+				<option :value="true">Ascending</option>
+				<option :value="false">Descending</option>
+			</select>
+		</div>
+
+		<div class="mt-2 flex justify-center">
 			<!-- Search against score -->
 			<div v-if="searchType === Release.score" class="flex flex-col">
 				<div class="mb-1">{{ searchInput }}</div>
@@ -140,27 +207,17 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 				/>
 			</div>
 
-			<!-- TODO:  -->
-			<!-- Sorta irrelevant search type? -->
-			<!-- Search against release type -->
-
-			<!-- // prettier-ignore
-			const releaseTypes = [
-				'Album', 'EP', 'Live Album',
-				'Soundtrack', 'Remix Album',
-				'Compilation', 'Demo Album'
-			] -->
-			<!-- <div v-else-if="searchType === Release.type">
+			<div v-else-if="searchType === Release.type">
 				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64">
 					<option
-						v-for="(type, index) in releaseTypes"
+						v-for="(type, index) in massagedReleaseType"
 						:key="index"
 						:value="type"
 					>
 						{{ type }}
 					</option>
 				</select>
-			</div> -->
+			</div>
 
 			<!-- Search against year -->
 			<div v-else-if="searchType === Release.year" class="flex flex-col">
@@ -202,10 +259,10 @@ function getRelasesFromSearch(index: Release, equals: boolean) {
 			<MusicRelease
 				v-for="(release, index) in releasesToShow"
 				:key="index"
-				:index="index"
 				:release="release"
 			/>
 		</div>
+
 		<div v-if="showNoResults">No results from your search.</div>
 	</div>
 </template>

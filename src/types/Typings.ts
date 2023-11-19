@@ -72,7 +72,17 @@ export interface NavLink {
 	link: string
 }
 
-export type Tab = 'Stats' | 'Search'
+export type Tab = 'Search' | 'Stats'
+
+export enum ReleaseType {
+	'Album',
+	'EP',
+	'Live Album',
+	'Remix Album',
+	'Soundtrack',
+	'Compilation',
+	'Demo Album'
+}
 
 export type SearchType = 'artist' | 'name' | 'score' | 'type' | 'year' | 'genre'
 
@@ -82,7 +92,6 @@ export enum Release {
 	'score',
 	'type',
 	'year',
-	'range',
 	'genre',
 	'comments'
 }

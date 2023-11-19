@@ -13,16 +13,16 @@ const router = useRouter()
 // public variables
 const initializing = ref(true)
 const releasesArray = ref([['']])
-const currentActiveTab = ref<Tab>('Stats')
+const currentActiveTab = ref<Tab>('Search')
 const statsObject = ref<StatsObject>()
 
 // TODO: move Stats to be calculated and cached on the API
 onBeforeMount(async () => {
 	const queryTab = route.query.tab as Tab
-	if (queryTab === 'Search') {
+	if (queryTab === 'Stats') {
 		setTab(queryTab)
 	} else {
-		await switchTabTo('Stats')
+		await switchTabTo('Search')
 	}
 
 	let retries = 0
@@ -90,18 +90,6 @@ async function switchTabTo(tabName: Tab) {
 			<button
 				class="tw-tab-button"
 				:class="{
-					'bg-white': currentActiveTab === 'Stats',
-					'text-neutral-600': currentActiveTab === 'Stats'
-				}"
-				type="button"
-				@click="switchTabTo('Stats')"
-			>
-				Stats
-			</button>
-
-			<button
-				class="tw-tab-button"
-				:class="{
 					'bg-white': currentActiveTab === 'Search',
 					'text-neutral-600': currentActiveTab === 'Search'
 				}"
@@ -110,12 +98,23 @@ async function switchTabTo(tabName: Tab) {
 			>
 				Search
 			</button>
+
+			<button
+				class="tw-tab-button"
+				:class="{
+					'bg-white': currentActiveTab === 'Stats',
+					'text-neutral-600': currentActiveTab === 'Stats'
+				}"
+				type="button"
+				@click="switchTabTo('Stats')"
+			>
+				Stats
+			</button>
 		</div>
 
 		<template v-if="!initializing">
-			<Stats v-if="currentActiveTab === 'Stats'" :stats="statsObject!" />
 			<Search
-				v-else-if="currentActiveTab === 'Search'"
+				v-if="currentActiveTab === 'Search'"
 				:search="{
 					currentYear: statsObject!.currentYear,
 					earliestYear: statsObject!.earliestYear,
@@ -123,6 +122,7 @@ async function switchTabTo(tabName: Tab) {
 					initializing: initializing
 				}"
 			/>
+			<Stats v-else-if="currentActiveTab === 'Stats'" :stats="statsObject!" />
 		</template>
 	</div>
 </template>
