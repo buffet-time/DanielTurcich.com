@@ -60,7 +60,7 @@ const links = ref<ArticleLink[]>([
 			<div class="gap-2 tw-flex-col-center">
 				<h1 class="text-2xl font-semibold">Bio</h1>
 				<p>
-					Hello, I'm Daniel Turcich (He/ They) and I'm a Software Engineer who
+					Hello, I'm Daniel Turčić (He/ They) and I'm a Software Engineer who
 					currently works at Squarespace. I mostly do Frontend development and
 					really enjoy (Java/Type)Script, Vue, and Node.
 				</p>

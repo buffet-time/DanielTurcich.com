@@ -26,9 +26,7 @@ const sortingMethod = ref<SortingAlgorithm>('')
 // prettier-ignore
 const sorts = ref<SortingAlgorithm[]>([
 	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
-	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome'
-	// , 'Bogo'
-	// 'Bitonic Sort'
+	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome', 'Bogo'
 ])
 
 // Private
@@ -75,7 +73,6 @@ async function stop(): Promise<void> {
 // Quad
 // smooth
 // odd even
-// bogo
 
 function sleep(time: number) {
 	return new Promise((s) => setTimeout(s, time))
@@ -196,7 +193,7 @@ function audioForRandomizing() {
 						v-model="numberOfRectangles"
 						class="w-64 h-6 bg-transparent"
 						type="range"
-						min="10"
+						min="5"
 						max="1000"
 						step="5"
 						:disabled="disableRectangleSlider"

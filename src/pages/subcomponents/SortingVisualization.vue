@@ -74,9 +74,9 @@ watch(
 			case 'Gnome':
 				await gnomeSort()
 				break
-			// case 'Bogo':
-			// 	await bogoSort()
-			// 	break
+			case 'Bogo':
+				await bogoSort()
+				break
 		}
 		emit('sortingMethodEnded')
 	}
@@ -550,22 +550,37 @@ async function gnomeSort() {
 	}
 }
 
-// TODO finish this (was almost done but got distracted by runescape)
-// async function bogoSort() {
-// 	const isNotSorted = () => {
-// 		let returnValue = false
-// 		for (let x = 1; x < sortingArray.length; x++) {
-// 			if (sortingArray[x - 1].height > sortingArray[x].height) {
-// 				returnValue = true
-// 			}
-// 		}
-// 		return returnValue
-// 	}
+async function bogoSort() {
+	function isNotSorted() {
+		for (let n = 1; n < sortingArray.length; n++) {
+			if (sortingArray[n - 1].height > sortingArray[n].height) {
+				return true
+			}
+		}
+		return false
+	}
 
-// 	while (isNotSorted()) {
-// 		await drawAllRectangles(true)
-// 	}
-// }
+	async function redrawAllRectangles() {
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+			eraseRectangle(n)
+		}
+
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+			randomSwaps()
+		}
+
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+			await redrawRectangle(n)
+		}
+	}
+
+	while (isNotSorted()) {
+		if (algorithm.stopExecution) {
+			return
+		}
+		await redrawAllRectangles()
+	}
+}
 </script>
 
 <template>
