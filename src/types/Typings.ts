@@ -19,6 +19,7 @@ export type SortingAlgorithm =
 	| 'Shell'
 	| 'Gnome'
 	| 'Bogo'
+	| 'Comb'
 
 export type GeneratorOscillatorType =
 	| 'sawtooth'

@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import type { SortingAlgorithm } from '#types'
 import { ref, watch } from 'vue'
-import SortingVisualization from './subcomponents/SortingVisualization.vue'
+import SortingVisualization from './sorting/SortingVisualization.vue'
 
 // TODO:
-// Convert drawing to be microTasks to improve rendering speed
+// Convert drawing to be microTasks to improve rendering speed?
 // Show time to draw and time to execute
 // Show array accesses?
 // Show swaps?
-// Add implementations of WebGL and WebGL2 rendering and a switch for each
+// Implement WebGPU (with OpenGL backup)
 
-// Public
 const sleepTime = ref<number | string>(0)
 const volume = ref(0.025)
 const stopExecution = ref(false)
@@ -22,18 +21,17 @@ const disableRandomizeButton = ref(false)
 const disableRectangleSlider = ref(false)
 // executionTime = ref(0),
 const oscillator = ref<OscillatorNode>()
-const sortingMethod = ref<SortingAlgorithm>('')
+const sortingMethod = ref<SortingAlgorithm>('Quick')
 // prettier-ignore
 const sorts = ref<SortingAlgorithm[]>([
 	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
-	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome', 'Bogo'
+	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome', 'Bogo', 'Comb'
 ])
+const startSortingMethod = ref(false)
 
-// Private
 let audioContext!: AudioContext
 let audioIntialized = false
 let gainNode!: GainNode
-// let timestamp = 0
 
 // Watchers
 watch(numberOfRectangles, () => {
@@ -47,9 +45,10 @@ watch(volume, () => {
 		oscillator.value?.disconnect()
 		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 		oscillator.value?.connect(gainNode).connect(audioContext.destination)
-	} else {
-		gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
+		return
 	}
+
+	gainNode.gain.setValueAtTime(volume.value, audioContext.currentTime)
 })
 
 async function stop(): Promise<void> {
@@ -62,17 +61,26 @@ async function stop(): Promise<void> {
 }
 
 // TODO: sorting methods to add
+//
+// Real sorting algorithms
+//
 // radix (LSD)
 // radix (MSD)
 // std::sort (intro sort)
 // std::stable_sort (adaptive merge sort)
 // bitonic
-// comb
 // binary insertion
 // tim
 // Quad
 // smooth
 // odd even
+//
+// GOATED SORTING ALGORITHMS
+// Stooge Sort
+// Slowsort
+// Stalin Sort
+// bozo sort
+// Bogobogo sort
 
 function sleep(time: number) {
 	return new Promise((s) => setTimeout(s, time))
@@ -85,9 +93,9 @@ function sortingMethodStarted() {
 }
 
 function sortingMethodEnded() {
-	sortingMethod.value = ''
 	oscillator.value?.disconnect()
 	sortingMethodEndedBools()
+	startSortingMethod.value = false
 }
 
 function sortingMethodStartedBools() {
@@ -139,30 +147,22 @@ function audioForRandomizing() {
 	oscillator.value?.connect(gainNode).connect(audioContext.destination)
 	beep(300)
 }
+
+function startSort() {
+	if (!startSortingMethod.value) {
+		startSortingMethod.value = true
+	}
+}
 </script>
 
 <template>
 	<div class="flex h-[calc(100vh_-_64px)]">
 		<div class="flex flex-col justify-center items-center gap-2 w-72">
-			<div class="flex gap-1">
-				<button
-					class="tw-button h-[50px] w-[130px] p-0"
-					:disabled="disableStopButton"
-					@click="stop"
-				>
-					Stop Execution
-				</button>
-
-				<button
-					class="tw-button h-[50px] w-[130px] p-0"
-					:disabled="disableRandomizeButton"
-					@click="randomizeArray = true"
-				>
-					Randomize
-				</button>
-			</div>
-
 			<div class="flex flex-col">
+				<div class="p-4">
+					Currently a few bugs, refactoring and updating this right now :)
+				</div>
+
 				<div>
 					Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
 					<input
@@ -201,18 +201,46 @@ function audioForRandomizing() {
 				</div>
 			</div>
 
-			<div class="flex flex-wrap justify-center gap-1">
-				<button
-					v-for="(algorithm, index) in sorts"
-					:key="index"
-					class="tw-button h-[50px] w-[130px] p-0"
-					:disabled="disableSortButtons"
-					@click="sortingMethod = algorithm"
-				>
-					{{ algorithm }}
+			<div class="flex flex-col justify-center items-center gap-2">
+				<div class="flex gap-2">
+					<button
+						class="tw-button h-[50px] w-[130px] p-0"
+						:disabled="disableStopButton"
+						@click="stop"
+					>
+						Stop Execution
+					</button>
+
+					<button
+						class="tw-button h-[50px] w-[130px] p-0"
+						:disabled="disableRandomizeButton"
+						@click="randomizeArray = true"
+					>
+						Randomize
+					</button>
+				</div>
+
+				<select v-model="sortingMethod" class="tw-music-select h-12">
+					<option
+						v-for="(algorithm, index) in sorts"
+						:key="index"
+						:value="algorithm"
+					>
+						{{ algorithm }}
+					</option>
+				</select>
+
+				<button class="tw-button h-[50px] w-[130px] p-0" @click="startSort">
+					Start sort
 				</button>
 			</div>
 		</div>
+
+		<!-- TODO! -->
+		<!-- merge sort doesnt stop -->
+		<!-- quick sort doesnt stop -->
+		<!-- comb sort doesnt stop -->
+		<!-- this is because the function doesnt have a reactive state of the boolean to stop -->
 
 		<SortingVisualization
 			:algorithm="{
@@ -223,6 +251,7 @@ function audioForRandomizing() {
 				numberOfRectangles: numberOfRectangles,
 				sortingMethod: sortingMethod
 			}"
+			:start-sorting-method="startSortingMethod"
 			@sorting-method-started-bools="sortingMethodStartedBools"
 			@sorting-method-ended-bools="sortingMethodEndedBools"
 			@sorting-method-started="sortingMethodStarted"

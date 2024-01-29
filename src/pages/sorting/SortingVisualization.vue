@@ -2,9 +2,14 @@
 import type { SortingVisualizationProps, SortingRect } from '#types'
 import { onMounted, watch } from 'vue'
 
+import { startMergeSort } from './mergeSort'
+import { startQuickSort } from './quickSort'
+import { startCombSort } from './combSort'
+
 // eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
-const { algorithm } = defineProps<{
+const { algorithm, startSortingMethod } = defineProps<{
 	algorithm: SortingVisualizationProps
+	startSortingMethod: boolean
 }>()
 
 const emit = defineEmits<{
@@ -20,7 +25,6 @@ const emit = defineEmits<{
 let Context2d: CanvasRenderingContext2D
 let Canvas: HTMLCanvasElement
 let sortingArray: SortingRect[] = []
-let quickSortIndex = 0
 
 watch(
 	() => algorithm.randomizeArray,
@@ -43,42 +47,52 @@ watch(
 )
 
 watch(
-	() => algorithm.sortingMethod,
-	async (newValue) => {
-		emit('sortingMethodStarted')
-		switch (newValue) {
-			case 'Bubble':
-				await bubbleSort()
-				break
-			case 'Cocktail Shaker':
-				await cocktailShakerSort()
-				break
-			case 'Heap':
-				await heapSort()
-				break
-			case 'Insertion':
-				await insertionSort()
-				break
-			case 'Merge':
-				sortingArray = await mergeSort(sortingArray)
-				break
-			case 'Quick':
-				await quickSort(0, sortingArray.length - 1)
-				break
-			case 'Selection':
-				await selectionSort()
-				break
-			case 'Shell':
-				await shellSort()
-				break
-			case 'Gnome':
-				await gnomeSort()
-				break
-			case 'Bogo':
-				await bogoSort()
-				break
+	() => startSortingMethod,
+	async () => {
+		if (startSortingMethod) {
+			emit('sortingMethodStarted')
+			switch (algorithm.sortingMethod) {
+				case 'Bubble':
+					await bubbleSort()
+					break
+				case 'Cocktail Shaker':
+					await cocktailShakerSort()
+					break
+				case 'Heap':
+					await heapSort()
+					break
+				case 'Insertion':
+					await insertionSort()
+					break
+				case 'Merge':
+					await startMergeSort(
+						algorithm,
+						sortingArray,
+						eraseRectangleByObject,
+						redrawRectangle
+					)
+					break
+				case 'Quick':
+					await startQuickSort(sortingArray, algorithm, redrawRectangles)
+					break
+				case 'Selection':
+					await selectionSort()
+					break
+				case 'Shell':
+					await shellSort()
+					break
+				case 'Gnome':
+					await gnomeSort()
+					break
+				case 'Bogo':
+					await bogoSort()
+					break
+				case 'Comb':
+					await startCombSort(sortingArray, algorithm, redrawRectangles)
+					break
+			}
+			emit('sortingMethodEnded')
 		}
-		emit('sortingMethodEnded')
 	}
 )
 
@@ -114,6 +128,7 @@ function fixDpi() {
 	)
 }
 
+/// helpers
 function swapArrayElements(index1: number, index2: number) {
 	// swap the x and Frequency values then swap the objects
 	// eslint-disable-next-line
@@ -143,7 +158,7 @@ function createUnsortedArray() {
 	const frequencyIncrease =
 		highFrequencyBound / Number(algorithm.numberOfRectangles)
 
-	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++)
 		sortingArray.push({
 			x: widthOfRect * n,
 			y: Canvas.height - heightOfRect * (n + 1),
@@ -151,11 +166,9 @@ function createUnsortedArray() {
 			height: heightOfRect * (n + 1),
 			frequency: frequencyIncrease * n + lowFrequencyBound
 		})
-	}
 
-	for (let n = 0; n < Number(algorithm.numberOfRectangles) * 10; n++) {
+	for (let n = 0; n < Number(algorithm.numberOfRectangles) * 10; n++)
 		randomSwaps()
-	}
 }
 
 function randomSwaps() {
@@ -164,11 +177,11 @@ function randomSwaps() {
 	)
 	let secondElementIndex = 0
 
-	do {
+	do
 		secondElementIndex = Math.floor(
 			Math.random() * Number(algorithm.numberOfRectangles)
 		)
-	} while (firstElementIndex === secondElementIndex)
+	while (firstElementIndex === secondElementIndex)
 
 	swapArrayElements(firstElementIndex, secondElementIndex)
 }
@@ -177,9 +190,8 @@ function randomSwaps() {
 // Drawing functions
 // // // // // // //
 async function drawAllRectangles() {
-	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++)
 		await drawRectangle(n, true)
-	}
 
 	await sleep(0)
 }
@@ -196,13 +208,14 @@ async function redrawRectangles(firstIndex: number, secondIndex: number) {
 }
 
 async function drawRectangle(index: number, microTask?: boolean) {
-	const fillRect = () =>
+	function fillRect() {
 		Context2d.fillRect(
 			sortingArray[index].x,
 			sortingArray[index].y,
 			sortingArray[index].width,
 			sortingArray[index].height
 		)
+	}
 
 	if (microTask) {
 		queueMicrotask(() => {
@@ -253,9 +266,7 @@ async function bubbleSort() {
 		count++
 		swapped = false
 		for (n = 0; n < length - count; n++) {
-			if (algorithm.stopExecution) {
-				return
-			}
+			if (algorithm.stopExecution) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
 				await redrawRectangles(n, n + 1)
@@ -274,9 +285,7 @@ async function insertionSort() {
 		current = sortingArray[i]
 
 		for (j = i - 1; j >= 0 && sortingArray[j].height > current.height; j--) {
-			if (algorithm.stopExecution) {
-				return
-			}
+			if (algorithm.stopExecution) return
 
 			await redrawRectangles(j, j + 1)
 		}
@@ -292,17 +301,11 @@ async function selectionSort() {
 	for (let n = 0; n < sortingArray.length; n++) {
 		minHeight = n // Finding the smallest number in the array
 		for (x = n + 1; x < sortingArray.length; x++) {
-			if (algorithm.stopExecution) {
-				return
-			}
+			if (algorithm.stopExecution) return
 
-			if (sortingArray[x].height < sortingArray[minHeight].height) {
-				minHeight = x
-			}
+			if (sortingArray[x].height < sortingArray[minHeight].height) minHeight = x
 		}
-		if (minHeight !== n) {
-			await redrawRectangles(n, minHeight)
-		}
+		if (minHeight !== n) await redrawRectangles(n, minHeight)
 	}
 }
 
@@ -313,9 +316,7 @@ async function cocktailShakerSort() {
 	while (!sorted) {
 		sorted = true
 		while (n < sortingArray.length - 1) {
-			if (algorithm.stopExecution) {
-				return
-			}
+			if (algorithm.stopExecution) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
 				await redrawRectangles(n, n + 1)
@@ -324,186 +325,53 @@ async function cocktailShakerSort() {
 			n++
 		}
 
-		if (sorted) {
-			break
-		}
+		if (sorted) break
 
 		sorted = true
 
 		while (n > 0) {
-			if (algorithm.stopExecution) {
-				return
-			}
+			if (algorithm.stopExecution) return
 
-			if (sortingArray[n - 1].height > sortingArray[n].height) {
+			if (sortingArray[n - 1].height > sortingArray[n].height)
 				await redrawRectangles(n, n - 1)
-				sorted = false
-			}
+			sorted = false
+
 			n--
 		}
 	}
 }
 
-async function quickSort(left: number, right: number) {
-	quickSortIndex = await quicksortPartition(left, right) //index returned from partition
-	if (algorithm.stopExecution) {
-		return
-	}
-
-	//more elements on the left side of the pivot
-	if (left < quickSortIndex - 1) {
-		await quickSort(left, quickSortIndex - 1)
-	}
-
-	//more elements on the right side of the pivot
-	if (quickSortIndex < right) {
-		await quickSort(quickSortIndex, right)
-	}
-}
-
-async function quicksortPartition(left: number, right: number) {
-	const pivot = sortingArray[Math.floor((right + left) / 2)]
-	while (left <= right) {
-		if (algorithm.stopExecution) {
-			return 0
-		}
-		// increment up until find a height to the left larger than the pivot
-		while (sortingArray[left].height < pivot.height) {
-			left++
-		}
-		// increment up until  find a height to the right smaller than the pivot
-		while (sortingArray[right].height > pivot.height) {
-			right--
-		}
-
-		if (left <= right) {
-			await redrawRectangles(left, right)
-			left++
-			right--
-		}
-	}
-	return left
-}
-
-async function mergeSort(unsorted: SortingRect[]): Promise<SortingRect[]> {
-	if (algorithm.stopExecution) {
-		return []
-	}
-	if (unsorted.length < 2) {
-		return unsorted
-	}
-
-	const middle = Math.floor(unsorted.length / 2)
-
-	return merge(
-		await mergeSort(unsorted.slice(0, middle)),
-		await mergeSort(unsorted.slice(middle))
-	)
-}
-
-// Less efficient and slightly modified to handle drawing properly
-async function merge(
-	left: SortingRect[],
-	right: SortingRect[]
-): Promise<SortingRect[]> {
-	const resultSortingArray: SortingRect[] = []
-	let leftIndex = 0
-	let rightIndex = 0
-
-	while (leftIndex < left.length && rightIndex < right.length) {
-		if (left[leftIndex].height < right[rightIndex].height) {
-			resultSortingArray.push(left[leftIndex])
-			leftIndex++
-		} else {
-			resultSortingArray.push(right[rightIndex])
-			rightIndex++
-		}
-	}
-
-	// merge based on height
-	const combinedArray = [
-		...resultSortingArray,
-		...left.slice(leftIndex),
-		...right.slice(rightIndex)
-	]
-
-	// get all the x values of the current array and sort them and then set the merged contents above.
-	const combinedXArray = combinedArray
-		.map((rect) => {
-			eraseRectangleByObject(rect)
-			return { x: rect.x, frequency: rect.frequency }
-		})
-		.sort((a, b) => a.x - b.x)
-
-	for (let n = 0; n < combinedXArray.length; n++) {
-		combinedArray[n].x = combinedXArray[n].x
-		combinedArray[n].frequency = combinedXArray[n].frequency
-	}
-
-	// gets an array of the index value of where the subarray is from the main array
-	const indexArray: number[] = []
-	const xValues = combinedArray.map((rect) => rect.height)
-
-	xValues.forEach((xValue) => {
-		indexArray.push(
-			sortingArray.findIndex(
-				(rect) =>
-					rect.height ===
-					combinedArray[xValues.findIndex((x) => x === xValue)].height
-			)
-		)
-	})
-
-	// drawing of the rectangles
-	for (let n = 0; n < combinedArray.length; n++) {
-		if (algorithm.stopExecution) {
-			return []
-		}
-		await redrawRectangle(indexArray[n])
-	}
-
-	return combinedArray
-}
-
 async function heapSort() {
-	for (let n = Math.floor(sortingArray.length / 2 - 1); n >= 0; n--) {
-		if (algorithm.stopExecution) {
-			return
+	async function heapify(size: number, index: number) {
+		let max = index
+		const left = 2 * index + 1
+		const right = 2 * index + 2
+
+		if (algorithm.stopExecution) return
+
+		if (left < size && sortingArray[left].height > sortingArray[max].height)
+			max = left
+
+		if (right < size && sortingArray[right].height > sortingArray[max].height)
+			max = right
+
+		if (max != index) {
+			await redrawRectangles(index, max)
+			await heapify(size, max)
 		}
+	}
+
+	for (let n = Math.floor(sortingArray.length / 2 - 1); n >= 0; n--) {
+		if (algorithm.stopExecution) return
 
 		await heapify(sortingArray.length, n)
 	}
 
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
-		if (algorithm.stopExecution) {
-			return
-		}
+		if (algorithm.stopExecution) return
 
 		await redrawRectangles(0, n)
 		await heapify(n, 0)
-	}
-}
-
-async function heapify(size: number, index: number) {
-	let max = index
-	const left = 2 * index + 1
-	const right = 2 * index + 2
-
-	if (algorithm.stopExecution) {
-		return
-	}
-
-	if (left < size && sortingArray[left].height > sortingArray[max].height) {
-		max = left
-	}
-
-	if (right < size && sortingArray[right].height > sortingArray[max].height) {
-		max = right
-	}
-
-	if (max != index) {
-		await redrawRectangles(index, max)
-		await heapify(size, max)
 	}
 }
 
@@ -524,9 +392,8 @@ async function shellSort() {
 				n >= gap && sortingArray[n - gap].height > temp.height;
 				n -= gap
 			) {
-				if (algorithm.stopExecution) {
-					return
-				}
+				if (algorithm.stopExecution) return
+
 				await redrawRectangles(n, n - gap)
 			}
 
@@ -540,9 +407,8 @@ async function gnomeSort() {
 	for (let n = 1; n < sortingArray.length; n++) {
 		if (sortingArray[n - 1].height > sortingArray[n].height) {
 			while (n > 0 && sortingArray[n - 1].height > sortingArray[n].height) {
-				if (algorithm.stopExecution) {
-					return
-				}
+				if (algorithm.stopExecution) return
+
 				await redrawRectangles(n, n - 1)
 				n--
 			}
@@ -553,31 +419,24 @@ async function gnomeSort() {
 async function bogoSort() {
 	function isNotSorted() {
 		for (let n = 1; n < sortingArray.length; n++) {
-			if (sortingArray[n - 1].height > sortingArray[n].height) {
-				return true
-			}
+			if (sortingArray[n - 1].height > sortingArray[n].height) return true
 		}
 		return false
 	}
 
 	async function redrawAllRectangles() {
-		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++)
 			eraseRectangle(n)
-		}
 
-		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
-			randomSwaps()
-		}
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) randomSwaps()
 
-		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) {
+		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++)
 			await redrawRectangle(n)
-		}
 	}
 
 	while (isNotSorted()) {
-		if (algorithm.stopExecution) {
-			return
-		}
+		if (algorithm.stopExecution) return
+
 		await redrawAllRectangles()
 	}
 }
