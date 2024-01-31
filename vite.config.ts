@@ -26,7 +26,8 @@ export default defineConfig({
 		alias: {
 			'#root': resolve(__dirname),
 			'#assets': resolve(__dirname, './src/assets'),
-			'#types': resolve(__dirname, './src/types/Typings.ts')
+			'#types': resolve(__dirname, './src/types/Typings.ts'),
+			'#stores': resolve(__dirname, './src/stores')
 		}
 	}
 })

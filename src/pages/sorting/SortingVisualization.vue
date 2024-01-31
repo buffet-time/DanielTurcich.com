@@ -66,14 +66,13 @@ watch(
 					break
 				case 'Merge':
 					await startMergeSort(
-						algorithm,
 						sortingArray,
 						eraseRectangleByObject,
 						redrawRectangle
 					)
 					break
 				case 'Quick':
-					await startQuickSort(sortingArray, algorithm, redrawRectangles)
+					await startQuickSort(sortingArray, redrawRectangles)
 					break
 				case 'Selection':
 					await selectionSort()

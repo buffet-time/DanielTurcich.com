@@ -1,17 +1,19 @@
-import type { SortingRect, SortingVisualizationProps } from '#types'
+import type { SortingRect } from '#types'
+import { useStopExecution } from '#stores/sorting'
 
 export async function startMergeSort(
-	algorithm: SortingVisualizationProps,
 	sortingArray: SortingRect[],
 	eraseRectangleByObject: (rect: SortingRect) => void,
 	redrawRectangle: (index: number) => Promise<void>
 ): Promise<void> {
 	// Less efficient and slightly modified to handle drawing properly
+	const store = useStopExecution()
+
 	async function mergeSort(
 		sortingArray: SortingRect[]
 	): Promise<SortingRect[]> {
 		// TODO: this doesn't work!
-		if (algorithm.stopExecution) {
+		if (store.stopExecution) {
 			return []
 		}
 		if (sortingArray.length < 2) {
@@ -81,7 +83,7 @@ export async function startMergeSort(
 
 		// drawing of the rectangles
 		for (let n = 0; n < combinedArray.length; n++) {
-			if (algorithm.stopExecution) return []
+			if (store.stopExecution) return []
 
 			await redrawRectangle(indexArray[n])
 		}

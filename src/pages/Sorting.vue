@@ -2,6 +2,7 @@
 import type { SortingAlgorithm } from '#types'
 import { ref, watch } from 'vue'
 import SortingVisualization from './sorting/SortingVisualization.vue'
+import { useStopExecution } from '#stores/sorting'
 
 // TODO:
 // Convert drawing to be microTasks to improve rendering speed?
@@ -9,6 +10,8 @@ import SortingVisualization from './sorting/SortingVisualization.vue'
 // Show array accesses?
 // Show swaps?
 // Implement WebGPU (with OpenGL backup)
+
+const store = useStopExecution()
 
 const sleepTime = ref<number | string>(0)
 const volume = ref(0.025)
@@ -52,9 +55,11 @@ watch(volume, () => {
 })
 
 async function stop(): Promise<void> {
+	store.setStopExecution(true)
 	stopExecution.value = true
 	oscillator.value?.disconnect()
 	await sleep(500) // easy safe way to ensure all operations are done
+	store.setStopExecution(false)
 	stopExecution.value = false
 	oscillator.value?.disconnect()
 	sortingMethodEndedBools()

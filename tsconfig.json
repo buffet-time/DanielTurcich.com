@@ -26,7 +26,8 @@
 		"paths": {
 			"#root/*": ["./*"],
 			"#types": ["./src/types/Typings.ts"],
-			"#assets/*": ["./src/assets/*"]
+			"#assets/*": ["./src/assets/*"],
+			"#stores/*": ["./src/stores/*"]
 		},
 
 		"baseUrl": ".",
