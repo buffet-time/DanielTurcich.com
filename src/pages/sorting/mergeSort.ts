@@ -92,6 +92,4 @@ export async function startMergeSort(
 	}
 
 	await mergeSort(sortingArray)
-
-	return
 }
