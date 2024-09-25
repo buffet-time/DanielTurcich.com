@@ -9,10 +9,7 @@
 		"name": "Daniel Turcich",
 		"url": "https://danielTurcich.com"
 	},
-	"engines": {
-		"pnpm": ">=9.10.0"
-	},
-	"engineStrict": true,
+	"packageManager": "pnpm@9.11.0",
 	"scripts": {
 		"dev": "vite",
 		"dev:network": "vite --host",
