@@ -10,27 +10,37 @@ Tooling: [Vite](https://vitejs.dev/), [ESLint](https://eslint.org/), [Prettier](
 
 ## To run locally
 
-- Clone repo
+### Clone repo
 
-      $ git clone https://github.com/RazorSh4rk/random-word-api.git
+```bash
+git clone https://github.com/RazorSh4rk/random-word-api.git
+```
 
-- [install PNPM](https://pnpm.io/installation)
+### [install PNPM](https://pnpm.io/installation)
 
-      $ npx pnpm add -g pnpm
+```npm
+npx pnpm add -g pnpm
+```
 
-- Install packages
+### Install packages
 
-      $ pnpm install
+```bash
+pnpm install
+```
 
-- Setup Husky
+### Setup Husky
 
-      $ pnpm prepare:husky
+```bash
+pnpm prepare:husky
+```
 
-- Serve the application
+### Serve the application
 
-      $ pnpm serve
+```bash
+pnpm serve
+```
 
-- open a browser and navigate to <http://localhost:8086/>
+### open a browser and navigate to <http://localhost:5137/>
 
 ## Other
 

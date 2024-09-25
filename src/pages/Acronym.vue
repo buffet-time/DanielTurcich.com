@@ -61,7 +61,7 @@ onMounted(async () => {
 		)
 		words = acronymWords
 	} catch (error) {
-		console.error('You need to update your browser.')
+		console.error(`You need to update your browser. ${String(error)}`)
 	}
 })
 </script>

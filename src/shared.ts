@@ -11,7 +11,7 @@ export type JSONReturnType =
 
 export async function ProperFetch(
 	input: RequestInfo | URL,
-	init?: RequestInit | undefined
+	init?: RequestInit
 ): Promise<JSONReturnType> {
 	try {
 		const response = await fetch(input, init)
@@ -45,7 +45,7 @@ export async function DynamicImportDialogPolyfill(
 			const { default: dialogPolyfill } = await import('dialog-polyfill')
 			dialogArray.forEach((dialog) => dialogPolyfill.registerDialog(dialog))
 		} catch (error) {
-			console.error('You need to update your browser.')
+			console.error(`You need to update your browser. ${String(error)}`)
 		}
 	}
 }

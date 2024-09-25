@@ -7,7 +7,6 @@ defineEmits<{
 	deleteGenerator: []
 }>()
 
-// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
 const { generator } = defineProps<{
 	generator: Generator
 }>()
@@ -52,7 +51,6 @@ watch(noteOffset, (newValue, previousValue) => {
 		initializeContext()
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	difference = newValue - previousValue
 	updateNoteFrequency()
 

@@ -15,13 +15,7 @@ export default defineConfig({
 		outDir: './dist'
 	},
 
-	plugins: [
-		vue({
-			script: {
-				propsDestructure: true
-			}
-		})
-	],
+	plugins: [vue()],
 	resolve: {
 		alias: {
 			'#root': resolve(__dirname),

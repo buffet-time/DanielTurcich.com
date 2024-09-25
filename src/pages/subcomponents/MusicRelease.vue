@@ -4,7 +4,6 @@ import { closeSvg } from '#assets/svgs'
 import { onMounted, ref } from 'vue'
 import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../../shared'
 
-// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
 const { release } = defineProps<{
 	release: string[]
 }>()

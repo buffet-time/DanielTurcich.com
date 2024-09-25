@@ -6,7 +6,6 @@ import { startMergeSort } from './mergeSort'
 import { startQuickSort } from './quickSort'
 import { startCombSort } from './combSort'
 
-// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
 const { algorithm, startSortingMethod } = defineProps<{
 	algorithm: SortingVisualizationProps
 	startSortingMethod: boolean
@@ -101,7 +100,7 @@ onMounted(async () => {
 	Canvas = document.getElementById('canvas') as HTMLCanvasElement
 	Canvas.setAttribute('height', String(window.innerHeight - 64))
 	Canvas.setAttribute('width', String(window.innerWidth - 300))
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 	Context2d = Canvas.getContext('2d')!
 	fixDpi()
 	Context2d.fillStyle = '#0F0'
@@ -130,7 +129,7 @@ function fixDpi() {
 /// helpers
 function swapArrayElements(index1: number, index2: number) {
 	// swap the x and Frequency values then swap the objects
-	// eslint-disable-next-line
+
 	;[
 		sortingArray[index1].x,
 		sortingArray[index2].x,

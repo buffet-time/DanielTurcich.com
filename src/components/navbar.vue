@@ -46,9 +46,8 @@ const routes: RouteRecordNormalized[] = router
 	.filter((route) => route.meta.buttonName !== undefined)
 
 onMounted(() => {
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const target1 = document.querySelector('#webNavModal')!
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 	const target2 = document.querySelector('#socialModal')!
 
 	document.addEventListener('click', (event) => {

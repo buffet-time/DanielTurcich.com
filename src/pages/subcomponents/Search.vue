@@ -9,7 +9,6 @@ import {
 } from '#types'
 import MusicRelease from './MusicRelease.vue'
 
-// eslint-disable-next-line vue/no-setup-props-destructure, vue/no-dupe-keys
 const { search } = defineProps<{
 	search: MusicSearchProps
 }>()
