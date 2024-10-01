@@ -32,6 +32,7 @@ function acronymButtonPressed() {
 		case !containsOnlyLetters:
 			showButton.value = false
 			textToDisplay.value = 'You can only input letters A-Z.'
+			return
 
 		default:
 			acronymText = getWordsFromProvidedAcronym(massagedInput)
@@ -46,11 +47,11 @@ function getWordsFromProvidedAcronym(acronym: string) {
 	return massagedAcronym.reduce(
 		(previousValue: string, currentLetter: string) => {
 			const randomIndex = Math.floor(
-				Math.random() * words[currentLetter].length
+				Math.random() * words[currentLetter].length,
 			)
 			return `${previousValue} ${words[currentLetter][randomIndex]}`
 		},
-		''
+		'',
 	)
 }
 

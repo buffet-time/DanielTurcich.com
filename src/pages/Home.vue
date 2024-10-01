@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 const birthdate = 820800000000
 const myCurrentAge = ref(
-	Math.abs(new Date(Date.now() - birthdate).getUTCFullYear() - 1970)
+	Math.abs(new Date(Date.now() - birthdate).getUTCFullYear() - 1970),
 )
 
 const soundcloudLink =
@@ -13,36 +13,36 @@ const soundcloudLink =
 const links = ref<ArticleLink[]>([
 	{
 		url: 'https://medium.com/@buffet_time/why-you-should-move-to-pnpm-82962f332418',
-		text: 'Why you should move to PNPM'
+		text: 'Why you should move to PNPM',
 	},
 	{
 		url: 'https://www.pcgamer.com/watch-a-man-run-jump-and-crawl-for-a-half-life-alyx-speedrun',
-		text: 'PC Gamer'
+		text: 'PC Gamer',
 	},
 	{
 		url: 'https://www.speedrun.com/news/653-2021-4-1-speedrunning-in-virtual-reality',
-		text: 'Speedrun.com'
+		text: 'Speedrun.com',
 	},
 	{
 		url: 'https://kotaku.com/half-life-alyx-speedrunner-isnt-afraid-to-get-his-knee-1844825797',
-		text: 'Kotaku'
+		text: 'Kotaku',
 	},
 	{
 		url: 'https://www.rockpapershotgun.com/2020/08/21/speedrunner-uses-vr-to-crawl-under-half-life-alyx-levels-in-real-life/',
-		text: 'Rock Paper Shotgun'
+		text: 'Rock Paper Shotgun',
 	},
 	{
 		url: 'https://gamerant.com/half-life-alyx-speedrun-games-done-quick/',
-		text: 'Gamerant'
+		text: 'Gamerant',
 	},
 	{
 		url: 'https://uploadvr.com/half-life-alyx-speedrun/',
-		text: 'UploadVR'
+		text: 'UploadVR',
 	},
 	{
 		url: 'https://www.pcgamesn.com/half-life-alyx/speedrun-running',
-		text: 'PCGamesN'
-	}
+		text: 'PCGamesN',
+	},
 ])
 </script>
 

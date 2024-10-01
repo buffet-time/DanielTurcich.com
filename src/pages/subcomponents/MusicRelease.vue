@@ -23,7 +23,7 @@ async function copyReviews() {
 	await navigator.clipboard.writeText(
 		` ${release[Release.artist]} - ${release[Release.name]}: ${
 			release[Release.score]
-		}`
+		}`,
 	)
 }
 </script>

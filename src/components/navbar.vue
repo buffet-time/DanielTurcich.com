@@ -13,32 +13,32 @@ const links: NavLink[] = [
 		buttonText: 'Github',
 		alt: 'github logo',
 		src: '/github.png',
-		link: 'https://github.com/buffet-time'
+		link: 'https://github.com/buffet-time',
 	},
 	{
 		buttonText: 'LinkedIn',
 		alt: 'linkedin logo',
 		src: '/linkedin.png',
-		link: 'https://www.linkedin.com/in/danielturcich/'
+		link: 'https://www.linkedin.com/in/danielturcich/',
 	},
 	{
 		buttonText: 'Resume',
 		alt: 'pdf logo',
 		src: '/resume.png',
-		link: resume
+		link: resume,
 	},
 	{
 		buttonText: 'Bandcamp',
 		alt: 'bandcamp logo',
 		src: '/bandcamp.png',
-		link: 'https://buffet-time.bandcamp.com/'
+		link: 'https://buffet-time.bandcamp.com/',
 	},
 	{
 		buttonText: 'Soundcloud',
 		alt: 'soundcloud logo',
 		src: '/soundcloud.png',
-		link: 'https://soundcloud.com/buffet_time'
-	}
+		link: 'https://soundcloud.com/buffet_time',
+	},
 ]
 
 const routes: RouteRecordNormalized[] = router
@@ -46,8 +46,10 @@ const routes: RouteRecordNormalized[] = router
 	.filter((route) => route.meta.buttonName !== undefined)
 
 onMounted(() => {
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	const target1 = document.querySelector('#webNavModal')!
 
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	const target2 = document.querySelector('#socialModal')!
 
 	document.addEventListener('click', (event) => {

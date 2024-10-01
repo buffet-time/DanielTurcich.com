@@ -27,8 +27,17 @@ const oscillator = ref<OscillatorNode>()
 const sortingMethod = ref<SortingAlgorithm>('Quick')
 // prettier-ignore
 const sorts = ref<SortingAlgorithm[]>([
-	'Bubble', 'Insertion', 'Cocktail Shaker', 'Selection',
-	'Merge', 'Quick', 'Heap', 'Shell', 'Gnome', 'Bogo', 'Comb'
+	'Bubble',
+	'Insertion',
+	'Cocktail Shaker',
+	'Selection',
+	'Merge',
+	'Quick',
+	'Heap',
+	'Shell',
+	'Gnome',
+	'Bogo',
+	'Comb',
 ])
 const startSortingMethod = ref(false)
 
@@ -126,12 +135,12 @@ function intializeAudio() {
 	audioContext = new AudioContext()
 
 	gainNode = new GainNode(audioContext, {
-		gain: volume.value
+		gain: volume.value,
 	})
 
 	oscillator.value = new OscillatorNode(audioContext, {
 		type: 'sine',
-		frequency: 500
+		frequency: 500,
 	})
 
 	oscillator.value.start()
@@ -143,7 +152,7 @@ function intializeAudio() {
 function beep(frequency: number) {
 	oscillator.value?.frequency.setValueAtTime(
 		frequency,
-		audioContext.currentTime
+		audioContext.currentTime,
 	)
 }
 

@@ -10,30 +10,30 @@ const PasswordToggles: PasswordToggle = {
 	lowercase: {
 		exclude: false,
 		characters: 'abcdefghijklmnopqrstuvwxyz',
-		label: 'Exclude Lowercase Letters'
+		label: 'Exclude Lowercase Letters',
 	},
 	uppercase: {
 		exclude: false,
 		characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-		label: 'Exclude Uppercase Letters'
+		label: 'Exclude Uppercase Letters',
 	},
 	numbers: {
 		exclude: false,
 		characters: '0123456789',
-		label: 'Exclude Numbers'
+		label: 'Exclude Numbers',
 	},
 	symbols: {
 		exclude: false,
 		characters: '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~',
-		label: 'Exclude Symbols'
-	}
+		label: 'Exclude Symbols',
+	},
 }
 
 function generatePassword() {
 	password.value = ''
 	let passwordCharacters = ''
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	// biome-ignore lint/complexity/noForEach: <explanation>
 	Object.entries(PasswordToggles).forEach(([_key, toggle]) => {
 		if (!toggle.exclude) {
 			passwordCharacters += toggle.characters

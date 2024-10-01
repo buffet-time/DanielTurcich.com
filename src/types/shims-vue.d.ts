@@ -2,7 +2,8 @@
 
 declare module '*.vue' {
 	import type { DefineComponent } from 'vue'
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/complexity/noBannedTypes: <explanation>
 	const component: DefineComponent<{}, {}, any>
 	export default component
 }

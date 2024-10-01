@@ -42,7 +42,7 @@ watch(
 			emit('sortingMethodEndedBools')
 			emit('randomizeArrayDone')
 		}
-	}
+	},
 )
 
 watch(
@@ -67,7 +67,7 @@ watch(
 					await startMergeSort(
 						sortingArray,
 						eraseRectangleByObject,
-						redrawRectangle
+						redrawRectangle,
 					)
 					break
 				case 'Quick':
@@ -91,7 +91,7 @@ watch(
 			}
 			emit('sortingMethodEnded')
 		}
-	}
+	},
 )
 
 // Lifecycle hooks
@@ -101,6 +101,7 @@ onMounted(async () => {
 	Canvas.setAttribute('height', String(window.innerHeight - 64))
 	Canvas.setAttribute('width', String(window.innerWidth - 300))
 
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	Context2d = Canvas.getContext('2d')!
 	fixDpi()
 	Context2d.fillStyle = '#0F0'
@@ -114,15 +115,15 @@ function fixDpi() {
 		'height',
 		String(
 			Number(getComputedStyle(Canvas).getPropertyValue('height').slice(0, -2)) *
-				window.devicePixelRatio
-		)
+				window.devicePixelRatio,
+		),
 	)
 	Canvas.setAttribute(
 		'width',
 		String(
 			Number(getComputedStyle(Canvas).getPropertyValue('width').slice(0, -2)) *
-				window.devicePixelRatio
-		)
+				window.devicePixelRatio,
+		),
 	)
 }
 
@@ -136,14 +137,14 @@ function swapArrayElements(index1: number, index2: number) {
 		sortingArray[index1].frequency,
 		sortingArray[index2].frequency,
 		sortingArray[index1],
-		sortingArray[index2]
+		sortingArray[index2],
 	] = [
 		sortingArray[index2].x,
 		sortingArray[index1].x,
 		sortingArray[index2].frequency,
 		sortingArray[index1].frequency,
 		sortingArray[index2],
-		sortingArray[index1]
+		sortingArray[index1],
 	]
 }
 
@@ -162,7 +163,7 @@ function createUnsortedArray() {
 			y: Canvas.height - heightOfRect * (n + 1),
 			width: widthOfRect - 1,
 			height: heightOfRect * (n + 1),
-			frequency: frequencyIncrease * n + lowFrequencyBound
+			frequency: frequencyIncrease * n + lowFrequencyBound,
 		})
 
 	for (let n = 0; n < Number(algorithm.numberOfRectangles) * 10; n++)
@@ -171,13 +172,13 @@ function createUnsortedArray() {
 
 function randomSwaps() {
 	const firstElementIndex = Math.floor(
-		Math.random() * Number(algorithm.numberOfRectangles)
+		Math.random() * Number(algorithm.numberOfRectangles),
 	)
 	let secondElementIndex = 0
 
 	do
 		secondElementIndex = Math.floor(
-			Math.random() * Number(algorithm.numberOfRectangles)
+			Math.random() * Number(algorithm.numberOfRectangles),
 		)
 	while (firstElementIndex === secondElementIndex)
 
@@ -211,7 +212,7 @@ async function drawRectangle(index: number, microTask?: boolean) {
 			sortingArray[index].x,
 			sortingArray[index].y,
 			sortingArray[index].width,
-			sortingArray[index].height
+			sortingArray[index].height,
 		)
 	}
 
@@ -231,7 +232,7 @@ function eraseRectangle(index: number) {
 		sortingArray[index].x - 1,
 		sortingArray[index].y - 1,
 		sortingArray[index].width + 2,
-		sortingArray[index].height + 2
+		sortingArray[index].height + 2,
 	)
 	Context2d.fillStyle = '#0F0'
 }
@@ -353,7 +354,7 @@ async function heapSort() {
 		if (right < size && sortingArray[right].height > sortingArray[max].height)
 			max = right
 
-		if (max != index) {
+		if (max !== index) {
 			await redrawRectangles(index, max)
 			await heapify(size, max)
 		}
@@ -374,8 +375,8 @@ async function heapSort() {
 }
 
 async function shellSort() {
-	let n = 0,
-		x = 0
+	let n = 0
+	let x = 0
 
 	for (
 		let gap = Math.floor(sortingArray.length / 2);

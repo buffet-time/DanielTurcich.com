@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type StatsObject } from '../../types/Typings'
+import type { StatsObject } from '../../types/Typings'
 
 defineProps<{
 	stats: StatsObject

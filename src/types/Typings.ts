@@ -76,36 +76,36 @@ export interface NavLink {
 export type Tab = 'Search' | 'Stats'
 
 export enum ReleaseType {
-	'Album',
-	'EP',
-	'Live Album',
-	'Remix Album',
-	'Soundtrack',
-	'Compilation',
-	'Demo Album'
+	Album = 0,
+	EP = 1,
+	'Live Album' = 2,
+	'Remix Album' = 3,
+	Soundtrack = 4,
+	Compilation = 5,
+	'Demo Album' = 6,
 }
 
 export type SearchType = 'artist' | 'name' | 'score' | 'type' | 'year' | 'genre'
 
 export enum Release {
-	'artist',
-	'name',
-	'score',
-	'type',
-	'year',
-	'genre',
-	'comments'
+	artist = 0,
+	name = 1,
+	score = 2,
+	type = 3,
+	year = 4,
+	genre = 5,
+	comments = 6,
 }
 
 export enum ReleasesIn {
-	'1950s',
-	'1960s',
-	'1970s',
-	'1980s',
-	'1990s',
-	'2000s',
-	'2010s',
-	'2020s'
+	'1950s' = 0,
+	'1960s' = 1,
+	'1970s' = 2,
+	'1980s' = 3,
+	'1990s' = 4,
+	'2000s' = 5,
+	'2010s' = 6,
+	'2020s' = 7,
 }
 
 // Wrapped in query for router.replace()

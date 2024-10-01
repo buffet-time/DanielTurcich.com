@@ -11,7 +11,7 @@ for(let x=0; x < 1000001; x++) {
 
 for(let x=0; x < array.length; x++) {
     array2.push(x * 2)
-}`
+}`,
 )
 const functionTwo = ref(
 	`const array = [];
@@ -22,7 +22,7 @@ for(let x=0; x < 1000001; x++) {
 
 array.forEach((element) => {
     array2.push(element * 2)
-});`
+});`,
 )
 
 const startButton = ref(false)

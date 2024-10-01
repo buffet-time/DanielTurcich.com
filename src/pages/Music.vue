@@ -46,7 +46,7 @@ onBeforeMount(async () => {
 					await getData()
 					retries++
 				},
-				5000
+				5000,
 			)
 		}
 	}
@@ -56,13 +56,13 @@ onBeforeMount(async () => {
 
 async function getReleases(): Promise<string[][] | null> {
 	return (await ProperFetch(
-		`https://api.danielturcich.com/Releases`
+		'https://api.danielturcich.com/Releases',
 	)) as string[][]
 }
 
 async function getStats(): Promise<StatsObject | null> {
 	return (await ProperFetch(
-		`https://api.danielturcich.com/Stats`
+		'https://api.danielturcich.com/Stats',
 	)) as StatsObject
 }
 

@@ -1,4 +1,4 @@
-# Run ESLint and Prettier on all files to ensure no bad commits
+# Run Format and Lint on all files to ensure no bad commits
 pnpm checks
 # add any changed files from the lint and format fixs
 git add -A

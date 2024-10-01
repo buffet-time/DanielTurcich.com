@@ -4,7 +4,7 @@ import { useStopExecution } from '#stores/sorting'
 export async function startCombSort(
 	sortingArray: SortingRect[],
 	algorithm: SortingVisualizationProps,
-	redrawRectangles: (firstIndex: number, secondIndex: number) => Promise<void>
+	redrawRectangles: (firstIndex: number, secondIndex: number) => Promise<void>,
 ) {
 	const store = useStopExecution()
 	const decrease_factor = 1.25
@@ -13,7 +13,7 @@ export async function startCombSort(
 
 	// To find gap between elements
 	function getNextGap(gap: number) {
-		return gap == 1 ? gap : Math.floor(gap / decrease_factor)
+		return gap === 1 ? gap : Math.floor(gap / decrease_factor)
 	}
 
 	async function combSort(sortingArray: SortingRect[]) {
@@ -29,7 +29,7 @@ export async function startCombSort(
 
 		// Keep running while gap is more than
 		// 1 and last iteration caused a swap
-		while (gap != 1 || swapped == true) {
+		while (gap !== 1 || swapped === true) {
 			if (store.stopExecution) return
 
 			gap = getNextGap(gap)

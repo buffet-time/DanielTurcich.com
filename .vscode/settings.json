@@ -1,22 +1,35 @@
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
+	"editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": false,
+  "files.eol": "\n",
+  "search.exclude": {
+    "**/.github": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**acronymWords.json": true,
+    "pnpm-lock.yaml": true,
+    "LICENSE": true,
+    "README.md": true
+  },
+	"[svg]": {
+		"editor.defaultFormatter": "jock.svg"
 	},
-	"eslint.validate": ["javascript", "vue"],
-	"volar.takeOverMode.enabled": "auto",
-	"editor.tabSize": 2,
-	"editor.insertSpaces": false,
-	"files.eol": "\n",
-	"search.exclude": {
-		"**/.github": true,
-		"**/dist": true,
-		"**/node_modules": true,
-		"**acronymWords.json": true,
-		"pnpm-lock.yaml": true,
-		"LICENSE": true,
-		"README.md": true
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"volar.inlayHints.eventArgumentInInlineHandlers": false
+	"[vue]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

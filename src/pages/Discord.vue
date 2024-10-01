@@ -8,7 +8,7 @@ const discordText = ref('')
 
 function discordButtonPressed() {
 	const maxLength = nitro.value ? 4000 : 2000
-	const input = discordInput.value.trim() + ' '
+	const input = `${discordInput.value.trim()} `
 
 	discordText.value = ''
 	if (discordInput.value.length < maxLength) {

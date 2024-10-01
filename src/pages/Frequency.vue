@@ -8,12 +8,12 @@ import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../shared'
 const generators = reactive<Generator[]>([
 	{
 		id: 0,
-		generatorType: 'Frequency'
+		generatorType: 'Frequency',
 	},
 	{
 		id: 1,
-		generatorType: 'Note'
-	}
+		generatorType: 'Note',
+	},
 ])
 
 const generatorModal = ref<HTMLDialogElement>()
@@ -30,7 +30,7 @@ onMounted(async () => {
 function addGenerator(type: GeneratorType) {
 	generators.push({
 		id: generators.length > 0 ? generators[generators.length - 1].id + 1 : 0,
-		generatorType: type
+		generatorType: type,
 	})
 	generatorModal.value?.close()
 }

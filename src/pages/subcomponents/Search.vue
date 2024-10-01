@@ -5,7 +5,7 @@ import {
 	type MusicSearchProps,
 	Release,
 	type SearchType,
-	ReleaseType
+	ReleaseType,
 } from '#types'
 import MusicRelease from './MusicRelease.vue'
 
@@ -16,7 +16,7 @@ const Router = useRouter()
 const Route = useRoute()
 
 const massagedReleaseType = Object.keys(ReleaseType).filter((current) =>
-	Number.isNaN(Number(current))
+	Number.isNaN(Number(current)),
 )
 
 // TODO:
@@ -52,8 +52,8 @@ watch(searchType, async () => {
 		query: {
 			tab: 'Search',
 			term: searchInput.value,
-			type: Release[searchType.value]
-		}
+			type: Release[searchType.value],
+		},
 	})
 })
 
@@ -86,7 +86,7 @@ onMounted(() => {
 					clearInterval(interval)
 				}
 			},
-			250
+			250,
 		)
 	} else if (Route.query.type) {
 		searchType.value = Release[Route.query.type as SearchType]
@@ -126,8 +126,8 @@ async function searchButtonPressed() {
 		query: {
 			tab: 'Search',
 			term: searchInput.value,
-			type: Release[searchType.value]
-		}
+			type: Release[searchType.value],
+		},
 	})
 }
 
@@ -144,7 +144,7 @@ function sortReleases() {
 		releasesToShow.value.sort(
 			(previous, current) =>
 				// @ts-expect-error - this is valid js.
-				current[filterBy.value] - previous[filterBy.value]
+				current[filterBy.value] - previous[filterBy.value],
 		)
 		return
 	}
@@ -152,7 +152,7 @@ function sortReleases() {
 	releasesToShow.value.sort(
 		(previous, current) =>
 			// @ts-expect-error - this is valid js.
-			previous[filterBy.value] - current[filterBy.value]
+			previous[filterBy.value] - current[filterBy.value],
 	)
 }
 </script>

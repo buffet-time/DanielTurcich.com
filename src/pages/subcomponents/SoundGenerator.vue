@@ -31,7 +31,20 @@ let noteIndex = 9
 const twelthRoot = 2 ** (1 / 12)
 const fixedNote = 440 // Standard tuning frequency of A4 for 12 tone equal temperment
 // prettier-ignore
-const notes: Note[] = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B']
+const notes: Note[] = [
+	'C',
+	'D♭',
+	'D',
+	'E♭',
+	'E',
+	'F',
+	'G♭',
+	'G',
+	'A♭',
+	'A',
+	'B♭',
+	'B',
+]
 
 if (generator.generatorType === 'Frequency') {
 	watch(frequency, () => {
@@ -41,7 +54,7 @@ if (generator.generatorType === 'Frequency') {
 
 		oscillator.frequency.setValueAtTime(
 			frequency.value,
-			audioContext.currentTime
+			audioContext.currentTime,
 		)
 	})
 }
@@ -111,7 +124,7 @@ function startStopButton() {
 }
 
 function toPercent(value: number) {
-	return parseFloat((value * 2 * 100).toFixed(1))
+	return Number.parseFloat((value * 2 * 100).toFixed(1))
 }
 
 function initializeContext() {
@@ -120,12 +133,12 @@ function initializeContext() {
 	audioContext = new AudioContext()
 
 	gainNode = new GainNode(audioContext, {
-		gain: volume.value
+		gain: volume.value,
 	})
 
 	oscillator = new OscillatorNode(audioContext, {
 		type: oscillatorType.value,
-		frequency: frequency.value
+		frequency: frequency.value,
 	})
 
 	oscillator.start()
@@ -157,9 +170,9 @@ function incrementNote(increment: 'Up' | 'Down') {
 }
 
 function updateNoteFrequency() {
-	frequency.value = parseFloat(
+	frequency.value = Number.parseFloat(
 		// From here: https://pages.mtu.edu/~suits/NoteFreqCalcs.html
-		(fixedNote * twelthRoot ** noteOffset.value).toFixed(4)
+		(fixedNote * twelthRoot ** noteOffset.value).toFixed(4),
 	)
 	oscillator.frequency.setValueAtTime(frequency.value, audioContext.currentTime)
 }

@@ -4,13 +4,13 @@ import { useStopExecution } from '#stores/sorting'
 export async function startMergeSort(
 	sortingArray: SortingRect[],
 	eraseRectangleByObject: (rect: SortingRect) => void,
-	redrawRectangle: (index: number) => Promise<void>
+	redrawRectangle: (index: number) => Promise<void>,
 ): Promise<void> {
 	// Less efficient and slightly modified to handle drawing properly
 	const store = useStopExecution()
 
 	async function mergeSort(
-		sortingArray: SortingRect[]
+		sortingArray: SortingRect[],
 	): Promise<SortingRect[]> {
 		// TODO: this doesn't work!
 		if (store.stopExecution) {
@@ -24,13 +24,13 @@ export async function startMergeSort(
 
 		return merge(
 			await mergeSort(sortingArray.slice(0, middle)),
-			await mergeSort(sortingArray.slice(middle))
+			await mergeSort(sortingArray.slice(middle)),
 		)
 	}
 
 	async function merge(
 		left: SortingRect[],
-		right: SortingRect[]
+		right: SortingRect[],
 	): Promise<SortingRect[]> {
 		const resultSortingArray: SortingRect[] = []
 		let leftIndex = 0
@@ -51,7 +51,7 @@ export async function startMergeSort(
 		const combinedArray = [
 			...resultSortingArray,
 			...left.slice(leftIndex),
-			...right.slice(rightIndex)
+			...right.slice(rightIndex),
 		]
 
 		// get all the x values of the current array and sort them and then set the merged contents above.
@@ -71,14 +71,15 @@ export async function startMergeSort(
 		const indexArray: number[] = []
 		const xValues = combinedArray.map((rect) => rect.height)
 
+		// biome-ignore lint/complexity/noForEach: <explanation>
 		xValues.forEach((xValue) =>
 			indexArray.push(
 				sortingArray.findIndex(
 					(rect) =>
 						rect.height ===
-						combinedArray[xValues.findIndex((x) => x === xValue)].height
-				)
-			)
+						combinedArray[xValues.findIndex((x) => x === xValue)].height,
+				),
+			),
 		)
 
 		// drawing of the rectangles
