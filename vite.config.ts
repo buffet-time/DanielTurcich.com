@@ -7,10 +7,6 @@ import { minify } from 'rollup-plugin-swc-minify'
 
 // Gzip importing
 import gzipPlugin from 'rollup-plugin-gzip'
-import { promisify } from 'node:util'
-import { brotliCompress } from 'node:zlib'
-
-const brotliPromise = promisify(brotliCompress)
 
 export default defineConfig({
 	build: {
@@ -27,10 +23,7 @@ export default defineConfig({
 
 	plugins: [
 		vue(), // Testing to see if this ends up delivering Brotli compression
-		gzipPlugin({
-			customCompression: (content) => brotliPromise(Buffer.from(content)),
-			fileName: '.br',
-		}),
+		gzipPlugin(),
 	],
 	resolve: {
 		alias: {
