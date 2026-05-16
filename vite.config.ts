@@ -14,7 +14,6 @@ export default defineConfig({
 		target: 'es2021',
 
 		rollupOptions: {
-			maxParallelFileOps: 512,
 			plugins: [minify()],
 		},
 

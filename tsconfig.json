@@ -1,11 +1,9 @@
 {
 	"compilerOptions": {
-		"target": "ES2021", // keep your browser updated :)
-		"module": "esnext",
-		"moduleResolution": "node",
+		"target": "ES2024", // keep your browser updated :)
 		"jsx": "preserve", // Needed for Volar to work properly.
+		"types": ["*"],
 
-		"strict": true,
 		"pretty": true,
 		"sourceMap": true,
 		"skipLibCheck": true,
@@ -22,6 +20,7 @@
 		"noUnusedParameters": true,
 		"allowUnreachableCode": false,
 		"allowSyntheticDefaultImports": true,
+		"allowImportingTsExtensions": true,
 
 		"paths": {
 			"#root/*": ["./*"],
@@ -29,8 +28,6 @@
 			"#assets/*": ["./src/assets/*"],
 			"#stores/*": ["./src/stores/*"]
 		},
-
-		"baseUrl": ".",
 		"lib": ["esnext", "dom"]
 	}
 }
