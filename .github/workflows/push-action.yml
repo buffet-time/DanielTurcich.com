@@ -10,12 +10,12 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout
+      - uses: actions/checkout@v6
 
       # setups pnpm
-      - uses: pnpm/action-setup
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node
+      - uses: actions/setup-node@v6
         with:
           node-version: 26
 
