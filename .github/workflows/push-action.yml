@@ -10,14 +10,14 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout
 
       # setups pnpm
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node
         with:
-          node-version: 22
+          node-version: 26
 
       - name: Install `node_modules`
         run: pnpm install
