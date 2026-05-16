@@ -31,9 +31,7 @@ export async function ProperFetch(
 }
 
 // Imports the dialog polyfill dynamically if its needed
-export async function DynamicImportDialogPolyfill(
-	dialogArray: HTMLDialogElement[],
-): Promise<void> {
+export async function DynamicImportDialogPolyfill(dialogArray: HTMLDialogElement[]): Promise<void> {
 	if (typeof HTMLDialogElement !== 'function') {
 		try {
 			// adds the folllowing to the head of the document

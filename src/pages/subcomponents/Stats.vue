@@ -35,9 +35,7 @@ defineProps<{
 				</tr>
 
 				<tr v-for="(item, index) in stats.releasesPerYear" :key="index">
-					<th v-if="index > 0">
-						Releases in the {{ `${1950 + index * 10}s` }}
-					</th>
+					<th v-if="index > 0">Releases in the {{ `${1950 + index * 10}s` }}</th>
 					<th v-else>Releases before 1960</th>
 					<td>
 						{{ item }}

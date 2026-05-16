@@ -21,25 +21,9 @@ export type SortingAlgorithm =
 	| 'Bogo'
 	| 'Comb'
 
-export type GeneratorOscillatorType =
-	| 'sawtooth'
-	| 'sine'
-	| 'square'
-	| 'triangle'
+export type GeneratorOscillatorType = 'sawtooth' | 'sine' | 'square' | 'triangle'
 
-export type Note =
-	| 'C'
-	| 'D♭'
-	| 'D'
-	| 'E♭'
-	| 'E'
-	| 'F'
-	| 'G♭'
-	| 'G'
-	| 'A♭'
-	| 'A'
-	| 'B♭'
-	| 'B'
+export type Note = 'C' | 'D♭' | 'D' | 'E♭' | 'E' | 'F' | 'G♭' | 'G' | 'A♭' | 'A' | 'B♭' | 'B'
 
 export type GeneratorType = 'Frequency' | 'Note'
 
@@ -106,15 +90,6 @@ export enum ReleasesIn {
 	'2000s' = 5,
 	'2010s' = 6,
 	'2020s' = 7,
-}
-
-// Wrapped in query for router.replace()
-export interface MusicPageQueries {
-	query: {
-		tab: Tab
-		type?: SearchType
-		term?: string
-	}
 }
 
 export interface ArticleLink {

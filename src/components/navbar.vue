@@ -53,12 +53,7 @@ onMounted(() => {
 	const target2 = document.querySelector('#socialModal')!
 
 	document.addEventListener('click', (event) => {
-		if (
-			!(
-				event.composedPath().includes(target1) ||
-				event.composedPath().includes(target2)
-			)
-		) {
+		if (!(event.composedPath().includes(target1) || event.composedPath().includes(target2))) {
 			socialLinksInput.value = false
 			websiteNavigationInput.value = false
 		}
@@ -81,9 +76,7 @@ async function routeChange(route: string) {
 					type="checkbox"
 				/>
 
-				<label for="website-navigation" class="toggle-label">
-					Website Navigation
-				</label>
+				<label for="website-navigation" class="toggle-label"> Website Navigation </label>
 
 				<div class="collapsible-content ml-[-42px]">
 					<div ref="webNavModal" class="tw-card p-4 mt-4">
@@ -103,12 +96,7 @@ async function routeChange(route: string) {
 			</div>
 
 			<div class="wrap-collabsible text-center">
-				<input
-					id="social-links"
-					v-model="socialLinksInput"
-					class="toggle"
-					type="checkbox"
-				/>
+				<input id="social-links" v-model="socialLinksInput" class="toggle" type="checkbox" />
 
 				<label for="social-links" class="toggle-label">Social Links</label>
 

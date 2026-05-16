@@ -44,22 +44,15 @@ function acronymButtonPressed() {
 function getWordsFromProvidedAcronym(acronym: string) {
 	const massagedAcronym = acronym.toLowerCase().split('')
 
-	return massagedAcronym.reduce(
-		(previousValue: string, currentLetter: string) => {
-			const randomIndex = Math.floor(
-				Math.random() * words[currentLetter].length,
-			)
-			return `${previousValue} ${words[currentLetter][randomIndex]}`
-		},
-		'',
-	)
+	return massagedAcronym.reduce((previousValue: string, currentLetter: string) => {
+		const randomIndex = Math.floor(Math.random() * words[currentLetter].length)
+		return `${previousValue} ${words[currentLetter][randomIndex]}`
+	}, '')
 }
 
 onMounted(async () => {
 	try {
-		const { default: acronymWords } = await import(
-			'../assets/acronymWords.json'
-		)
+		const { default: acronymWords } = await import('../assets/acronymWords.json')
 		words = acronymWords
 	} catch (error) {
 		console.error(`You need to update your browser. ${String(error)}`)
@@ -78,16 +71,12 @@ onMounted(async () => {
 				placeholder="Type a word here"
 				@keyup.enter="acronymButtonPressed"
 			/>
-			<button class="tw-button w-24" @click="acronymButtonPressed">
-				Generate
-			</button>
+			<button class="tw-button w-24" @click="acronymButtonPressed">Generate</button>
 		</div>
 
 		<div class="tw-flex-col-center gap-4">
 			<div class="capitalize">{{ textToDisplay }}</div>
-			<button v-if="showButton" class="tw-button w-24" @click="copyAcronym">
-				Copy
-			</button>
+			<button v-if="showButton" class="tw-button w-24" @click="copyAcronym">Copy</button>
 		</div>
 	</div>
 </template>

@@ -1,23 +1,22 @@
 {
 	"name": "danielturcich.com",
-	"description": "My website, a bio and portfolio site.",
 	"version": "1.0.0",
-	"type": "module",
 	"private": true,
+	"description": "My website, a bio and portfolio site.",
 	"author": {
-		"email": "packageJson@danielTurcich.com",
 		"name": "Daniel Turcich",
+		"email": "packageJson@danielTurcich.com",
 		"url": "https://danielTurcich.com"
 	},
-	"packageManager": "pnpm@9.11.0",
+	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"dev:network": "vite --host",
 		"build": "vite build --emptyOutDir && pnpm generate:404 && pnpm add:cname",
-		"lint-fix": "biome lint --write",
-		"lint-check": "biome lint",
-		"format-fix": "biome format --write",
-		"format-check": "biome format",
+		"lint-fix": "oxlint",
+		"lint-check": "oxlint --check",
+		"format-fix": "oxfmt",
+		"format-check": "oxfmt --check",
 		"type-check": "vue-tsc --noEmit",
 		"checks": "pnpm lint-check && pnpm format-check && pnpm type-check",
 		"preview": "vite preview",
@@ -27,24 +26,31 @@
 	},
 	"dependencies": {
 		"dialog-polyfill": "^0.5.6",
-		"pinia": "^2.2.2",
-		"vue": "^3.5.8",
-		"vue-router": "^4.4.5"
+		"pinia": "^2.3.1",
+		"vue": "^3.5.34",
+		"vue-router": "^4.6.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.2",
 		"@types/lodash.debounce": "^4.0.9",
-		"@types/node": "^22.7.0",
-		"@vitejs/plugin-vue": "^5.1.4",
-		"autoprefixer": "^10.4.20",
-		"globals": "^15.9.0",
-		"husky": "^9.1.6",
-		"postcss": "^8.4.47",
-		"rollup-plugin-gzip": "^4.0.1",
-		"rollup-plugin-swc-minify": "^1.1.2",
-		"tailwindcss": "^3.4.13",
-		"typescript": "^5.6.2",
-		"vite": "^5.4.7",
-		"vue-tsc": "^2.1.6"
-	}
+		"@types/node": "^25.8.0",
+		"@vitejs/plugin-vue": "^6.0.7",
+		"autoprefixer": "^10.5.0",
+		"globals": "^17.6.0",
+		"husky": "^9.1.7",
+		"oxfmt": "^0.49.0",
+		"oxlint": "^1.64.0",
+		"postcss": "^8.5.14",
+		"rollup-plugin-gzip": "^4.2.0",
+		"rollup-plugin-swc-minify": "^1.3.0",
+		"tailwindcss": "^3.4.19",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.13",
+		"vue-tsc": "^3.2.9"
+	},
+	"engines": {
+		"node": "^26.1.0",
+		"pnpm": "^11.1.2"
+	},
+	"engineStrict": true,
+	"packageManager": "pnpm@11.1.2"
 }

@@ -41,8 +41,7 @@ function generatePassword() {
 	})
 
 	for (let i = 0; i < passwordLength.value; i++) {
-		password.value +=
-			passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)]
+		password.value += passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)]
 	}
 
 	textToShow.value = password.value
@@ -70,11 +69,7 @@ async function copyPassword() {
 
 		<div class="flex flex-col items-center justify-center">
 			<div v-for="(toggle, index) in PasswordToggles" :key="index" class="pl-6">
-				<input
-					v-model="toggle.exclude"
-					class="rounded w-4 h-4 bg-white"
-					type="checkbox"
-				/>
+				<input v-model="toggle.exclude" class="rounded w-4 h-4 bg-white" type="checkbox" />
 				{{ toggle.label }}
 			</div>
 		</div>
@@ -83,12 +78,6 @@ async function copyPassword() {
 
 	<div class="m-4">
 		<div class="mb-4">{{ textToShow }}</div>
-		<button
-			v-show="password.length > 0"
-			class="tw-button"
-			@click="copyPassword"
-		>
-			Copy
-		</button>
+		<button v-show="password.length > 0" class="tw-button" @click="copyPassword">Copy</button>
 	</div>
 </template>

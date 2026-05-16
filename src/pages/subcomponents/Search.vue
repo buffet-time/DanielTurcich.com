@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
-import { onMounted, ref, watch } from 'vue'
-import {
-	type MusicSearchProps,
-	Release,
-	type SearchType,
-	ReleaseType,
-} from '#types'
+import { ref, watch } from 'vue'
+import { type MusicSearchProps, Release, ReleaseType } from '#types'
 import MusicRelease from './MusicRelease.vue'
 
 const { search } = defineProps<{
 	search: MusicSearchProps
 }>()
-const Router = useRouter()
-const Route = useRoute()
 
 const massagedReleaseType = Object.keys(ReleaseType).filter((current) =>
 	Number.isNaN(Number(current)),
@@ -47,14 +39,6 @@ watch(searchType, async () => {
 		default:
 			searchInput.value = ''
 	}
-
-	await Router.replace({
-		query: {
-			tab: 'Search',
-			term: searchInput.value,
-			type: Release[searchType.value],
-		},
-	})
 })
 
 watch(filterBy, () => {
@@ -73,25 +57,6 @@ watch(filterBy, () => {
 })
 
 watch(ascending, () => sortReleases())
-
-onMounted(() => {
-	// TODO bug in setting this not searching on load
-	if (Route.query.term) {
-		searchInput.value = Route.query.term as string
-		searchType.value = Release[Route.query.type as SearchType]
-		const interval = setInterval(
-			() => async () => {
-				if (!search.initializing) {
-					await searchButtonPressed()
-					clearInterval(interval)
-				}
-			},
-			250,
-		)
-	} else if (Route.query.type) {
-		searchType.value = Release[Route.query.type as SearchType]
-	}
-})
 
 async function searchButtonPressed() {
 	showReleasesDiv.value = false
@@ -121,14 +86,6 @@ async function searchButtonPressed() {
 	} else {
 		showNoResults.value = true
 	}
-
-	await Router.replace({
-		query: {
-			tab: 'Search',
-			term: searchInput.value,
-			type: Release[searchType.value],
-		},
-	})
 }
 
 function getRelasesFromSearch(index: Release, equals: boolean) {
@@ -208,11 +165,7 @@ function sortReleases() {
 
 			<div v-else-if="searchType === Release.type">
 				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64">
-					<option
-						v-for="(type, index) in massagedReleaseType"
-						:key="index"
-						:value="type"
-					>
+					<option v-for="(type, index) in massagedReleaseType" :key="index" :value="type">
 						{{ type }}
 					</option>
 				</select>
@@ -250,16 +203,8 @@ function sortReleases() {
 			</button>
 		</div>
 
-		<div
-			v-if="showReleasesDiv"
-			ref="releases"
-			class="m-2 mt-4 mb-2 flex flex-wrap justify-center"
-		>
-			<MusicRelease
-				v-for="(release, index) in releasesToShow"
-				:key="index"
-				:release="release"
-			/>
+		<div v-if="showReleasesDiv" ref="releases" class="m-2 mt-4 mb-2 flex flex-wrap justify-center">
+			<MusicRelease v-for="(release, index) in releasesToShow" :key="index" :release="release" />
 		</div>
 
 		<div v-if="showNoResults">No results from your search.</div>

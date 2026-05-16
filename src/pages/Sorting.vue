@@ -150,10 +150,7 @@ function intializeAudio() {
 }
 
 function beep(frequency: number) {
-	oscillator.value?.frequency.setValueAtTime(
-		frequency,
-		audioContext.currentTime,
-	)
+	oscillator.value?.frequency.setValueAtTime(frequency, audioContext.currentTime)
 }
 
 function audioForRandomizing() {
@@ -173,9 +170,7 @@ function startSort() {
 	<div class="flex h-[calc(100vh_-_64px)]">
 		<div class="flex flex-col justify-center items-center gap-2 w-72">
 			<div class="flex flex-col">
-				<div class="p-4">
-					Currently a few bugs, refactoring and updating this right now :)
-				</div>
+				<div class="p-4">Currently a few bugs, refactoring and updating this right now :)</div>
 
 				<div>
 					Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
@@ -235,18 +230,12 @@ function startSort() {
 				</div>
 
 				<select v-model="sortingMethod" class="tw-music-select h-12">
-					<option
-						v-for="(algorithm, index) in sorts"
-						:key="index"
-						:value="algorithm"
-					>
+					<option v-for="(algorithm, index) in sorts" :key="index" :value="algorithm">
 						{{ algorithm }}
 					</option>
 				</select>
 
-				<button class="tw-button h-[50px] w-[130px] p-0" @click="startSort">
-					Start sort
-				</button>
+				<button class="tw-button h-[50px] w-[130px] p-0" @click="startSort">Start sort</button>
 			</div>
 		</div>
 
@@ -263,7 +252,7 @@ function startSort() {
 				randomizeArray: randomizeArray,
 				oscillator: oscillator!,
 				numberOfRectangles: numberOfRectangles,
-				sortingMethod: sortingMethod
+				sortingMethod: sortingMethod,
 			}"
 			:start-sorting-method="startSortingMethod"
 			@sorting-method-started-bools="sortingMethodStartedBools"

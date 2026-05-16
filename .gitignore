@@ -1,3 +1,6 @@
+# folders to ignore
 node_modules
-.pnpm-debug.log
 dist
+
+# pnpm
+.pnpm-debug.log

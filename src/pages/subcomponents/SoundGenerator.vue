@@ -52,10 +52,7 @@ if (generator.generatorType === 'Frequency') {
 			initializeContext()
 		}
 
-		oscillator.frequency.setValueAtTime(
-			frequency.value,
-			audioContext.currentTime,
-		)
+		oscillator.frequency.setValueAtTime(frequency.value, audioContext.currentTime)
 	})
 }
 

@@ -56,9 +56,7 @@ async function copy() {
 
 		<div>
 			<div class="m-4">{{ discordText }}</div>
-			<button v-show="discordText.length > 0" class="tw-button" @click="copy">
-				Copy
-			</button>
+			<button v-show="discordText.length > 0" class="tw-button" @click="copy">Copy</button>
 		</div>
 	</div>
 </template>

@@ -9,9 +9,7 @@ export async function startMergeSort(
 	// Less efficient and slightly modified to handle drawing properly
 	const store = useStopExecution()
 
-	async function mergeSort(
-		sortingArray: SortingRect[],
-	): Promise<SortingRect[]> {
+	async function mergeSort(sortingArray: SortingRect[]): Promise<SortingRect[]> {
 		// TODO: this doesn't work!
 		if (store.stopExecution) {
 			return []
@@ -28,10 +26,7 @@ export async function startMergeSort(
 		)
 	}
 
-	async function merge(
-		left: SortingRect[],
-		right: SortingRect[],
-	): Promise<SortingRect[]> {
+	async function merge(left: SortingRect[], right: SortingRect[]): Promise<SortingRect[]> {
 		const resultSortingArray: SortingRect[] = []
 		let leftIndex = 0
 		let rightIndex = 0
@@ -75,9 +70,7 @@ export async function startMergeSort(
 		xValues.forEach((xValue) =>
 			indexArray.push(
 				sortingArray.findIndex(
-					(rect) =>
-						rect.height ===
-						combinedArray[xValues.findIndex((x) => x === xValue)].height,
+					(rect) => rect.height === combinedArray[xValues.findIndex((x) => x === xValue)].height,
 				),
 			),
 		)
