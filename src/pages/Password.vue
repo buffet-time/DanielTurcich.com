@@ -33,7 +33,6 @@ function generatePassword() {
 	password.value = ''
 	let passwordCharacters = ''
 
-	// biome-ignore lint/complexity/noForEach: <explanation>
 	Object.entries(PasswordToggles).forEach(([_key, toggle]) => {
 		if (!toggle.exclude) {
 			passwordCharacters += toggle.characters

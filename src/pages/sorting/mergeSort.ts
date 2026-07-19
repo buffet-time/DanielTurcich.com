@@ -66,7 +66,6 @@ export async function startMergeSort(
 		const indexArray: number[] = []
 		const xValues = combinedArray.map((rect) => rect.height)
 
-		// biome-ignore lint/complexity/noForEach: <explanation>
 		xValues.forEach((xValue) =>
 			indexArray.push(
 				sortingArray.findIndex(

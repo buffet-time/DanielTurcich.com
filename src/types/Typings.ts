@@ -92,11 +92,6 @@ export enum ReleasesIn {
 	'2020s' = 7,
 }
 
-export interface ArticleLink {
-	url: string
-	text: string
-}
-
 export interface MusicSearchProps {
 	currentYear: number
 	earliestYear: number

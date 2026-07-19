@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import router, { resume } from '../router'
-import type { RouteRecordNormalized } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import type { NavLink } from '#types'
 
 const websiteNavigationInput = ref(false)
 const socialLinksInput = ref(false)
 
-// public
 const links: NavLink[] = [
 	{
 		buttonText: 'Github',
@@ -41,15 +39,10 @@ const links: NavLink[] = [
 	},
 ]
 
-const routes: RouteRecordNormalized[] = router
-	.getRoutes()
-	.filter((route) => route.meta.buttonName !== undefined)
+const routes = router.getRoutes().filter((route) => route.meta.buttonName !== undefined)
 
 onMounted(() => {
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	const target1 = document.querySelector('#webNavModal')!
-
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	const target2 = document.querySelector('#socialModal')!
 
 	document.addEventListener('click', (event) => {

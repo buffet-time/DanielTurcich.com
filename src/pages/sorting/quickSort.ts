@@ -28,17 +28,13 @@ export async function startQuickSort(
 			if (store.stopExecution) return 0
 
 			// increment up until find a height to the left larger than the pivot
-			// biome-ignore lint:
 			while (sortingArray[left].height < pivot.height) left++
 
 			// increment up until  find a height to the right smaller than the pivot
-			// biome-ignore lint:
 			while (sortingArray[right].height > pivot.height) right--
 
 			if (left <= right) await redrawRectangles(left, right)
-			// biome-ignore lint:
 			left++
-			// biome-ignore lint:
 			right--
 		}
 		return left

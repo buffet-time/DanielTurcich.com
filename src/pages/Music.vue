@@ -5,7 +5,6 @@ import Stats from './subcomponents/Stats.vue'
 import type { StatsObject, Tab } from '#types'
 import { ProperFetch } from '../shared'
 
-// public variables
 const initializing = ref(true)
 const releasesArray = ref([['']])
 const currentActiveTab = ref<Tab>('Search')

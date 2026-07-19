@@ -11,7 +11,6 @@ const { generator } = defineProps<{
 	generator: Generator
 }>()
 
-// Public Refs
 const volume = ref(0.07)
 const frequency = ref(440)
 const oscillatorType = ref<GeneratorOscillatorType>('sine')

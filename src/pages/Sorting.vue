@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SortingAlgorithm } from '#types'
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import SortingVisualization from './sorting/SortingVisualization.vue'
 import { useStopExecution } from '#stores/sorting'
 
@@ -164,6 +164,10 @@ function startSort() {
 		startSortingMethod.value = true
 	}
 }
+
+onUnmounted(() => {
+	stop()
+})
 </script>
 
 <template>
@@ -171,6 +175,7 @@ function startSort() {
 		<div class="flex flex-col justify-center items-center gap-2 w-72">
 			<div class="flex flex-col">
 				<div class="p-4">Currently a few bugs, refactoring and updating this right now :)</div>
+				<p class="mb-4">The text above, is incorrect. They weren't being truthful. Maybe one day tho!</p>
 
 				<div>
 					Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%

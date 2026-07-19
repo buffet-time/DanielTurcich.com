@@ -96,8 +96,6 @@ onMounted(async () => {
 	Canvas = document.getElementById('canvas') as HTMLCanvasElement
 	Canvas.setAttribute('height', String(window.innerHeight - 64))
 	Canvas.setAttribute('width', String(window.innerWidth - 300))
-
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	Context2d = Canvas.getContext('2d')!
 	fixDpi()
 	Context2d.fillStyle = '#0F0'
