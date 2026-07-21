@@ -13,10 +13,12 @@
 		"LICENSE": true,
 		"README.md": true
 	},
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
 	"[svg]": {
 		"editor.defaultFormatter": "jock.svg"
 	},
-	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"[typescript]": {
 		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},

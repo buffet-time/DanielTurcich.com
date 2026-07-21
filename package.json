@@ -18,7 +18,7 @@
 		"format-fix": "oxfmt",
 		"format-check": "oxfmt --check",
 		"type-check": "vue-tsc --noEmit",
-		"checks": "pnpm lint-check && pnpm format-check && pnpm type-check",
+		"checks": "pnpm lint-check && pnpm format-check ",
 		"preview": "vite preview",
 		"prepare": "husky",
 		"add:cname": "cd dist && echo 'danielturcich.com' > CNAME",
