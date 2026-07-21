@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-// Public
 const acronymInput = ref('')
 const showButton = ref(false)
 const textToDisplay = ref('')
 
-// Private
 let words: Record<string, string[]>
 let acronymText = ''
 

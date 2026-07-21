@@ -50,7 +50,7 @@ function addGenerator(type: GeneratorType) {
 
 		<div class="flex justify-center">
 			<svg
-				class="w-[50px] cursor-pointer tw-button fill-white bg-neutral-500 mt-4 rounded-xl p-[2px]"
+				class="w-12.5 cursor-pointer tw-button fill-white bg-neutral-500 mt-4 rounded-xl p-0.5"
 				viewBox="0 0 20 20"
 				@click="generatorModal?.showModal()"
 			>
@@ -59,7 +59,7 @@ function addGenerator(type: GeneratorType) {
 		</div>
 	</div>
 
-	<dialog ref="generatorModal" class="bg-transparent">
+	<dialog ref="generatorModal" class="bg-transparent raw-css">
 		<div id="generatorModal" class="text-neutral-300 bg-[#383838] w-72">
 			<div class="flex justify-between p-4 border-b border-solid border-[#dee2e6]">
 				<h5>Add a new generator</h5>

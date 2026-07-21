@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import router, { resume } from '../router'
-import type { RouteRecordNormalized } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { NavLink } from '#types'
 
-const websiteNavigationInput = ref(false)
-const socialLinksInput = ref(false)
+const websiteNavigationOpen = ref(false)
+const socialLinksOpen = ref(false)
 
-// public
 const links: NavLink[] = [
 	{
 		buttonText: 'Github',
@@ -41,24 +39,21 @@ const links: NavLink[] = [
 	},
 ]
 
-const routes: RouteRecordNormalized[] = router
-	.getRoutes()
-	.filter((route) => route.meta.buttonName !== undefined)
+const routes = router.getRoutes().filter((route) => route.meta.buttonName !== undefined)
 
-onMounted(() => {
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
-	const target1 = document.querySelector('#webNavModal')!
+function handleWebsiteNavigationOpen(event: Event) {
+	event.stopPropagation()
+	websiteNavigationOpen.value = !websiteNavigationOpen.value
+	socialLinksOpen.value = false
+	document.addEventListener('click', () => (websiteNavigationOpen.value = false))
+}
 
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
-	const target2 = document.querySelector('#socialModal')!
-
-	document.addEventListener('click', (event) => {
-		if (!(event.composedPath().includes(target1) || event.composedPath().includes(target2))) {
-			socialLinksInput.value = false
-			websiteNavigationInput.value = false
-		}
-	})
-})
+function handleSocialLinksOpen(event: Event) {
+	event.stopPropagation()
+	socialLinksOpen.value = !socialLinksOpen.value
+	websiteNavigationOpen.value = false
+	document.addEventListener('click', () => (socialLinksOpen.value = false))
+}
 
 async function routeChange(route: string) {
 	await router.push(route)
@@ -66,62 +61,59 @@ async function routeChange(route: string) {
 </script>
 
 <template>
-	<div class="bg-[#388e3c] h-16 sticky top-0">
-		<div class="h-16 w-[100%] tw-flex-center gap-4">
-			<div class="wrap-collabsible">
-				<input
-					id="website-navigation"
-					v-model="websiteNavigationInput"
-					class="toggle"
-					type="checkbox"
-				/>
+	<div class="bg-[#388e3c] h-16 sticky top-0 w-full tw-flex-center gap-2">
+		<div class="wrap-collabsible h-full text-center">
+			<button class="cursor-pointer text-center h-full px-2" @click="handleWebsiteNavigationOpen">
+				Website Navigation
+			</button>
+		</div>
 
-				<label for="website-navigation" class="toggle-label"> Website Navigation </label>
+		<div class="wrap-collabsible h-full text-center">
+			<button class="cursor-pointer text-center h-full px-2" @click="handleSocialLinksOpen">
+				Social Links
+			</button>
+		</div>
+	</div>
 
-				<div class="collapsible-content ml-[-42px]">
-					<div ref="webNavModal" class="tw-card p-4 mt-4">
-						<button
-							v-for="(route, index) in routes"
-							:key="index"
-							class="flex flex-col tw-nav-card"
-							:disabled="router.currentRoute.value.name === route.name"
-							@click="routeChange(route.path)"
-						>
-							<div class="w-[230px] p-4">
-								{{ route.meta.buttonName }}
-							</div>
-						</button>
-					</div>
+	<div v-if="websiteNavigationOpen || socialLinksOpen" class="w-full h-full fixed">
+		<div
+			v-if="websiteNavigationOpen"
+			ref="webNavModal"
+			class="tw-card p-4 mt-0 ml-auto mr-auto w-fit"
+		>
+			<button
+				v-for="(route, index) in routes"
+				:key="index"
+				class="flex flex-col tw-nav-card"
+				:class="{ hidden: router.currentRoute.value.name === route.name }"
+				:disabled="router.currentRoute.value.name === route.name"
+				@click="routeChange(route.path)"
+			>
+				<div class="w-57.5 p-4">
+					{{ route.meta.buttonName }}
 				</div>
-			</div>
+			</button>
+		</div>
 
-			<div class="wrap-collabsible text-center">
-				<input id="social-links" v-model="socialLinksInput" class="toggle" type="checkbox" />
-
-				<label for="social-links" class="toggle-label">Social Links</label>
-
-				<div class="collapsible-content ml-[-194px]">
-					<div id="collapsible2" ref="socialModal" class="tw-card p-4 mt-4">
-						<a
-							v-for="(navLink, index) in links"
-							:key="index"
-							:href="navLink.link"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<div class="tw-nav-card w-[230px] p-4 select-none">
-								<img
-									class="ml-2 float-left h-8 w-8"
-									:src="navLink.src"
-									:alt="navLink.alt"
-									loading="lazy"
-								/>
-								<div class="text-lg">{{ navLink.buttonText }}</div>
-							</div>
-						</a>
-					</div>
+		<div v-if="socialLinksOpen" ref="socialModal" class="tw-card mt-0 p-4 ml-auto mr-auto w-fit">
+			<a
+				v-for="(navLink, index) in links"
+				:key="index"
+				:href="navLink.link"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="hover:bg-neutral-200"
+			>
+				<div class="tw-nav-card w-57.5 p-4 select-none">
+					<img
+						class="ml-2 float-left h-8 w-8"
+						:src="navLink.src"
+						:alt="navLink.alt"
+						loading="lazy"
+					/>
+					<div class="text-lg">{{ navLink.buttonText }}</div>
 				</div>
-			</div>
+			</a>
 		</div>
 	</div>
 </template>
@@ -133,13 +125,6 @@ input[type='checkbox'] {
 .toggle-label {
 	cursor: pointer;
 	user-select: none;
-}
-.collapsible-content {
-	position: absolute;
-	top: 4rem;
-	max-height: 0px;
-	overflow: hidden;
-	transition: max-height 0.25s ease-in-out;
 }
 .toggle:checked + .toggle-label + .collapsible-content {
 	max-height: 100vh;

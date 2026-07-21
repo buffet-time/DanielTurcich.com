@@ -31,7 +31,7 @@ async function copyReviews() {
 		class="tw-card bg-neutral-500 text-center m-2 cursor-pointer w-80 h-24 rounded"
 		@click="releaseModal?.showModal()"
 	>
-		<div class="tw-card m-0 p-2 h-full bg-transparent flex flex-col items-center justify-center">
+		<div class="tw-card mt-0 p-2 h-full bg-transparent flex flex-col items-center justify-center">
 			<div class="overflow-hidden text-ellipsis max-w-full whitespace-nowrap">
 				{{ release[Release.artist] }}
 			</div>
@@ -52,11 +52,7 @@ async function copyReviews() {
 					{{ release[Release.artist] }} - {{ release[Release.name] }}
 					<span class="whitespace-nowrap"> ( {{ release[Release.score] }}/10 ) </span>
 				</h5>
-				<svg
-					class="w-6 min-w-[24px] cursor-pointer"
-					viewBox="0 0 24 24"
-					@click="releaseModal?.close()"
-				>
+				<svg class="w-6 min-w-6 cursor-pointer" viewBox="0 0 24 24" @click="releaseModal?.close()">
 					<path fill="currentColor" :d="closeSvg" />
 				</svg>
 			</div>

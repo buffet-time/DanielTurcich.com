@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SortingAlgorithm } from '#types'
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import SortingVisualization from './sorting/SortingVisualization.vue'
 import { useStopExecution } from '#stores/sorting'
 
@@ -22,7 +22,6 @@ const numberOfRectangles = ref<number | string>(100)
 const disableSortButtons = ref(false)
 const disableRandomizeButton = ref(false)
 const disableRectangleSlider = ref(false)
-// executionTime = ref(0),
 const oscillator = ref<OscillatorNode>()
 const sortingMethod = ref<SortingAlgorithm>('Quick')
 // prettier-ignore
@@ -164,13 +163,20 @@ function startSort() {
 		startSortingMethod.value = true
 	}
 }
+
+onUnmounted(() => {
+	stop()
+})
 </script>
 
 <template>
-	<div class="flex h-[calc(100vh_-_64px)]">
+	<div class="flex h-[calc(100vh-64px)]">
 		<div class="flex flex-col justify-center items-center gap-2 w-72">
 			<div class="flex flex-col">
 				<div class="p-4">Currently a few bugs, refactoring and updating this right now :)</div>
+				<p class="mb-4">
+					The text above, is incorrect. They weren't being truthful. Maybe one day tho!
+				</p>
 
 				<div>
 					Volume: {{ parseFloat((volume * 5 * 100).toFixed(1)) }}%
@@ -212,16 +218,12 @@ function startSort() {
 
 			<div class="flex flex-col justify-center items-center gap-2">
 				<div class="flex gap-2">
-					<button
-						class="tw-button h-[50px] w-[130px] p-0"
-						:disabled="disableStopButton"
-						@click="stop"
-					>
+					<button class="tw-button h-12.5 w-32.5 p-0" :disabled="disableStopButton" @click="stop">
 						Stop Execution
 					</button>
 
 					<button
-						class="tw-button h-[50px] w-[130px] p-0"
+						class="tw-button h-12.5 w-32.5 p-0"
 						:disabled="disableRandomizeButton"
 						@click="randomizeArray = true"
 					>
@@ -235,7 +237,7 @@ function startSort() {
 					</option>
 				</select>
 
-				<button class="tw-button h-[50px] w-[130px] p-0" @click="startSort">Start sort</button>
+				<button class="tw-button h-12.5 w-32.5 p-0" @click="startSort">Start sort</button>
 			</div>
 		</div>
 

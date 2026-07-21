@@ -11,7 +11,6 @@ const { generator } = defineProps<{
 	generator: Generator
 }>()
 
-// Public Refs
 const volume = ref(0.07)
 const frequency = ref(440)
 const oscillatorType = ref<GeneratorOscillatorType>('sine')
@@ -188,7 +187,7 @@ function updateNoteFrequency() {
 		<div class="flex flex-col">
 			<div class="m-0 p-4">
 				<div v-if="generator.generatorType === 'Frequency'">
-					Frequency: {{ frequency }}
+					{{ frequency }}hz
 					<input
 						id="range-1"
 						v-model="frequency"
@@ -196,7 +195,7 @@ function updateNoteFrequency() {
 						type="range"
 						min="10"
 						max="22000"
-						step="10"
+						step="1"
 					/>
 				</div>
 
@@ -204,8 +203,7 @@ function updateNoteFrequency() {
 
 				<div v-else-if="generator.generatorType === 'Note'">
 					<div class="h-6">
-						Note/ Frequency: {{ noteName }} <sub>{{ noteOctave }}</sub> /
-						{{ frequency }}
+						{{ noteName }} <sub>{{ noteOctave }}</sub> / {{ frequency }}hz
 					</div>
 					<input
 						id="range-1"
@@ -232,7 +230,7 @@ function updateNoteFrequency() {
 
 				<select
 					v-model="oscillatorType"
-					class="pt-2 pr-9 pb-2 pl-3 text-black border border-solid border-[#ced4da] rounded my-0 mx-auto flex justify-center"
+					class="pt-2 pr-9 pb-2 pl-3 bg-neutral-200 text-black border border-solid border-[#ced4da] rounded my-0 mx-auto flex justify-center"
 				>
 					<option value="sawtooth">Sawtooth</option>
 					<option selected value="sine">Sine</option>

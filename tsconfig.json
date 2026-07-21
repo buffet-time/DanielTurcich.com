@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"target": "ES2024", // keep your browser updated :)
-		"jsx": "preserve", // Needed for Volar to work properly.
+		"target": "ES2024",
+		"jsx": "preserve",
 		"types": ["*"],
 
 		"pretty": true,

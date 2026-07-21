@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// public refs
 const discordInput = ref('')
 const nitro = ref(false)
 const discordText = ref('')

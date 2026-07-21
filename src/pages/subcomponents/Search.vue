@@ -164,7 +164,7 @@ function sortReleases() {
 			</div>
 
 			<div v-else-if="searchType === Release.type">
-				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64">
+				<select v-model="searchInput" class="text-black pl-4 py-2 rounded w-64 bg-neutral-200">
 					<option v-for="(type, index) in massagedReleaseType" :key="index" :value="type">
 						{{ type }}
 					</option>
@@ -189,7 +189,7 @@ function sortReleases() {
 			<input
 				v-else
 				v-model="searchInput"
-				class="w-64 py-2 px-3 text-black rounded"
+				class="w-64 py-2 px-3 text-black rounded bg-neutral-200"
 				placeholder="Search input"
 				@keyup.enter="searchButtonPressed"
 			/>
