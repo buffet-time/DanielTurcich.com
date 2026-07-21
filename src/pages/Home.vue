@@ -55,16 +55,16 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 </script>
 
 <template>
-	<div class="flex tw-flex-col-center">
+	<div class="flex tw-flex-col-center mx-4">
 		<div class="tw-card tw-home-card">
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center p-2">
 				<img
-					class="max-h-[300px] max-w-[300px]"
+					class="max-h-75 max-w-75 w-[stretch]"
 					src="https://avatars.githubusercontent.com/u/11199709?v=4g"
 					alt="Picture of myself"
 					loading="lazy"
 				/>
-				<div class="gap-2 tw-flex-col-center min-w-64 max-w-[700px]">
+				<div class="gap-2 tw-flex-col-center min-w-64 max-w-175">
 					<h1 class="text-4xl font-semibold">Bio</h1>
 					<p>
 						Hello, I'm Daniel Turčić (He/ They) and I'm a Software Engineer who currently works at
@@ -84,41 +84,27 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 		</div>
 
 		<div class="tw-card tw-home-card tw-flex-col-center sm:flex-row">
-			<div class="gap-5 tw-flex-col-center p-4 w-full sm:w-[40%] sm:min-w-[512px]">
+			<div class="gap-5 tw-flex-col-center p-4 w-full sm:w-[40%] sm:min-w-lg">
 				<h1 class="text-4xl font-semibold">Skills</h1>
-				<div class="flex flex-col">
-					<label class="mb-4">
-						Sorta like a Junior engineers list, but where I actually am good enough at the things
-						listed to consider myself, quite good at them :)
-					</label>
+				<label class="mb-2s">
+					Sorta like a Junior engineers list, but where I actually am good enough at the things
+					listed to consider myself, quite good at them :)
+				</label>
 
-					<div class="mt-2">
-						<h1 class="text-3xl mb-4 text-[#68b05c]">Technical (Job)</h1>
+				<h1 class="text-3xl mb-2">Technical Skills</h1>
 
-						<ul>
-							<div class="mb-4">
-								<h2 class="text-2xl mb-2 text-[#af71ba]">Expert level expterise</h2>
-								<ul>
-									<li>Languages: TypeScript, JavaScript, HTML, CSS, Jsonnet</li>
-									<li>Frameworks: React, Vue</li>
-									<li>Build tools: Webpack, Vite</li>
-									<li>Toolings: PNPM, ESLint</li>
-									<li>Testing Tools: Jest, Vitest, Cypress, Testing Library</li>
-								</ul>
-							</div>
-						</ul>
-					</div>
-				</div>
-
-				<div>
-					<h2 class="text-2xl text-[#68b05c] mb-4 mt-2">Creative (Life)</h2>
-					Music Production, Percussion, Photography
-				</div>
+				<ul>
+					<li>Languages: TypeScript, JavaScript, HTML, CSS, Jsonnet</li>
+					<li>Frameworks: React, Vue</li>
+					<li>Build tools: Webpack, Vite</li>
+					<li>Toolings: PNPM, ESLint</li>
+					<li>Testing Tools: Jest, Vitest, Cypress, Testing Library</li>
+				</ul>
 			</div>
 		</div>
 
 		<div class="tw-card tw-home-card p-4 mb-4">
-			<h1 class="pb-4 text-4xl text-[#FFF]">A song I made</h1>
+			<h1 class="pb-4 text-4xl text-white">A song I made</h1>
 
 			<iframe
 				width="100%"
@@ -137,7 +123,7 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 					<a
 						v-if="link.url"
 						:key="index"
-						class="flex items-center m-[2px] justify-center h-14 w-1/4 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
+						class="flex items-center m-0.5 justify-center h-14 w-1/4 min-w-34.75 text-white bg-[#616161] hover:bg-neutral-600 no-underline border border-black/10 hover:text-white"
 						:href="link.url"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -147,7 +133,7 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 					<p
 						v-else
 						:key="`${index}-2`"
-						class="flex items-center m-[2px] justify-center h-14 w-1/4 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
+						class="flex items-center m-0.5 justify-center h-14 w-1/4 min-w-34.75 text-white bg-[#616161] no-underline border border-black hover:text-white"
 						:href="link.url"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -164,7 +150,7 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 				<a
 					v-for="(link, index) in articlesAboutMeLinks"
 					:key="index"
-					class="flex items-center m-[2px] justify-center h-14 w-1/4 min-w-[139px] text-white bg-[#616161] no-underline border border-black border-opacity-10 hover:text-white"
+					class="flex items-center hover:bg-neutral-600 m-0.5 justify-center h-14 w-1/4 min-w-34.75 text-white bg-[#616161] no-underline border border-black/10 hover:text-white"
 					:href="link.url"
 					target="_blank"
 					rel="noopener noreferrer"

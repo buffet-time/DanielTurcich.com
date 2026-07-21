@@ -15,4 +15,8 @@ body {
 	color: white;
 	text-align: center;
 }
+
+dialog {
+	margin: auto;
+}
 </style>

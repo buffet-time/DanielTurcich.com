@@ -415,5 +415,5 @@ async function bogoSort() {
 </script>
 
 <template>
-	<canvas id="canvas" class="w-[calc(100vw_-_288px)]"></canvas>
+	<canvas id="canvas" class="w-[calc(100vw-288px)]"></canvas>
 </template>

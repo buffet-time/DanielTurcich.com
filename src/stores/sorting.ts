@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
 
-export const useStopExecution = defineStore('stopExecution', {
-	state: () => ({ stopExecution: false }),
+// Dont remove the `_` it breaks otherwise :/
+export const useStopExecution = defineStore('_stopExecution', {
+	state: () => ({ _stopExecution: false }),
 	getters: {
-		stopExecution: (state) => state.stopExecution,
+		stopExecution: (state) => state._stopExecution,
 	},
 	actions: {
 		setStopExecution(value: boolean) {
-			this.stopExecution = value
+			this._stopExecution = value
 		},
 	},
 })

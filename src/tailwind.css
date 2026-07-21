@@ -1,60 +1,83 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 /* TODO: condense these and make pull more things out into global classes*/
-@layer components {
+
+@utility tw-card {
 	/* Cards */
-	.tw-card {
-		@apply mt-8 mb-0 bg-neutral-700;
-	}
-	.tw-home-card {
-		@apply mx-24 p-4 max-w-[1050px] w-full;
-	}
-	.tw-nav-card {
-		@apply p-0 m-0 cursor-pointer border border-black  border-opacity-10 bg-neutral-500 disabled:bg-neutral-600 disabled:cursor-default;
-	}
+	@apply mt-8 mb-0 bg-neutral-700;
+}
 
+@utility tw-home-card {
+	@apply p-4 max-w-262.5 w-full;
+}
+
+@utility tw-nav-card {
+	@apply p-0 m-0 cursor-pointer border border-black/10 bg-neutral-500 hover:bg-neutral-600;
+}
+
+@utility tw-h1 {
 	/* Text */
-	.tw-h1 {
-		@apply text-2xl font-semibold antialiased;
-	}
+	@apply text-2xl font-semibold antialiased;
+}
 
+@utility tw-button {
 	/* Input */
-	.tw-button {
-		@apply cursor-pointer text-white bg-neutral-500 border-neutral-500 rounded px-3 py-2 hover:bg-neutral-600 disabled:cursor-default disabled:bg-neutral-600 select-none;
-	}
-	.tw-tab-button {
-		@apply border-b text-white hover:bg-white hover:text-neutral-600 focus:bg-white focus:text-neutral-600 rounded-tl rounded-tr cursor-pointer px-4 py-2;
-	}
-	.tw-input {
-		@apply inline-block w-64 rounded-md border text-neutral-900 border-neutral-300 border-solid px-3 py-2;
-	}
-	.tw-checkbox {
-		@apply align-top bg-white border border-solid border-black border-opacity-10 rounded-md w-5 h-5;
-	}
+	@apply cursor-pointer text-white bg-neutral-500 border-neutral-500 rounded-sm px-3 py-2 hover:bg-neutral-600 disabled:cursor-default disabled:bg-neutral-600 select-none;
+}
 
+@utility tw-tab-button {
+	@apply border-b text-white hover:bg-white hover:text-neutral-600 focus:bg-white focus:text-neutral-600 rounded-tl-sm rounded-tr-sm cursor-pointer px-4 py-2;
+}
+
+@utility tw-input {
+	@apply inline-block bg-neutral-200 w-64 rounded-md border text-neutral-900 border-neutral-300 border-solid px-3 py-2;
+}
+
+@utility tw-checkbox {
+	@apply align-top bg-white border border-solid border-black/10 rounded-md w-5 h-5;
+}
+
+@utility tw-flex-center {
 	/* Flex */
-	.tw-flex-center {
-		@apply flex justify-center items-center;
-	}
-	.tw-flex-col-center {
-		@apply flex flex-col justify-center items-center;
-	}
+	@apply flex justify-center items-center;
+}
 
+@utility tw-flex-col-center {
+	@apply flex flex-col justify-center items-center;
+}
+
+@utility tw-header {
 	/* Other */
-	.tw-header {
-		@apply m-4 mb-0 text-2xl font-semibold;
-	}
+	@apply m-4 mb-0 text-2xl font-semibold;
+}
 
+@utility tw-music-search-label {
 	/* Music Page */
-	.tw-music-search-label {
-		@apply w-[90px] justify-center items-center flex bg-neutral-500 bg-opacity-30;
-	}
-	.tw-music-select {
-		@apply text-black pl-4 py-2 rounded w-44;
-	}
-	.tw-select-container {
-		@apply flex justify-center gap-2;
+	@apply w-22.5 justify-center items-center flex bg-neutral-500;
+}
+
+@utility tw-music-select {
+	@apply text-black pl-4 py-2 rounded-sm w-44 bg-neutral-200;
+}
+
+@utility tw-select-container {
+	@apply flex justify-center gap-2;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
 	}
 }
