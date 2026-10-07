@@ -18,7 +18,8 @@ const articlesIveWritten = ref<ArticleLink[]>([
 		text: 'Why you should move to PNPM',
 	},
 	{
-		text: 'Another one coming soon!',
+		url: 'https://danielturcich.substack.com/p/how-i-navigate-the-enshitified-web-2026',
+		text: 'How I navigate the enshitifying web of 2026',
 	},
 ])
 
