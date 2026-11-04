@@ -68,17 +68,14 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 				<div class="gap-2 tw-flex-col-center min-w-64 max-w-175">
 					<h1 class="text-4xl font-semibold">Bio</h1>
 					<p>
-						Hello, I'm Daniel Turčić (He/ They) and I'm a Software Engineer who currently works at
-						Squarespace. I mostly do Frontend development and really enjoy (Java/Type)Script.
+						Hello, I'm Daniel Turcich (He/ They) and I'm a Senior Software Engineer. I was working @
+						Squarespace and am now looking for new work! I mostly do Frontend development and really
+						enjoy (Java/Type)Script. Recently have been doing a lot more Backend work in Node and
+						Go.
 					</p>
 					<p>
 						I'm {{ myCurrentAge }}, a Vegetarian, and listen to an insane amount of music (check the
 						music page of this site).
-					</p>
-					<p>
-						I hate Generative AI, not a single thing on this website has ever been written w/ any
-						AI. LLMs do not exist in any form without theft of all media ever produced without
-						consent.
 					</p>
 				</div>
 			</div>
@@ -95,7 +92,7 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 				<h1 class="text-3xl mb-2">Technical Skills</h1>
 
 				<ul>
-					<li>Languages: TypeScript, JavaScript, HTML, CSS, Jsonnet</li>
+					<li>Languages: TypeScript, JavaScript, Node, HTML, CSS, C#, Go</li>
 					<li>Frameworks: React, Vue</li>
 					<li>Build tools: Webpack, Vite</li>
 					<li>Toolings: PNPM, ESLint</li>
@@ -124,7 +121,7 @@ const articlesAboutMeLinks = ref<ArticleLink[]>([
 					<a
 						v-if="link.url"
 						:key="index"
-						class="flex items-center m-0.5 justify-center h-14 w-1/4 min-w-34.75 text-white bg-[#616161] hover:bg-neutral-600 no-underline border border-black/10 hover:text-white"
+						class="flex items-center m-0.5 p-5 justify-center h-14 w-1/4 min-w-34.75 text-white bg-[#616161] hover:bg-neutral-600 no-underline border border-black/10 hover:text-white"
 						:href="link.url"
 						target="_blank"
 						rel="noopener noreferrer"
