@@ -13,7 +13,7 @@ const Frequency = () => import('./pages/Frequency.vue')
 // TODO: play with Web USB https://developer.mozilla.org/en-US/docs/Web/API/USB
 // TODO Play with Gamepad API
 
-const resume = 'https://drive.google.com/file/d/1Pjhsx7NgZeEzs5x5bYUdBT9MWVtGZIr0/view?usp=sharing'
+const resume = 'https://drive.google.com/file/d/1QRl6oidoNrtxGHUib7u-zxqREE5Kttot/view?usp=sharing'
 
 // TODO catch routes that dont exist and redirect to home
 // TODO  JS/ HTML/ CSS editor?

@@ -33,6 +33,7 @@ export async function startQuickSort(
 			// increment up until  find a height to the right smaller than the pivot
 			while (sortingArray[right].height > pivot.height) right--
 
+			// oxlint-disable-next-line no-await-in-loop
 			if (left <= right) await redrawRectangles(left, right)
 			left++
 			right--

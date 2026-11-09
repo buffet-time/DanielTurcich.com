@@ -1,3 +1,27 @@
 {
-	"ignorePatterns": ["dist", ".parcel-cache", ".husky", "node_modules", "public", "src/credentials"]
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "unicorn", "oxc", "import", "vue", "eslint", "promise"],
+	"ignorePatterns": [
+		"dist",
+		".parcel-cache",
+		".husky",
+		"node_modules",
+		"public",
+		"src/credentials"
+	],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "error",
+		"perf": "error"
+	},
+	"rules": {
+		"typescript/explicit-function-return-type": "off",
+		"typescript/explicit-module-boundary-types": "off",
+		"oxc/no-optional-chaining": "off",
+		"typescript/no-non-null-assertion": "warn",
+		"eslint/no-console": "off"
+	},
+	"env": {
+		"builtin": true
+	}
 }

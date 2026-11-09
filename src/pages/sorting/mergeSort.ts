@@ -9,6 +9,7 @@ export async function startMergeSort(
 	// Less efficient and slightly modified to handle drawing properly
 	const store = useStopExecution()
 
+	// oxlint-disable-next-line no-shadow
 	async function mergeSort(sortingArray: SortingRect[]): Promise<SortingRect[]> {
 		// TODO: this doesn't work!
 		if (store.stopExecution) {
@@ -55,6 +56,7 @@ export async function startMergeSort(
 				eraseRectangleByObject(rect)
 				return { x: rect.x, frequency: rect.frequency }
 			})
+			// oxlint-disable-next-line unicorn/no-array-sort
 			.sort((a, b) => a.x - b.x)
 
 		for (let n = 0; n < combinedXArray.length; n++) {
@@ -78,6 +80,7 @@ export async function startMergeSort(
 		for (let n = 0; n < combinedArray.length; n++) {
 			if (store.stopExecution) return []
 
+			// oxlint-disable-next-line no-await-in-loop
 			await redrawRectangle(indexArray[n])
 		}
 

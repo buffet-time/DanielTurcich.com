@@ -202,9 +202,7 @@ function updateNoteFrequency() {
 				<!-- @input="$emit('updateSettings', 'frequency', ($event.target! as any).value)" -->
 
 				<div v-else-if="generator.generatorType === 'Note'">
-					<div class="h-6">
-						{{ noteName }} <sub>{{ noteOctave }}</sub> / {{ frequency }}hz
-					</div>
+					<div class="h-6">{{ noteName }} <sub>{{ noteOctave }}</sub> / {{ frequency }}hz</div>
 					<input
 						id="range-1"
 						v-model="noteOffset"

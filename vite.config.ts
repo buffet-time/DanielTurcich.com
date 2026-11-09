@@ -2,9 +2,6 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'node:path'
 
-// @ts-expect-error
-import { minify } from 'rollup-plugin-swc-minify'
-
 // Gzip importing
 import gzipPlugin from 'rollup-plugin-gzip'
 
@@ -12,11 +9,6 @@ export default defineConfig({
 	build: {
 		chunkSizeWarningLimit: 150,
 		target: 'es2021',
-
-		rollupOptions: {
-			plugins: [minify()],
-		},
-
 		outDir: './dist',
 	},
 

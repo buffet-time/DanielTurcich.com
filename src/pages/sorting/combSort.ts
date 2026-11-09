@@ -16,6 +16,7 @@ export async function startCombSort(
 		return gap === 1 ? gap : Math.floor(gap / decrease_factor)
 	}
 
+	// oxlint-disable-next-line no-shadow
 	async function combSort(sortingArray: SortingRect[]) {
 		if (store.stopExecution) {
 			console.log(1)
@@ -38,6 +39,7 @@ export async function startCombSort(
 
 			for (let i = 0; i < numberOfRectangles - gap; i++) {
 				if (sortingArray[i].height > sortingArray[i + gap].height) {
+					// oxlint-disable-next-line no-await-in-loop
 					await redrawRectangles(i, i + gap)
 
 					swapped = true

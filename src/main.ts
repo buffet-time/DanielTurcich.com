@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './app.vue'
 import router from './router'
+// oxlint-disable-next-line import/no-unassigned-import
 import './tailwind.css'
 import { createPinia } from 'pinia'
 

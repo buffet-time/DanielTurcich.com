@@ -96,6 +96,7 @@ onMounted(async () => {
 	Canvas = document.getElementById('canvas') as HTMLCanvasElement
 	Canvas.setAttribute('height', String(window.innerHeight - 64))
 	Canvas.setAttribute('width', String(window.innerWidth - 300))
+	// oxlint-disable-next-line typescript/no-non-null-assertion
 	Context2d = Canvas.getContext('2d')!
 	fixDpi()
 	Context2d.fillStyle = '#0F0'
@@ -176,6 +177,7 @@ function randomSwaps() {
 // Drawing functions
 // // // // // // //
 async function drawAllRectangles() {
+	// oxlint-disable-next-line no-await-in-loop
 	for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) await drawRectangle(n, true)
 
 	await sleep(0)
@@ -254,6 +256,7 @@ async function bubbleSort() {
 			if (algorithm.stopExecution) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
+				// oxlint-disable-next-line no-await-in-loop
 				await redrawRectangles(n, n + 1)
 				swapped = true
 			}
@@ -272,6 +275,7 @@ async function insertionSort() {
 		for (j = i - 1; j >= 0 && sortingArray[j].height > current.height; j--) {
 			if (algorithm.stopExecution) return
 
+			// oxlint-disable-next-line no-await-in-loop
 			await redrawRectangles(j, j + 1)
 		}
 
@@ -290,6 +294,7 @@ async function selectionSort() {
 
 			if (sortingArray[x].height < sortingArray[minHeight].height) minHeight = x
 		}
+		// oxlint-disable-next-line no-await-in-loop
 		if (minHeight !== n) await redrawRectangles(n, minHeight)
 	}
 }
@@ -304,6 +309,7 @@ async function cocktailShakerSort() {
 			if (algorithm.stopExecution) return
 
 			if (sortingArray[n].height > sortingArray[n + 1].height) {
+				// oxlint-disable-next-line no-await-in-loop
 				await redrawRectangles(n, n + 1)
 				sorted = false
 			}
@@ -317,6 +323,7 @@ async function cocktailShakerSort() {
 		while (n > 0) {
 			if (algorithm.stopExecution) return
 
+			// oxlint-disable-next-line no-await-in-loop
 			if (sortingArray[n - 1].height > sortingArray[n].height) await redrawRectangles(n, n - 1)
 			sorted = false
 
@@ -326,6 +333,7 @@ async function cocktailShakerSort() {
 }
 
 async function heapSort() {
+	// oxlint-disable-next-line unicorn/consistent-function-scoping
 	async function heapify(size: number, index: number) {
 		let max = index
 		const left = 2 * index + 1
@@ -346,13 +354,16 @@ async function heapSort() {
 	for (let n = Math.floor(sortingArray.length / 2 - 1); n >= 0; n--) {
 		if (algorithm.stopExecution) return
 
+		// oxlint-disable-next-line no-await-in-loop
 		await heapify(sortingArray.length, n)
 	}
 
 	for (let n = sortingArray.length - 1; n >= 0; n--) {
 		if (algorithm.stopExecution) return
 
+		// oxlint-disable-next-line no-await-in-loop
 		await redrawRectangles(0, n)
+		// oxlint-disable-next-line no-await-in-loop
 		await heapify(n, 0)
 	}
 }
@@ -368,6 +379,7 @@ async function shellSort() {
 			for (n = x; n >= gap && sortingArray[n - gap].height > temp.height; n -= gap) {
 				if (algorithm.stopExecution) return
 
+				// oxlint-disable-next-line no-await-in-loop
 				await redrawRectangles(n, n - gap)
 			}
 
@@ -383,6 +395,7 @@ async function gnomeSort() {
 			while (n > 0 && sortingArray[n - 1].height > sortingArray[n].height) {
 				if (algorithm.stopExecution) return
 
+				// oxlint-disable-next-line no-await-in-loop
 				await redrawRectangles(n, n - 1)
 				n--
 			}
@@ -391,6 +404,7 @@ async function gnomeSort() {
 }
 
 async function bogoSort() {
+	// oxlint-disable-next-line unicorn/consistent-function-scoping
 	function isNotSorted() {
 		for (let n = 1; n < sortingArray.length; n++) {
 			if (sortingArray[n - 1].height > sortingArray[n].height) return true
@@ -398,17 +412,20 @@ async function bogoSort() {
 		return false
 	}
 
+	// oxlint-disable-next-line unicorn/consistent-function-scoping
 	async function redrawAllRectangles() {
 		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) eraseRectangle(n)
 
 		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) randomSwaps()
 
+		// oxlint-disable-next-line no-await-in-loop
 		for (let n = 0; n < Number(algorithm.numberOfRectangles); n++) await redrawRectangle(n)
 	}
 
 	while (isNotSorted()) {
 		if (algorithm.stopExecution) return
 
+		// oxlint-disable-next-line no-await-in-loop
 		await redrawAllRectangles()
 	}
 }
