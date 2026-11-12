@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import Navbar from './components/navbar.vue'
 import { RouterView } from 'vue-router'
 </script>

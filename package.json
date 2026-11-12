@@ -22,28 +22,29 @@
 		"preview": "vite preview",
 		"prepare": "husky",
 		"add:cname": "cd dist && echo 'danielturcich.com' > CNAME",
-		"generate:404": "cd dist && cp index.html 404.html"
+		"generate:404": "cd dist && cp index.html 404.html",
+		"knip": "knip",
+		"analyze": "pnpm dlx vite-bundle-analyzer"
 	},
 	"dependencies": {
-		"dialog-polyfill": "^0.5.6",
 		"pinia": "^4.1.0",
 		"vue": "^3.6.0-rc.14",
-		"vue-router": "^5.4.0"
+		"vue-router": "^5.5.0"
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4.3.5",
-		"@types/lodash.debounce": "^4.0.9",
 		"@types/node": "^26.6.6",
+		"@vitejs/plugin-legacy": "^8.2.4",
 		"@vitejs/plugin-vue": "^6.0.10",
-		"globals": "^17.14.0",
 		"husky": "^9.1.7",
+		"knip": "^6.45.1",
 		"oxfmt": "^0.78.0",
-		"oxlint": "^1.92.0",
+		"oxlint": "^1.93.0",
 		"postcss": "^8.5.32",
 		"rollup-plugin-gzip": "^4.2.1",
 		"tailwindcss": "^4.3.5",
 		"typescript": "^7.0.2",
-		"vite": "^8.3.6",
+		"vite": "^8.3.8",
 		"vue-tsc": "^3.3.14"
 	},
 	"engines": {

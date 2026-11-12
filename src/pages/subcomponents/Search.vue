@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { ref, watch } from 'vue'
 import { type MusicSearchProps, Release, ReleaseType } from '#types'
 import MusicRelease from './MusicRelease.vue'

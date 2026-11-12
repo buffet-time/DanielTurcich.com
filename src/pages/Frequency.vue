@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import SoundGenerator from './subcomponents/SoundGenerator.vue'
 import { closeSvg, addSvg } from '#assets/svgs'
 import { onMounted, reactive, ref } from 'vue'
 import type { GeneratorType, Generator } from '#types'
-import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../shared'
+import { ClickOutsideDialog } from '../shared'
 
 const generators = reactive<Generator[]>([
 	{
@@ -23,7 +23,6 @@ onMounted(async () => {
 		console.error('Release Modal does not exist: ', generatorModal.value)
 		return
 	}
-	await DynamicImportDialogPolyfill([generatorModal.value])
 	ClickOutsideDialog(generatorModal.value)
 })
 

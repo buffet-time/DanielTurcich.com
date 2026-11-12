@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { SortingAlgorithm } from '#types'
 import { onUnmounted, ref, watch } from 'vue'
 import SortingVisualization from './sorting/SortingVisualization.vue'

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { GeneratorOscillatorType, Note, Generator } from '#types'
 import { onBeforeUnmount, ref, watch } from 'vue'
 import { closeSvg } from '#assets/svgs'

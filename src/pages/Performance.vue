@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { ref } from 'vue'
 
 // TODO: actually do this at some point?

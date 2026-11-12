@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import Search from './subcomponents/Search.vue'
 import Stats from './subcomponents/Stats.vue'

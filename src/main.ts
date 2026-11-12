@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, vaporInteropPlugin } from 'vue'
 import App from './app.vue'
 import router from './router'
 // oxlint-disable-next-line import/no-unassigned-import
@@ -8,7 +8,5 @@ import { createPinia } from 'pinia'
 const app = createApp(App)
 const pinia = createPinia()
 
-app.use(router)
-app.use(pinia)
-
-app.mount('#app')
+// Blocked by Vue Router needing Vue Vapor support for full vapor app
+app.use(router).use(pinia).use(vaporInteropPlugin).mount('#app')

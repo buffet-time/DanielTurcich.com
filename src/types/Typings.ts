@@ -69,8 +69,6 @@ export enum ReleaseType {
 	'Demo Album' = 6,
 }
 
-export type SearchType = 'artist' | 'name' | 'score' | 'type' | 'year' | 'genre'
-
 export enum Release {
 	artist = 0,
 	name = 1,
@@ -79,17 +77,6 @@ export enum Release {
 	year = 4,
 	genre = 5,
 	comments = 6,
-}
-
-export enum ReleasesIn {
-	'1950s' = 0,
-	'1960s' = 1,
-	'1970s' = 2,
-	'1980s' = 3,
-	'1990s' = 4,
-	'2000s' = 5,
-	'2010s' = 6,
-	'2020s' = 7,
 }
 
 export interface MusicSearchProps {

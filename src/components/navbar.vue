@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import router, { resume } from '../router'
 import { ref } from 'vue'
 import type { NavLink } from '#types'
@@ -70,7 +70,7 @@ async function routeChange(route: string) {
 
 		<div class="wrap-collabsible h-full text-center">
 			<button class="cursor-pointer text-center h-full px-2" @click="handleSocialLinksOpen">
-				Social Links
+				Links
 			</button>
 		</div>
 	</div>

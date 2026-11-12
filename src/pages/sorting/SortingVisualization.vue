@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { SortingVisualizationProps, SortingRect } from '#types'
 import { onMounted, watch } from 'vue'
 

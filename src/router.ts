@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+// import Performance from './pages/Performance.vue'
 
 // Lazy Loading for routes for less resource waste/ better performance
 const Home = () => import('./pages/Home.vue')
@@ -42,6 +43,12 @@ const routes: RouteRecordRaw[] = [
 		component: Frequency,
 		meta: { buttonName: 'Frequency Tool' },
 	},
+	// {
+	// 	path: '/performance',
+	// 	name: 'Performance',
+	// 	component: Performance,
+	// 	meta: { buttonName: 'Performance Testing' },
+	// },
 	{
 		path: '/acronym',
 		name: 'Acronym',

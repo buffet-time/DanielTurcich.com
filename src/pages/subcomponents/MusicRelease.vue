@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { Release } from '#types'
 import { closeSvg } from '#assets/svgs'
 import { onMounted, ref } from 'vue'
-import { ClickOutsideDialog, DynamicImportDialogPolyfill } from '../../shared'
+import { ClickOutsideDialog } from '../../shared'
 
 const { release } = defineProps<{
 	release: string[]
@@ -15,7 +15,6 @@ onMounted(async () => {
 		console.error('Release Modal does not exist: ', releaseModal.value)
 		return
 	}
-	await DynamicImportDialogPolyfill([releaseModal.value])
 	ClickOutsideDialog(releaseModal.value)
 })
 

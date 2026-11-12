@@ -1,5 +1,6 @@
 allowBuilds:
   '@swc/core': true
+  core-js: true
   esbuild: true
   vue-demi: false
 minimumReleaseAgeExclude:
