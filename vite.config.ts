@@ -3,9 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'node:path'
 import legacy from '@vitejs/plugin-legacy'
 
-// Gzip importing
-import gzipPlugin from 'rollup-plugin-gzip'
-
 export default defineConfig({
 	build: {
 		chunkSizeWarningLimit: 150,
@@ -14,9 +11,7 @@ export default defineConfig({
 	},
 
 	plugins: [
-		vue(), // Testing to see if this ends up delivering Brotli compression
-		gzipPlugin(),
-
+		vue(),
 		legacy({
 			targets: [
 				'baseline widely available',

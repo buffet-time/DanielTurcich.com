@@ -3,6 +3,12 @@ import router, { resume } from '../router'
 import { ref } from 'vue'
 import type { NavLink } from '#types'
 
+import githubImg from '#assets/github.png'
+import linkedinImg from '#assets/linkedin.png'
+import resumeImg from '#assets/resume.png'
+import bandcampImg from '#assets/bandcamp.png'
+import soundcloudImg from '#assets/soundcloud.png'
+
 const websiteNavigationOpen = ref(false)
 const socialLinksOpen = ref(false)
 
@@ -10,31 +16,31 @@ const links: NavLink[] = [
 	{
 		buttonText: 'Github',
 		alt: 'github logo',
-		src: '/github.png',
+		src: githubImg,
 		link: 'https://github.com/buffet-time',
 	},
 	{
 		buttonText: 'LinkedIn',
 		alt: 'linkedin logo',
-		src: '/linkedin.png',
+		src: linkedinImg,
 		link: 'https://www.linkedin.com/in/danielturcich/',
 	},
 	{
 		buttonText: 'Resume',
 		alt: 'pdf logo',
-		src: '/resume.png',
+		src: resumeImg,
 		link: resume,
 	},
 	{
 		buttonText: 'Bandcamp',
 		alt: 'bandcamp logo',
-		src: '/bandcamp.png',
+		src: bandcampImg,
 		link: 'https://buffet-time.bandcamp.com/',
 	},
 	{
 		buttonText: 'Soundcloud',
 		alt: 'soundcloud logo',
-		src: '/soundcloud.png',
+		src: soundcloudImg,
 		link: 'https://soundcloud.com/buffet_time',
 	},
 ]
